@@ -4,21 +4,9 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
-import About from "~/components/About";
-import Achievements from "~/components/Achievements";
-import Contact from "~/components/Contact";
-import Education from "~/components/Education";
-import Experience from "~/components/Experience";
-import Footer from "~/components/Footer";
-import Header from "~/components/Header";
-import Hero from "~/components/Hero";
-import PersonalProjects from "~/components/PersonalProjects";
-import ProjectCarousel from "~/components/ProjectCarousel";
-import Project from "~/components/Projects";
-import Skills from "~/components/Skills";
 
 const Testimonials = dynamic(() => import("~/components/Testimonials"));
-const HireMe = dynamic(() => import("~/components/HireMe"));
+const SinglePagePortfolio = dynamic(() => import("~/components/Home"));
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -64,10 +52,6 @@ export default function Home() {
 
   return (
     <main className="relative min-h-screen bg-black text-white">
-      <Header
-        activeSection={activeSection}
-        setActiveSection={setActiveSection}
-      />
       <div className="absolute inset-0 top-52 z-0">
         <video
           autoPlay
@@ -80,41 +64,7 @@ export default function Home() {
       </div>
       <div className="relative z-10">
         {/* @ts-ignore */}
-        <Hero ref={(el) => (sectionRefs.current[0] = el)} />
-        {/* @ts-ignore */}
-
-        <About ref={(el) => (sectionRefs.current[1] = el)} />
-        {/* @ts-ignore */}
-
-        <Experience ref={(el) => (sectionRefs.current[2] = el)} />
-        {/* @ts-ignore */}
-
-        <Skills ref={(el) => (sectionRefs.current[3] = el)} />
-        {/* @ts-ignore */}
-
-        <ProjectCarousel ref={(el) => (sectionRefs.current[4] = el)} />
-        {/* @ts-ignore */}
-
-        <Project ref={(el) => (sectionRefs.current[5] = el)} />
-        {/* @ts-ignore */}
-
-        <PersonalProjects ref={(el) => (sectionRefs.current[6] = el)} />
-        {/* @ts-ignore */}
-
-        <Education ref={(el) => (sectionRefs.current[7] = el)} />
-        {/* @ts-ignore */}
-
-        <Achievements ref={(el) => (sectionRefs.current[8] = el)} />
-        {/* @ts-ignore */}
-
-        <Testimonials ref={(el) => (sectionRefs.current[9] = el)} />
-        {/* @ts-ignore */}
-
-        <HireMe ref={(el) => (sectionRefs.current[10] = el)} />
-        {/* @ts-ignore */}
-
-        <Contact ref={(el) => (sectionRefs.current[11] = el)} />
-        <Footer />
+        <SinglePagePortfolio />
       </div>
     </main>
   );
