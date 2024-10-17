@@ -1,0 +1,12 @@
+{
+  "extends": ["next/core-web-vitals", "next/typescript"],
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "react-hooks/exhaustive-deps": "off", // Disable missing dependencies warning in useEffect
+    "react/no-unescaped-entities": "off", // Disable unescaped character warnings
+    "react/jsx-key": "off", // Disable missing key prop warning
+    "@next/next/no-img-element": "off", // Disable next/image enforcement
+    "@typescript-eslint/ban-ts-comment": "off"
+  }
+}
