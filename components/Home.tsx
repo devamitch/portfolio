@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
+import { gsap } from "gsap";
 import {
   AwardIcon,
   BriefcaseIcon,
@@ -17,8 +18,11 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
-
+import React, { useEffect, useRef, useState } from "react";
+import "swiper/css";
+import "swiper/css/effect-coverflow";
+import { Autoplay, EffectCoverflow } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { ASSETS } from "~/assets";
 import { slideInFromLeft, slideInFromRight } from "~/utils/motion";
 import Footer from "./Footer";
@@ -389,10 +393,10 @@ const Header: React.FC<{
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <GradientText className="text-5xl font-black brand-fontw">
+              <GradientText className="text-5xl font-black inknut-antiqua-black">
                 AC.
               </GradientText>
-              <span className="ml-2 text-xs font-light text-gray-300 brand-fontw">
+              <span className="ml-2 text-xs font-light text-gray-300 satisfy-regular">
                 Amit Chakraborty
               </span>
             </motion.div>
@@ -920,6 +924,90 @@ const Contact: React.FC = () => (
   </section>
 );
 
+const Testimonials = () => {
+  const sectionRef = useRef(null);
+  const q = gsap.utils.selector(sectionRef);
+
+  useEffect(() => {
+    gsap.fromTo(
+      q(".testimonials-title"),
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        scrollTrigger: {
+          trigger: q(".testimonials-title"),
+          start: "top bottom-=100",
+          end: "bottom center",
+          scrub: true,
+        },
+      }
+    );
+  }, []);
+
+  return (
+    <section id="testimonials" className="py-20 flex flex-col ">
+      <div className="container items-center justify-center flex flex-col mx-auto  px-6">
+        <h3 className="text-4xl font-bold mb-4">
+          <GradientText>Client Testimonials</GradientText>
+        </h3>
+
+        <Swiper
+          effect={"coverflow"}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+          }}
+          grabCursor={true}
+          centeredSlides={true}
+          slidesPerView={"auto"}
+          coverflowEffect={{
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: false,
+          }}
+          loop
+          modules={[EffectCoverflow, Autoplay]}
+          className="mySwiper"
+        >
+          {portfolioData?.testimonials?.map((testimonial, index) => (
+            <SwiperSlide key={index} className="w-[300px] sm:w-[350px]">
+              <GlassCard className="flex h-full flex-col justify-between rounded-lg bg-black bg-opacity-80 p-6 shadow-xl backdrop-blur-lg backdrop-filter">
+                <div>
+                  <div className="mb-4 flex items-center">
+                    <Image
+                      src={testimonial.image}
+                      alt={testimonial.name}
+                      width={60}
+                      height={60}
+                      className="rounded-full border-2 border-purple-500"
+                    />
+                    <div className="ml-4">
+                      <h3 className="text-xl font-semibold text-white">
+                        {testimonial.name}
+                      </h3>
+                      <p className="text-gray-400">{testimonial.project}</p>
+                    </div>
+                  </div>
+                  <p className="mb-4 italic text-gray-300">
+                    "{testimonial.content}"
+                  </p>
+                </div>
+                <div className="text-right">
+                  <span className="text-4xl text-gray-500">"</span>
+                </div>
+              </GlassCard>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+    </section>
+  );
+};
+
 export default function SinglePagePortfolio() {
   const [activeSection, setActiveSection] = useState("about");
 
@@ -956,6 +1044,7 @@ export default function SinglePagePortfolio() {
       <Skills />
       <Education />
       <Achievements />
+      <Testimonials />
       <Contact />
 
       <Footer />

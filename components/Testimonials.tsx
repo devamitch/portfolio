@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
@@ -11,6 +10,17 @@ import { Autoplay, EffectCoverflow } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const GradientText: React.FC<{
+  children: React.ReactNode;
+  className?: string;
+}> = ({ children, className = "" }) => (
+  <span
+    className={`bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 bg-clip-text text-transparent ${className}`}
+  >
+    {children}
+  </span>
+);
 
 const testimonials = [
   {
@@ -57,16 +67,14 @@ const Testimonials = () => {
           end: "bottom center",
           scrub: true,
         },
-      },
+      }
     );
   }, []);
 
   return (
-    <section ref={sectionRef} id="testimonials" className="py-20">
-      <div className="container mx-auto px-4">
-        <motion.h2 className="testimonials-title mb-12 text-center text-4xl font-bold text-white">
-          Client Testimonials
-        </motion.h2>
+    <section id="testimonials" className="py-20 flex flex-col ">
+      <div className="container items-center justify-center flex flex-col mx-auto  px-6">
+        <GradientText>Client Testimonials</GradientText>
         <Swiper
           effect={"coverflow"}
           autoplay={{

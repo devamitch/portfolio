@@ -19,7 +19,7 @@ const Footer = () => {
             transition={{ duration: 0.5 }}
           >
             <Link href="/">
-              <span className="bg-gradient-to-r from-golden-light to-golden-dark via-golden bg-clip-text text-3xl font-extrabold tracking-tight text-transparent">
+              <span className="bg-gradient-to-r from-golden-light to-golden-dark via-golden bg-clip-text text-3xl font-extrabold tracking-tight text-transparent inknut-antiqua-black">
                 AC.
               </span>
             </Link>
