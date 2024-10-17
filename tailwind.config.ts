@@ -11,11 +11,6 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        golden: {
-          light: "#FFD700",
-          DEFAULT: "#DAA520",
-          dark: "#B8860B",
-        },
       },
     },
   },
