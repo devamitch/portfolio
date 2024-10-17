@@ -28,6 +28,9 @@ import { slideInFromLeft, slideInFromRight } from "~/utils/motion";
 import Footer from "./Footer";
 import Projects from "./ProjectCarousel";
 
+
+const repo = process.env.GITHUB_REPOSITORY?.replace(/.*?\//, "") || "";
+
 // Portfolio Data
 const portfolioData = {
   personalInfo: {
@@ -397,7 +400,7 @@ const Header: React.FC<{
                 AC.
               </GradientText>
               <span className="ml-2 text-xs font-light text-gray-300 satisfy-regular">
-                Amit Chakraborty
+                Amit Chakraborty {repo}
               </span>
             </motion.div>
           </Link>
