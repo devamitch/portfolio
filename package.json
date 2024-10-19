@@ -8,7 +8,8 @@
     "deploy2": "pnpm run build && gh-pages -d out",
     "deployx": "next build && gh-pages -d out",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postbuild": "next-sitemap"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.5",
@@ -22,6 +23,7 @@
     "gsap": "^3.12.5",
     "lucide-react": "^0.446.0",
     "next": "14.2.13",
+    "next-sitemap": "^4.2.3",
     "next-video": "^1.2.0",
     "react": "^18",
     "react-dom": "^18",
