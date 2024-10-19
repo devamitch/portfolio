@@ -154,6 +154,14 @@ export default function RootLayout({
       <head>
         <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
         <meta name="robots" content="index, follow" />
+        <meta
+          name="google-site-verification"
+          content="z_JuRWCMNzddlpL1pAxMoqntcmvXBstj_lQW0GZWXnU"
+        />
+        <meta
+          name="google-site-verification"
+          content="iHdepblaP_OakJ-74RUhDJ4LqS8eOOxbFZ_ajHJmKwo"
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
