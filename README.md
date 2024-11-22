@@ -8,7 +8,7 @@
 [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/techamit95ch)
 [![Portfolio](https://img.shields.io/badge/Portfolio-FF7139?style=for-the-badge&logo=Firefox-Browser&logoColor=white)](https://amitchakraborty.netlify.app)
 
-![Amit Chakraborty](./assets/my_picture.png)
+![Amit Chakraborty](./assets/my_picture.jpg)
 
 ## 📌 Summary
 

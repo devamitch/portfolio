@@ -43,6 +43,10 @@ export const metadata: Metadata = {
   creator: "Amit Chakraborty",
   keywords: [
     "Amit Chakraborty",
+    "dApp Mobile Architect",
+    "React Native Specialist",
+    "dApp Solutions Architect",
+    "Innovating Web3 & Blockchain Ecosystems",
     "Senior React Native Developer",
     "Full Stack Developer",
     "Mobile Developer",

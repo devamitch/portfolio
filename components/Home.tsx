@@ -26,10 +26,32 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { ASSETS } from "~/assets";
 import { slideInFromLeft, slideInFromRight } from "~/utils/motion";
 import Footer from "./Footer";
+import Hero from "./Hero";
 import Projects from "./ProjectCarousel";
 
-
 const repo = process.env.GITHUB_REPOSITORY?.replace(/.*?\//, "") || "";
+
+function getYearDifference(lastYear: string) {
+  const newDate = new Date(); // current date
+  const lastDate = new Date(lastYear); // the provided last year date
+
+  // Calculate the year difference
+  const yearDifference = newDate.getFullYear() - lastDate.getFullYear();
+
+  // Check if the current date is before the month and day of the provided last year
+  if (
+    newDate.getMonth() < lastDate.getMonth() ||
+    (newDate.getMonth() === lastDate.getMonth() &&
+      newDate.getDate() < lastDate.getDate())
+  ) {
+    return yearDifference - 1;
+  }
+
+  return yearDifference;
+}
+
+const lastYear = "2017 May";
+export const yearDifference = getYearDifference(lastYear);
 
 // Portfolio Data
 const portfolioData = {
@@ -39,16 +61,15 @@ const portfolioData = {
       "Lead React Native Developer | Full Stack Engineer | Blockchain Innovator",
     location: "Kolkata, WB, India",
     phone: "+91 9874173663",
-    email: "amit98ch@gmail.com",
+    email: "amit@devamit.co.in",
     linkedin: "https://www.linkedin.com/in/techamit95ch/",
     github: "https://github.com/techamit95ch",
-    summary:
-      "With over 4 years of experience, I specialize in building high-performance, scalable applications. Proven track record of boosting user engagement by 300%, reducing operational costs, and optimizing productivity in cross-functional teams. Adept in blockchain integration, driving 20%+ user retention and delivering faster, leaner systems for global clients.",
+    summary: `With over ${yearDifference}+ years of experience in software development, I specialize in building innovative dApp mobile solutions that seamlessly integrate blockchain technologies with robust and engaging mobile experiences. My goal is to leverage Web3 and decentralized technologies to create secure, scalable, and high-impact applications, redefining how users interact with decentralized ecosystems.`,
     image: "/placeholder.svg?height=300&width=300",
     status: "Open to work",
     workMode: "Work from home",
     dob: "19th sept 1995",
-    websiteLink: "https://amitchakraborty.netlify.app",
+    websiteLink: "https://devamit.co.in",
     otherProfiles: [
       "https://www.hackerearth.com/@amit98ch",
       "https://www.techgig.com/amitchakraborty32",
@@ -483,7 +504,7 @@ const Header: React.FC<{
   );
 };
 
-const Hero = () => {
+const Hero2 = () => {
   return (
     <section className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-gradient-to-r from-[#1108196d] via-[#121212] to-black py-20">
       <video
