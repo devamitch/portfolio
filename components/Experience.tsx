@@ -8,7 +8,53 @@ import { useEffect, useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const experiences = [
+const experiences = [{
+      title: "Lead Mobile Architect & Engineering Lead",
+      company: "Synapsis Medical Technologies Inc.",
+      period: "Jan 2025 - Present",
+      duration: "1+ year",
+      location: "Edmonton, Canada (Remote)",
+      type: "Full-time",
+      description:
+        "Senior engineering leader at HealthTech AI startup. Handling VP-level operations including technical strategy, team management, and executive-level client delivery.",
+      responsibilities: [
+        "Lead engineering team of 5+ developers across React Native, Next.js, Django, AI/ML technologies",
+        "Manage 500+ projects across 5 production applications (iOS + Android)",
+        "Handle VP-level client relationships, technical presentations, and cross-functional coordination",
+        "Architect AI-powered mobile applications integrating custom healthcare models and RAG pipelines",
+        "Oversee complete product lifecycle from ideation to App Store/Google Play deployment",
+        "Drive technical architecture decisions and long-term engineering roadmap",
+      ],
+      achievements: [
+        "Built agentic AI systems for automated patient triage and medical workflow automation",
+        "Implemented RAG (Retrieval-Augmented Generation) pipelines for medical knowledge retrieval",
+        "Architected blockchain-based medical data solutions with HIPAA compliance",
+        "Reduced deployment time by 30% through CI/CD pipeline optimization",
+        "Maintained 99.9% uptime across all production systems",
+      ],
+      techStack: [
+        "React Native",
+        "TypeScript",
+        "RAG Pipelines",
+        "Agentic AI",
+        "LLMs",
+        "Solidity",
+        "Next.js",
+        "Django",
+        "PostgreSQL",
+        "AWS",
+        "Docker",
+      ],
+      projects: [
+        {
+          name: "AI-Powered HealthTech Platform",
+          description:
+            "Built agentic AI system for automated patient workflows. Implemented RAG pipelines for medical knowledge retrieval. Integrated custom LLMs into mobile applications. HIPAA-compliant blockchain-based health records.",
+          tech: "React Native, RAG, Agentic AI, Blockchain",
+          duration: "Ongoing",
+        },
+      ],
+    },
   {
     title: "React Native Developer & Full Stack Developer",
     company: "NONCEBLOX Pvt. LTD.",
