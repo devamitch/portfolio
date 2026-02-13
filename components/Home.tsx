@@ -11,6 +11,7 @@ import {
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ASSETS } from "~/assets";
+import SecureContactForm from "./SecureContactForm";
 
 // ═══════════════════════════════════════════════════════════════
 // SEO HEAD — add to layout.tsx or page.tsx metadata export:
@@ -2830,91 +2831,7 @@ const Contact = ({ dark }: { dark: boolean }) => {
               </a>
             ))}
           </div>
-          <form
-            onSubmit={onSubmit}
-            style={{ display: "flex", flexDirection: "column", gap: 14 }}
-          >
-            <div className="grid md:grid-cols-2 gap-4">
-              <input
-                placeholder="Your name *"
-                required
-                value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
-                style={inp}
-              />
-              <input
-                type="email"
-                placeholder="Your email *"
-                required
-                value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
-                style={inp}
-              />
-            </div>
-            <div className="grid md:grid-cols-2 gap-4">
-              <input
-                placeholder="Company"
-                value={form.co}
-                onChange={(e) => setForm({ ...form, co: e.target.value })}
-                style={inp}
-              />
-              <input
-                placeholder="Your role (VP / CTO / Founder)"
-                value={form.role}
-                onChange={(e) => setForm({ ...form, role: e.target.value })}
-                style={inp}
-              />
-            </div>
-            <textarea
-              rows={7}
-              placeholder="Tell me about the opportunity... *"
-              required
-              value={form.msg}
-              onChange={(e) => setForm({ ...form, msg: e.target.value })}
-              style={{ ...inp, resize: "none" }}
-            />
-            <button
-              type="submit"
-              disabled={st === "sending"}
-              data-h
-              style={{
-                width: "100%",
-                padding: 18,
-                background: T.goldGrad,
-                border: "none",
-                color: "#000",
-                fontSize: 11,
-                fontWeight: 700,
-                letterSpacing: "0.25em",
-                textTransform: "uppercase",
-                fontFamily: "monospace",
-                cursor: "pointer",
-                transition: "all 0.2s",
-                opacity: st === "sending" ? 0.6 : 1,
-              }}
-            >
-              {st === "idle"
-                ? "Send Message →"
-                : st === "sending"
-                  ? "Sending..."
-                  : st === "sent"
-                    ? "Message Sent ✓"
-                    : "Error — Try Again"}
-            </button>
-            {st === "sent" && (
-              <p
-                style={{
-                  textAlign: "center",
-                  fontSize: 11,
-                  color: T.gold,
-                  fontFamily: "monospace",
-                  opacity: 0.7,
-                }}
-              >
-                Received! I'll respond within 24 hours.
-              </p>
-            )}
-          </form>
+          <SecureContactForm dark={dark} />
         </div>
       </div>
     </section>
