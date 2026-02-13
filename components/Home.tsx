@@ -1250,10 +1250,10 @@ const Hero = ({ dark }: { dark: boolean }) => {
                   ease: [0.16, 1, 0.3, 1],
                 }}
                 style={{
-                  fontSize: "clamp(3.5rem, 8.5vw, 7.5rem)",
-                  fontWeight: 900,
-                  lineHeight: 0.87,
-                  letterSpacing: "-0.04em",
+                  fontSize: "clamp(3rem, 8vw, 7rem)",
+                  fontWeight: 800,
+                  lineHeight: 0.9,
+                  letterSpacing: "2px",
                   fontFamily: "'Helvetica Neue', sans-serif",
                   WebkitTextStroke: `2px ${dark ? "rgba(201,168,76,0.55)" : "rgba(100,65,0,0.45)"}`,
                   color: "transparent",
