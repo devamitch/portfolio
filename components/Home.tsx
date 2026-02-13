@@ -472,29 +472,9 @@ const getYears = () =>
   new Date().getFullYear() - new Date(DATA.started).getFullYear();
 
 const useTheme = () => {
-  const [dark, setDark] = useState(true);
-  useEffect(() => {
-    try {
-      const s = localStorage.getItem("portfolio-theme");
-      setDark(
-        s
-          ? s === "dark"
-          : window.matchMedia("(prefers-color-scheme: dark)").matches,
-      );
-    } catch {
-      /* noop */
-    }
-  }, []);
-  const toggle = () =>
-    setDark((d) => {
-      try {
-        localStorage.setItem("portfolio-theme", !d ? "dark" : "light");
-      } catch {
-        /* noop */
-      }
-      return !d;
-    });
-  return { dark, toggle };
+  const toggle = () => {};
+
+  return { dark: true, toggle };
 };
 
 const useScrollSpy = (ids: string[]) => {
@@ -846,8 +826,9 @@ const T = {
   bg2: (d: boolean) => (d ? "#0C0C0C" : "#F0EDE6"),
   text: (d: boolean) => (d ? "#FFFFFF" : "#1A1A1A"),
   dim: (d: boolean) => (d ? "rgba(255,255,255,0.48)" : "rgba(26,26,26,0.58)"),
-  faint: (d: boolean) => (d ? "rgba(255,255,255,0.2)" : "rgba(26,26,26,0.32)"),
-  vfaint: (d: boolean) => (d ? "rgba(255,255,255,0.1)" : "rgba(26,26,26,0.15)"),
+  faint: (d: boolean) =>
+    d ? "rgba(255, 255, 255, 0.45)" : "rgba(26,26,26,0.32)",
+  vfaint: (d: boolean) => (d ? "rgba(255,255,255,0.4)" : "rgba(26,26,26,0.15)"),
   border: (d: boolean) =>
     d ? "rgba(255,255,255,0.07)" : "rgba(26,26,26,0.12)",
   card: (d: boolean) =>
@@ -949,21 +930,7 @@ const Nav = ({ dark, toggle }: { dark: boolean; toggle: () => void }) => {
               )}
             </a>
           ))}
-          <button
-            onClick={toggle}
-            data-h
-            style={{
-              padding: "6px 10px",
-              border: `1px solid ${T.border(dark)}`,
-              background: "transparent",
-              color: T.faint(dark),
-              fontSize: 14,
-              cursor: "pointer",
-              transition: "all 0.2s",
-            }}
-          >
-            {dark ? "◑" : "◐"}
-          </button>
+
           <a
             href="#contact"
             data-h
@@ -991,18 +958,6 @@ const Nav = ({ dark, toggle }: { dark: boolean; toggle: () => void }) => {
           </a>
         </div>
         <div className="md:hidden flex items-center gap-3">
-          <button
-            onClick={toggle}
-            style={{
-              background: "transparent",
-              border: "none",
-              color: T.faint(dark),
-              fontSize: 14,
-              cursor: "pointer",
-            }}
-          >
-            {dark ? "◑" : "◐"}
-          </button>
           <button
             onClick={() => setOpen(!open)}
             style={{
