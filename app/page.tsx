@@ -5,7 +5,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 
-const Testimonials = dynamic(() => import("~/components/Testimonials"));
 const SinglePagePortfolio = dynamic(() => import("~/components/Home"));
 
 gsap.registerPlugin(ScrollTrigger);

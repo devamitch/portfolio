@@ -1,24 +1,38 @@
 export const resumeData = {
   personalInfo: {
     name: "Amit Chakraborty",
-    title: "Lead Mobile Architect | AI + Blockchain + HealthTech Specialist",
+    title:
+      "Principal Mobile Architect | AI + Blockchain + HealthTech Specialist",
+    tagline: "I architect things that don't exist yet.",
+    subtitle: "React Native · Blockchain · AI Systems · HealthTech",
     location: "Kolkata, West Bengal, India",
     phone: "+91-9874173663",
     email: "amit98ch@gmail.com",
+    altEmail: "amit@devamit.co.in",
     linkedin: "https://www.linkedin.com/in/devamitch/",
     github: "https://github.com/devamitch",
-    summary:
-      "Senior mobile architect with 8+ years building production applications at the intersection of AI, blockchain, and healthcare. Shipped 13 apps serving 50,000+ users. Currently leading engineering at HealthTech AI startup, handling VP-level operations including technical strategy, team management, and executive client relationships. Managing 500+ projects across 5 production applications.",
-    image: "/images/amit-profile.jpg",
-    status: "Open to opportunities",
-    workMode: "Remote",
-    dob: "September 19, 1995",
+    githubAlt: "https://github.com/techamit95ch",
+    portfolio: "https://devamit.co.in",
     websiteLink: "https://amitchakraborty.dev",
-    portfolioTagline: "Building intelligent healthcare systems where AI meets blockchain",
+    medium: "https://devamitch.medium.com/",
+    image: "/images/amit-profile.jpg",
+    status: "Available for Senior Architect & Lead Roles",
+    workMode: "Remote · Worldwide",
+    dob: "September 19, 1995",
+    yearsStarted: "2017-05-01",
+    portfolioTagline:
+      "Building intelligent healthcare systems where AI meets blockchain",
     yearsExperience: "8+",
-    appsDeployed: "13",
+    appsDeployed: "13+",
     totalUsers: "50,000+",
     currentProjects: "500+",
+    summary: `Eight years. Before the LLMs. Before vibe coding. When you had to actually understand the stack, end to end.
+
+I build mobile products that work in production — deeply, natively, efficiently. React Native at its lowest level, custom game engines, AI pipelines, blockchain integrations, HealthTech architectures. I've led teams, owned delivery, and shipped products that real people depend on.
+
+Senior mobile architect with 8+ years building production applications at the intersection of AI, blockchain, and healthcare. Shipped 13+ apps serving 50,000+ users. Currently leading engineering at HealthTech AI startup, handling principal-level operations including technical strategy, team management, and executive client relationships. Managing 500+ projects across 5 production applications.
+
+I don't generate code. I architect systems.`,
     otherProfiles: [
       "https://www.hackerearth.com/@amit98ch",
       "https://www.hackerrank.com/amit98ch",
@@ -28,19 +42,21 @@ export const resumeData = {
       twitter: "https://twitter.com/AmitCha92849022",
       linkedin: "https://www.linkedin.com/in/devamitch/",
       github: "https://github.com/devamitch",
+      medium: "https://devamitch.medium.com/",
     },
   },
 
   professionalExperience: [
     {
-      title: "Lead Mobile Architect & Engineering Lead",
+      title: "Senior Mobile Architect & Technical Lead",
       company: "Synapsis Medical Technologies Inc.",
-      period: "Jan 2025 - Present",
+      companyLocation: "Edmonton, Canada (Remote)",
+      period: "Jan 2025 - Feb 2026",
       duration: "1+ year",
       location: "Edmonton, Canada (Remote)",
-      type: "Full-time",
+      type: "Freelance",
       description:
-        "Senior engineering leader at HealthTech AI startup. Handling VP-level operations including technical strategy, team management, and executive-level client delivery.",
+        "Principal engineering leader at HealthTech AI startup. Handling VP-level operations including technical strategy, team management, and executive-level client delivery.",
       responsibilities: [
         "Lead engineering team of 5+ developers across React Native, Next.js, Django, AI/ML technologies",
         "Manage 500+ projects across 5 production applications (iOS + Android)",
@@ -48,6 +64,17 @@ export const resumeData = {
         "Architect AI-powered mobile applications integrating custom healthcare models and RAG pipelines",
         "Oversee complete product lifecycle from ideation to App Store/Google Play deployment",
         "Drive technical architecture decisions and long-term engineering roadmap",
+        "Led cross-functional team across mobile, backend, and AI for multiple production iOS/Android apps",
+      ],
+      highlights: [
+        "Architected custom game engine with dynamic XP progression and LLM-based task generation from scratch",
+        "Built RAG pipeline for medical data retrieval and contextual AI processing",
+        "Implemented HIPAA-compliant blockchain health record integration using Solidity + Web3.js",
+        "Migrated full codebase to React Native Bridgeless Architecture with custom native modules",
+        "Delivered oLo eye health app with MediaPipe integration for real-time retina/blink analysis",
+        "Built AI-powered onboarding and personalization flows for medical platforms",
+        "Reduced deployment time by 30% through CI/CD pipeline optimization",
+        "Maintained 99.9% uptime across all production systems",
       ],
       achievements: [
         "Built agentic AI systems for automated patient triage and medical workflow automation",
@@ -65,35 +92,72 @@ export const resumeData = {
         "Solidity",
         "Next.js",
         "Django",
+        "Node.js",
         "PostgreSQL",
         "AWS",
         "Docker",
+        "Web3.js",
+        "Gumlet API",
+        "MediaPipe",
       ],
+      apps: ["Spyk Health", "oLo Eye Care", "My Teal Women's Health", "vBoil"],
       projects: [
         {
-          name: "AI-Powered HealthTech Platform",
+          name: "Spyk Health",
+          category: "HealthTech · AI · Mobile",
           description:
-            "Built agentic AI system for automated patient workflows. Implemented RAG pipelines for medical knowledge retrieval. Integrated custom LLMs into mobile applications. HIPAA-compliant blockchain-based health records.",
-          tech: "React Native, RAG, Agentic AI, Blockchain",
+            "Gamified health engagement platform with custom game engine, LLM-based dynamic task generation, and XP progression system. Built the entire game engine from zero.",
+          tech: "React Native, LLM, RAG, Node.js, PostgreSQL",
+          status: "Production",
           duration: "Ongoing",
+          highlight: true,
+        },
+        {
+          name: "oLo Eye Care",
+          category: "HealthTech · Computer Vision",
+          description:
+            "Eye health monitoring app using MediaPipe for real-time retina coverage analysis, blink rate detection, eye redness assessment, and luminance tracking.",
+          tech: "React Native, MediaPipe, Gumlet API, Computer Vision",
+          status: "Production",
+          duration: "Ongoing",
+          highlight: true,
+        },
+        {
+          name: "My Teal",
+          category: "HealthTech · Women's Health",
+          description:
+            "Women's mental and physical health platform providing mood tracking, cycle insights, and medically-backed wellness guidance.",
+          tech: "React Native, TypeScript, Node.js",
+          status: "Production",
+          duration: "Ongoing",
+          highlight: false,
         },
       ],
     },
     {
-      title: "Lead Mobile Developer | Senior Full-Stack Engineer",
+      title: "Lead Mobile Developer & Senior Front-End Developer",
       company: "NonceBlox Pvt. Ltd.",
-      period: "Oct 2021 - Jan 2025",
-      duration: "3 years 4 months",
+      companyLocation: "Dubai (Remote)",
+      period: "Sep 2023 - Jan 2025",
+      duration: "1 year 5 months",
       location: "Dubai (Remote)",
       type: "Full-time",
       description:
-        "Most senior mobile engineer, handling technical leadership, stakeholder management, and team mentorship for blockchain-integrated applications.",
+        "Lead mobile engineer, handling technical leadership, stakeholder management, and team mentorship for blockchain-integrated applications.",
       responsibilities: [
-        "Developed and deployed 13 mobile applications (7 iOS, 6 Android) to production",
-        "Architected secure dApps with Web3 wallet integration and smart contract implementation",
+        "Led end-to-end development of 5 mobile apps on Google Play Store and App Store",
+        "Spearheaded decentralized app (dApp) development with blockchain integrations across industries",
+        "Architected high-performance React Native apps with custom animations and native modules",
         "Served as primary technical liaison with stakeholders and business partners",
         "Conducted technical interviews and built high-performing engineering teams",
         "Mentored junior developers from foundational knowledge to production proficiency",
+      ],
+      highlights: [
+        "Led end-to-end development of 5 mobile apps on Google Play Store and App Store",
+        "Spearheaded decentralized app (dApp) development with blockchain integrations across industries",
+        "Architected high-performance React Native apps with custom animations and native modules",
+        "Conducted hiring interviews and built technical teams for senior developer roles",
+        "Mentored developers in React Native, blockchain, and full-stack technologies",
       ],
       achievements: [
         "Shipped apps serving 50,000+ active users across iOS and Android platforms",
@@ -104,6 +168,7 @@ export const resumeData = {
       ],
       techStack: [
         "React Native",
+        "React",
         "Solidity",
         "Web3.js",
         "Ethers.js",
@@ -112,40 +177,168 @@ export const resumeData = {
         "MongoDB",
         "GraphQL",
         "WebSockets",
+        "Firebase",
+        "TypeScript",
       ],
+      apps: ["MusicX", "Housezy", "Vulcan Eleven", "DeFi11"],
       projects: [
         {
-          name: "Vulcan Eleven",
-          tech: "React Native, Node.js, PostgreSQL",
-          duration: "Dec 2021 - Present",
-          description:
-            "Fantasy sports platform with real-time analytics and live score updates serving 50,000+ active users. Led complete post-merger redesign, implemented FCM push notifications, managed complex database migrations.",
-          image:
-            "https://pbs.twimg.com/media/GKyr2QgWoAAQ_Qd?format=jpg&name=large",
-          link: "https://apps.apple.com/app/vulcan-eleven/id6462420052",
-          platform: "iOS",
-        },
-        {
           name: "MusicX",
-          tech: "React Native, Native Modules (C++), TypeScript",
-          duration: "Aug 2024 - Present",
+          category: "Entertainment · Web3",
+          tech: "React Native, Native Modules (C++), TypeScript, Node.js, Blockchain, Firebase",
+          duration: "Aug 2024 - Jan 2025",
           description:
-            "Interactive music competition platform integrating Twitter/Spotify APIs with Native Modules for optimization. Implemented algorithm-driven user engagement and 60fps animations.",
+            "Music competition platform empowering independent artists with blockchain-backed royalty tracking and fan engagement features. Interactive music competition platform integrating Twitter/Spotify APIs with Native Modules for optimization. Implemented algorithm-driven user engagement and 60fps animations.",
           image:
             "https://pbs.twimg.com/media/GDvYSRdWcAAL6uV?format=jpg&name=large",
           link: "https://apps.apple.com/app/music-x/id6475713772",
           platform: "iOS",
+          status: "Live on App Store",
+          highlight: true,
         },
         {
           name: "Housezy",
-          tech: "React Native, GraphQL, Socket.io",
-          duration: "Jun 2024 - Present",
+          category: "PropTech · Mobile",
+          tech: "React Native, GraphQL, Socket.io, React, Firebase, TypeScript",
+          duration: "Jun 2024 - Jan 2025",
           description:
-            "Subscription-based housing automation platform with Expo Router, PayU/Google Pay integration, GraphQL APIs, Socket.io real-time notifications.",
+            "Property management platform with automated payment workflows, smart onboarding, and real-time service coordination. Subscription-based housing automation platform with Expo Router, PayU/Google Pay integration, GraphQL APIs, Socket.io real-time notifications.",
           image:
             "https://housezy.in/wp-content/uploads/2024/01/sdsfd-1024x823.png",
           link: "https://apps.apple.com/app/housezy/id6471949955",
           platform: "iOS",
+          status: "Live on App Store",
+          highlight: false,
+        },
+        {
+          name: "Vulcan Eleven",
+          category: "Sports · Web3 · Payments",
+          tech: "React Native, Node.js, PostgreSQL, Razorpay, Binance Pay",
+          duration: "Dec 2021 - Jan 2025",
+          description:
+            "Fantasy sports platform with Razorpay + Binance Pay integration, driving 35% increase in transaction volume and 40% faster checkout. Fantasy sports platform with real-time analytics and live score updates serving 50,000+ active users. Led complete post-merger redesign, implemented FCM push notifications, managed complex database migrations.",
+          image:
+            "https://pbs.twimg.com/media/GKyr2QgWoAAQ_Qd?format=jpg&name=large",
+          link: "https://apps.apple.com/app/vulcan-eleven/id6462420052",
+          platform: "iOS",
+          status: "Live on App Store",
+          highlight: true,
+        },
+      ],
+    },
+    {
+      title: "Senior Front-End Developer & React Native Developer",
+      company: "NonceBlox Pvt. Ltd.",
+      companyLocation: "Remote",
+      period: "Feb 2023 - Sep 2023",
+      duration: "8 months",
+      location: "Dubai (Remote)",
+      type: "Full-time",
+      description:
+        "Senior mobile developer focused on shipping high-quality production apps and blockchain solutions.",
+      responsibilities: [
+        "Published multiple mobile apps to Google Play Store and App Store",
+        "Designed high-performance web interfaces and efficient database schemas",
+        "Mentored interns from foundational to production-level React Native development",
+        "Developed blockchain solutions for DeFi and NFT platforms",
+      ],
+      highlights: [
+        "Published multiple mobile apps to Google Play Store and App Store",
+        "Designed high-performance web interfaces and efficient database schemas",
+        "Mentored interns from foundational to production-level React Native development",
+        "Developed blockchain solutions for DeFi and NFT platforms",
+      ],
+      techStack: [
+        "React Native",
+        "React",
+        "Blockchain",
+        "Node.js",
+        "TypeScript",
+        "Solidity",
+        "Web3.js",
+      ],
+      apps: ["JCare", "CryptoCoffeeTales", "Vulcan Eleven"],
+      projects: [
+        {
+          name: "JCare",
+          category: "Social Impact · Mobile",
+          tech: "React Native, Node.js, Firebase, Payment Gateway",
+          duration: "Jun 2023 - Aug 2023",
+          description:
+            "Donation platform for Jitender Foundation — re-engineered for 40% faster transactions and 20% increase in successful donations.",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmspb_SMjXMJltae4wtWS0GGFRI9JUju1Blw&s",
+          link: "https://play.google.com/store/apps/details?id=com.nonceblox.jitendrafoundationapp",
+          platform: "Android",
+          status: "Live on Play Store",
+          highlight: false,
+        },
+        {
+          name: "CryptoCoffeeTales",
+          category: "Web3 · Social · News",
+          tech: "React Native, TypeScript, Web3, Blockchain, Node.js",
+          duration: "Jun 2023 - Aug 2023",
+          description:
+            "Blockchain-based news and polling platform with crypto rewards, in-app purchases, and community engagement features. Blockchain news aggregator with real-time cryptocurrency updates, price tracking, community features, and wallet integration.",
+          image:
+            "https://pbs.twimg.com/profile_images/1736887073611583488/g43hIm40_400x400.jpg",
+          link: "https://play.google.com/store/apps/details?id=com.nonceblox.cryptocoffetales",
+          platform: "Android",
+          status: "Live on Play Store",
+          highlight: false,
+        },
+      ],
+    },
+    {
+      title: "Full Stack Developer",
+      company: "NonceBlox Pvt. Ltd.",
+      companyLocation: "Remote",
+      period: "Oct 2021 - Feb 2023",
+      duration: "1 year 5 months",
+      location: "Dubai (Remote)",
+      type: "Full-time",
+      description:
+        "Full-stack developer specializing in blockchain integration and cross-platform mobile development.",
+      responsibilities: [
+        "Spearheaded dApp development implementing blockchain solutions across industries",
+        "Built secure full-stack applications with React, React Native, and blockchain backends",
+        "Led UI/UX design optimization and database schema creation",
+        "Delivered cross-platform and cross-chain app solutions",
+      ],
+      highlights: [
+        "Spearheaded dApp development implementing blockchain solutions across industries",
+        "Built secure full-stack applications with React, React Native, and blockchain backends",
+        "Led UI/UX design optimization and database schema creation",
+        "Delivered cross-platform and cross-chain app solutions",
+      ],
+      achievements: [
+        "Developed and deployed mobile applications to production",
+        "Architected secure dApps with Web3 wallet integration and smart contract implementation",
+      ],
+      techStack: [
+        "React Native",
+        "React",
+        "Solidity",
+        "Web3.js",
+        "Node.js",
+        "MongoDB",
+        "PostgreSQL",
+        "GraphQL",
+      ],
+      apps: ["DeFi11", "CryptoCoffeeTales", "Vulcan Eleven Fantasy Sports"],
+      projects: [
+        {
+          name: "DeFi11",
+          category: "DeFi · Sports · Blockchain",
+          tech: "React Native, Blockchain, Solidity, Web3.js",
+          duration: "Dec 2021 - Dec 2022",
+          description:
+            "Decentralized fantasy sports platform with full blockchain integration, smart contract-based prize pools, and crypto transactions. Original version before merger into Vulcan Eleven.",
+          image: "https://www.defieleven.com/defi_11_cover.png",
+          link: "https://apps.apple.com/app/defi11-fantasy-sports-app/id1608967244",
+          platform: "iOS",
+          status: "Live on App Store",
+          highlight: true,
         },
         {
           name: "Memr",
@@ -154,37 +347,6 @@ export const resumeData = {
           description:
             "Blockchain merchant application with PayPal/fiat integration, wallet staking mechanisms, whale tracking with live charts. Built using Next.js 15, AppKit, cross-chain wallet support.",
           platform: "Web3 dApp",
-        },
-        {
-          name: "CryptoCoffeeTales",
-          tech: "React Native, TypeScript, Web3",
-          duration: "Jun 2023 - Aug 2023",
-          description:
-            "Blockchain news aggregator with real-time cryptocurrency updates, price tracking, community features, and wallet integration.",
-          image:
-            "https://pbs.twimg.com/profile_images/1736887073611583488/g43hIm40_400x400.jpg",
-          link: "https://play.google.com/store/apps/details?id=com.nonceblox.cryptocoffetales",
-          platform: "Android",
-        },
-        {
-          name: "JCare",
-          tech: "React Native, Node.js",
-          duration: "Jun 2023 - Aug 2023",
-          description: "Donation-based platform for Jitendra Foundation.",
-          image:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmspb_SMjXMJltae4wtWS0GGFRI9JUju1Blw&s",
-          link: "https://play.google.com/store/apps/details?id=com.nonceblox.jitendrafoundationapp",
-          platform: "Android",
-        },
-        {
-          name: "DeFi11",
-          tech: "React Native, Blockchain",
-          duration: "Dec 2021 - Dec 2022",
-          description:
-            "Decentralized fantasy sports platform with blockchain integration. Original version before merger into Vulcan Eleven.",
-          image: "https://www.defieleven.com/defi_11_cover.png",
-          link: "https://apps.apple.com/app/defi11-fantasy-sports-app/id1608967244",
-          platform: "iOS",
         },
         {
           name: "Bingo",
@@ -197,10 +359,11 @@ export const resumeData = {
       ],
     },
     {
-      title: "Senior PHP Developer | Full-Stack Engineer",
+      title: "Sr. PHP Developer | Senior Full-Stack Engineer",
       company: "Techpromind & Webskitters",
-      period: "May 2017 - Oct 2018",
-      duration: "1 year 6 months",
+      companyLocation: "Kolkata, India",
+      period: "May 2017 - Oct 2021",
+      duration: "4 years 6 months",
       location: "Kolkata, India",
       type: "Full-time",
       description:
@@ -210,6 +373,13 @@ export const resumeData = {
         "Developed proprietary PHP framework and AngularJS solutions",
         "Built GST merchant portal, Android app, and retailer software from scratch",
         "Modernized legacy systems by introducing Angular and REST APIs",
+        "Automated government tax workflows reducing manual errors significantly",
+      ],
+      highlights: [
+        "Managed and delivered 13 government digital projects — security, functionality, and restructuring",
+        "Built GST App (Android), GST merchant portal (PHP), and GST retailer software (VB.net) from scratch",
+        "Developed proprietary PHP framework components and AngularJS solutions",
+        "Automated government tax workflows reducing manual errors significantly",
       ],
       achievements: [
         "Secured and restructured 13+ government projects, enhanced system efficiency by 40%",
@@ -221,11 +391,14 @@ export const resumeData = {
         "Laravel",
         "CodeIgniter",
         "Angular",
+        "AngularJS",
         "MySQL",
         "Oracle",
         "VB.NET",
+        "Android",
         "REST APIs",
       ],
+      apps: ["GST App", "13 Government Projects"],
       projects: [
         {
           name: "GST Application Suite",
@@ -262,6 +435,18 @@ export const resumeData = {
     },
   ],
 
+  portfolioProjects: [
+    {
+      name: "MediVault",
+      category: "HealthTech · Blockchain · AI",
+      description:
+        "Blockchain medical records system with AI querying. Built as a portfolio demonstration of principal architect capabilities — React Native + Pinecone + Hedera.",
+      tech: "React Native, Node.js, Pinecone, Hedera, RAG",
+      status: "Open Source",
+      highlight: true,
+    },
+  ],
+
   openSourceProjects: [
     {
       name: "Blockchain Voting dApp",
@@ -287,7 +472,8 @@ export const resumeData = {
     },
     {
       name: "Near Blockchain dApp",
-      description: "Near blockchain-based application for learning NEAR chain development.",
+      description:
+        "Near blockchain-based application for learning NEAR chain development.",
       github: "https://github.com/techamit95ch/literate-spork",
       tech: "NEAR, AssemblyScript, TypeScript",
     },
@@ -306,12 +492,16 @@ export const resumeData = {
       institution: "Techno Main Salt Lake",
       location: "Kolkata, India",
       duration: "Aug 2018 - Aug 2021",
+      period: "Aug 2018 – Aug 2021",
       score: "DGPA: 8.61/10",
+      grade: "8.61 CGPA",
       activities: [
         "Coding Group Secretary",
         "IoT Awareness Program Organizer",
         "Cloud Computing Awareness Sessions",
       ],
+      achievement:
+        "Coding Group Secretary · IoT Awareness Organizer · Cloud Computing Awareness",
       projects: [
         {
           type: "Major Project",
@@ -332,12 +522,15 @@ export const resumeData = {
       institution: "The Heritage Academy",
       location: "Kolkata, India",
       duration: "Aug 2014 - Aug 2017",
+      period: "Aug 2014 – Aug 2017",
       score: "DGPA: 7.3/10",
+      grade: "7.3 CGPA",
       activities: [
         "Football team member",
         "Debate competitions",
         "Blood donation camp volunteer",
       ],
+      achievement: "Debate · Blood Donation Camp · Retro Club",
       projects: [
         {
           type: "Major Project",
@@ -362,10 +555,12 @@ export const resumeData = {
         skills: [
           { name: "React Native", level: "Expert", years: 8 },
           { name: "Expo", level: "Advanced", years: 6 },
-          { name: "TypeScript", level: "Advanced", years: 6 },
+          { name: "TypeScript", level: "Expert", years: 6 },
+          { name: "JavaScript", level: "Expert", years: 8 },
           { name: "iOS Development", level: "Intermediate", years: 5 },
           { name: "Android Development", level: "Intermediate", years: 5 },
           { name: "Native Modules (C++)", level: "Intermediate", years: 2 },
+          { name: "Mobile Architecture", level: "Expert", years: 5 },
         ],
       },
       {
@@ -376,6 +571,8 @@ export const resumeData = {
           { name: "LLM Integration", level: "Advanced", years: 1 },
           { name: "TensorFlow", level: "Intermediate", years: 2 },
           { name: "Computer Vision", level: "Intermediate", years: 2 },
+          { name: "MediaPipe", level: "Intermediate", years: 1 },
+          { name: "Pinecone", level: "Intermediate", years: 1 },
         ],
       },
       {
@@ -387,6 +584,9 @@ export const resumeData = {
           { name: "Smart Contracts", level: "Advanced", years: 3 },
           { name: "DeFi Protocols", level: "Intermediate", years: 3 },
           { name: "NFT Development", level: "Intermediate", years: 2 },
+          { name: "Hedera", level: "Intermediate", years: 1 },
+          { name: "Polygon", level: "Intermediate", years: 2 },
+          { name: "Binance", level: "Intermediate", years: 2 },
         ],
       },
       {
@@ -398,6 +598,7 @@ export const resumeData = {
           { name: "Django", level: "Intermediate", years: 4 },
           { name: "GraphQL", level: "Advanced", years: 3 },
           { name: "REST APIs", level: "Expert", years: 8 },
+          { name: "WebSockets", level: "Advanced", years: 3 },
         ],
       },
       {
@@ -408,6 +609,8 @@ export const resumeData = {
           { name: "Redux", level: "Advanced", years: 6 },
           { name: "Tailwind CSS", level: "Advanced", years: 4 },
           { name: "Material UI", level: "Advanced", years: 5 },
+          { name: "Framer Motion", level: "Advanced", years: 2 },
+          { name: "Reanimated", level: "Advanced", years: 3 },
         ],
       },
       {
@@ -417,16 +620,31 @@ export const resumeData = {
           { name: "MongoDB", level: "Advanced", years: 6 },
           { name: "MySQL", level: "Advanced", years: 7 },
           { name: "Firebase", level: "Intermediate", years: 4 },
+          { name: "Oracle", level: "Intermediate", years: 2 },
         ],
       },
       {
         category: "Cloud/DevOps",
         skills: [
           { name: "AWS", level: "Intermediate", years: 3 },
+          { name: "AWS Lambda", level: "Intermediate", years: 2 },
+          { name: "AWS S3", level: "Intermediate", years: 2 },
+          { name: "AWS Amplify", level: "Intermediate", years: 2 },
           { name: "Docker", level: "Advanced", years: 3 },
           { name: "Kubernetes", level: "Intermediate", years: 2 },
           { name: "CI/CD", level: "Advanced", years: 4 },
           { name: "GitHub Actions", level: "Advanced", years: 3 },
+        ],
+      },
+      {
+        category: "Tools & Platforms",
+        skills: [
+          { name: "Expo", level: "Advanced", years: 6 },
+          { name: "Xcode", level: "Advanced", years: 5 },
+          { name: "Android Studio", level: "Advanced", years: 5 },
+          { name: "Jira", level: "Advanced", years: 4 },
+          { name: "Slack", level: "Advanced", years: 4 },
+          { name: "Figma", level: "Intermediate", years: 3 },
         ],
       },
     ],
@@ -495,15 +713,15 @@ export const resumeData = {
 
   achievements: [
     {
-      title: "13 Successful App Launches",
+      title: "13+ Successful App Launches",
       description:
-        "Developed and launched 13 mobile applications (7 iOS, 6 Android) serving 50,000+ active users.",
+        "Developed and launched 13+ mobile applications (7 iOS, 6 Android) serving 50,000+ active users.",
       icon: "apps",
     },
     {
       title: "500+ Projects Managed",
       description:
-        "Currently managing 500+ projects across 5 production applications as Lead Mobile Architect.",
+        "Currently managing 500+ projects across 5 production applications as Principal Mobile Architect.",
       icon: "projects",
     },
     {
@@ -511,6 +729,12 @@ export const resumeData = {
       description:
         "Successfully integrated blockchain technology into sports, finance, and healthcare applications.",
       icon: "blockchain",
+    },
+    {
+      title: "AI/ML Healthcare Innovation",
+      description:
+        "Built first-of-kind agentic AI for automated patient triage in HealthTech with RAG pipelines.",
+      icon: "ai",
     },
     {
       title: "Team Leadership",
@@ -523,6 +747,23 @@ export const resumeData = {
       description:
         "Secured 13+ government projects, enhanced system efficiency by 40%.",
       icon: "security",
+    },
+    {
+      title: "2,029 GitHub Contributions",
+      description:
+        "2,029 GitHub contributions in last 12 months across private repos.",
+      icon: "github",
+    },
+    {
+      title: "Bridgeless Architecture Pioneer",
+      description:
+        "Integrated Bridgeless React Native architecture in production apps.",
+      icon: "architecture",
+    },
+    {
+      title: "District-Level Art Recognition",
+      description: "District-level distinction in painting — Kolkata.",
+      icon: "art",
     },
   ],
 
@@ -556,12 +797,14 @@ export const resumeData = {
   interests: [
     "Building decentralized healthcare systems",
     "AI/ML in healthcare applications",
+    "Custom game engine development",
     "DeFi innovations and token economics",
     "Open source contributions",
     "Technical mentorship",
     "Blockchain security research",
     "Computer vision applications",
     "Continuous learning in emerging technologies",
+    "Mobile architecture optimization",
   ],
 
   careerGoals: {
@@ -570,8 +813,9 @@ export const resumeData = {
     longTerm:
       "Build next-generation intelligent healthcare systems where AI meets blockchain—creating trustless, automated, patient-centric platforms. Explore intersection of HealthTech + FinTech + AI.",
     openTo: [
-      "Senior/Lead Engineering Roles",
-      "Technical Leadership Positions",
+      "Principal/Senior Engineering Roles",
+      "Technical Architect Positions",
+      "Engineering Leadership Roles",
       "HealthTech + Blockchain Opportunities",
       "Strategic Partnerships",
       "International Remote Positions",
@@ -585,6 +829,7 @@ export const resumeData = {
     currentProjectsManaged: "500+",
     githubRepos: "55+",
     githubContributions: "2,277 (2025)",
+    githubContributionsLastYear: "2,029",
     teamSize: "5+",
     companiesWorked: 3,
   },
