@@ -1,10 +1,11 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
+import { useReCaptcha } from "next-recaptcha-v3";
 import { useCallback, useState } from "react";
 
 interface Props {
-  dark?: boolean;
+  dark: boolean;
 }
 
 // Color tokens
@@ -22,7 +23,7 @@ const C = {
   goldGrad: "linear-gradient(135deg, #DAA520 0%, #F5C842 50%, #B8860B 100%)",
 };
 
-export default function SimpleContactForm({ dark }: Props) {
+export default function SecureContactForm({ dark }: Props) {
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -37,6 +38,9 @@ export default function SimpleContactForm({ dark }: Props) {
   >("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+
+  // ✅ Use the next-recaptcha-v3 hook
+  const { executeRecaptcha } = useReCaptcha();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
@@ -93,6 +97,11 @@ export default function SimpleContactForm({ dark }: Props) {
       setSuccessMessage("");
 
       try {
+        // ✅ Execute reCAPTCHA
+        const token = await executeRecaptcha("form_submit");
+
+        console.log("✅ reCAPTCHA token received");
+
         // Convert files to base64
         const filesData = await Promise.all(
           files.map(async (f) => ({
@@ -103,13 +112,14 @@ export default function SimpleContactForm({ dark }: Props) {
           })),
         );
 
-        // Send to API (no reCAPTCHA!)
+        // Send to API
         console.log("📤 Sending form data...");
-        const res = await fetch("/api/contact-simple", {
+        const res = await fetch("/api/contact", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             ...form,
+            recaptchaToken: token,
             files: filesData.length > 0 ? filesData : undefined,
           }),
         });
@@ -158,7 +168,7 @@ export default function SimpleContactForm({ dark }: Props) {
         }, 5000);
       }
     },
-    [form, files],
+    [executeRecaptcha, form, files],
   );
 
   // Shared input style
@@ -512,7 +522,7 @@ export default function SimpleContactForm({ dark }: Props) {
         }}
       >
         <span style={{ color: "rgba(76,175,80,0.6)", fontSize: 11 }}>●</span>
-        <span>Rate limited · Spam filtered · Secure</span>
+        <span>reCAPTCHA v3 · Rate limited · Spam filtered · Secure</span>
       </div>
     </form>
   );

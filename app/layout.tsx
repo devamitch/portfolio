@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
+import { ReCaptchaProvider } from "next-recaptcha-v3";
 import { DM_Sans, Space_Grotesk, Space_Mono } from "next/font/google";
+
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -336,7 +338,11 @@ export default function RootLayout({
         className="bg-black text-white antialiased overflow-x-hidden"
         suppressHydrationWarning
       >
-        {children}
+        <ReCaptchaProvider
+          reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+        >
+          {children}
+        </ReCaptchaProvider>
       </body>
     </html>
   );
