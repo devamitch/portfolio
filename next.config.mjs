@@ -1,16 +1,16 @@
 import path from "path";
 
-// const isGithubActions = process.env.GITHUB_ACTIONS || false;
-
-// const isProd = process.env.NODE_ENV === "production";
-// const repo = process.env.GITHUB_REPOSITORY?.replace(/.*?\//, "") || "";
-
-// const assetPrefix = isProd ? "/" : `/${repo}/`;
-// const basePath = isProd ? "/" : `/${repo}`;
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // ❌ REMOVE THIS - it breaks API routes
   // output: "export",
+
+  // ❌ CHANGE THIS - wrong distDir
+  // distDir: "out",
+
+  // ✅ Use default .next directory
+  distDir: ".next",
+
   assetPrefix: "",
   basePath: "",
   sassOptions: {
@@ -27,14 +27,12 @@ const nextConfig = {
       },
     ],
   },
-  distDir: "out",
   typescript: {
     ignoreBuildErrors: true,
   },
   webpack: (config, { isServer }) => {
-    // Add custom Webpack loaders for non-JS file types (e.g., mp4)
     config.module.rules.push({
-      test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)$/, // Add more file extensions as needed
+      test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)$/,
       use: {
         loader: "file-loader",
         options: {
@@ -44,7 +42,6 @@ const nextConfig = {
         },
       },
     });
-
     return config;
   },
 };
