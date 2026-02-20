@@ -29,11 +29,11 @@ const C = {
   border: "rgba(255,255,255,0.07)",
   card: "rgba(255,255,255,0.025)",
   gold: "#C9A84C",
-  goldD: "rgba(201,168,76,0.32)",
-  goldF: "rgba(201,168,76,0.08)",
+  goldD: "rgba(201,188,76,0.32)",
+  goldF: "rgba(201,188,76,0.08)",
   goldGrad: "linear-gradient(135deg,#DAA520 0%,#F5C842 50%,#B8860B 100%)",
-};
-const GRID = "rgba(201,168,76,0.022)";
+} as const;
+const GRID = "rgba(201,188,76,0.022)";
 const HN = "'Helvetica Neue',Helvetica,Arial,sans-serif";
 const MONO = "'JetBrains Mono','Space Mono',monospace";
 
@@ -41,10 +41,10 @@ const MONO = "'JetBrains Mono','Space Mono',monospace";
 const D = {
   nameFirst: "Amit",
   nameLast: "Chakraborty",
-  tagline: "Eight years. Sixteen apps. No shortcuts.",
+  tagline: "Eight years. Eighteen apps. No shortcuts.",
   manifesto: [
     "Before AI could write a line of code, I was building production systems.",
-    "16+ apps shipped. 50K+ real users. Zero outsourced decisions.",
+    "18+ apps shipped. 50K+ real users. Zero outsourced decisions.",
     "I architect systems that outlast the hype.",
   ],
   roles: ["VP Engineering", "Principal Architect", "CTO", "Technical Lead"],
@@ -64,11 +64,11 @@ const D = {
       role: "Principal Mobile Architect & Technical Lead",
       location: "Edmonton, Canada (Remote)",
       period: "Jan 2025 — Feb 2026",
-      type: "Contract",
+      type: "Founding Engineer",
       color: "#C9A84C",
       highlights: [
         "Led engineering team of 21+ developers across 5 production iOS + Android apps",
-        "Built custom game engine from scratch — C++/Swift/Kotlin bridgeless modules",
+        "Built  game engine from scratch — C++/Swift/Kotlin bridgeless modules",
         "Architected HIPAA-compliant RAG pipelines for medical data retrieval, 99.9% uptime",
         "Computer Vision: MediaPipe for real-time retina analysis on mobile",
         "Reduced deployment time 30% via CI/CD; recruited & trained 21-person team",
@@ -107,29 +107,23 @@ const D = {
   projects: [
     {
       id: "spyk",
-      name: "VitalQuest / Spyk Health",
+      name: "VitalQuest",
       role: "Principal Architect",
       badge: "FLAGSHIP · HEALTHTECH",
       featured: true,
       tagline: "A game engine I built from nothing.",
-      desc: "Custom game engine built from absolute scratch — zero dependencies, zero shortcuts. LLM-based dynamic health task generation, XP progression system, RAG pipeline for medical context.",
+      desc: " game engine built from absolute scratch — zero dependencies, zero shortcuts. LLM-based dynamic health task generation, XP progression system, RAG pipeline for medical context.",
       impact: [
-        "Custom game engine — zero external deps",
+        " game engine — zero external deps",
         "LLM task generation at runtime",
         "RAG pipeline for HIPAA-compliant medical data",
       ],
-      tech: [
-        "React Native",
-        "Custom Game Engine",
-        "LLMs",
-        "RAG Pipelines",
-        "C++",
-      ],
+      tech: ["React Native", " Game Engine", "LLMs", "RAG Pipelines", "C++"],
       color: "#C9A84C",
     },
     {
       id: "thoth",
-      name: "Nexus / Thoth AI",
+      name: "Nexus",
       role: "Enterprise Architect",
       badge: "AI PLATFORM",
       featured: true,
@@ -240,7 +234,7 @@ const D = {
       ],
       tech: ["Solidity", "Web3.js", "NFTs", "Smart Contracts", "Ethereum"],
       color: "#F15BB5",
-      link: "https://apps.apple.com/app/defi11-fantasy-sports-app/id1608967244",
+      link: "https://apps.apple.com/app/defi11-fantasy-sports-app/id1808967244",
     },
     {
       id: "be4you",
@@ -428,7 +422,7 @@ const D = {
     {
       yr: "2025",
       title: "AI + HealthTech",
-      text: "Custom game engine from scratch. RAG pipelines for HIPAA-compliant medical data. Women's health platform at scale. VP-level operations.",
+      text: " game engine from scratch. RAG pipelines for HIPAA-compliant medical data. Women's health platform at scale. VP-level operations.",
       color: "#C9A84C",
     },
     {
@@ -461,28 +455,28 @@ const D = {
       text: "Amit had been an amicable and diligent developer, one of the most dependable Engineers when it comes to delivery or urgent closures. His capability to rebuild any project from scratch is remarkable.",
       li: "https://linkedin.com/in/neha-goel/",
     },
-    {
-      name: "Puja Rani Tripathy",
-      role: "Software Developer",
-      company: "Synapsis Medical",
-      seniority: "TEAM MEMBER",
-      col: "#4FC3F7",
-      rel: "Reported to Amit directly",
-      date: "Feb 2026",
-      text: "Amit played a key role in code reviews, ensuring quality and consistency across the codebase while guiding multiple teams through complex technical tasks.",
-      li: "https://linkedin.com/in/puja-rani-tripathy/",
-    },
-    {
-      name: "Varun Chodha",
-      role: "Senior Full-Stack · MERN",
-      company: "NonceBlox",
-      seniority: "MENTEE → SENIOR",
-      col: "#81C784",
-      rel: "Grew under Amit's guidance",
-      date: "Oct 2024",
-      text: "Amit played a pivotal role in mentoring me, sharing his profound knowledge of Redux, React Native, and frontend concepts. His enthusiasm for coding and pursuit for perfection are truly inspiring.",
-      li: "https://linkedin.com/in/varun-chodha/",
-    },
+    // {
+    //   name: "Puja Rani Tripathy",
+    //   role: "Software Developer",
+    //   company: "Synapsis Medical",
+    //   seniority: "TEAM MEMBER",
+    //   col: "#4FC3F7",
+    //   rel: "Reported to Amit directly",
+    //   date: "Feb 2026",
+    //   text: "Amit played a key role in code reviews, ensuring quality and consistency across the codebase while guiding multiple teams through complex technical tasks.",
+    //   li: "https://linkedin.com/in/puja-rani-tripathy/",
+    // },
+    // {
+    //   name: "Varun Chodha",
+    //   role: "Senior Full-Stack · MERN",
+    //   company: "NonceBlox",
+    //   seniority: "MENTEE → SENIOR",
+    //   col: "#81C784",
+    //   rel: "Grew under Amit's guidance",
+    //   date: "Oct 2024",
+    //   text: "Amit played a pivotal role in mentoring me, sharing his profound knowledge of Redux, React Native, and frontend concepts. His enthusiasm for coding and pursuit for perfection are truly inspiring.",
+    //   li: "https://linkedin.com/in/varun-chodha/",
+    // },
   ],
   blogs: [
     {
@@ -501,10 +495,10 @@ const D = {
       title: "Why 50% of React Native Apps Fail in Production",
       cat: "Architecture",
       teaser:
-        "After 8 years and 16 apps, I see the same architecture mistake made over and over.",
+        "After 8 years and 18 apps, I see the same architecture mistake made over and over.",
     },
   ],
-};
+} as const;
 
 const getYrs = () =>
   Math.floor(
@@ -584,11 +578,11 @@ function ContribGraph() {
     [],
   );
   const cols = [
-    "rgba(201,168,76,.07)",
-    "rgba(201,168,76,.22)",
-    "rgba(201,168,76,.42)",
-    "rgba(201,168,76,.68)",
-    "rgba(201,168,76,.95)",
+    "rgba(201,188,76,.07)",
+    "rgba(201,188,76,.22)",
+    "rgba(201,188,76,.42)",
+    "rgba(201,188,76,.68)",
+    "rgba(201,188,76,.95)",
   ];
   return (
     <div style={{ overflowX: "auto" }}>
@@ -631,7 +625,7 @@ function ContribGraph() {
           <span
             style={{
               fontSize: 9,
-              color: "rgba(201,168,76,.45)",
+              color: "rgba(201,188,76,.45)",
               fontFamily: MONO,
             }}
           >
@@ -646,7 +640,7 @@ function ContribGraph() {
           <span
             style={{
               fontSize: 9,
-              color: "rgba(201,168,76,.45)",
+              color: "rgba(201,188,76,.45)",
               fontFamily: MONO,
             }}
           >
@@ -678,7 +672,7 @@ function SLabel({ num, children }: { num?: string; children: string }) {
           style={{
             fontFamily: MONO,
             fontSize: 9,
-            color: "rgba(201,168,76,.4)",
+            color: "rgba(201,188,76,.4)",
             letterSpacing: "0.3em",
           }}
         >
@@ -718,7 +712,7 @@ function SH({
       initial={{ opacity: 0, y: 32 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.7, ease: [0.18, 1, 0.3, 1] }}
       style={{
         fontSize: size,
         fontWeight: 900,
@@ -757,7 +751,7 @@ function ProjectCard({ p, i }: { p: (typeof D.projects)[0]; i: number }) {
       initial={{ opacity: 0, y: 60 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ delay: i * 0.06, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ delay: i * 0.06, duration: 0.8, ease: [0.18, 1, 0.3, 1] }}
       style={{
         rotateX: srx,
         rotateY: sry,
@@ -774,9 +768,9 @@ function ProjectCard({ p, i }: { p: (typeof D.projects)[0]; i: number }) {
     >
       <div
         style={{
-          border: `1px solid ${hov ? "rgba(201,168,76,.5)" : p.featured ? "rgba(201,168,76,.16)" : C.border}`,
+          border: `1px solid ${hov ? "rgba(201,188,76,.5)" : p.featured ? "rgba(201,188,76,.18)" : C.border}`,
           background: p.featured
-            ? `linear-gradient(135deg,rgba(201,168,76,.05) 0%,transparent 55%)`
+            ? `linear-gradient(135deg,rgba(201,188,76,.05) 0%,transparent 55%)`
             : C.card,
           padding: p.featured ? 32 : 26,
           height: "100%",
@@ -895,8 +889,8 @@ function ProjectCard({ p, i }: { p: (typeof D.projects)[0]; i: number }) {
             style={{
               padding: "10px 14px",
               borderLeft: `2px solid ${C.goldD}`,
-              background: "rgba(201,168,76,.025)",
-              marginBottom: 16,
+              background: "rgba(201,188,76,.025)",
+              marginBottom: 18,
             }}
           >
             <div
@@ -950,8 +944,8 @@ function ProjectCard({ p, i }: { p: (typeof D.projects)[0]; i: number }) {
                 style={{
                   fontSize: 8,
                   padding: "3px 8px",
-                  border: `1px solid ${hov ? "rgba(201,168,76,.22)" : C.border}`,
-                  color: hov ? "rgba(201,168,76,.7)" : C.vfaint,
+                  border: `1px solid ${hov ? "rgba(201,188,76,.22)" : C.border}`,
+                  color: hov ? "rgba(201,188,76,.7)" : C.vfaint,
                   fontFamily: MONO,
                   transition: "all .2s",
                 }}
@@ -967,13 +961,13 @@ function ProjectCard({ p, i }: { p: (typeof D.projects)[0]; i: number }) {
               rel="noreferrer"
               style={{
                 fontSize: 10,
-                color: "rgba(201,168,76,.55)",
+                color: "rgba(201,188,76,.55)",
                 fontFamily: MONO,
                 textDecoration: "none",
               }}
               onMouseEnter={(e) => (e.currentTarget.style.color = C.gold)}
               onMouseLeave={(e) =>
-                (e.currentTarget.style.color = "rgba(201,168,76,.55)")
+                (e.currentTarget.style.color = "rgba(201,188,76,.55)")
               }
             >
               View Live ↗
@@ -1049,8 +1043,8 @@ function ContactForm() {
   const onFocus = (
     e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
-    e.target.style.borderColor = "rgba(201,168,76,.38)";
-    e.target.style.boxShadow = "0 0 0 3px rgba(201,168,76,.05)";
+    e.target.style.borderColor = "rgba(201,188,76,.38)";
+    e.target.style.boxShadow = "0 0 0 3px rgba(201,188,76,.05)";
   };
   const onBlur = (
     e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -1177,7 +1171,7 @@ function ContactForm() {
           cursor: status === "sending" ? "not-allowed" : "pointer",
           opacity: status === "sending" ? 0.65 : 1,
           boxShadow:
-            status !== "sending" ? "0 6px 24px rgba(201,168,76,.28)" : "none",
+            status !== "sending" ? "0 6px 24px rgba(201,188,76,.28)" : "none",
           transition: "box-shadow .3s,opacity .3s",
         }}
       >
@@ -1196,7 +1190,7 @@ function ContactForm() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             style={{
-              padding: "12px 16px",
+              padding: "12px 18px",
               background: "rgba(76,175,80,.07)",
               border: "1px solid rgba(76,175,80,.22)",
               color: "rgba(100,200,110,.9)",
@@ -1222,7 +1216,7 @@ function Div() {
           border: "none",
           opacity: 0.35,
           background:
-            "linear-gradient(90deg,transparent,rgba(201,168,76,.35),transparent)",
+            "linear-gradient(90deg,transparent,rgba(201,188,76,.35),transparent)",
         }}
       />
     </div>
@@ -1239,9 +1233,9 @@ export default function Home() {
   const skillsRef = useRef<HTMLElement>(null);
   const storyRef = useRef<HTMLElement>(null);
   const { scrollY } = useScroll();
-  const imgY = useTransform(scrollY, [0, 700], [0, 100]);
-  const txtY = useTransform(scrollY, [0, 700], [0, -50]);
-  const fade = useTransform(scrollY, [0, 500], [1, 0]);
+  const imgY = useTransform(scrollY, [0, 1400], [0, 100]);
+  const txtY = useTransform(scrollY, [0, 1400], [0, -50]);
+  const fade = useTransform(scrollY, [0, 700, 1400], [2, 0.5, 0]);
 
   const [roleIdx, setRoleIdx] = useState(0);
   const [skillTab, setSkillTab] = useState(0);
@@ -1364,7 +1358,7 @@ export default function Home() {
               width: o.s,
               height: o.s,
               background:
-                "radial-gradient(circle,rgba(201,168,76,.05) 0%,transparent 65%)",
+                "radial-gradient(circle,rgba(201,188,76,.05) 0%,transparent 65%)",
               filter: "blur(80px)",
               borderRadius: "50%",
             }}
@@ -1414,7 +1408,7 @@ export default function Home() {
               width: o.s,
               height: o.s,
               background:
-                "radial-gradient(circle,rgba(201,168,76,.08) 0%,transparent 58%)",
+                "radial-gradient(circle,rgba(201,188,76,.08) 0%,transparent 58%)",
               filter: "blur(100px)",
               borderRadius: "50%",
               pointerEvents: "none",
@@ -1492,12 +1486,12 @@ export default function Home() {
             <motion.div style={{ y: txtY }}>
               <div style={{ overflow: "hidden", marginBottom: 2 }}>
                 <motion.div
-                  initial={{ y: 160 }}
+                  initial={{ y: 180 }}
                   animate={{ y: 0 }}
                   transition={{
                     duration: 1.1,
                     delay: 0.22,
-                    ease: [0.16, 1, 0.3, 1],
+                    ease: [0.18, 1, 0.3, 1],
                   }}
                   style={{
                     fontSize: "clamp(3.8rem,9.5vw,8.5rem)",
@@ -1513,12 +1507,12 @@ export default function Home() {
               </div>
               <div style={{ overflow: "hidden", marginBottom: 28 }}>
                 <motion.div
-                  initial={{ y: 160 }}
+                  initial={{ y: 180 }}
                   animate={{ y: 0 }}
                   transition={{
                     duration: 1.1,
                     delay: 0.36,
-                    ease: [0.16, 1, 0.3, 1],
+                    ease: [0.18, 1, 0.3, 1],
                   }}
                   style={{
                     fontSize: "clamp(3.2rem,8.2vw,7.2rem)",
@@ -1526,7 +1520,7 @@ export default function Home() {
                     lineHeight: 0.88,
                     letterSpacing: "2px",
                     fontFamily: HN,
-                    WebkitTextStroke: "2px rgba(201,168,76,.52)",
+                    WebkitTextStroke: "2px rgba(201,188,76,.52)",
                     color: "transparent",
                   }}
                 >
@@ -1540,7 +1534,7 @@ export default function Home() {
                   transition={{
                     duration: 0.9,
                     delay: 0.54,
-                    ease: [0.16, 1, 0.3, 1],
+                    ease: [0.18, 1, 0.3, 1],
                   }}
                 >
                   <div
@@ -1561,7 +1555,7 @@ export default function Home() {
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  gap: 16,
+                  gap: 18,
                   marginBottom: 32,
                   height: 40,
                 }}
@@ -1585,7 +1579,7 @@ export default function Home() {
                       initial={{ y: 42, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       exit={{ y: -42, opacity: 0 }}
-                      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                      transition={{ duration: 0.4, ease: [0.18, 1, 0.3, 1] }}
                       style={{
                         fontSize: 22,
                         color: C.gold,
@@ -1649,7 +1643,7 @@ export default function Home() {
                     textTransform: "uppercase",
                     fontFamily: MONO,
                     textDecoration: "none",
-                    boxShadow: "0 6px 24px rgba(201,168,76,.25)",
+                    boxShadow: "0 6px 24px rgba(201,188,76,.25)",
                   }}
                 >
                   See My Work →
@@ -1776,7 +1770,7 @@ export default function Home() {
                     style={{
                       position: "absolute",
                       inset: r.inset,
-                      border: `1px solid rgba(201,168,76,${r.o})`,
+                      border: `1px solid rgba(201,188,76,${r.o})`,
                       borderRadius: "50%",
                     }}
                   />
@@ -1786,7 +1780,7 @@ export default function Home() {
                     position: "absolute",
                     inset: -60,
                     background:
-                      "radial-gradient(circle,rgba(201,168,76,.18) 0%,transparent 62%)",
+                      "radial-gradient(circle,rgba(201,188,76,.18) 0%,transparent 62%)",
                     filter: "blur(50px)",
                     borderRadius: "50%",
                     pointerEvents: "none",
@@ -1798,7 +1792,7 @@ export default function Home() {
                     height: 310,
                     borderRadius: "50%",
                     overflow: "hidden",
-                    border: "3px solid rgba(201,168,76,.38)",
+                    border: "3px solid rgba(201,188,76,.38)",
                     position: "relative",
                     boxShadow: "0 40px 80px rgba(0,0,0,.55)",
                   }}
@@ -1809,7 +1803,7 @@ export default function Home() {
                     alt="Amit Chakraborty"
                     fill
                     style={{ objectFit: "cover" }}
-                    fallbackColor="rgba(201,168,76,.15)"
+                    fallbackColor="rgba(201,188,76,.15)"
                     sizes="310px"
                     priority
                   />
@@ -1849,7 +1843,7 @@ export default function Home() {
                     value: `${getYrs()}+`,
                     pos: { top: 0, left: -56 },
                   },
-                  { label: "Apps", value: "16+", pos: { top: 54, right: -60 } },
+                  { label: "Apps", value: "18+", pos: { top: 54, right: -60 } },
                   {
                     label: "Users",
                     value: "50K+",
@@ -1875,7 +1869,7 @@ export default function Home() {
                       position: "absolute",
                       ...s.pos,
                       background: "rgba(5,5,5,.96)",
-                      border: `1px solid rgba(201,168,76,.28)`,
+                      border: `1px solid rgba(201,188,76,.28)`,
                       padding: "10px 14px",
                       borderRadius: 8,
                       boxShadow: "0 8px 24px rgba(0,0,0,.4)",
@@ -1930,7 +1924,7 @@ export default function Home() {
           >
             {[
               { to: getYrs(), s: "+", l: "Years Engineering" },
-              { to: 16, s: "+", l: "Apps Shipped" },
+              { to: 18, s: "+", l: "Apps Shipped" },
               { to: 50, s: "K+", l: "Active Users" },
               { to: 2029, s: "", l: "GitHub Contributions" },
             ].map((s, i) => (
@@ -2056,7 +2050,7 @@ export default function Home() {
                   letterSpacing: "0.3em",
                   textTransform: "uppercase",
                   fontFamily: MONO,
-                  marginBottom: 16,
+                  marginBottom: 18,
                 }}
               >
                 Who I Am
@@ -2084,7 +2078,7 @@ export default function Home() {
                   right: 24,
                   fontSize: 140,
                   fontWeight: 900,
-                  color: "rgba(201,168,76,.04)",
+                  color: "rgba(201,188,76,.04)",
                   lineHeight: 1,
                   fontFamily: HN,
                   userSelect: "none",
@@ -2105,7 +2099,7 @@ export default function Home() {
               }}
             >
               {[
-                { n: "16+", l: "Production Apps", sub: "iOS, Android, Web" },
+                { n: "18+", l: "Production Apps", sub: "iOS, Android, Web" },
                 { n: "50K+", l: "Active Users", sub: "Peak daily usage" },
               ].map((s) => (
                 <div
@@ -2199,7 +2193,7 @@ export default function Home() {
                   letterSpacing: "0.3em",
                   textTransform: "uppercase",
                   fontFamily: MONO,
-                  marginBottom: 16,
+                  marginBottom: 18,
                 }}
               >
                 Location
@@ -2257,7 +2251,7 @@ export default function Home() {
                   letterSpacing: "0.3em",
                   textTransform: "uppercase",
                   fontFamily: MONO,
-                  marginBottom: 16,
+                  marginBottom: 18,
                 }}
               >
                 Education
@@ -2273,7 +2267,7 @@ export default function Home() {
                 >
                   <div
                     style={{
-                      fontSize: 16,
+                      fontSize: 18,
                       fontWeight: 800,
                       color: C.text,
                       letterSpacing: "-0.01em",
@@ -2310,7 +2304,7 @@ export default function Home() {
           <SH l1="Building systems" l2="that actually scale." />
           <p
             style={{
-              fontSize: 16,
+              fontSize: 18,
               color: C.dim,
               maxWidth: 540,
               fontWeight: 300,
@@ -2390,7 +2384,7 @@ export default function Home() {
                   transition: "transform .35s",
                 }}
               />
-              <div style={{ paddingLeft: 16 }}>
+              <div style={{ paddingLeft: 18 }}>
                 <div
                   style={{
                     fontFamily: MONO,
@@ -2457,7 +2451,7 @@ export default function Home() {
                   {exp.highlights.map((pt, j) => (
                     <motion.div
                       key={j}
-                      initial={{ opacity: 0, x: -16 }}
+                      initial={{ opacity: 0, x: -18 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: j * 0.05 }}
@@ -2522,7 +2516,7 @@ export default function Home() {
                 whileTap={{ scale: 0.97 }}
                 onClick={() => setSkillTab(i)}
                 style={{
-                  padding: "9px 16px",
+                  padding: "9px 18px",
                   fontSize: 9,
                   fontFamily: MONO,
                   letterSpacing: "0.2em",
@@ -2560,7 +2554,7 @@ export default function Home() {
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: i * 0.04 }}
                   whileHover={{
-                    borderColor: "rgba(201,168,76,.4)",
+                    borderColor: "rgba(201,188,76,.4)",
                     scale: 1.02,
                   }}
                   style={{
@@ -2628,7 +2622,7 @@ export default function Home() {
                       style={{
                         fontSize: 64,
                         fontWeight: 900,
-                        color: "rgba(201,168,76,.06)",
+                        color: "rgba(201,188,76,.06)",
                         fontFamily: MONO,
                         lineHeight: 1,
                         marginBottom: 6,
@@ -2677,8 +2671,8 @@ export default function Home() {
                         right: i % 2 !== 0 ? -9 : "auto",
                         top: "50%",
                         transform: "translateY(-50%)",
-                        width: 16,
-                        height: 16,
+                        width: 18,
+                        height: 18,
                         borderRadius: "50%",
                         background: ch.color,
                         border: `3px solid ${C.bg2}`,
@@ -2709,8 +2703,8 @@ export default function Home() {
             viewport={{ once: true }}
             style={{
               padding: 28,
-              border: `1px solid rgba(201,168,76,.15)`,
-              background: "rgba(201,168,76,.025)",
+              border: `1px solid rgba(201,188,76,.15)`,
+              background: "rgba(201,188,76,.025)",
               marginBottom: 20,
             }}
           >
@@ -2728,7 +2722,7 @@ export default function Home() {
                 <div
                   style={{
                     fontSize: 9,
-                    color: "rgba(201,168,76,.7)",
+                    color: "rgba(201,188,76,.7)",
                     letterSpacing: "0.28em",
                     textTransform: "uppercase",
                     fontFamily: MONO,
@@ -2770,7 +2764,7 @@ export default function Home() {
                     target="_blank"
                     rel="noreferrer"
                     style={{
-                      padding: "10px 16px",
+                      padding: "10px 18px",
                       border: `1px solid ${C.border}`,
                       textDecoration: "none",
                       transition: "border-color .2s",
@@ -2834,7 +2828,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                whileHover={{ borderColor: "rgba(201,168,76,.38)", y: -4 }}
+                whileHover={{ borderColor: "rgba(201,188,76,.38)", y: -4 }}
                 style={{
                   padding: 32,
                   border: `1px solid ${C.border}`,
@@ -2875,7 +2869,7 @@ export default function Home() {
                     fontSize: 56,
                     color: "rgba(255,255,255,.035)",
                     position: "absolute",
-                    top: 16,
+                    top: 18,
                     right: 22,
                     lineHeight: 1,
                     fontFamily: "Georgia",
@@ -3004,7 +2998,7 @@ export default function Home() {
                 </div>
                 <h3
                   style={{
-                    fontSize: 16,
+                    fontSize: 18,
                     fontWeight: 700,
                     color: C.text,
                     lineHeight: 1.35,
@@ -3020,7 +3014,7 @@ export default function Home() {
                     color: C.dim,
                     lineHeight: 1.7,
                     fontWeight: 300,
-                    marginBottom: 16,
+                    marginBottom: 18,
                   }}
                 >
                   {post.teaser}
@@ -3031,13 +3025,13 @@ export default function Home() {
                   rel="noreferrer"
                   style={{
                     fontSize: 10,
-                    color: "rgba(201,168,76,.55)",
+                    color: "rgba(201,188,76,.55)",
                     fontFamily: MONO,
                     textDecoration: "none",
                   }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = C.gold)}
                   onMouseLeave={(e) =>
-                    (e.currentTarget.style.color = "rgba(201,168,76,.55)")
+                    (e.currentTarget.style.color = "rgba(201,188,76,.55)")
                   }
                 >
                   Follow on Medium ↗
@@ -3171,10 +3165,10 @@ export default function Home() {
                     onClick={() => setCtab(tab.k)}
                     style={{
                       flex: 1,
-                      padding: "13px 16px",
+                      padding: "13px 18px",
                       fontFamily: MONO,
                       fontSize: 9,
-                      letterSpacing: "0.16em",
+                      letterSpacing: "0.18em",
                       textTransform: "uppercase",
                       cursor: "pointer",
                       background:
@@ -3234,7 +3228,7 @@ export default function Home() {
             flexWrap: "wrap",
             justifyContent: "space-between",
             alignItems: "center",
-            gap: 16,
+            gap: 18,
           }}
         >
           <div>
@@ -3248,7 +3242,7 @@ export default function Home() {
               }}
             >
               <span style={{ color: C.gold }}>A</span>C
-              <span style={{ color: "rgba(201,168,76,.4)" }}>.</span>
+              <span style={{ color: "rgba(201,188,76,.4)" }}>.</span>
             </span>
             <p
               style={{
@@ -3309,8 +3303,8 @@ export default function Home() {
         body{overflow-x:hidden;}
 
         @keyframes ac-pulse{
-          0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(201,168,76,0.5);}
-          50%{opacity:0.4;box-shadow:0 0 0 7px rgba(201,168,76,0);}
+          0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(201,188,76,0.5);}
+          50%{opacity:0.4;box-shadow:0 0 0 7px rgba(201,188,76,0);}
         }
         @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
@@ -3369,14 +3363,14 @@ export default function Home() {
           .form-half{grid-template-columns:1fr!important;}
         }
 
-        /* ── CUSTOM SCROLLBAR ──────────────────── */
+        /* ──  SCROLLBAR ──────────────────── */
         ::-webkit-scrollbar{width:3px;}
         ::-webkit-scrollbar-track{background:transparent;}
-        ::-webkit-scrollbar-thumb{background:rgba(201,168,76,0.35);border-radius:2px;}
-        ::-webkit-scrollbar-thumb:hover{background:rgba(201,168,76,0.6);}
+        ::-webkit-scrollbar-thumb{background:rgba(201,188,76,0.35);border-radius:2px;}
+        ::-webkit-scrollbar-thumb:hover{background:rgba(201,188,76,0.6);}
 
         /* ── TEXT SELECTION ────────────────────── */
-        ::selection{background:rgba(201,168,76,0.22);color:#fff;}
+        ::selection{background:rgba(201,188,76,0.22);color:#fff;}
 
         /* ── SECTION ENTRANCE ANIMATIONS ──────── */
         .sec-reveal{opacity:0;transform:translateY(40px);}
@@ -3390,7 +3384,7 @@ export default function Home() {
           content:'';position:absolute;bottom:-2px;left:0;right:0;
           height:1px;background:#C9A84C;
           transform:scaleX(0);transform-origin:left;
-          transition:transform 0.28s cubic-bezier(0.16,1,0.3,1);
+          transition:transform 0.28s cubic-bezier(0.18,1,0.3,1);
         }
         .hover-underline:hover::after{transform:scaleX(1);}
 

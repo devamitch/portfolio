@@ -348,7 +348,7 @@ export default function Navigation() {
                     cursor: "pointer",
                     fontFamily: HN,
                     textAlign: "left",
-                    fontSize: "clamp(34px,7vw,54px)",
+                    fontSize: "clamp(24px,7vw,44px)",
                     fontWeight: 900,
                     letterSpacing: "-0.04em",
                     lineHeight: 1.1,
