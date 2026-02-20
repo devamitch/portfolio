@@ -136,7 +136,7 @@ export default function Navigation() {
       >
         <div
           style={{
-            maxWidth: 1280,
+            maxWidth: 1400,
             margin: "0 auto",
             padding: "0 clamp(16px,4vw,40px)",
             display: "flex",
