@@ -15,10 +15,14 @@ const GOLD = "#C9A84C";
 const GOLDD = "rgba(201,168,76,0.3)";
 
 const NAV_ITEMS = [
+  { label: "Home", href: "#hero" },
+  { label: "About", href: "#about" },
   { label: "Work", href: "#work" },
   { label: "Experience", href: "#experience" },
   { label: "Arsenal", href: "#skills" },
   { label: "Story", href: "#story" },
+  { label: "Contribution", href: "#github" },
+  { label: "Testimonials", href: "#testimonials" },
   { label: "Contact", href: "#contact" },
 ];
 

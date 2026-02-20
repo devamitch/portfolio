@@ -68,7 +68,7 @@ const D = {
       color: "#C9A84C",
       highlights: [
         "Led engineering team of 21+ developers across 5 production iOS + Android apps",
-        "Built game engine from scratch — C++/Swift/Kotlin bridgeless modules",
+        "Built custom game engine from scratch — C++/Swift/Kotlin bridgeless modules",
         "Architected HIPAA-compliant RAG pipelines for medical data retrieval, 99.9% uptime",
         "Computer Vision: MediaPipe for real-time retina analysis on mobile",
         "Reduced deployment time 30% via CI/CD; recruited & trained 21-person team",
@@ -1186,7 +1186,7 @@ function ContactForm() {
           : status === "sending"
             ? "Sending..."
             : status === "success"
-              ? "Sent! ✓"
+              ? "Sent"
               : "Try Again"}
       </motion.button>
       <AnimatePresence>
@@ -1204,7 +1204,7 @@ function ContactForm() {
               fontFamily: MONO,
             }}
           >
-            ✅ Message sent — I&apos;ll respond within 24 hours.
+            Message sent — I&apos;ll respond within 24 hours.
           </motion.div>
         )}
       </AnimatePresence>
@@ -2007,65 +2007,6 @@ export default function Home() {
           />
         </motion.div>
       </section>
-
-      {/* ═══ MARQUEE ═══════════════════════════════════════════ */}
-      <div
-        style={{
-          overflow: "hidden",
-          borderTop: `1px solid ${C.border}`,
-          borderBottom: `1px solid ${C.border}`,
-          padding: "16px 0",
-          background: "rgba(201,168,76,.012)",
-        }}
-      >
-        <div className="marquee-track">
-          {[...Array(2)]
-            .flatMap(() => [
-              "React Native",
-              "•",
-              "AI/ML",
-              "•",
-              "Web3",
-              "•",
-              "Solana",
-              "•",
-              "RAG Pipelines",
-              "•",
-              "Game Engine",
-              "•",
-              "Computer Vision",
-              "•",
-              "TypeScript",
-              "•",
-              "NestJS",
-              "•",
-              "AWS",
-              "•",
-              "0-to-1 Architect",
-              "•",
-            ])
-            .map((item, i) => (
-              <span
-                key={i}
-                style={{
-                  fontFamily: item === "•" ? "inherit" : HN,
-                  fontSize: item === "•" ? 12 : "clamp(12px,1.6vw,16px)",
-                  fontWeight: item === "•" ? 400 : 700,
-                  color:
-                    item === "•"
-                      ? "rgba(201,168,76,.22)"
-                      : "rgba(255,255,255,.11)",
-                  letterSpacing: item === "•" ? 0 : "0.05em",
-                  textTransform: "uppercase",
-                  whiteSpace: "nowrap",
-                  padding: "0 12px",
-                }}
-              >
-                {item}
-              </span>
-            ))}
-        </div>
-      </div>
 
       {/* ═══ ABOUT — BENTO GRID ═════════════════════════════════ */}
       <section
@@ -3363,27 +3304,104 @@ export default function Home() {
       </footer>
 
       <style>{`
-        @keyframes ac-pulse{0%,100%{opacity:1}50%{opacity:.3}}
-        @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-        .marquee-track{display:flex;animation:marquee 30s linear infinite;width:max-content;}
-        .marquee-track:hover{animation-play-state:paused;}
-        .noise-overlay{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px 200px;}
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
         html{scroll-behavior:smooth;}
-        *{box-sizing:border-box;}
-        input,textarea{font-family:inherit;}
-        .hero-grid{grid-template-columns:1.15fr .85fr;}
-        @media(max-width:960px){.hero-grid{grid-template-columns:1fr!important;}.hero-photo{display:none!important;}}
-        .stats-grid{grid-template-columns:repeat(4,1fr);}
-        @media(max-width:700px){.stats-grid{grid-template-columns:repeat(2,1fr)!important;}}
-        .bento-outer{grid-template-columns:repeat(12,1fr);}
-        @media(max-width:900px){.bento-outer{grid-template-columns:1fr!important;}.bento-outer>*{grid-column:auto!important;grid-row:auto!important;}}
-        @media(max-width:700px){.exp-row{grid-template-columns:1fr!important;}}
-        .story-spine{display:block;}
-        @media(max-width:780px){.story-spine{display:none!important;}.story-item{grid-template-columns:1fr!important;}.story-item>*{order:unset!important;padding:0!important;text-align:left!important;}}
+        body{overflow-x:hidden;}
+
+        @keyframes ac-pulse{
+          0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(201,168,76,0.5);}
+          50%{opacity:0.4;box-shadow:0 0 0 7px rgba(201,168,76,0);}
+        }
+        @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+        .marquee-track{
+          display:flex;animation:marquee 32s linear infinite;
+          width:max-content;
+        }
+        .marquee-track:hover{animation-play-state:paused;}
+
+        .noise-overlay{
+          position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0.026;
+          background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+          background-size:200px 200px;
+        }
+
+        /* ── HERO ──────────────────────────────── */
+        .hero-inner-grid{grid-template-columns:1.1fr 0.9fr;}
+        .hero-photo-col{display:flex;}
+        @media(max-width:960px){
+          .hero-inner-grid{grid-template-columns:1fr!important;}
+          .hero-photo-col{display:none!important;}
+        }
+
+        /* ── STATS BAR ─────────────────────────── */
+        .stats-bar{grid-template-columns:repeat(4,1fr);}
+        @media(max-width:680px){
+          .stats-bar{grid-template-columns:repeat(2,1fr)!important;}
+        }
+
+        /* ── STORY ─────────────────────────────── */
+        .story-center-line{display:block;}
+        .story-row{grid-template-columns:1fr 1fr;}
+        @media(max-width:900px){
+          .story-center-line{display:none!important;}
+          .story-row{grid-template-columns:1fr!important;}
+          .story-row > div:nth-child(2){display:none!important;}
+          .story-row > div:nth-child(1){text-align:left!important;}
+          .story-row > div{order:1!important;}
+        }
+
+        /* ── EXPERIENCE ────────────────────────── */
+        .exp-row{grid-template-columns:200px 1fr 180px;}
+        @media(max-width:860px){
+          .exp-row{grid-template-columns:1fr!important;}
+        }
+
+        /* ── CONTACT ───────────────────────────── */
         .contact-grid{grid-template-columns:1fr 1.3fr;}
-        @media(max-width:900px){.contact-grid{grid-template-columns:1fr!important;}}
-        .form2col{grid-template-columns:1fr 1fr;}
-        @media(max-width:500px){.form2col{grid-template-columns:1fr!important;}}
+        @media(max-width:860px){
+          .contact-grid{grid-template-columns:1fr!important;}
+        }
+
+        /* ── FORM ──────────────────────────────── */
+        .form-half{grid-template-columns:1fr 1fr;}
+        @media(max-width:540px){
+          .form-half{grid-template-columns:1fr!important;}
+        }
+
+        /* ── CUSTOM SCROLLBAR ──────────────────── */
+        ::-webkit-scrollbar{width:3px;}
+        ::-webkit-scrollbar-track{background:transparent;}
+        ::-webkit-scrollbar-thumb{background:rgba(201,168,76,0.35);border-radius:2px;}
+        ::-webkit-scrollbar-thumb:hover{background:rgba(201,168,76,0.6);}
+
+        /* ── TEXT SELECTION ────────────────────── */
+        ::selection{background:rgba(201,168,76,0.22);color:#fff;}
+
+        /* ── SECTION ENTRANCE ANIMATIONS ──────── */
+        .sec-reveal{opacity:0;transform:translateY(40px);}
+
+        /* ── HOVER UNDERLINE LINKS ─────────────── */
+        .hover-underline{
+          position:relative;
+          text-decoration:none;
+        }
+        .hover-underline::after{
+          content:'';position:absolute;bottom:-2px;left:0;right:0;
+          height:1px;background:#C9A84C;
+          transform:scaleX(0);transform-origin:left;
+          transition:transform 0.28s cubic-bezier(0.16,1,0.3,1);
+        }
+        .hover-underline:hover::after{transform:scaleX(1);}
+
+        /* ── EXP ROW HOVER ─────────────────────── */
+        .exp-row{transition:background 0.3s;}
+
+        /* ── RESPONSIVE TYPOGRAPHY ─────────────── */
+        @media(max-width:480px){
+          .hero-cta-group{flex-direction:column!important;}
+          .hero-cta-group > a{width:100%!important;justify-content:center!important;}
+        }
       `}</style>
     </main>
   );

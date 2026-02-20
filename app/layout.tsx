@@ -40,46 +40,28 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default:
-      "Amit Chakraborty — Principal Mobile Architect | React Native · AI · Blockchain · HealthTech",
+    default: "Amit Chakraborty - React Native Mobile Architect | AI & Web3",
     template: "%s | Amit Chakraborty",
   },
   description:
-    "Amit Chakraborty is a Principal Mobile Architect with 8+ years building production-grade mobile apps at the intersection of AI, blockchain, and HealthTech. Shipped 13+ apps serving 50K+ users. React Native expert, RAG pipelines, HIPAA-compliant blockchain systems. Available for senior architect and engineering leadership roles worldwide.",
+    "Amit Chakraborty is a Principal Mobile Architect with 8+ years building AI-powered, blockchain-integrated apps. Hire me for your React Native project. Based in Kolkata, India.",
   keywords: [
     "Amit Chakraborty",
+    "React Native developer",
+    "Mobile architect",
+    "React Native expert",
+    "React Native developer India",
+    "React Native consultant Kolkata",
     "Principal Mobile Architect",
-    "React Native Expert",
-    "React Native Developer India",
-    "Senior Mobile Architect Kolkata",
-    "React Native Specialist",
-    "Blockchain Developer India",
-    "HealthTech Mobile Developer",
-    "AI Mobile Development",
-    "RAG Pipeline Developer",
-    "LLM Mobile Integration",
-    "Agentic AI Developer",
-    "dApp Developer",
-    "Solidity Developer",
-    "Web3 Developer India",
-    "DeFi Developer",
-    "NFT App Developer",
-    "Full Stack Developer India",
-    "Freelance React Native Developer",
-    "Remote Mobile Architect",
-    "TypeScript Expert",
-    "Node.js Developer",
-    "Next.js Developer",
-    "Mobile Architecture Expert",
-    "HIPAA Compliant App Developer",
-    "Medical App Developer",
-    "Game Engine Developer Mobile",
-    "React Native Bridgeless Architecture",
-    "Computer Vision Mobile App",
-    "MediaPipe React Native",
-    "Hire React Native Developer",
-    "Senior React Native Developer",
-    "Mobile Team Lead India",
+    "Blockchain mobile developer",
+    "HealthTech mobile developer",
+    "AI mobile app developer",
+    "Web3 mobile developer",
+    "Solidity developer",
+    "React Native freelancer",
+    "Hire React Native developer",
+    "Senior React Native developer",
+    "Mobile development consultant",
     "devamitch",
     "devamit",
     "amit98ch",
@@ -91,8 +73,8 @@ export const metadata: Metadata = {
   ],
   creator: "Amit Chakraborty",
   publisher: "Amit Chakraborty",
-  category: "Technology, Software Engineering, Mobile Development",
-  classification: "Portfolio",
+  category: "Technology, Mobile Development, Software Engineering",
+  classification: "Professional Portfolio",
   robots: {
     index: true,
     follow: true,
@@ -111,17 +93,16 @@ export const metadata: Metadata = {
     locale: "en_IN",
     alternateLocale: ["en_US", "en_GB"],
     url: BASE_URL,
-    siteName: "Amit Chakraborty — Principal Mobile Architect",
-    title:
-      "Amit Chakraborty — Principal Mobile Architect | React Native · AI · Blockchain",
+    siteName: "Amit Chakraborty - Principal Mobile Architect",
+    title: "Amit Chakraborty - React Native Mobile Architect | AI & Web3",
     description:
-      "8+ years building production apps at the intersection of AI, blockchain, and HealthTech. 13+ apps, 50K+ users. I don't generate code — I architect systems.",
+      "Principal Mobile Architect with 8+ years building production apps. 13+ apps, 50K+ users. Specializing in React Native, blockchain, and AI integration.",
     images: [
       {
         url: `${BASE_URL}/og-image.png`,
         width: 1200,
         height: 630,
-        alt: "Amit Chakraborty — Principal Mobile Architect",
+        alt: "Amit Chakraborty - Principal Mobile Architect",
         type: "image/png",
       },
       {
@@ -140,9 +121,9 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@AmitCha92849022",
     creator: "@AmitCha92849022",
-    title: "Amit Chakraborty — Principal Mobile Architect",
+    title: "Amit Chakraborty - React Native Mobile Architect",
     description:
-      "8+ years building production apps at the intersection of AI, blockchain, and HealthTech. React Native expert. 13+ apps, 50K+ users.",
+      "Principal Mobile Architect | 8+ years | React Native · AI · Blockchain | 13+ apps, 50K+ users | Available for senior roles",
     images: [`${BASE_URL}/og-image.png`],
   },
   alternates: {
@@ -186,7 +167,7 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
 };
 
-// JSON-LD Structured Data
+// Enhanced JSON-LD Structured Data
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -280,18 +261,57 @@ const websiteSchema = {
   "@type": "WebSite",
   "@id": `${BASE_URL}/#website`,
   url: BASE_URL,
-  name: "Amit Chakraborty — Principal Mobile Architect",
+  name: "Amit Chakraborty - Principal Mobile Architect",
   description:
-    "Portfolio website of Amit Chakraborty, Principal Mobile Architect",
+    "Portfolio website of Amit Chakraborty, Principal Mobile Architect specializing in React Native, blockchain, and AI development",
   author: { "@id": `${BASE_URL}/#person` },
   potentialAction: {
     "@type": "SearchAction",
     target: {
       "@type": "EntryPoint",
-      urlTemplate: `${BASE_URL}/?q={search_term_string}`,
+      urlTemplate: `${BASE_URL}/search?q={search_term_string}`,
     },
     "query-input": "required name=search_term_string",
   },
+};
+
+// BreadcrumbList Schema for better navigation
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: BASE_URL,
+    },
+  ],
+};
+
+// ProfessionalService Schema
+const professionalServiceSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": `${BASE_URL}/#service`,
+  name: "Amit Chakraborty - React Native Development Services",
+  description:
+    "Professional React Native development, mobile architecture consulting, blockchain integration, and AI implementation services",
+  provider: { "@id": `${BASE_URL}/#person` },
+  areaServed: {
+    "@type": "Country",
+    name: "Worldwide",
+  },
+  serviceType: [
+    "React Native Development",
+    "Mobile Architecture Consulting",
+    "Blockchain Integration",
+    "AI/ML Implementation",
+    "Web3 Development",
+    "HealthTech Solutions",
+  ],
+  priceRange: "Contact for Quote",
+  url: BASE_URL,
 };
 
 export default function RootLayout({
@@ -325,6 +345,8 @@ export default function RootLayout({
         <meta name="ICBM" content="22.5726, 88.3639" />
         <meta property="og:locale" content="en_IN" />
         <meta name="msapplication-TileColor" content="#DAA520" />
+
+        {/* Enhanced Schema Markup */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
@@ -332,6 +354,16 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(professionalServiceSchema),
+          }}
         />
       </head>
       <body
