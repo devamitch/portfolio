@@ -14,34 +14,31 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import ImageWithFallback from "./ImageWithFallback";
 import MeetingScheduler from "./MeetingScheduler";
 
-gsap.registerPlugin(ScrollTrigger);
+if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   DESIGN TOKENS
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* ━━ TOKENS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 const C = {
-  bg: "#060606",
-  bg2: "#0d0d0d",
+  bg: "#050505",
+  bg2: "#0A0A0A",
+  bg3: "#0F0F0F",
   text: "#FFFFFF",
-  dim: "rgba(255,255,255,0.70)",
-  faint: "rgba(255,255,255,0.48)",
-  vfaint: "rgba(255,255,255,0.30)",
-  ghost: "rgba(255,255,255,0.14)",
+  dim: "rgba(255,255,255,0.68)",
+  faint: "rgba(255,255,255,0.42)",
+  vfaint: "rgba(255,255,255,0.24)",
+  ghost: "rgba(255,255,255,0.10)",
   border: "rgba(255,255,255,0.07)",
   card: "rgba(255,255,255,0.025)",
   gold: "#C9A84C",
-  goldD: "rgba(201,168,76,0.35)",
-  goldF: "rgba(201,168,76,0.10)",
-  goldGrad: "linear-gradient(135deg, #DAA520 0%, #F5C842 50%, #B8860B 100%)",
+  goldD: "rgba(201,168,76,0.32)",
+  goldF: "rgba(201,168,76,0.08)",
+  goldGrad: "linear-gradient(135deg,#DAA520 0%,#F5C842 50%,#B8860B 100%)",
 };
-const GRID = "rgba(201,168,76,0.025)";
-const HN = "'Helvetica Neue', Helvetica, Arial, sans-serif";
-const MONO = "'JetBrains Mono', 'Space Mono', monospace";
+const GRID = "rgba(201,168,76,0.022)";
+const HN = "'Helvetica Neue',Helvetica,Arial,sans-serif";
+const MONO = "'JetBrains Mono','Space Mono',monospace";
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   DATA
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-const DATA = {
+/* ━━ DATA ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+const D = {
   nameFirst: "Amit",
   nameLast: "Chakraborty",
   tagline: "Eight years. Sixteen apps. No shortcuts.",
@@ -51,21 +48,16 @@ const DATA = {
     "I architect systems that outlast the hype.",
   ],
   roles: ["VP Engineering", "Principal Architect", "CTO", "Technical Lead"],
-  subtitle:
-    "8+ years engineering 0-to-1 systems across React Native, AI/ML, and Web3. Every architecture I build reaches production.",
   location: "Kolkata, India",
-  availability: "Remote Worldwide",
-  started: "2017-05-01",
   email: "amit98ch@gmail.com",
   phone: "+91-9874173663",
-  website: "devamit.co.in",
   github: "https://github.com/devamitch",
   githubAlt: "https://github.com/techamit95ch",
   linkedin: "https://linkedin.com/in/devamitch",
   medium: "https://devamitch.medium.com/",
   profileImage: "/images/amit-profile.jpg",
   profileFallback: "https://github.com/devamitch.png",
-
+  started: "2017-05-01",
   experience: [
     {
       company: "Synapsis Medical Technologies",
@@ -112,7 +104,6 @@ const DATA = {
       ],
     },
   ],
-
   projects: [
     {
       id: "spyk",
@@ -121,7 +112,7 @@ const DATA = {
       badge: "FLAGSHIP · HEALTHTECH",
       featured: true,
       tagline: "A game engine I built from nothing.",
-      desc: "Custom game engine built from absolute scratch — zero dependencies, zero shortcuts. LLM-based dynamic health task generation, XP progression system, RAG pipeline for medical context. The hardest system I've ever architected.",
+      desc: "Custom game engine built from absolute scratch — zero dependencies, zero shortcuts. LLM-based dynamic health task generation, XP progression system, RAG pipeline for medical context.",
       impact: [
         "Custom game engine — zero external deps",
         "LLM task generation at runtime",
@@ -143,7 +134,7 @@ const DATA = {
       badge: "AI PLATFORM",
       featured: true,
       tagline: "One brain for all your marketing channels.",
-      desc: "Enterprise AI orchestration platform unifying Meta, TikTok, Shopify and 5+ marketing channels. Autonomous campaign analysis, real-time cross-platform optimization, agentic AI workflows.",
+      desc: "Enterprise AI orchestration platform unifying Meta, TikTok, Shopify and 5+ marketing channels. Autonomous campaign analysis, real-time cross-platform optimization.",
       impact: [
         "5+ platforms unified into one AI brain",
         "Autonomous campaign recommendations",
@@ -165,7 +156,7 @@ const DATA = {
       badge: "WOMEN'S HEALTH",
       featured: true,
       tagline: "Wellness that finally understands women.",
-      desc: "Privacy-first women's health ecosystem with local-first storage and AI-driven wellness algorithms. Adaptive meditation engine, cycle tracking, mood journaling, personalized insights. Empathy-first design.",
+      desc: "Privacy-first women's health ecosystem with local-first storage and AI-driven wellness algorithms. Adaptive meditation engine, cycle tracking, mood journaling.",
       impact: [
         "Personalised cycle + mood + sleep tracking",
         "AI wellness recommendations engine",
@@ -187,7 +178,7 @@ const DATA = {
       badge: "MEDTECH",
       featured: false,
       tagline: "Your phone becomes a medical device.",
-      desc: "Real-time eye health monitoring using MediaPipe on-device. Retina coverage analysis, blink rate detection, redness assessment, and luminance tracking — medical-grade computer vision on consumer smartphones.",
+      desc: "Real-time eye health monitoring using MediaPipe on-device. Retina coverage analysis, blink rate detection, redness assessment.",
       impact: [
         "Medical-grade CV on consumer hardware",
         "Real-time retina analysis",
@@ -197,13 +188,30 @@ const DATA = {
       color: "#2196F3",
     },
     {
+      id: "vulcan",
+      name: "Vulcan Eleven",
+      role: "Lead Mobile Engineer",
+      badge: "SPORTS · FINTECH",
+      featured: false,
+      tagline: "50,000 users. Zero downtime.",
+      desc: "Fantasy sports platform with 60fps performance. 50K+ users, Razorpay + Binance Pay dual-payment, 35% transaction growth.",
+      impact: [
+        "50K+ active users",
+        "35% transaction growth",
+        "Binance Pay + Razorpay integration",
+      ],
+      tech: ["React Native", "Reanimated", "C++", "Razorpay", "Binance Pay"],
+      color: "#FF6B35",
+      link: "https://apps.apple.com/app/vulcan-eleven/id6462420052",
+    },
+    {
       id: "maskwa",
       name: "Maskwa",
-      role: "Lead Architect & Strategic Partner",
+      role: "Lead Architect",
       badge: "SOCIAL IMPACT",
       featured: false,
       tagline: "Technology that honors culture.",
-      desc: "Platform for Canadian Indigenous communities — cultural preservation, community development, and economic empowerment through technology. Infrastructure that respects heritage while enabling the future.",
+      desc: "Platform for Canadian Indigenous communities — cultural preservation, community development, and economic empowerment.",
       impact: [
         "Cultural preservation through technology",
         "Economic empowerment layer",
@@ -218,46 +226,13 @@ const DATA = {
       color: "#FF9800",
     },
     {
-      id: "vulcan",
-      name: "Vulcan Eleven",
-      role: "Lead Mobile Engineer",
-      badge: "SPORTS · FINTECH",
-      featured: false,
-      tagline: "50,000 users. Zero downtime.",
-      desc: "Fantasy sports platform with 60fps performance. 50K+ users, Razorpay + Binance Pay dual-payment, 35% transaction growth. Post-merger redesign using React Native Reanimated and native C++ modules.",
-      impact: [
-        "50K+ active users",
-        "35% transaction growth",
-        "Binance Pay + Razorpay integration",
-      ],
-      tech: ["React Native", "Reanimated", "C++", "Razorpay", "Binance Pay"],
-      color: "#FF6B35",
-      link: "https://apps.apple.com/app/vulcan-eleven/id6462420052",
-    },
-    {
-      id: "be4you",
-      name: "Be4You",
-      role: "Lead Architect",
-      badge: "SOCIAL · DATING",
-      featured: false,
-      tagline: "Full MVP. Built for seed funding.",
-      desc: "Full dating app MVP: real-time chat via Socket.io, Zoom-style video calls, live geolocation, social + Apple auth. Delivered for seed funding round in under 90 days. Zero compromises.",
-      impact: [
-        "Full MVP for seed round",
-        "Real-time video + chat + location",
-        "90-day delivery",
-      ],
-      tech: ["WebRTC", "Socket.io", "Reanimated", "Video", "Node.js"],
-      color: "#00BBF9",
-    },
-    {
       id: "defi11",
       name: "DeFi11",
       role: "Web3 Architect",
       badge: "DEFI",
       featured: false,
       tagline: "Fully on-chain. No compromise.",
-      desc: "Fully decentralized fantasy sports. Smart contract prize pools, on-chain tournament logic, NFT marketplace, and complex staking mechanisms on Ethereum. Zero centralized custody.",
+      desc: "Fully decentralized fantasy sports. Smart contract prize pools, on-chain tournament logic, NFT marketplace on Ethereum.",
       impact: [
         "100% on-chain prize pools",
         "Smart contract architecture",
@@ -268,13 +243,29 @@ const DATA = {
       link: "https://apps.apple.com/app/defi11-fantasy-sports-app/id1608967244",
     },
     {
+      id: "be4you",
+      name: "Be4You",
+      role: "Lead Architect",
+      badge: "SOCIAL · DATING",
+      featured: false,
+      tagline: "Full MVP. Built for seed funding.",
+      desc: "Full dating app MVP: real-time chat via Socket.io, Zoom-style video calls, live geolocation, social + Apple auth. Delivered in under 90 days.",
+      impact: [
+        "Full MVP for seed round",
+        "Real-time video + chat + location",
+        "90-day delivery",
+      ],
+      tech: ["WebRTC", "Socket.io", "Reanimated", "Video", "Node.js"],
+      color: "#00BBF9",
+    },
+    {
       id: "musicx",
       name: "MusicX",
       role: "Senior Engineer",
       badge: "WEB3 · MUSIC",
       featured: false,
       tagline: "Blockchain royalties for artists.",
-      desc: "Music competition platform with blockchain-backed royalties. Native C++ Modules, 60fps animations, Twitter + Spotify API integration. High-performance streaming on React Native.",
+      desc: "Music competition platform with blockchain-backed royalties. Native C++ Modules, 60fps animations, Twitter + Spotify API.",
       impact: [
         "Blockchain royalty system",
         "C++ native modules",
@@ -291,7 +282,7 @@ const DATA = {
       badge: "PROPTECH",
       featured: false,
       tagline: "Housing automation, reimagined.",
-      desc: "Property management platform with complex payment gateways, subscription billing (PayU + Google Pay), GraphQL APIs, Socket.io real-time notifications. Pixel-perfect iOS from Figma.",
+      desc: "Property management platform with complex payment gateways, subscription billing (PayU + Google Pay), GraphQL APIs, Socket.io real-time notifications.",
       impact: [
         "Subscription billing layer",
         "Real-time notifications",
@@ -302,7 +293,6 @@ const DATA = {
       link: "https://apps.apple.com/app/housezy/id6471949955",
     },
   ],
-
   skills: [
     {
       cat: "Mobile",
@@ -396,100 +386,104 @@ const DATA = {
       ],
     },
   ],
-
   education: [
     {
       degree: "MCA",
       school: "Techno Main Salt Lake, Kolkata",
       period: "2018—2021",
+      gpa: "8.61 CGPA",
     },
     {
       degree: "BCA",
       school: "The Heritage Academy, Kolkata",
       period: "2014—2017",
+      gpa: "",
     },
   ],
-
   story: [
     {
       yr: "2017",
       title: "The Origin",
-      text: "PHP developer. Government projects. 13 secured, restructured, and shipped. Built GST portals, Android apps, and retailer software from zero. Real engineering means owning security, performance, and delivery.",
+      text: "PHP developer. Government projects. 13 secured, restructured, and shipped. Built GST portals, Android apps, and retailer software from zero.",
+      color: "#C9A84C",
     },
     {
-      yr: "2019–21",
+      yr: "2019",
       title: "MCA & Upskilling",
-      text: "Master's in Computer Applications. 8.61 CGPA. Coding Group Secretary. React, React Native, Web3 foundations, and freelance projects running in parallel.",
+      text: "Master's in Computer Applications. 8.61 CGPA. React, React Native, Web3 foundations, and freelance projects running in parallel.",
+      color: "#F5C842",
     },
     {
       yr: "2021",
       title: "Web3 & Blockchain",
-      text: "Joined NonceBlox. Deep-dived into Solidity, DeFi, NFTs. Built DeFi11 — fully decentralized fantasy sports with on-chain prize pools. Shipped 13+ apps over 3 years.",
+      text: "Joined NonceBlox. Deep-dived into Solidity, DeFi, NFTs. Built DeFi11 — fully decentralized fantasy sports. Shipped 13+ apps over 3 years.",
+      color: "#DAA520",
     },
     {
       yr: "2023",
       title: "The Lead Role",
-      text: "Lead Mobile Developer. Owned architecture for MusicX, Housezy, Vulcan Eleven. 50,000+ real users. Razorpay + Binance Pay. C++ Native Modules. React Native at its technical ceiling.",
+      text: "Lead Mobile Developer. Owned architecture for MusicX, Housezy, Vulcan Eleven. 50,000+ real users. Razorpay + Binance Pay. C++ Native Modules.",
+      color: "#B8860B",
     },
     {
       yr: "2025",
       title: "AI + HealthTech",
-      text: "Custom game engine from scratch. RAG pipelines for HIPAA-compliant medical data. Women's health platform at scale. Blockchain health records. Bridgeless React Native migration. VP-level operations.",
+      text: "Custom game engine from scratch. RAG pipelines for HIPAA-compliant medical data. Women's health platform at scale. VP-level operations.",
+      color: "#C9A84C",
     },
     {
       yr: "Now",
       title: "Open to the Right Role",
-      text: "VP Engineering. CTO. Principal Architect. The title matters less than the mission. I build systems that scale, lead teams that deliver, and turn technical vision into business outcomes.",
+      text: "VP Engineering. CTO. Principal Architect. The title matters less than the mission. I build systems that scale and turn technical vision into business outcomes.",
+      color: "#F5C842",
     },
   ],
-
   testimonials: [
     {
       name: "Kartik Kalia",
       role: "Full Stack Developer · AWS",
       company: "NonceBlox",
       seniority: "DIRECT MANAGER",
-      seniorityColor: "#C9A84C",
-      rel: "Managed Amit directly · 3 years",
+      col: "#C9A84C",
+      rel: "Managed Amit · 3 years",
+      date: "Nov 2024",
       text: "I had the pleasure of working with Amit for three years and witnessed his impressive growth from Front-End Developer to Front-End Lead. His expertise and dedication make him a valuable asset to any team.",
-      li: "https://www.linkedin.com/in/kartikkalia/",
-      date: "November 2024",
+      li: "https://linkedin.com/in/kartikkalia/",
     },
     {
       name: "Neha Goel",
       role: "HR Professional · 15+ Years",
       company: "NonceBlox",
       seniority: "SENIOR LEADERSHIP",
-      seniorityColor: "#78909C",
-      rel: "Senior colleague — cross-functional",
+      col: "#78909C",
+      rel: "Senior colleague",
+      date: "Oct 2024",
       text: "Amit had been an amicable and diligent developer, one of the most dependable Engineers when it comes to delivery or urgent closures. His capability to rebuild any project from scratch is remarkable.",
-      li: "https://www.linkedin.com/in/neha-goel/",
-      date: "October 2024",
+      li: "https://linkedin.com/in/neha-goel/",
     },
     {
       name: "Puja Rani Tripathy",
       role: "Software Developer",
       company: "Synapsis Medical",
       seniority: "TEAM MEMBER",
-      seniorityColor: "#4FC3F7",
+      col: "#4FC3F7",
       rel: "Reported to Amit directly",
-      text: "Amit played a key role in code reviews, ensuring quality and consistency across the codebase while guiding multiple teams through complex technical tasks. Reliable, technically strong, and a great support.",
-      li: "https://www.linkedin.com/in/puja-rani-tripathy/",
-      date: "February 2026",
+      date: "Feb 2026",
+      text: "Amit played a key role in code reviews, ensuring quality and consistency across the codebase while guiding multiple teams through complex technical tasks.",
+      li: "https://linkedin.com/in/puja-rani-tripathy/",
     },
     {
       name: "Varun Chodha",
-      role: "Senior Full-Stack Developer · MERN",
+      role: "Senior Full-Stack · MERN",
       company: "NonceBlox",
       seniority: "MENTEE → SENIOR",
-      seniorityColor: "#81C784",
-      rel: "Grew under Amit's mentorship",
+      col: "#81C784",
+      rel: "Grew under Amit's guidance",
+      date: "Oct 2024",
       text: "Amit played a pivotal role in mentoring me, sharing his profound knowledge of Redux, React Native, and frontend concepts. His enthusiasm for coding and pursuit for perfection are truly inspiring.",
-      li: "https://www.linkedin.com/in/varun-chodha/",
-      date: "October 2024",
+      li: "https://linkedin.com/in/varun-chodha/",
     },
   ],
-
   blogs: [
     {
       title: "React Native Bridgeless Architecture: What They Don't Tell You",
@@ -512,252 +506,195 @@ const DATA = {
   ],
 };
 
-const getYears = () =>
-  new Date().getFullYear() - new Date(DATA.started).getFullYear();
+const getYrs = () =>
+  Math.floor(
+    (Date.now() - new Date(D.started).getTime()) /
+      (365.25 * 24 * 60 * 60 * 1000),
+  );
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   CONTRIBUTION GRAPH
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* ━━ SCRAMBLE HOOK ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function useScramble(target: string, speed = 35) {
+  const [text, setText] = useState(target);
+  const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$!";
+  useEffect(() => {
+    let iter = 0;
+    const id = setInterval(() => {
+      setText(
+        target
+          .split("")
+          .map((c, i) =>
+            i < iter
+              ? c
+              : c === " "
+                ? " "
+                : CHARS[Math.floor(Math.random() * CHARS.length)],
+          )
+          .join(""),
+      );
+      if (iter >= target.length) clearInterval(id);
+      iter += 0.5;
+    }, speed);
+    return () => clearInterval(id);
+  }, [target]);
+  return text;
+}
+
+/* ━━ COUNTER ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
+  const [val, setVal] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      ([e]) => {
+        if (!e.isIntersecting) return;
+        obs.disconnect();
+        let n = 0;
+        const go = () => {
+          n += Math.ceil(to / 60);
+          setVal(Math.min(n, to));
+          if (n < to) requestAnimationFrame(go);
+        };
+        requestAnimationFrame(go);
+      },
+      { threshold: 0.5 },
+    );
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, [to]);
+  return (
+    <span ref={ref}>
+      {val.toLocaleString()}
+      {suffix}
+    </span>
+  );
+}
+
+/* ━━ CONTRIBUTION GRAPH ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 function ContribGraph() {
-  const weeks = 53;
   const data = useMemo(
     () =>
-      Array.from({ length: weeks }, (_, w) =>
+      Array.from({ length: 53 }, (_, w) =>
         Array.from({ length: 7 }, (_, d) => {
-          const seed = ((w * 7 + d) * 2654435761) >>> 0;
-          const isWeekend = d === 0 || d === 6;
-          if ((seed % 100) / 100 > (isWeekend ? 0.3 : 0.65)) return 0;
-          return Math.floor(seed % 5);
+          const s = ((w * 7 + d) * 2654435761) >>> 0;
+          return (s % 100) / 100 > (d === 0 || d === 6 ? 0.3 : 0.65)
+            ? 0
+            : Math.floor(s % 5);
         }),
       ),
     [],
   );
-  const colors = [
-    "rgba(201,168,76,0.07)",
-    "rgba(201,168,76,0.22)",
-    "rgba(201,168,76,0.42)",
-    "rgba(201,168,76,0.68)",
-    "rgba(201,168,76,0.92)",
-  ];
-  const months = [
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-    "Jan",
-    "Feb",
+  const cols = [
+    "rgba(201,168,76,.07)",
+    "rgba(201,168,76,.22)",
+    "rgba(201,168,76,.42)",
+    "rgba(201,168,76,.68)",
+    "rgba(201,168,76,.95)",
   ];
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      style={{
-        padding: 24,
-        border: `1px solid rgba(201,168,76,0.15)`,
-        background: "rgba(201,168,76,0.03)",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginBottom: 16,
-          alignItems: "flex-start",
-        }}
-      >
-        <div>
-          <div
-            style={{
-              fontSize: 9,
-              color: "rgba(201,168,76,0.7)",
-              letterSpacing: "0.28em",
-              textTransform: "uppercase",
-              fontFamily: MONO,
-              marginBottom: 4,
-            }}
-          >
-            GitHub Activity
-          </div>
-          <div
-            style={{
-              fontSize: 28,
-              fontWeight: 900,
-              color: "#fff",
-              letterSpacing: "-0.03em",
-              fontFamily: HN,
-            }}
-          >
-            2,029 <span style={{ color: C.gold }}>contributions</span>
-          </div>
-          <div
-            style={{
-              fontSize: 11,
-              color: C.vfaint,
-              marginTop: 3,
-              fontFamily: MONO,
-            }}
-          >
-            Last 12 months · Mostly private repos
-          </div>
+    <div style={{ overflowX: "auto" }}>
+      <div style={{ minWidth: 680 }}>
+        <div style={{ display: "flex", gap: 2 }}>
+          {data.map((wk, wi) => (
+            <div
+              key={wi}
+              style={{ display: "flex", flexDirection: "column", gap: 2 }}
+            >
+              {wk.map((lv, di) => (
+                <motion.div
+                  key={di}
+                  initial={{ scale: 0, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: (wi * 7 + di) * 0.0003, duration: 0.15 }}
+                  whileHover={{ scale: 1.6 }}
+                  style={{
+                    width: 10,
+                    height: 10,
+                    borderRadius: 2,
+                    background: cols[lv],
+                    cursor: "pointer",
+                  }}
+                />
+              ))}
+            </div>
+          ))}
         </div>
         <div
           style={{
-            fontSize: 40,
-            fontWeight: 900,
-            color: "rgba(201,168,76,0.08)",
-            lineHeight: 1,
-            fontFamily: HN,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            gap: 6,
+            marginTop: 8,
           }}
         >
-          #1
-        </div>
-      </div>
-      <div style={{ overflowX: "auto" }}>
-        <div style={{ minWidth: 720 }}>
-          <div style={{ display: "flex", gap: 14, marginBottom: 6 }}>
-            {months.map((m, i) => (
-              <div
-                key={i}
-                style={{
-                  fontSize: 9,
-                  color: C.ghost,
-                  fontFamily: MONO,
-                  width: 40,
-                }}
-              >
-                {m}
-              </div>
-            ))}
-          </div>
-          <div style={{ display: "flex", gap: 2 }}>
-            {data.map((week, wi) => (
-              <div
-                key={wi}
-                style={{ display: "flex", flexDirection: "column", gap: 2 }}
-              >
-                {week.map((level, di) => (
-                  <motion.div
-                    key={di}
-                    initial={{ scale: 0, opacity: 0 }}
-                    whileInView={{ scale: 1, opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{
-                      delay: (wi * 7 + di) * 0.0004,
-                      duration: 0.2,
-                    }}
-                    style={{
-                      width: 11,
-                      height: 11,
-                      borderRadius: 2,
-                      background: colors[level],
-                      cursor: "pointer",
-                    }}
-                    whileHover={{ scale: 1.4 }}
-                  />
-                ))}
-              </div>
-            ))}
-          </div>
-          <div
+          <span
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-end",
-              gap: 6,
-              marginTop: 8,
+              fontSize: 9,
+              color: "rgba(201,168,76,.45)",
+              fontFamily: MONO,
             }}
           >
-            <span
-              style={{
-                fontSize: 9,
-                color: "rgba(201,168,76,0.5)",
-                fontFamily: MONO,
-              }}
-            >
-              Less
-            </span>
-            {colors.map((c, i) => (
-              <div
-                key={i}
-                style={{
-                  width: 11,
-                  height: 11,
-                  borderRadius: 2,
-                  background: c,
-                }}
-              />
-            ))}
-            <span
-              style={{
-                fontSize: 9,
-                color: "rgba(201,168,76,0.5)",
-                fontFamily: MONO,
-              }}
-            >
-              More
-            </span>
-          </div>
+            Less
+          </span>
+          {cols.map((c, i) => (
+            <div
+              key={i}
+              style={{ width: 10, height: 10, borderRadius: 2, background: c }}
+            />
+          ))}
+          <span
+            style={{
+              fontSize: 9,
+              color: "rgba(201,168,76,.45)",
+              fontFamily: MONO,
+            }}
+          >
+            More
+          </span>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   SCROLL PROGRESS
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-function ScrollProgress() {
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, { stiffness: 80, damping: 25 });
+/* ━━ SECTION LABEL ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function SLabel({ num, children }: { num?: string; children: string }) {
   return (
     <motion.div
-      style={{
-        scaleX,
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        height: 2,
-        background: C.goldGrad,
-        transformOrigin: "left",
-        zIndex: 999,
-      }}
-    />
-  );
-}
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   SECTION LABEL
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-function SLabel({ children }: { children: string }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, x: -20 }}
+      initial={{ opacity: 0, x: -24 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
       style={{
         display: "flex",
         alignItems: "center",
-        gap: 12,
-        marginBottom: 20,
+        gap: 14,
+        marginBottom: 24,
       }}
     >
-      <div style={{ height: 1, width: 40, background: C.gold }} />
+      {num && (
+        <span
+          style={{
+            fontFamily: MONO,
+            fontSize: 9,
+            color: "rgba(201,168,76,.4)",
+            letterSpacing: "0.3em",
+          }}
+        >
+          {num}
+        </span>
+      )}
+      <div
+        style={{ height: 1, width: 40, background: C.gold, flexShrink: 0 }}
+      />
       <span
         style={{
+          fontFamily: MONO,
           fontSize: 10,
           color: C.gold,
-          letterSpacing: "0.3em",
+          letterSpacing: "0.32em",
           textTransform: "uppercase",
-          fontFamily: MONO,
         }}
       >
         {children}
@@ -766,29 +703,66 @@ function SLabel({ children }: { children: string }) {
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   PROJECT CARD — 3D TILT
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-function ProjectCard({ p, i }: { p: (typeof DATA.projects)[0]; i: number }) {
+/* ━━ SECTION HEADING ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function SH({
+  l1,
+  l2,
+  size = "clamp(36px,5vw,68px)",
+}: {
+  l1: string;
+  l2?: string;
+  size?: string;
+}) {
+  return (
+    <motion.h2
+      initial={{ opacity: 0, y: 32 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      style={{
+        fontSize: size,
+        fontWeight: 900,
+        letterSpacing: "-0.04em",
+        lineHeight: 0.92,
+        marginBottom: 48,
+        fontFamily: HN,
+        color: C.text,
+      }}
+    >
+      {l1}
+      {l2 && (
+        <>
+          <br />
+          <span style={{ color: "rgba(255,255,255,.12)" }}>{l2}</span>
+        </>
+      )}
+    </motion.h2>
+  );
+}
+
+/* ━━ 3D TILT PROJECT CARD ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function ProjectCard({ p, i }: { p: (typeof D.projects)[0]; i: number }) {
   const [hov, setHov] = useState(false);
   const rx = useMotionValue(0),
     ry = useMotionValue(0);
+  const srx = useSpring(rx, { stiffness: 300, damping: 25 });
+  const sry = useSpring(ry, { stiffness: 300, damping: 25 });
   const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const r = e.currentTarget.getBoundingClientRect();
-    rx.set(((e.clientY - r.top) / r.height - 0.5) * 8);
-    ry.set(-((e.clientX - r.left) / r.width - 0.5) * 8);
+    rx.set(((e.clientY - r.top) / r.height - 0.5) * 10);
+    ry.set(-((e.clientX - r.left) / r.width - 0.5) * 10);
   };
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 60 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ delay: i * 0.07, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ delay: i * 0.06, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       style={{
-        rotateX: rx,
-        rotateY: ry,
+        rotateX: srx,
+        rotateY: sry,
         transformStyle: "preserve-3d",
-        perspective: 900,
+        perspective: 1000,
       }}
       onMouseMove={onMove}
       onMouseEnter={() => setHov(true)}
@@ -800,190 +774,218 @@ function ProjectCard({ p, i }: { p: (typeof DATA.projects)[0]; i: number }) {
     >
       <div
         style={{
-          border: `1px solid ${hov ? "rgba(201,168,76,0.45)" : p.featured ? "rgba(201,168,76,0.18)" : C.border}`,
+          border: `1px solid ${hov ? "rgba(201,168,76,.5)" : p.featured ? "rgba(201,168,76,.16)" : C.border}`,
           background: p.featured
-            ? "linear-gradient(135deg, rgba(201,168,76,0.04) 0%, transparent 60%)"
+            ? `linear-gradient(135deg,rgba(201,168,76,.05) 0%,transparent 55%)`
             : C.card,
           padding: p.featured ? 32 : 26,
-          transition: "border-color 0.3s, box-shadow 0.3s",
-          boxShadow: hov ? "0 24px 60px rgba(0,0,0,0.25)" : "none",
           height: "100%",
+          position: "relative",
+          overflow: "hidden",
+          transition: "border-color .3s,box-shadow .3s",
+          boxShadow: hov
+            ? `0 24px 60px rgba(0,0,0,.3),0 0 0 1px ${p.color}20`
+            : "none",
         }}
       >
-        <div
+        <motion.div
+          animate={{ scaleY: hov ? 1 : 0.3 }}
           style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "flex-start",
-            marginBottom: 14,
+            position: "absolute",
+            top: 0,
+            left: 0,
+            bottom: 0,
+            width: 2,
+            background: p.color || C.gold,
+            transformOrigin: "top",
           }}
-        >
-          <div>
-            <div
-              style={{
-                fontSize: 9,
-                color: p.color || C.gold,
-                letterSpacing: "0.3em",
-                textTransform: "uppercase",
-                fontFamily: MONO,
-                marginBottom: 8,
-                opacity: 0.85,
-              }}
-            >
-              {p.badge}
-            </div>
-            <h3
-              style={{
-                fontSize: p.featured ? 26 : 20,
-                fontWeight: 900,
-                color: hov ? C.gold : C.text,
-                letterSpacing: "-0.025em",
-                transition: "color 0.2s",
-                fontFamily: HN,
-                margin: 0,
-                lineHeight: 1.1,
-              }}
-            >
-              {p.name}
-            </h3>
-          </div>
-          {p.featured && (
-            <div
-              style={{
-                fontSize: 9,
-                padding: "5px 10px",
-                background: "rgba(201,168,76,0.1)",
-                border: `1px solid rgba(201,168,76,0.3)`,
-                color: C.gold,
-                fontFamily: MONO,
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                flexShrink: 0,
-              }}
-            >
-              FEATURED
-            </div>
-          )}
-        </div>
-        <div
-          style={{
-            fontSize: 11,
-            color: C.vfaint,
-            fontFamily: MONO,
-            marginBottom: 10,
-            letterSpacing: "0.08em",
-          }}
-        >
-          {p.role}
-        </div>
-        {p.tagline && (
+        />
+        <div style={{ paddingLeft: 12 }}>
           <div
             style={{
-              fontSize: 14,
-              color: C.gold,
-              fontStyle: "italic",
-              marginBottom: 12,
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "flex-start",
+              marginBottom: 14,
+            }}
+          >
+            <div>
+              <div
+                style={{
+                  fontSize: 8,
+                  color: p.color,
+                  letterSpacing: "0.32em",
+                  textTransform: "uppercase",
+                  fontFamily: MONO,
+                  marginBottom: 8,
+                  opacity: 0.85,
+                }}
+              >
+                {p.badge}
+              </div>
+              <h3
+                style={{
+                  fontSize: p.featured ? 24 : 19,
+                  fontWeight: 900,
+                  margin: 0,
+                  color: hov ? C.gold : C.text,
+                  letterSpacing: "-0.02em",
+                  lineHeight: 1.1,
+                  fontFamily: HN,
+                  transition: "color .2s",
+                }}
+              >
+                {p.name}
+              </h3>
+            </div>
+            {p.featured && (
+              <span
+                style={{
+                  fontSize: 8,
+                  padding: "4px 9px",
+                  background: C.goldF,
+                  border: `1px solid ${C.goldD}`,
+                  color: C.gold,
+                  fontFamily: MONO,
+                  letterSpacing: "0.22em",
+                  textTransform: "uppercase",
+                  flexShrink: 0,
+                }}
+              >
+                FEATURED
+              </span>
+            )}
+          </div>
+          <div
+            style={{
+              fontSize: 10,
+              color: C.vfaint,
+              fontFamily: MONO,
+              marginBottom: 10,
+              letterSpacing: "0.08em",
+            }}
+          >
+            {p.role}
+          </div>
+          {p.tagline && (
+            <div
+              style={{
+                fontSize: 13,
+                color: C.gold,
+                fontStyle: "italic",
+                marginBottom: 12,
+                fontWeight: 300,
+              }}
+            >
+              "{p.tagline}"
+            </div>
+          )}
+          <p
+            style={{
+              fontSize: 13,
+              color: C.dim,
+              lineHeight: 1.75,
+              marginBottom: 18,
               fontWeight: 300,
             }}
           >
-            {p.tagline}
-          </div>
-        )}
-        <p
-          style={{
-            fontSize: 13,
-            color: C.dim,
-            lineHeight: 1.75,
-            marginBottom: 18,
-            fontWeight: 300,
-          }}
-        >
-          {p.desc}
-        </p>
-        <div
-          style={{
-            padding: "12px 16px",
-            borderLeft: `2px solid ${C.goldD}`,
-            background: "rgba(201,168,76,0.03)",
-            marginBottom: 18,
-          }}
-        >
+            {p.desc}
+          </p>
           <div
             style={{
-              fontSize: 9,
-              color: C.gold,
-              letterSpacing: "0.3em",
-              textTransform: "uppercase",
-              fontFamily: MONO,
-              marginBottom: 8,
+              padding: "10px 14px",
+              borderLeft: `2px solid ${C.goldD}`,
+              background: "rgba(201,168,76,.025)",
+              marginBottom: 16,
             }}
           >
-            Impact
-          </div>
-          {p.impact.map((item, idx) => (
             <div
-              key={idx}
               style={{
-                fontSize: 12,
-                color: C.dim,
-                marginBottom: 3,
-                display: "flex",
-                alignItems: "center",
-                gap: 8,
-              }}
-            >
-              <span style={{ color: C.gold, flexShrink: 0 }}>→</span>
-              {item}
-            </div>
-          ))}
-        </div>
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: 6,
-            marginBottom: 12,
-          }}
-        >
-          {p.tech.map((t) => (
-            <span
-              key={t}
-              style={{
-                fontSize: 9,
-                padding: "4px 8px",
-                border: `1px solid ${hov ? "rgba(201,168,76,0.25)" : C.border}`,
-                color: hov ? "rgba(201,168,76,0.75)" : C.vfaint,
+                fontSize: 8,
+                color: C.gold,
+                letterSpacing: "0.32em",
+                textTransform: "uppercase",
                 fontFamily: MONO,
-                transition: "all 0.2s",
+                marginBottom: 7,
               }}
             >
-              {t}
-            </span>
-          ))}
-        </div>
-        {"link" in p && (p as any).link && (
-          <a
-            href={(p as any).link}
-            target="_blank"
-            rel="noreferrer"
+              Impact
+            </div>
+            {p.impact.map((item, idx) => (
+              <div
+                key={idx}
+                style={{
+                  fontSize: 12,
+                  color: C.dim,
+                  marginBottom: 3,
+                  display: "flex",
+                  alignItems: "flex-start",
+                  gap: 8,
+                }}
+              >
+                <span
+                  style={{
+                    color: p.color || C.gold,
+                    flexShrink: 0,
+                    fontSize: 10,
+                  }}
+                >
+                  →
+                </span>
+                {item}
+              </div>
+            ))}
+          </div>
+          <div
             style={{
-              fontSize: 11,
-              color: "rgba(201,168,76,0.6)",
-              fontFamily: MONO,
-              textDecoration: "none",
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 5,
+              marginBottom: 12,
             }}
           >
-            View Live ↗
-          </a>
-        )}
+            {p.tech.map((t) => (
+              <span
+                key={t}
+                style={{
+                  fontSize: 8,
+                  padding: "3px 8px",
+                  border: `1px solid ${hov ? "rgba(201,168,76,.22)" : C.border}`,
+                  color: hov ? "rgba(201,168,76,.7)" : C.vfaint,
+                  fontFamily: MONO,
+                  transition: "all .2s",
+                }}
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+          {"link" in p && (p as any).link && (
+            <a
+              href={(p as any).link}
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                fontSize: 10,
+                color: "rgba(201,168,76,.55)",
+                fontFamily: MONO,
+                textDecoration: "none",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = C.gold)}
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.color = "rgba(201,168,76,.55)")
+              }
+            >
+              View Live ↗
+            </a>
+          )}
+        </div>
       </div>
     </motion.div>
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   CONTACT FORM (inline, no file upload)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* ━━ CONTACT FORM ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 function ContactForm() {
   const [form, setForm] = useState({
     name: "",
@@ -996,7 +998,6 @@ function ContactForm() {
   const [status, setStatus] = useState<
     "idle" | "sending" | "success" | "error"
   >("idle");
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name || !form.email || !form.message) return;
@@ -1023,19 +1024,17 @@ function ContactForm() {
       setTimeout(() => setStatus("idle"), 4000);
     }
   };
-
   const inp: React.CSSProperties = {
-    padding: "14px 16px",
+    padding: "13px 14px",
     fontSize: 13,
     outline: "none",
     width: "100%",
     boxSizing: "border-box",
-    transition: "border-color 0.2s, box-shadow 0.2s",
-    background: "rgba(255,255,255,0.025)",
+    transition: "border-color .2s,box-shadow .2s",
+    background: "rgba(255,255,255,.02)",
     border: `1px solid ${C.border}`,
     color: C.text,
     fontFamily: "inherit",
-    borderRadius: 0,
   };
   const lbl: React.CSSProperties = {
     display: "block",
@@ -1047,13 +1046,27 @@ function ContactForm() {
     textTransform: "uppercase",
     fontFamily: MONO,
   };
-
+  const onFocus = (
+    e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    e.target.style.borderColor = "rgba(201,168,76,.38)";
+    e.target.style.boxShadow = "0 0 0 3px rgba(201,168,76,.05)";
+  };
+  const onBlur = (
+    e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    e.target.style.borderColor = C.border;
+    e.target.style.boxShadow = "none";
+  };
   return (
     <form
       onSubmit={handleSubmit}
-      style={{ display: "flex", flexDirection: "column", gap: 14 }}
+      style={{ display: "flex", flexDirection: "column", gap: 13 }}
     >
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+      <div
+        style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 13 }}
+        className="form2col"
+      >
         <div>
           <label style={{ ...lbl, color: C.gold }}>Name *</label>
           <input
@@ -1063,14 +1076,8 @@ function ContactForm() {
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
             style={inp}
-            onFocus={(e) => {
-              e.target.style.borderColor = "rgba(201,168,76,0.4)";
-              e.target.style.boxShadow = "0 0 0 3px rgba(201,168,76,0.06)";
-            }}
-            onBlur={(e) => {
-              e.target.style.borderColor = C.border;
-              e.target.style.boxShadow = "none";
-            }}
+            onFocus={onFocus}
+            onBlur={onBlur}
           />
         </div>
         <div>
@@ -1082,18 +1089,15 @@ function ContactForm() {
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
             style={inp}
-            onFocus={(e) => {
-              e.target.style.borderColor = "rgba(201,168,76,0.4)";
-              e.target.style.boxShadow = "0 0 0 3px rgba(201,168,76,0.06)";
-            }}
-            onBlur={(e) => {
-              e.target.style.borderColor = C.border;
-              e.target.style.boxShadow = "none";
-            }}
+            onFocus={onFocus}
+            onBlur={onBlur}
           />
         </div>
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+      <div
+        style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 13 }}
+        className="form2col"
+      >
         <div>
           <label style={lbl}>Company</label>
           <input
@@ -1102,28 +1106,20 @@ function ContactForm() {
             value={form.company}
             onChange={(e) => setForm({ ...form, company: e.target.value })}
             style={inp}
-            onFocus={(e) => {
-              e.target.style.borderColor = "rgba(201,168,76,0.4)";
-            }}
-            onBlur={(e) => {
-              e.target.style.borderColor = C.border;
-            }}
+            onFocus={onFocus}
+            onBlur={onBlur}
           />
         </div>
         <div>
           <label style={lbl}>Your Role</label>
           <input
             type="text"
-            placeholder="CTO / Founder / VP Eng"
+            placeholder="CTO / Founder"
             value={form.role}
             onChange={(e) => setForm({ ...form, role: e.target.value })}
             style={inp}
-            onFocus={(e) => {
-              e.target.style.borderColor = "rgba(201,168,76,0.4)";
-            }}
-            onBlur={(e) => {
-              e.target.style.borderColor = C.border;
-            }}
+            onFocus={onFocus}
+            onBlur={onBlur}
           />
         </div>
       </div>
@@ -1135,51 +1131,45 @@ function ContactForm() {
           value={form.subject}
           onChange={(e) => setForm({ ...form, subject: e.target.value })}
           style={inp}
-          onFocus={(e) => {
-            e.target.style.borderColor = "rgba(201,168,76,0.4)";
-          }}
-          onBlur={(e) => {
-            e.target.style.borderColor = C.border;
-          }}
+          onFocus={onFocus}
+          onBlur={onBlur}
         />
       </div>
       <div>
         <label style={{ ...lbl, color: C.gold }}>Message *</label>
         <textarea
           required
-          rows={6}
-          placeholder="Tell me about your project or opportunity..."
+          rows={5}
+          placeholder="Tell me about your project..."
           value={form.message}
           onChange={(e) => setForm({ ...form, message: e.target.value })}
-          style={{ ...inp, resize: "vertical", minHeight: 130 }}
-          onFocus={(e) => {
-            e.target.style.borderColor = "rgba(201,168,76,0.4)";
-          }}
-          onBlur={(e) => {
-            e.target.style.borderColor = C.border;
-          }}
+          style={{ ...inp, resize: "vertical", minHeight: 120 }}
+          onFocus={onFocus}
+          onBlur={onBlur}
         />
         <div
           style={{
-            fontSize: 10,
+            fontSize: 9,
             color: C.ghost,
             marginTop: 4,
             fontFamily: MONO,
           }}
         >
-          {form.message.length} / 5000
+          {form.message.length}/5000
         </div>
       </div>
-      <button
+      <motion.button
         type="submit"
         disabled={status === "sending"}
+        whileHover={status === "idle" ? { scale: 1.01 } : {}}
+        whileTap={status === "idle" ? { scale: 0.99 } : {}}
         style={{
           width: "100%",
-          padding: 18,
+          padding: 17,
           background: C.goldGrad,
           border: "none",
           color: "#000",
-          fontSize: 11,
+          fontSize: 10,
           fontWeight: 700,
           letterSpacing: "0.25em",
           textTransform: "uppercase",
@@ -1187,7 +1177,8 @@ function ContactForm() {
           cursor: status === "sending" ? "not-allowed" : "pointer",
           opacity: status === "sending" ? 0.65 : 1,
           boxShadow:
-            status !== "sending" ? "0 6px 20px rgba(201,168,76,0.3)" : "none",
+            status !== "sending" ? "0 6px 24px rgba(201,168,76,.28)" : "none",
+          transition: "box-shadow .3s,opacity .3s",
         }}
       >
         {status === "idle"
@@ -1195,9 +1186,9 @@ function ContactForm() {
           : status === "sending"
             ? "Sending..."
             : status === "success"
-              ? "Message Sent ✓"
+              ? "Sent! ✓"
               : "Try Again"}
-      </button>
+      </motion.button>
       <AnimatePresence>
         {status === "success" && (
           <motion.div
@@ -1206,14 +1197,14 @@ function ContactForm() {
             exit={{ opacity: 0, y: -8 }}
             style={{
               padding: "12px 16px",
-              background: "rgba(76,175,80,0.08)",
-              border: "1px solid rgba(76,175,80,0.25)",
-              color: "rgba(100,200,110,0.9)",
+              background: "rgba(76,175,80,.07)",
+              border: "1px solid rgba(76,175,80,.22)",
+              color: "rgba(100,200,110,.9)",
               fontSize: 12,
               fontFamily: MONO,
             }}
           >
-            ✅ Message sent! I&apos;ll respond within 24 hours.
+            ✅ Message sent — I&apos;ll respond within 24 hours.
           </motion.div>
         )}
       </AnimatePresence>
@@ -1221,25 +1212,47 @@ function ContactForm() {
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+/* ━━ DIVIDER ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function Div() {
+  return (
+    <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 32px" }}>
+      <hr
+        style={{
+          height: 1,
+          border: "none",
+          opacity: 0.35,
+          background:
+            "linear-gradient(90deg,transparent,rgba(201,168,76,.35),transparent)",
+        }}
+      />
+    </div>
+  );
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    MAIN HOME
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 export default function Home() {
   const heroRef = useRef<HTMLElement>(null);
+  const aboutRef = useRef<HTMLElement>(null);
+  const expRef = useRef<HTMLElement>(null);
+  const skillsRef = useRef<HTMLElement>(null);
+  const storyRef = useRef<HTMLElement>(null);
   const { scrollY } = useScroll();
-  const imgY = useTransform(scrollY, [0, 700], [0, 80]);
-  const txtY = useTransform(scrollY, [0, 700], [0, -40]);
+  const imgY = useTransform(scrollY, [0, 700], [0, 100]);
+  const txtY = useTransform(scrollY, [0, 700], [0, -50]);
   const fade = useTransform(scrollY, [0, 500], [1, 0]);
+
   const [roleIdx, setRoleIdx] = useState(0);
   const [skillTab, setSkillTab] = useState(0);
-  const [contactTab, setContactTab] = useState<"message" | "meeting">(
-    "message",
-  );
+  const [ctab, setCtab] = useState<"message" | "meeting">("message");
+  const [hovExp, setHovExp] = useState<number | null>(null);
+  const scrambled = useScramble(D.tagline);
 
   useEffect(() => {
     const t = setInterval(
-      () => setRoleIdx((i) => (i + 1) % DATA.roles.length),
-      3200,
+      () => setRoleIdx((i) => (i + 1) % D.roles.length),
+      3000,
     );
     return () => clearInterval(t);
   }, []);
@@ -1247,34 +1260,74 @@ export default function Home() {
   useEffect(() => {
     if (!heroRef.current) return;
     const ctx = gsap.context(() => {
+      gsap.to(".gsap-grid", {
+        yPercent: -22,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".gsap-grid",
+          start: "top top",
+          end: "bottom top",
+          scrub: 1.2,
+        },
+      });
       gsap.fromTo(
-        ".gsap-stats-item",
-        { y: 30, opacity: 0 },
+        ".bento-cell",
+        { y: 40, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          duration: 0.7,
           stagger: 0.1,
+          duration: 0.9,
           ease: "power3.out",
-          delay: 1.6,
+          scrollTrigger: { trigger: aboutRef.current, start: "top 80%" },
         },
       );
-      gsap.to(".gsap-grid-hero", {
-        yPercent: -25,
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".gsap-grid-hero",
-          start: "top top",
-          end: "bottom top",
-          scrub: 1,
+      gsap.fromTo(
+        ".exp-row",
+        { x: -50, opacity: 0 },
+        {
+          x: 0,
+          opacity: 1,
+          stagger: 0.15,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: { trigger: expRef.current, start: "top 75%" },
         },
-      });
-    }, heroRef);
+      );
+      gsap.fromTo(
+        ".story-item",
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          stagger: 0.18,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: { trigger: storyRef.current, start: "top 75%" },
+        },
+      );
+      gsap.fromTo(
+        ".skill-item",
+        { scale: 0.85, opacity: 0 },
+        {
+          scale: 1,
+          opacity: 1,
+          stagger: 0.04,
+          duration: 0.5,
+          ease: "back.out(1.4)",
+          scrollTrigger: {
+            trigger: skillsRef.current,
+            start: "top 75%",
+            toggleActions: "play none none reverse",
+          },
+        },
+      );
+    });
     return () => ctx.revert();
   }, []);
 
-  const featured = DATA.projects.filter((p) => p.featured);
-  const rest = DATA.projects.filter((p) => !p.featured);
+  const featured = D.projects.filter((p) => p.featured);
+  const rest = D.projects.filter((p) => !p.featured);
 
   return (
     <main
@@ -1285,12 +1338,9 @@ export default function Home() {
         overflowX: "hidden",
       }}
     >
-      <ScrollProgress />
-
-      {/* Noise overlay */}
       <div className="noise-overlay" />
 
-      {/* Ambient orbs */}
+      {/* Global orbs */}
       <div
         style={{
           position: "fixed",
@@ -1301,9 +1351,9 @@ export default function Home() {
         }}
       >
         {[
-          { x: "8%", y: "15%", s: 400, d: 0 },
-          { x: "76%", y: "55%", s: 280, d: 3 },
-          { x: "45%", y: "88%", s: 220, d: 6 },
+          { x: "5%", y: "10%", s: 500, d: 0 },
+          { x: "72%", y: "50%", s: 350, d: 4 },
+          { x: "40%", y: "85%", s: 280, d: 8 },
         ].map((o, i) => (
           <motion.div
             key={i}
@@ -1314,13 +1364,13 @@ export default function Home() {
               width: o.s,
               height: o.s,
               background:
-                "radial-gradient(circle, rgba(201,168,76,0.05) 0%, transparent 68%)",
-              filter: "blur(60px)",
+                "radial-gradient(circle,rgba(201,168,76,.05) 0%,transparent 65%)",
+              filter: "blur(80px)",
               borderRadius: "50%",
             }}
-            animate={{ scale: [1, 1.2, 1], opacity: [0.4, 0.9, 0.4] }}
+            animate={{ scale: [1, 1.2, 1], opacity: [0.4, 0.85, 0.4] }}
             transition={{
-              duration: 9 + i * 2.5,
+              duration: 9 + i * 3,
               repeat: Infinity,
               ease: "easeInOut",
               delay: o.d,
@@ -1329,9 +1379,7 @@ export default function Home() {
         ))}
       </div>
 
-      {/* ════════════════════════════════════════════════
-          HERO
-      ════════════════════════════════════════════════ */}
+      {/* ═══ HERO ═══════════════════════════════════════════════ */}
       <section
         ref={heroRef}
         id="hero"
@@ -1344,45 +1392,41 @@ export default function Home() {
           alignItems: "center",
         }}
       >
-        {/* Grid background */}
         <div
-          className="gsap-grid-hero"
+          className="gsap-grid"
           style={{
             position: "absolute",
             inset: 0,
-            backgroundImage: `linear-gradient(${GRID} 1px, transparent 1px), linear-gradient(90deg, ${GRID} 1px, transparent 1px)`,
+            backgroundImage: `linear-gradient(${GRID} 1px,transparent 1px),linear-gradient(90deg,${GRID} 1px,transparent 1px)`,
             backgroundSize: "72px 72px",
           }}
         />
-
-        {/* Atmo glows */}
-        <div style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
-          {[
-            { x: "-5%", y: "5%", s: 700 },
-            { x: "68%", y: "55%", s: 500 },
-          ].map((o, i) => (
-            <motion.div
-              key={i}
-              style={{
-                position: "absolute",
-                left: o.x,
-                top: o.y,
-                width: o.s,
-                height: o.s,
-                background:
-                  "radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 60%)",
-                filter: "blur(100px)",
-                borderRadius: "50%",
-              }}
-              animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.9, 0.5] }}
-              transition={{
-                duration: 10 + i * 3,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
-          ))}
-        </div>
+        {[
+          { x: "-5%", y: "8%", s: 700 },
+          { x: "65%", y: "52%", s: 520 },
+        ].map((o, i) => (
+          <motion.div
+            key={i}
+            style={{
+              position: "absolute",
+              left: o.x,
+              top: o.y,
+              width: o.s,
+              height: o.s,
+              background:
+                "radial-gradient(circle,rgba(201,168,76,.08) 0%,transparent 58%)",
+              filter: "blur(100px)",
+              borderRadius: "50%",
+              pointerEvents: "none",
+            }}
+            animate={{ scale: [1, 1.18, 1], opacity: [0.4, 0.9, 0.4] }}
+            transition={{
+              duration: 11 + i * 3,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
 
         <motion.div
           style={{
@@ -1390,16 +1434,16 @@ export default function Home() {
             position: "relative",
             zIndex: 10,
             width: "100%",
-            maxWidth: 1280,
+            maxWidth: 1400,
             margin: "0 auto",
-            padding: "100px 24px 60px",
+            padding: "110px 32px 80px",
           }}
         >
-          {/* Available badge */}
+          {/* Badge */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.2, duration: 0.7 }}
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -1407,7 +1451,7 @@ export default function Home() {
               border: `1px solid ${C.goldD}`,
               background: C.goldF,
               padding: "10px 20px",
-              marginBottom: 48,
+              marginBottom: 52,
               backdropFilter: "blur(8px)",
             }}
           >
@@ -1423,102 +1467,103 @@ export default function Home() {
             />
             <span
               style={{
-                fontSize: 10,
+                fontSize: 9,
                 color: C.gold,
-                letterSpacing: "0.28em",
+                letterSpacing: "0.3em",
                 textTransform: "uppercase",
                 fontFamily: MONO,
                 fontWeight: 600,
               }}
             >
-              Available · VP · CTO · Principal Architect
+              Available · Remote Worldwide · VP · CTO · Principal Architect
             </span>
           </motion.div>
 
-          {/* Two-column layout */}
           <div
+            className="hero-grid"
             style={{
               display: "grid",
-              gridTemplateColumns: "1.1fr 0.9fr",
-              gap: 64,
+              gridTemplateColumns: "1.15fr .85fr",
+              gap: 80,
               alignItems: "center",
             }}
-            className="hero-inner-grid"
           >
             {/* LEFT */}
             <motion.div style={{ y: txtY }}>
-              {/* Big name */}
-              <div style={{ overflow: "hidden", marginBottom: 4 }}>
+              <div style={{ overflow: "hidden", marginBottom: 2 }}>
                 <motion.div
-                  initial={{ y: 140 }}
+                  initial={{ y: 160 }}
                   animate={{ y: 0 }}
                   transition={{
                     duration: 1.1,
-                    delay: 0.2,
+                    delay: 0.22,
                     ease: [0.16, 1, 0.3, 1],
                   }}
                   style={{
-                    fontSize: "clamp(3.5rem, 8.5vw, 7.5rem)",
+                    fontSize: "clamp(3.8rem,9.5vw,8.5rem)",
                     fontWeight: 900,
-                    lineHeight: 0.87,
+                    lineHeight: 0.86,
                     letterSpacing: "-0.04em",
                     color: C.text,
+                    fontFamily: HN,
                   }}
                 >
-                  {DATA.nameFirst}
+                  {D.nameFirst}
                 </motion.div>
               </div>
-              <div style={{ overflow: "hidden", marginBottom: 20 }}>
+              <div style={{ overflow: "hidden", marginBottom: 28 }}>
                 <motion.div
-                  initial={{ y: 140 }}
+                  initial={{ y: 160 }}
                   animate={{ y: 0 }}
                   transition={{
                     duration: 1.1,
-                    delay: 0.34,
+                    delay: 0.36,
                     ease: [0.16, 1, 0.3, 1],
                   }}
                   style={{
-                    fontSize: "clamp(3rem, 7.5vw, 6.5rem)",
+                    fontSize: "clamp(3.2rem,8.2vw,7.2rem)",
                     fontWeight: 800,
-                    lineHeight: 0.9,
-                    letterSpacing: "1px",
-                    WebkitTextStroke: "2px rgba(201,168,76,0.55)",
+                    lineHeight: 0.88,
+                    letterSpacing: "2px",
+                    fontFamily: HN,
+                    WebkitTextStroke: "2px rgba(201,168,76,.52)",
                     color: "transparent",
                   }}
                 >
-                  {DATA.nameLast}
+                  {D.nameLast}
                 </motion.div>
               </div>
-
-              {/* Tagline */}
-              <div style={{ overflow: "hidden", marginBottom: 18 }}>
+              <div style={{ overflow: "hidden", marginBottom: 20 }}>
                 <motion.div
                   initial={{ y: 50 }}
                   animate={{ y: 0 }}
                   transition={{
                     duration: 0.9,
-                    delay: 0.52,
+                    delay: 0.54,
                     ease: [0.16, 1, 0.3, 1],
                   }}
-                  style={{
-                    fontSize: "clamp(1rem, 2vw, 1.4rem)",
-                    fontWeight: 300,
-                    color: C.dim,
-                    letterSpacing: "0.02em",
-                  }}
                 >
-                  {DATA.tagline}
+                  <div
+                    style={{
+                      fontSize: "clamp(1rem,2vw,1.4rem)",
+                      fontWeight: 300,
+                      color: C.dim,
+                      letterSpacing: "0.02em",
+                      fontFamily: MONO,
+                    }}
+                  >
+                    {scrambled}
+                  </div>
                 </motion.div>
               </div>
-
               {/* Rotating role */}
               <div
                 style={{
                   display: "flex",
                   alignItems: "center",
                   gap: 16,
-                  marginBottom: 28,
-                  height: 36,
+                  marginBottom: 32,
+                  height: 40,
                 }}
               >
                 <motion.div
@@ -1527,46 +1572,46 @@ export default function Home() {
                   transition={{ delay: 0.7 }}
                   style={{
                     height: 1,
-                    width: 40,
+                    width: 44,
                     background: C.gold,
                     transformOrigin: "left",
                     flexShrink: 0,
                   }}
                 />
-                <div style={{ overflow: "hidden", height: 36 }}>
+                <div style={{ overflow: "hidden", height: 40 }}>
                   <AnimatePresence mode="wait">
                     <motion.p
                       key={roleIdx}
-                      initial={{ y: 38, opacity: 0 }}
+                      initial={{ y: 42, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
-                      exit={{ y: -38, opacity: 0 }}
-                      transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
+                      exit={{ y: -42, opacity: 0 }}
+                      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                       style={{
-                        fontSize: 20,
+                        fontSize: 22,
                         color: C.gold,
                         fontWeight: 300,
                         letterSpacing: "0.06em",
                         margin: 0,
+                        fontFamily: HN,
                       }}
                     >
-                      {DATA.roles[roleIdx]}
+                      {D.roles[roleIdx]}
                     </motion.p>
                   </AnimatePresence>
                 </div>
               </div>
-
               {/* Manifesto */}
-              <div style={{ marginBottom: 36 }}>
-                {DATA.manifesto.map((line, i) => (
+              <div style={{ marginBottom: 40 }}>
+                {D.manifesto.map((line, i) => (
                   <motion.p
                     key={i}
-                    initial={{ opacity: 0, x: -20 }}
+                    initial={{ opacity: 0, x: -24 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.9 + i * 0.12 }}
                     style={{
                       fontSize: 15,
                       color: i === 2 ? C.gold : C.dim,
-                      lineHeight: 1.65,
+                      lineHeight: 1.7,
                       marginBottom: 6,
                       fontWeight: i === 2 ? 500 : 300,
                     }}
@@ -1575,145 +1620,163 @@ export default function Home() {
                   </motion.p>
                 ))}
               </div>
-
               {/* CTAs */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.2 }}
-                style={{ display: "flex", flexWrap: "wrap", gap: 12 }}
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: 12,
+                  marginBottom: 44,
+                }}
               >
-                <a
+                <motion.a
                   href="#work"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                   style={{
                     display: "inline-flex",
                     alignItems: "center",
                     gap: 10,
                     background: C.goldGrad,
                     color: "#000",
-                    padding: "14px 28px",
-                    fontSize: 11,
+                    padding: "15px 30px",
+                    fontSize: 10,
                     fontWeight: 700,
-                    letterSpacing: "0.2em",
+                    letterSpacing: "0.22em",
                     textTransform: "uppercase",
                     fontFamily: MONO,
                     textDecoration: "none",
-                    transition: "all 0.2s",
+                    boxShadow: "0 6px 24px rgba(201,168,76,.25)",
                   }}
                 >
                   See My Work →
-                </a>
-                <a
+                </motion.a>
+                <motion.a
                   href="#contact"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                   style={{
                     display: "inline-flex",
                     alignItems: "center",
                     gap: 10,
                     border: `2px solid ${C.goldD}`,
                     color: C.gold,
-                    padding: "14px 28px",
-                    fontSize: 11,
+                    padding: "15px 30px",
+                    fontSize: 10,
                     fontWeight: 600,
-                    letterSpacing: "0.2em",
+                    letterSpacing: "0.22em",
                     textTransform: "uppercase",
                     fontFamily: MONO,
                     textDecoration: "none",
-                    transition: "all 0.2s",
+                    transition: "border-color .2s",
                   }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.borderColor = C.gold)
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.borderColor = C.goldD)
+                  }
                 >
-                  Let's Build Together
-                </a>
-                <a
-                  href={DATA.linkedin}
+                  Let&apos;s Build →
+                </motion.a>
+                <motion.a
+                  href={D.linkedin}
                   target="_blank"
                   rel="noreferrer"
+                  whileHover={{ scale: 1.02 }}
                   style={{
                     display: "inline-flex",
                     alignItems: "center",
                     gap: 10,
                     border: `1px solid ${C.border}`,
                     color: C.faint,
-                    padding: "14px 22px",
-                    fontSize: 11,
+                    padding: "15px 22px",
+                    fontSize: 10,
                     letterSpacing: "0.18em",
                     textTransform: "uppercase",
                     fontFamily: MONO,
                     textDecoration: "none",
-                    transition: "all 0.2s",
+                    transition: "color .2s,border-color .2s",
                   }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = C.gold)}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = C.faint)}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = C.gold;
+                    e.currentTarget.style.borderColor = C.goldD;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = C.faint;
+                    e.currentTarget.style.borderColor = C.border;
+                  }}
                 >
                   LinkedIn ↗
-                </a>
+                </motion.a>
               </motion.div>
-
               {/* Meta */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.5 }}
-                style={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  gap: 32,
-                  marginTop: 40,
-                }}
+                style={{ display: "flex", flexWrap: "wrap", gap: 36 }}
               >
                 {[
-                  { label: "Based in", value: DATA.location },
-                  { label: "Availability", value: DATA.availability },
-                  { label: "Focus", value: "Mobile · AI · Web3" },
+                  { l: "Based in", v: D.location },
+                  { l: "Availability", v: "Remote Worldwide" },
+                  { l: "Focus", v: "Mobile · AI · Web3" },
                 ].map((m) => (
-                  <div key={m.label}>
+                  <div key={m.l}>
                     <div
                       style={{
                         fontFamily: MONO,
-                        fontSize: 9,
-                        letterSpacing: "0.25em",
-                        color: "rgba(255,255,255,0.25)",
+                        fontSize: 8,
+                        letterSpacing: "0.28em",
+                        color: "rgba(255,255,255,.22)",
                         textTransform: "uppercase",
-                        marginBottom: 4,
+                        marginBottom: 5,
                       }}
                     >
-                      {m.label}
+                      {m.l}
                     </div>
                     <div
                       style={{
                         fontSize: 13,
-                        color: "rgba(255,255,255,0.75)",
+                        color: "rgba(255,255,255,.75)",
                         fontWeight: 500,
                       }}
                     >
-                      {m.value}
+                      {m.v}
                     </div>
                   </div>
                 ))}
               </motion.div>
             </motion.div>
 
-            {/* RIGHT — Photo */}
+            {/* RIGHT — photo */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.5, duration: 1.1 }}
+              className="hero-photo"
               style={{ display: "flex", justifyContent: "center" }}
-              className="hero-photo-col"
             >
               <motion.div style={{ y: imgY, position: "relative" }}>
-                {[0, 1].map((i) => (
+                {[
+                  { inset: -36, dur: 32, o: 0.12 },
+                  { inset: -70, dur: 48, o: 0.05 },
+                ].map((r, i) => (
                   <motion.div
                     key={i}
                     animate={{ rotate: i === 0 ? 360 : -360 }}
                     transition={{
-                      duration: 35 + i * 10,
+                      duration: r.dur,
                       repeat: Infinity,
                       ease: "linear",
                     }}
                     style={{
                       position: "absolute",
-                      inset: i === 0 ? -32 : -64,
-                      border: `1px solid ${i === 0 ? "rgba(201,168,76,0.14)" : "rgba(201,168,76,0.06)"}`,
+                      inset: r.inset,
+                      border: `1px solid rgba(201,168,76,${r.o})`,
                       borderRadius: "50%",
                     }}
                   />
@@ -1721,33 +1784,33 @@ export default function Home() {
                 <div
                   style={{
                     position: "absolute",
-                    inset: -50,
+                    inset: -60,
                     background:
-                      "radial-gradient(circle, rgba(201,168,76,0.2) 0%, transparent 65%)",
-                    filter: "blur(40px)",
+                      "radial-gradient(circle,rgba(201,168,76,.18) 0%,transparent 62%)",
+                    filter: "blur(50px)",
                     borderRadius: "50%",
                     pointerEvents: "none",
                   }}
                 />
                 <div
                   style={{
-                    width: 300,
-                    height: 300,
+                    width: 310,
+                    height: 310,
                     borderRadius: "50%",
                     overflow: "hidden",
-                    border: "3px solid rgba(201,168,76,0.38)",
+                    border: "3px solid rgba(201,168,76,.38)",
                     position: "relative",
-                    boxShadow: "0 40px 80px rgba(0,0,0,0.5)",
+                    boxShadow: "0 40px 80px rgba(0,0,0,.55)",
                   }}
                 >
                   <ImageWithFallback
-                    src={DATA.profileImage}
-                    fallbackSrc={DATA.profileFallback}
-                    alt="Amit Chakraborty — Principal Mobile Architect"
+                    src={D.profileImage}
+                    fallbackSrc={D.profileFallback}
+                    alt="Amit Chakraborty"
                     fill
                     style={{ objectFit: "cover" }}
-                    fallbackColor="rgba(201,168,76,0.15)"
-                    sizes="300px"
+                    fallbackColor="rgba(201,168,76,.15)"
+                    sizes="310px"
                     priority
                   />
                   <div
@@ -1755,27 +1818,26 @@ export default function Home() {
                       position: "absolute",
                       inset: 0,
                       background:
-                        "linear-gradient(to top, rgba(6,6,6,0.4) 0%, transparent 60%)",
+                        "linear-gradient(to top,rgba(5,5,5,.38) 0%,transparent 55%)",
                     }}
                   />
                 </div>
                 <div
                   style={{
                     position: "absolute",
-                    bottom: -28,
+                    bottom: -32,
                     left: "50%",
                     transform: "translateX(-50%)",
-                    textAlign: "center",
                     whiteSpace: "nowrap",
                   }}
                 >
                   <span
                     style={{
-                      fontSize: 10,
-                      letterSpacing: "0.35em",
+                      fontSize: 9,
+                      letterSpacing: "0.38em",
                       textTransform: "uppercase",
                       fontFamily: MONO,
-                      color: C.ghost,
+                      color: "rgba(255,255,255,.1)",
                     }}
                   >
                     Amit Chakraborty
@@ -1784,19 +1846,19 @@ export default function Home() {
                 {[
                   {
                     label: "Years",
-                    value: `${getYears()}+`,
-                    pos: { top: 0, left: -52 },
+                    value: `${getYrs()}+`,
+                    pos: { top: 0, left: -56 },
                   },
-                  { label: "Apps", value: "16+", pos: { top: 50, right: -56 } },
+                  { label: "Apps", value: "16+", pos: { top: 54, right: -60 } },
                   {
                     label: "Users",
                     value: "50K+",
-                    pos: { bottom: 70, left: -56 },
+                    pos: { bottom: 80, left: -60 },
                   },
                   {
                     label: "Uptime",
                     value: "99.9%",
-                    pos: { bottom: 10, right: -46 },
+                    pos: { bottom: 14, right: -50 },
                   },
                 ].map((s, i) => (
                   <motion.div
@@ -1804,20 +1866,22 @@ export default function Home() {
                     initial={{ scale: 0, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{
-                      delay: 1.4 + i * 0.1,
+                      delay: 1.4 + i * 0.12,
                       type: "spring",
-                      stiffness: 200,
+                      stiffness: 220,
                     }}
+                    whileHover={{ scale: 1.08 }}
                     style={{
                       position: "absolute",
                       ...s.pos,
-                      background: "rgba(6,6,6,0.97)",
-                      border: `1px solid rgba(201,168,76,0.3)`,
+                      background: "rgba(5,5,5,.96)",
+                      border: `1px solid rgba(201,168,76,.28)`,
                       padding: "10px 14px",
                       borderRadius: 8,
-                      boxShadow: "0 8px 24px rgba(0,0,0,0.35)",
+                      boxShadow: "0 8px 24px rgba(0,0,0,.4)",
                       backdropFilter: "blur(12px)",
-                      minWidth: 68,
+                      minWidth: 70,
+                      cursor: "default",
                     }}
                   >
                     <div
@@ -1833,10 +1897,10 @@ export default function Home() {
                     </div>
                     <div
                       style={{
-                        fontSize: 8,
+                        fontSize: 7,
                         color: C.ghost,
                         textTransform: "uppercase",
-                        letterSpacing: "0.2em",
+                        letterSpacing: "0.22em",
                         fontFamily: MONO,
                         marginTop: 3,
                       }}
@@ -1851,34 +1915,34 @@ export default function Home() {
 
           {/* Stats bar */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.5 }}
-            className="gsap-stats-item"
             style={{
               marginTop: 80,
               paddingTop: 40,
               borderTop: `1px solid ${C.border}`,
               display: "grid",
               gridTemplateColumns: "repeat(4,1fr)",
-              gap: 32,
+              gap: 24,
             }}
+            className="stats-grid"
           >
             {[
-              { n: getYears(), s: "+", l: "Years Engineering" },
-              { n: 16, s: "+", l: "Apps Shipped" },
-              { n: 50, s: "K+", l: "Active Users" },
-              { n: 2029, s: "", l: "GitHub Contributions" },
+              { to: getYrs(), s: "+", l: "Years Engineering" },
+              { to: 16, s: "+", l: "Apps Shipped" },
+              { to: 50, s: "K+", l: "Active Users" },
+              { to: 2029, s: "", l: "GitHub Contributions" },
             ].map((s, i) => (
               <motion.div
                 key={s.l}
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.6 + i * 0.08 }}
+                transition={{ delay: 1.62 + i * 0.08 }}
               >
                 <div
                   style={{
-                    fontSize: "clamp(36px,5vw,52px)",
+                    fontSize: "clamp(36px,5vw,54px)",
                     fontWeight: 900,
                     color: C.gold,
                     letterSpacing: "-0.04em",
@@ -1887,15 +1951,14 @@ export default function Home() {
                     fontFamily: HN,
                   }}
                 >
-                  {s.n}
-                  {s.s}
+                  <Counter to={s.to} suffix={s.s} />
                 </div>
                 <div
                   style={{
-                    fontSize: 10,
+                    fontSize: 9,
                     color: C.vfaint,
                     textTransform: "uppercase",
-                    letterSpacing: "0.18em",
+                    letterSpacing: "0.2em",
                     fontFamily: MONO,
                   }}
                 >
@@ -1924,9 +1987,9 @@ export default function Home() {
         >
           <span
             style={{
-              fontSize: 9,
+              fontSize: 8,
               color: C.ghost,
-              letterSpacing: "0.45em",
+              letterSpacing: "0.5em",
               textTransform: "uppercase",
               fontFamily: MONO,
             }}
@@ -1934,143 +1997,395 @@ export default function Home() {
             Scroll
           </span>
           <motion.div
-            animate={{ y: [0, 12, 0] }}
+            animate={{ y: [0, 14, 0] }}
             transition={{ repeat: Infinity, duration: 2 }}
             style={{
               width: 1,
-              height: 40,
-              background: `linear-gradient(to bottom, ${C.gold}, transparent)`,
+              height: 44,
+              background: `linear-gradient(to bottom,${C.gold},transparent)`,
             }}
           />
         </motion.div>
       </section>
 
-      {/* Marquee */}
+      {/* ═══ MARQUEE ═══════════════════════════════════════════ */}
       <div
         style={{
           overflow: "hidden",
           borderTop: `1px solid ${C.border}`,
           borderBottom: `1px solid ${C.border}`,
-          padding: "18px 0",
-          background: "rgba(201,168,76,0.015)",
+          padding: "16px 0",
+          background: "rgba(201,168,76,.012)",
         }}
       >
         <div className="marquee-track">
-          {[
-            "React Native",
-            "•",
-            "AI/ML",
-            "•",
-            "Web3",
-            "•",
-            "Solana",
-            "•",
-            "RAG Pipelines",
-            "•",
-            "Game Engine",
-            "•",
-            "Computer Vision",
-            "•",
-            "TypeScript",
-            "•",
-            "NestJS",
-            "•",
-            "AWS",
-            "•",
-            "0-to-1 Architect",
-            "•",
-            "React Native",
-            "•",
-            "AI/ML",
-            "•",
-            "Web3",
-            "•",
-            "Solana",
-            "•",
-            "RAG Pipelines",
-            "•",
-            "Game Engine",
-            "•",
-            "Computer Vision",
-            "•",
-            "TypeScript",
-            "•",
-            "NestJS",
-            "•",
-            "AWS",
-            "•",
-            "0-to-1 Architect",
-            "•",
-          ].map((item, i) => (
-            <span
-              key={i}
-              style={{
-                fontFamily: item === "•" ? "inherit" : HN,
-                fontSize: item === "•" ? 12 : "clamp(13px,1.8vw,17px)",
-                fontWeight: item === "•" ? 400 : 700,
-                color:
-                  item === "•"
-                    ? "rgba(201,168,76,0.25)"
-                    : "rgba(255,255,255,0.13)",
-                letterSpacing: item === "•" ? 0 : "0.05em",
-                textTransform: "uppercase",
-                whiteSpace: "nowrap",
-                padding: "0 14px",
-              }}
-            >
-              {item}
-            </span>
-          ))}
+          {[...Array(2)]
+            .flatMap(() => [
+              "React Native",
+              "•",
+              "AI/ML",
+              "•",
+              "Web3",
+              "•",
+              "Solana",
+              "•",
+              "RAG Pipelines",
+              "•",
+              "Game Engine",
+              "•",
+              "Computer Vision",
+              "•",
+              "TypeScript",
+              "•",
+              "NestJS",
+              "•",
+              "AWS",
+              "•",
+              "0-to-1 Architect",
+              "•",
+            ])
+            .map((item, i) => (
+              <span
+                key={i}
+                style={{
+                  fontFamily: item === "•" ? "inherit" : HN,
+                  fontSize: item === "•" ? 12 : "clamp(12px,1.6vw,16px)",
+                  fontWeight: item === "•" ? 400 : 700,
+                  color:
+                    item === "•"
+                      ? "rgba(201,168,76,.22)"
+                      : "rgba(255,255,255,.11)",
+                  letterSpacing: item === "•" ? 0 : "0.05em",
+                  textTransform: "uppercase",
+                  whiteSpace: "nowrap",
+                  padding: "0 12px",
+                }}
+              >
+                {item}
+              </span>
+            ))}
         </div>
       </div>
 
-      {/* ════════════════════════════════════════════════
-          WORK
-      ════════════════════════════════════════════════ */}
-      <section id="work" style={{ padding: "120px 0", background: C.bg }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px" }}>
-          <SLabel>Executive Portfolio</SLabel>
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            style={{ marginBottom: 64 }}
-          >
-            <h2
-              style={{
-                fontSize: "clamp(36px,5vw,72px)",
-                fontWeight: 900,
-                letterSpacing: "-0.04em",
-                color: C.text,
-                lineHeight: 0.92,
-                marginBottom: 20,
-                fontFamily: HN,
-              }}
-            >
-              Building systems
-              <br />
-              <span style={{ color: C.ghost }}>that actually scale.</span>
-            </h2>
-            <p
-              style={{
-                fontSize: 16,
-                color: C.dim,
-                maxWidth: 540,
-                fontWeight: 300,
-                lineHeight: 1.65,
-              }}
-            >
-              From AI-powered HealthTech to Indigenous community platforms.
-              Every project architected to VP-level standards — engineered for
-              real-world impact.
-            </p>
-          </motion.div>
+      {/* ═══ ABOUT — BENTO GRID ═════════════════════════════════ */}
+      <section
+        ref={aboutRef}
+        id="about"
+        style={{ padding: "120px 0", background: C.bg2 }}
+      >
+        <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 32px" }}>
+          <SLabel num="00">About</SLabel>
+          <SH l1="Architect first." l2="Engineer always." />
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))",
-              gap: 20,
-              marginBottom: 20,
+              gridTemplateColumns: "repeat(12,1fr)",
+              gridTemplateRows: "auto auto",
+              gap: 12,
+            }}
+            className="bento-outer"
+          >
+            {/* Big bio */}
+            <div
+              className="bento-cell"
+              style={{
+                gridColumn: "1/9",
+                gridRow: "1",
+                border: `1px solid ${C.border}`,
+                background: C.card,
+                padding: "36px 40px",
+                position: "relative",
+                overflow: "hidden",
+              }}
+            >
+              <div
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: 2,
+                  background: C.goldGrad,
+                }}
+              />
+              <div
+                style={{
+                  fontSize: 12,
+                  color: C.gold,
+                  letterSpacing: "0.3em",
+                  textTransform: "uppercase",
+                  fontFamily: MONO,
+                  marginBottom: 16,
+                }}
+              >
+                Who I Am
+              </div>
+              <p
+                style={{
+                  fontSize: "clamp(15px,2vw,18px)",
+                  color: C.dim,
+                  lineHeight: 1.8,
+                  fontWeight: 300,
+                  maxWidth: 640,
+                }}
+              >
+                8+ years engineering 0-to-1 systems across{" "}
+                <span style={{ color: C.gold }}>
+                  React Native, AI/ML, and Web3
+                </span>
+                . Every architecture I build reaches production. Every team I
+                lead ships. I don't just write code — I own outcomes.
+              </p>
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: -20,
+                  right: 24,
+                  fontSize: 140,
+                  fontWeight: 900,
+                  color: "rgba(201,168,76,.04)",
+                  lineHeight: 1,
+                  fontFamily: HN,
+                  userSelect: "none",
+                }}
+              >
+                8+
+              </div>
+            </div>
+            {/* Stats 2-pack */}
+            <div
+              className="bento-cell"
+              style={{
+                gridColumn: "9/13",
+                gridRow: "1",
+                display: "grid",
+                gridTemplateRows: "1fr 1fr",
+                gap: 12,
+              }}
+            >
+              {[
+                { n: "16+", l: "Production Apps", sub: "iOS, Android, Web" },
+                { n: "50K+", l: "Active Users", sub: "Peak daily usage" },
+              ].map((s) => (
+                <div
+                  key={s.n}
+                  style={{
+                    border: `1px solid ${C.border}`,
+                    background: C.card,
+                    padding: "24px 28px",
+                  }}
+                >
+                  <div
+                    style={{
+                      fontSize: "clamp(32px,4vw,48px)",
+                      fontWeight: 900,
+                      color: C.gold,
+                      letterSpacing: "-0.04em",
+                      lineHeight: 1,
+                      marginBottom: 4,
+                      fontFamily: HN,
+                    }}
+                  >
+                    {s.n}
+                  </div>
+                  <div style={{ fontSize: 13, color: C.dim, fontWeight: 600 }}>
+                    {s.l}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: 10,
+                      color: C.vfaint,
+                      fontFamily: MONO,
+                      marginTop: 2,
+                    }}
+                  >
+                    {s.sub}
+                  </div>
+                </div>
+              ))}
+            </div>
+            {/* Approach */}
+            <div
+              className="bento-cell"
+              style={{
+                gridColumn: "1/6",
+                gridRow: "2",
+                border: `1px solid ${C.border}`,
+                background: C.card,
+                padding: "28px 32px",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: 12,
+                  color: C.gold,
+                  letterSpacing: "0.3em",
+                  textTransform: "uppercase",
+                  fontFamily: MONO,
+                  marginBottom: 12,
+                }}
+              >
+                Approach
+              </div>
+              <p
+                style={{
+                  fontSize: 14,
+                  color: C.dim,
+                  lineHeight: 1.75,
+                  fontWeight: 300,
+                }}
+              >
+                I build systems that outlast the hype. Before AI could write a
+                line of code, I was shipping production apps. My decisions are
+                driven by outcomes, not trend cycles.
+              </p>
+            </div>
+            {/* Location */}
+            <div
+              className="bento-cell"
+              style={{
+                gridColumn: "6/9",
+                gridRow: "2",
+                border: `1px solid ${C.border}`,
+                background: C.card,
+                padding: "28px 28px",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: 12,
+                  color: C.gold,
+                  letterSpacing: "0.3em",
+                  textTransform: "uppercase",
+                  fontFamily: MONO,
+                  marginBottom: 16,
+                }}
+              >
+                Location
+              </div>
+              <div
+                style={{
+                  fontSize: 20,
+                  fontWeight: 800,
+                  color: C.text,
+                  letterSpacing: "-0.02em",
+                  marginBottom: 8,
+                  fontFamily: HN,
+                }}
+              >
+                Kolkata, India
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <span
+                  style={{
+                    width: 7,
+                    height: 7,
+                    borderRadius: "50%",
+                    background: "#34D399",
+                    display: "inline-block",
+                    animation: "ac-pulse 2s infinite",
+                  }}
+                />
+                <span
+                  style={{
+                    fontSize: 11,
+                    color: "#34D399",
+                    fontFamily: MONO,
+                    letterSpacing: "0.12em",
+                  }}
+                >
+                  Remote Worldwide
+                </span>
+              </div>
+            </div>
+            {/* Education */}
+            <div
+              className="bento-cell"
+              style={{
+                gridColumn: "9/13",
+                gridRow: "2",
+                border: `1px solid ${C.border}`,
+                background: C.card,
+                padding: "28px 28px",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: 12,
+                  color: C.gold,
+                  letterSpacing: "0.3em",
+                  textTransform: "uppercase",
+                  fontFamily: MONO,
+                  marginBottom: 16,
+                }}
+              >
+                Education
+              </div>
+              {D.education.map((e, i) => (
+                <div
+                  key={i}
+                  style={{
+                    marginBottom: i === 0 ? 12 : 0,
+                    paddingBottom: i === 0 ? 12 : 0,
+                    borderBottom: i === 0 ? `1px solid ${C.border}` : "none",
+                  }}
+                >
+                  <div
+                    style={{
+                      fontSize: 16,
+                      fontWeight: 800,
+                      color: C.text,
+                      letterSpacing: "-0.01em",
+                      fontFamily: HN,
+                    }}
+                  >
+                    {e.degree}
+                  </div>
+                  <div style={{ fontSize: 11, color: C.dim, marginTop: 2 }}>
+                    {e.school}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: 9,
+                      color: C.vfaint,
+                      fontFamily: MONO,
+                      marginTop: 3,
+                    }}
+                  >
+                    {e.period}
+                    {e.gpa ? ` · ${e.gpa}` : ""}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ PROJECTS ═══════════════════════════════════════════ */}
+      <section id="work" style={{ padding: "120px 0", background: C.bg }}>
+        <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 32px" }}>
+          <SLabel num="01">Executive Portfolio</SLabel>
+          <SH l1="Building systems" l2="that actually scale." />
+          <p
+            style={{
+              fontSize: 16,
+              color: C.dim,
+              maxWidth: 540,
+              fontWeight: 300,
+              lineHeight: 1.7,
+              marginBottom: 60,
+            }}
+          >
+            From AI-powered HealthTech to Indigenous community platforms. Every
+            project architected to VP-level standards.
+          </p>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit,minmax(360px,1fr))",
+              gap: 18,
+              marginBottom: 18,
             }}
           >
             {featured.map((p, i) => (
@@ -2080,8 +2395,8 @@ export default function Home() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-              gap: 16,
+              gridTemplateColumns: "repeat(auto-fill,minmax(290px,1fr))",
+              gap: 14,
             }}
           >
             {rest.map((p, i) => (
@@ -2091,64 +2406,57 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ════════════════════════════════════════════════
-          EXPERIENCE
-      ════════════════════════════════════════════════ */}
+      <Div />
+
+      {/* ═══ EXPERIENCE ══════════════════════════════════════════ */}
       <section
+        ref={expRef}
         id="experience"
-        style={{ padding: "100px 0", background: C.bg2 }}
+        style={{ padding: "120px 0", background: C.bg2 }}
       >
-        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px" }}>
-          <SLabel>Career Timeline</SLabel>
-          <motion.h2
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            style={{
-              fontSize: "clamp(32px,4vw,56px)",
-              fontWeight: 900,
-              letterSpacing: "-0.04em",
-              color: C.text,
-              lineHeight: 0.92,
-              marginBottom: 64,
-              fontFamily: HN,
-            }}
-          >
-            3 companies.
-            <br />
-            <span style={{ color: C.ghost }}>8+ years. Zero shortcuts.</span>
-          </motion.h2>
-          {DATA.experience.map((exp, i) => (
-            <motion.div
+        <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 32px" }}>
+          <SLabel num="02">Career Timeline</SLabel>
+          <SH l1="3 companies." l2="8+ years. Zero shortcuts." />
+          {D.experience.map((exp, i) => (
+            <div
               key={exp.company}
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08 }}
+              className="exp-row"
+              onMouseEnter={() => setHovExp(i)}
+              onMouseLeave={() => setHovExp(null)}
               style={{
                 display: "grid",
-                gridTemplateColumns: "200px 1fr 180px",
-                gap: 32,
+                gridTemplateColumns: "180px 1fr",
+                gap: 40,
                 alignItems: "start",
                 paddingBlock: 40,
                 borderTop: `1px solid ${C.border}`,
-                transition: "background 0.3s",
+                background:
+                  hovExp === i ? "rgba(255,255,255,.01)" : "transparent",
+                transition: "background .3s",
+                position: "relative",
               }}
-              className="exp-row"
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.background = "rgba(255,255,255,0.01)")
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.background = "transparent")
-              }
             >
-              <div>
+              <motion.div
+                animate={{ scaleY: hovExp === i ? 1 : 0.3 }}
+                style={{
+                  position: "absolute",
+                  left: 0,
+                  top: 0,
+                  bottom: 0,
+                  width: 2,
+                  background: exp.color,
+                  transformOrigin: "top",
+                  transition: "transform .35s",
+                }}
+              />
+              <div style={{ paddingLeft: 16 }}>
                 <div
                   style={{
-                    fontSize: 11,
-                    color: C.vfaint,
                     fontFamily: MONO,
+                    fontSize: 10,
+                    color: C.vfaint,
                     marginBottom: 6,
+                    lineHeight: 1.5,
                   }}
                 >
                   {exp.period}
@@ -2158,39 +2466,63 @@ export default function Home() {
                     fontSize: 9,
                     color: exp.color,
                     fontFamily: MONO,
-                    letterSpacing: "0.2em",
+                    letterSpacing: "0.22em",
                     textTransform: "uppercase",
                     opacity: 0.85,
+                    marginBottom: 12,
                   }}
                 >
                   {exp.type}
+                </div>
+                <div
+                  style={{
+                    fontFamily: MONO,
+                    fontSize: 9,
+                    color: C.ghost,
+                    letterSpacing: "0.14em",
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {exp.location}
                 </div>
               </div>
               <div>
                 <h3
                   style={{
-                    fontSize: 20,
-                    fontWeight: 800,
-                    color: C.text,
+                    fontSize: 22,
+                    fontWeight: 900,
+                    color: hovExp === i ? C.gold : C.text,
                     marginBottom: 4,
-                    letterSpacing: "-0.02em",
+                    letterSpacing: "-0.025em",
                     fontFamily: HN,
+                    transition: "color .25s",
                   }}
                 >
                   {exp.company}
                 </h3>
-                <div style={{ fontSize: 13, color: C.dim, marginBottom: 16 }}>
-                  {exp.role} · {exp.location}
+                <div
+                  style={{
+                    fontSize: 13,
+                    color: C.dim,
+                    marginBottom: 20,
+                    fontWeight: 400,
+                  }}
+                >
+                  {exp.role}
                 </div>
                 <div
-                  style={{ display: "flex", flexDirection: "column", gap: 8 }}
+                  style={{ display: "flex", flexDirection: "column", gap: 10 }}
                 >
-                  {exp.highlights.map((pt) => (
-                    <div
-                      key={pt}
+                  {exp.highlights.map((pt, j) => (
+                    <motion.div
+                      key={j}
+                      initial={{ opacity: 0, x: -16 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: j * 0.05 }}
                       style={{
                         display: "flex",
-                        gap: 10,
+                        gap: 12,
                         alignItems: "flex-start",
                       }}
                     >
@@ -2198,8 +2530,8 @@ export default function Home() {
                         style={{
                           color: exp.color,
                           flexShrink: 0,
-                          marginTop: 1,
                           fontSize: 10,
+                          marginTop: 2,
                         }}
                       >
                         →
@@ -2208,78 +2540,32 @@ export default function Home() {
                         style={{
                           fontSize: 13,
                           color: C.dim,
-                          lineHeight: 1.65,
+                          lineHeight: 1.7,
                           fontWeight: 300,
                         }}
                       >
                         {pt}
                       </span>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  gap: 6,
-                  paddingTop: 4,
-                }}
-              >
-                <span
-                  style={{
-                    fontSize: 9,
-                    padding: "4px 8px",
-                    border: `1px solid rgba(201,168,76,0.2)`,
-                    color: exp.color,
-                    fontFamily: MONO,
-                  }}
-                >
-                  {exp.type}
-                </span>
-              </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </section>
 
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px" }}>
-        <hr
-          style={{
-            height: 1,
-            background:
-              "linear-gradient(90deg, transparent, rgba(201,168,76,0.3), transparent)",
-            border: "none",
-            opacity: 0.4,
-          }}
-        />
-      </div>
+      <Div />
 
-      {/* ════════════════════════════════════════════════
-          SKILLS — TAB-BASED, NO EMOJIS
-      ════════════════════════════════════════════════ */}
-      <section id="skills" style={{ padding: "120px 0", background: C.bg }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px" }}>
-          <SLabel>Technical Arsenal</SLabel>
-          <motion.h2
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            style={{
-              fontSize: "clamp(36px,5vw,72px)",
-              fontWeight: 900,
-              letterSpacing: "-0.04em",
-              color: C.text,
-              lineHeight: 0.92,
-              marginBottom: 48,
-              fontFamily: HN,
-            }}
-          >
-            Deep stack.
-            <br />
-            <span style={{ color: C.ghost }}>Not full stack.</span>
-          </motion.h2>
-          {/* Tabs */}
+      {/* ═══ SKILLS ══════════════════════════════════════════════ */}
+      <section
+        ref={skillsRef}
+        id="skills"
+        style={{ padding: "120px 0", background: C.bg }}
+      >
+        <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 32px" }}>
+          <SLabel num="03">Technical Arsenal</SLabel>
+          <SH l1="Deep stack." l2="Not full stack." />
           <div
             style={{
               display: "flex",
@@ -2288,13 +2574,15 @@ export default function Home() {
               marginBottom: 32,
             }}
           >
-            {DATA.skills.map((s, i) => (
-              <button
+            {D.skills.map((s, i) => (
+              <motion.button
                 key={s.cat}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.97 }}
                 onClick={() => setSkillTab(i)}
                 style={{
                   padding: "9px 16px",
-                  fontSize: 10,
+                  fontSize: 9,
                   fontFamily: MONO,
                   letterSpacing: "0.2em",
                   textTransform: "uppercase",
@@ -2302,46 +2590,45 @@ export default function Home() {
                   background: skillTab === i ? C.gold : "transparent",
                   color: skillTab === i ? "#000" : C.faint,
                   border: `1px solid ${skillTab === i ? C.gold : C.border}`,
-                  transition: "all 0.2s",
                   fontWeight: skillTab === i ? 700 : 400,
+                  transition: "all .2s",
                 }}
               >
                 {s.cat}
-              </button>
+              </motion.button>
             ))}
           </div>
           <AnimatePresence mode="wait">
             <motion.div
               key={skillTab}
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.25 }}
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+                gridTemplateColumns: "repeat(auto-fill,minmax(210px,1fr))",
                 gap: 10,
               }}
             >
-              {DATA.skills[skillTab].items.map((sk, i) => (
+              {D.skills[skillTab].items.map((sk, i) => (
                 <motion.div
                   key={sk}
-                  initial={{ opacity: 0, scale: 0.95 }}
+                  className="skill-item"
+                  initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: i * 0.04 }}
+                  whileHover={{
+                    borderColor: "rgba(201,168,76,.4)",
+                    scale: 1.02,
+                  }}
                   style={{
                     padding: "14px 18px",
                     border: `1px solid ${C.border}`,
                     background: C.card,
                     cursor: "default",
-                    transition: "border-color 0.2s",
+                    transition: "border-color .2s",
                   }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.borderColor =
-                      "rgba(201,168,76,0.35)")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.borderColor = C.border)
-                  }
                 >
                   <span style={{ fontSize: 13, color: C.dim, fontWeight: 400 }}>
                     {sk}
@@ -2353,96 +2640,67 @@ export default function Home() {
         </div>
       </section>
 
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px" }}>
-        <hr
-          style={{
-            height: 1,
-            background:
-              "linear-gradient(90deg, transparent, rgba(201,168,76,0.3), transparent)",
-            border: "none",
-            opacity: 0.4,
-          }}
-        />
-      </div>
+      <Div />
 
-      {/* ════════════════════════════════════════════════
-          STORY — ALTERNATING LEFT/RIGHT
-      ════════════════════════════════════════════════ */}
-      <section id="story" style={{ padding: "120px 0", background: C.bg2 }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px" }}>
-          <SLabel>Eight Years. No Shortcuts.</SLabel>
-          <motion.h2
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            style={{
-              fontSize: "clamp(36px,5vw,72px)",
-              fontWeight: 900,
-              letterSpacing: "-0.04em",
-              color: C.text,
-              lineHeight: 0.92,
-              marginBottom: 80,
-              fontFamily: HN,
-            }}
-          >
-            From government portals
-            <br />
-            <span style={{ color: C.ghost }}>to AI-powered systems.</span>
-          </motion.h2>
+      {/* ═══ STORY ════════════════════════════════════════════════ */}
+      <section
+        ref={storyRef}
+        id="story"
+        style={{ padding: "120px 0", background: C.bg2 }}
+      >
+        <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 32px" }}>
+          <SLabel num="04">Eight Years. No Shortcuts.</SLabel>
+          <SH l1="From government portals" l2="to AI-powered systems." />
           <div style={{ position: "relative" }}>
-            {/* Center line */}
             <div
+              className="story-spine"
               style={{
                 position: "absolute",
                 left: "50%",
                 top: 0,
                 bottom: 0,
                 width: 1,
-                background: `linear-gradient(to bottom, transparent, ${C.goldD}, transparent)`,
+                background: `linear-gradient(to bottom,transparent,${C.goldD},transparent)`,
               }}
-              className="story-center-line"
             />
-            <div style={{ display: "flex", flexDirection: "column", gap: 72 }}>
-              {DATA.story.map((ch, i) => (
-                <motion.div
+            <div style={{ display: "flex", flexDirection: "column", gap: 60 }}>
+              {D.story.map((ch, i) => (
+                <div
                   key={ch.yr}
-                  initial={{ opacity: 0, x: i % 2 === 0 ? -40 : 40 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8 }}
+                  className="story-item"
                   style={{
                     display: "grid",
                     gridTemplateColumns: "1fr 1fr",
                     gap: 48,
                     alignItems: "center",
                   }}
-                  className="story-row"
                 >
-                  {/* Left side content for even, right for odd */}
                   <div
                     style={{
                       textAlign: i % 2 === 0 ? "right" : "left",
                       order: i % 2 === 0 ? 1 : 2,
+                      paddingRight: i % 2 === 0 ? 36 : 0,
+                      paddingLeft: i % 2 !== 0 ? 36 : 0,
                     }}
                   >
                     <div
                       style={{
-                        fontSize: 60,
+                        fontSize: 64,
                         fontWeight: 900,
-                        color: "rgba(201,168,76,0.08)",
+                        color: "rgba(201,168,76,.06)",
                         fontFamily: MONO,
                         lineHeight: 1,
-                        marginBottom: 8,
+                        marginBottom: 6,
                       }}
                     >
                       {ch.yr}
                     </div>
                     <h3
                       style={{
-                        fontSize: 24,
+                        fontSize: 22,
                         fontWeight: 800,
                         color: C.text,
-                        marginBottom: 12,
+                        marginBottom: 10,
                         letterSpacing: "-0.02em",
                         fontFamily: HN,
                       }}
@@ -2451,16 +2709,15 @@ export default function Home() {
                     </h3>
                     <p
                       style={{
-                        fontSize: 15,
+                        fontSize: 14,
                         color: C.dim,
-                        lineHeight: 1.75,
+                        lineHeight: 1.8,
                         fontWeight: 300,
                       }}
                     >
                       {ch.text}
                     </p>
                   </div>
-                  {/* Empty side + dot */}
                   <div
                     style={{ order: i % 2 === 0 ? 2 : 1, position: "relative" }}
                   >
@@ -2468,144 +2725,154 @@ export default function Home() {
                       initial={{ scale: 0 }}
                       whileInView={{ scale: 1 }}
                       viewport={{ once: true }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        delay: 0.1,
+                      }}
                       style={{
                         position: "absolute",
-                        left: i % 2 === 0 ? -7 : "auto",
-                        right: i % 2 === 0 ? "auto" : -7,
+                        left: i % 2 === 0 ? -9 : "auto",
+                        right: i % 2 !== 0 ? -9 : "auto",
                         top: "50%",
                         transform: "translateY(-50%)",
-                        width: 14,
-                        height: 14,
+                        width: 16,
+                        height: 16,
                         borderRadius: "50%",
-                        background: C.gold,
+                        background: ch.color,
                         border: `3px solid ${C.bg2}`,
                         zIndex: 10,
+                        boxShadow: `0 0 12px ${ch.color}80`,
                       }}
                     />
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* ════════════════════════════════════════════════
-          GITHUB / CONTRIBUTIONS
-      ════════════════════════════════════════════════ */}
+      {/* ═══ GITHUB ══════════════════════════════════════════════ */}
       <section id="github" style={{ padding: "80px 0", background: C.bg }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px" }}>
+        <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 32px" }}>
           <SLabel>Open Source</SLabel>
-          <motion.h2
+          <SH
+            l1="Shipping code."
+            l2="Every. Single. Day."
+            size="clamp(32px,4vw,56px)"
+          />
+          <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             style={{
-              fontSize: "clamp(32px,4vw,56px)",
-              fontWeight: 900,
-              letterSpacing: "-0.04em",
-              color: C.text,
-              lineHeight: 0.92,
-              marginBottom: 40,
-              fontFamily: HN,
+              padding: 28,
+              border: `1px solid rgba(201,168,76,.15)`,
+              background: "rgba(201,168,76,.025)",
+              marginBottom: 20,
             }}
           >
-            Shipping code.
-            <br />
-            <span style={{ color: C.ghost }}>Every. Single. Day.</span>
-          </motion.h2>
-          <ContribGraph />
-          <div
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: 12,
-              marginTop: 20,
-            }}
-          >
-            {[
-              { label: "GitHub (Primary)", url: DATA.github, sub: "devamitch" },
-              {
-                label: "GitHub (Archive)",
-                url: DATA.githubAlt,
-                sub: "techamit95ch",
-              },
-            ].map((g) => (
-              <a
-                key={g.url}
-                href={g.url}
-                target="_blank"
-                rel="noreferrer"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 12,
-                  padding: "14px 20px",
-                  border: `1px solid ${C.border}`,
-                  textDecoration: "none",
-                  transition: "all 0.2s",
-                }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.borderColor = C.goldD)
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.borderColor = C.border)
-                }
-              >
-                <span style={{ fontSize: 18, color: C.gold }}>⬡</span>
-                <div>
-                  <div style={{ fontSize: 13, fontWeight: 600, color: C.text }}>
-                    {g.label}
-                  </div>
-                  <div
-                    style={{ fontSize: 10, fontFamily: MONO, color: C.vfaint }}
-                  >
-                    {g.sub}
-                  </div>
-                </div>
-                <span
-                  style={{ marginLeft: "auto", fontSize: 12, color: C.vfaint }}
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "flex-start",
+                marginBottom: 20,
+                flexWrap: "wrap",
+                gap: 12,
+              }}
+            >
+              <div>
+                <div
+                  style={{
+                    fontSize: 9,
+                    color: "rgba(201,168,76,.7)",
+                    letterSpacing: "0.28em",
+                    textTransform: "uppercase",
+                    fontFamily: MONO,
+                    marginBottom: 4,
+                  }}
                 >
-                  ↗
-                </span>
-              </a>
-            ))}
-          </div>
+                  GitHub Activity
+                </div>
+                <div
+                  style={{
+                    fontSize: 28,
+                    fontWeight: 900,
+                    color: C.text,
+                    letterSpacing: "-0.03em",
+                    fontFamily: HN,
+                  }}
+                >
+                  2,029 <span style={{ color: C.gold }}>contributions</span>
+                </div>
+                <div
+                  style={{
+                    fontSize: 10,
+                    color: C.vfaint,
+                    marginTop: 3,
+                    fontFamily: MONO,
+                  }}
+                >
+                  Last 12 months · Mostly private repos
+                </div>
+              </div>
+              <div style={{ display: "flex", gap: 10 }}>
+                {[
+                  { l: "Primary", u: D.github, s: "devamitch" },
+                  { l: "Archive", u: D.githubAlt, s: "techamit95ch" },
+                ].map((g) => (
+                  <a
+                    key={g.u}
+                    href={g.u}
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{
+                      padding: "10px 16px",
+                      border: `1px solid ${C.border}`,
+                      textDecoration: "none",
+                      transition: "border-color .2s",
+                    }}
+                    onMouseEnter={(e) =>
+                      (e.currentTarget.style.borderColor = C.goldD)
+                    }
+                    onMouseLeave={(e) =>
+                      (e.currentTarget.style.borderColor = C.border)
+                    }
+                  >
+                    <div
+                      style={{ fontSize: 12, fontWeight: 600, color: C.text }}
+                    >
+                      {g.l}
+                    </div>
+                    <div
+                      style={{ fontSize: 9, fontFamily: MONO, color: C.vfaint }}
+                    >
+                      {g.s} ↗
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+            <ContribGraph />
+          </motion.div>
         </div>
       </section>
 
-      {/* ════════════════════════════════════════════════
-          TESTIMONIALS
-      ════════════════════════════════════════════════ */}
+      {/* ═══ TESTIMONIALS ════════════════════════════════════════ */}
       <section
         id="testimonials"
         style={{ padding: "120px 0", background: C.bg2 }}
       >
-        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px" }}>
+        <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 32px" }}>
           <SLabel>What Leaders Say</SLabel>
-          <motion.h2
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            style={{
-              fontSize: "clamp(36px,5vw,72px)",
-              fontWeight: 900,
-              letterSpacing: "-0.04em",
-              color: C.text,
-              lineHeight: 0.92,
-              marginBottom: 16,
-              fontFamily: HN,
-            }}
-          >
-            Leaders endorse me.
-            <br />
-            <span style={{ color: C.ghost }}>Teams grow under me.</span>
-          </motion.h2>
+          <SH l1="Leaders endorse me." l2="Teams grow under me." />
           <p
             style={{
-              fontSize: 14,
+              fontSize: 13,
               color: C.dim,
-              marginBottom: 64,
+              marginBottom: 56,
               fontStyle: "italic",
               fontWeight: 300,
             }}
@@ -2615,66 +2882,72 @@ export default function Home() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-              gap: 20,
+              gridTemplateColumns: "repeat(auto-fit,minmax(310px,1fr))",
+              gap: 18,
             }}
           >
-            {DATA.testimonials.map((t, i) => (
+            {D.testimonials.map((t, i) => (
               <motion.div
                 key={t.name}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
+                whileHover={{ borderColor: "rgba(201,168,76,.38)", y: -4 }}
                 style={{
                   padding: 32,
                   border: `1px solid ${C.border}`,
                   background: C.card,
                   position: "relative",
-                  transition: "border-color 0.3s",
+                  overflow: "hidden",
+                  transition: "all .3s",
                 }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.borderColor = "rgba(201,168,76,0.35)")
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.borderColor = C.border)
-                }
               >
                 <div
                   style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: 2,
+                    background: t.col,
+                  }}
+                />
+                <div
+                  style={{
                     display: "inline-block",
-                    fontSize: 8,
+                    fontSize: 7,
                     padding: "4px 10px",
-                    border: `1px solid ${t.seniorityColor}`,
-                    color: t.seniorityColor,
+                    border: `1px solid ${t.col}`,
+                    color: t.col,
                     fontFamily: MONO,
-                    letterSpacing: "0.25em",
+                    letterSpacing: "0.28em",
                     textTransform: "uppercase",
                     marginBottom: 20,
-                    background: `${t.seniorityColor}15`,
+                    background: `${t.col}12`,
                   }}
                 >
                   {t.seniority}
                 </div>
                 <div
                   style={{
-                    fontSize: 54,
-                    color: "rgba(255,255,255,0.04)",
+                    fontSize: 56,
+                    color: "rgba(255,255,255,.035)",
                     position: "absolute",
                     top: 16,
-                    right: 24,
+                    right: 22,
                     lineHeight: 1,
-                    userSelect: "none",
                     fontFamily: "Georgia",
+                    userSelect: "none",
                   }}
                 >
                   "
                 </div>
                 <p
                   style={{
-                    fontSize: 14,
+                    fontSize: 13,
                     color: C.dim,
-                    lineHeight: 1.8,
+                    lineHeight: 1.85,
                     fontWeight: 300,
                     marginBottom: 24,
                   }}
@@ -2687,8 +2960,8 @@ export default function Home() {
                       width: 44,
                       height: 44,
                       borderRadius: "50%",
-                      background: `${t.seniorityColor}20`,
-                      border: `1px solid ${t.seniorityColor}55`,
+                      background: `${t.col}18`,
+                      border: `1px solid ${t.col}55`,
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -2696,11 +2969,7 @@ export default function Home() {
                     }}
                   >
                     <span
-                      style={{
-                        fontSize: 18,
-                        fontWeight: 700,
-                        color: t.seniorityColor,
-                      }}
+                      style={{ fontSize: 18, fontWeight: 700, color: t.col }}
                     >
                       {t.name[0]}
                     </span>
@@ -2715,6 +2984,7 @@ export default function Home() {
                         fontWeight: 700,
                         color: C.text,
                         textDecoration: "none",
+                        transition: "color .2s",
                       }}
                       onMouseEnter={(e) =>
                         (e.currentTarget.style.color = C.gold)
@@ -2725,13 +2995,13 @@ export default function Home() {
                     >
                       {t.name}
                     </a>
-                    <div style={{ fontSize: 11, color: C.faint, marginTop: 2 }}>
+                    <div style={{ fontSize: 10, color: C.faint, marginTop: 2 }}>
                       {t.role}
                     </div>
                     <div
                       style={{
-                        fontSize: 10,
-                        color: t.seniorityColor,
+                        fontSize: 9,
+                        color: t.col,
                         fontFamily: MONO,
                         marginTop: 3,
                         opacity: 0.85,
@@ -2747,62 +3017,42 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ════════════════════════════════════════════════
-          BLOG
-      ════════════════════════════════════════════════ */}
+      {/* ═══ BLOG ════════════════════════════════════════════════ */}
       <section id="blog" style={{ padding: "80px 0", background: C.bg }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px" }}>
+        <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 32px" }}>
           <SLabel>Writing & Thoughts</SLabel>
-          <motion.h2
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            style={{
-              fontSize: "clamp(32px,4vw,56px)",
-              fontWeight: 900,
-              letterSpacing: "-0.04em",
-              color: C.text,
-              lineHeight: 0.92,
-              marginBottom: 48,
-              fontFamily: HN,
-            }}
-          >
-            I think in systems.
-            <br />
-            <span style={{ color: C.ghost }}>I write in posts.</span>
-          </motion.h2>
+          <SH
+            l1="I think in systems."
+            l2="I write in posts."
+            size="clamp(32px,4vw,54px)"
+          />
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-              gap: 16,
+              gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))",
+              gap: 14,
             }}
           >
-            {DATA.blogs.map((post, i) => (
+            {D.blogs.map((post, i) => (
               <motion.div
                 key={post.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
+                whileHover={{ borderColor: C.goldD, y: -3 }}
                 style={{
                   padding: 28,
                   border: `1px solid ${C.border}`,
                   background: C.card,
-                  transition: "border-color 0.2s",
+                  transition: "all .25s",
                 }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.borderColor = C.goldD)
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.borderColor = C.border)
-                }
               >
                 <div
                   style={{
-                    fontSize: 9,
+                    fontSize: 8,
                     color: C.gold,
-                    letterSpacing: "0.28em",
+                    letterSpacing: "0.3em",
                     textTransform: "uppercase",
                     fontFamily: MONO,
                     marginBottom: 14,
@@ -2827,7 +3077,7 @@ export default function Home() {
                   style={{
                     fontSize: 13,
                     color: C.dim,
-                    lineHeight: 1.65,
+                    lineHeight: 1.7,
                     fontWeight: 300,
                     marginBottom: 16,
                   }}
@@ -2835,15 +3085,19 @@ export default function Home() {
                   {post.teaser}
                 </p>
                 <a
-                  href={DATA.medium}
+                  href={D.medium}
                   target="_blank"
                   rel="noreferrer"
                   style={{
-                    fontSize: 11,
-                    color: "rgba(201,168,76,0.6)",
+                    fontSize: 10,
+                    color: "rgba(201,168,76,.55)",
                     fontFamily: MONO,
                     textDecoration: "none",
                   }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = C.gold)}
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.color = "rgba(201,168,76,.55)")
+                  }
                 >
                   Follow on Medium ↗
                 </a>
@@ -2853,35 +3107,22 @@ export default function Home() {
         </div>
       </section>
 
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px" }}>
-        <hr
-          style={{
-            height: 1,
-            background:
-              "linear-gradient(90deg, transparent, rgba(201,168,76,0.3), transparent)",
-            border: "none",
-            opacity: 0.4,
-          }}
-        />
-      </div>
+      <Div />
 
-      {/* ════════════════════════════════════════════════
-          CONTACT
-      ════════════════════════════════════════════════ */}
+      {/* ═══ CONTACT ═════════════════════════════════════════════ */}
       <section id="contact" style={{ padding: "120px 0", background: C.bg2 }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px" }}>
+        <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 32px" }}>
           <div
+            className="contact-grid"
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1.3fr",
-              gap: 64,
+              gap: 72,
               alignItems: "start",
             }}
-            className="contact-grid"
           >
-            {/* Left */}
             <div>
-              <SLabel>Let's Connect</SLabel>
+              <SLabel num="05">Let's Connect</SLabel>
               <h2
                 style={{
                   fontSize: "clamp(32px,4.5vw,60px)",
@@ -2908,25 +3149,25 @@ export default function Home() {
                 style={{
                   fontSize: 15,
                   color: C.dim,
-                  lineHeight: 1.7,
+                  lineHeight: 1.75,
                   marginBottom: 40,
                   fontWeight: 300,
                 }}
               >
                 VP Engineering. CTO. Principal Architect. I build systems that
                 scale, lead teams that ship, and turn technical vision into
-                business reality. Let's talk.
+                business reality.
               </p>
               {[
-                { l: "Email", v: DATA.email, h: `mailto:${DATA.email}` },
-                { l: "Phone", v: DATA.phone, h: `tel:${DATA.phone}` },
+                { l: "Email", v: D.email, h: `mailto:${D.email}` },
+                { l: "Phone", v: D.phone, h: `tel:${D.phone}` },
                 {
                   l: "LinkedIn",
                   v: "linkedin.com/in/devamitch",
-                  h: DATA.linkedin,
+                  h: D.linkedin,
                 },
-                { l: "GitHub", v: "github.com/devamitch", h: DATA.github },
-                { l: "Medium", v: "devamitch.medium.com", h: DATA.medium },
+                { l: "GitHub", v: "github.com/devamitch", h: D.github },
+                { l: "Medium", v: "devamitch.medium.com", h: D.medium },
               ].map((link) => (
                 <a
                   key={link.l}
@@ -2937,11 +3178,10 @@ export default function Home() {
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    paddingBottom: 14,
-                    marginBottom: 14,
+                    paddingBlock: 14,
                     borderBottom: `1px solid ${C.border}`,
                     textDecoration: "none",
-                    transition: "border-color 0.2s",
+                    transition: "border-color .2s",
                   }}
                   onMouseEnter={(e) =>
                     (e.currentTarget.style.borderBottomColor = C.goldD)
@@ -2952,9 +3192,9 @@ export default function Home() {
                 >
                   <span
                     style={{
-                      fontSize: 10,
+                      fontSize: 9,
                       color: C.vfaint,
-                      letterSpacing: "0.25em",
+                      letterSpacing: "0.28em",
                       textTransform: "uppercase",
                       fontFamily: MONO,
                     }}
@@ -2965,7 +3205,7 @@ export default function Home() {
                     style={{
                       fontSize: 13,
                       color: C.faint,
-                      transition: "color 0.2s",
+                      transition: "color .2s",
                     }}
                     onMouseEnter={(e) => (e.currentTarget.style.color = C.gold)}
                     onMouseLeave={(e) =>
@@ -2977,47 +3217,44 @@ export default function Home() {
                 </a>
               ))}
             </div>
-
-            {/* Right — contact form + meeting scheduler */}
             <div>
-              {/* Tabs */}
               <div style={{ display: "flex", gap: 6, marginBottom: 24 }}>
                 {[
-                  { key: "message" as const, label: "Send Message" },
-                  { key: "meeting" as const, label: "Schedule Meeting" },
+                  { k: "message" as const, label: "Send Message" },
+                  { k: "meeting" as const, label: "Book Meeting" },
                 ].map((tab) => (
-                  <button
-                    key={tab.key}
-                    onClick={() => setContactTab(tab.key)}
+                  <motion.button
+                    key={tab.k}
+                    whileHover={{ scale: 1.01 }}
+                    whileTap={{ scale: 0.99 }}
+                    onClick={() => setCtab(tab.k)}
                     style={{
                       flex: 1,
                       padding: "13px 16px",
                       fontFamily: MONO,
-                      fontSize: 10,
-                      letterSpacing: "0.15em",
+                      fontSize: 9,
+                      letterSpacing: "0.16em",
                       textTransform: "uppercase",
                       cursor: "pointer",
                       background:
-                        contactTab === tab.key
-                          ? C.gold
-                          : "rgba(255,255,255,0.02)",
-                      color: contactTab === tab.key ? "#000" : C.faint,
-                      border: `1px solid ${contactTab === tab.key ? C.gold : C.border}`,
-                      fontWeight: contactTab === tab.key ? 700 : 400,
-                      transition: "all 0.3s",
+                        ctab === tab.k ? C.gold : "rgba(255,255,255,.02)",
+                      color: ctab === tab.k ? "#000" : C.faint,
+                      border: `1px solid ${ctab === tab.k ? C.gold : C.border}`,
+                      fontWeight: ctab === tab.k ? 700 : 400,
+                      transition: "all .3s",
                     }}
                   >
                     {tab.label}
-                  </button>
+                  </motion.button>
                 ))}
               </div>
               <AnimatePresence mode="wait">
-                {contactTab === "message" ? (
+                {ctab === "message" ? (
                   <motion.div
                     key="msg"
-                    initial={{ opacity: 0, y: 12 }}
+                    initial={{ opacity: 0, y: 14 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -12 }}
+                    exit={{ opacity: 0, y: -14 }}
                     transition={{ duration: 0.3 }}
                   >
                     <ContactForm />
@@ -3025,9 +3262,9 @@ export default function Home() {
                 ) : (
                   <motion.div
                     key="meet"
-                    initial={{ opacity: 0, y: 12 }}
+                    initial={{ opacity: 0, y: 14 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -12 }}
+                    exit={{ opacity: 0, y: -14 }}
                     transition={{ duration: 0.3 }}
                   >
                     <MeetingScheduler />
@@ -3039,9 +3276,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ════════════════════════════════════════════════
-          FOOTER
-      ════════════════════════════════════════════════ */}
+      {/* ═══ FOOTER ═══════════════════════════════════════════════ */}
       <footer
         style={{
           padding: "48px 0",
@@ -3051,9 +3286,9 @@ export default function Home() {
       >
         <div
           style={{
-            maxWidth: 1280,
+            maxWidth: 1400,
             margin: "0 auto",
-            padding: "0 24px",
+            padding: "0 32px",
             display: "flex",
             flexWrap: "wrap",
             justifyContent: "space-between",
@@ -3064,7 +3299,7 @@ export default function Home() {
           <div>
             <span
               style={{
-                fontSize: 22,
+                fontSize: 24,
                 fontWeight: 900,
                 letterSpacing: "-0.04em",
                 color: C.text,
@@ -3072,25 +3307,27 @@ export default function Home() {
               }}
             >
               <span style={{ color: C.gold }}>A</span>C
-              <span style={{ color: "rgba(201,168,76,0.5)" }}>.</span>
+              <span style={{ color: "rgba(201,168,76,.4)" }}>.</span>
             </span>
             <p
               style={{
-                fontSize: 10,
+                fontSize: 9,
                 color: C.ghost,
                 fontFamily: MONO,
                 marginTop: 4,
+                letterSpacing: "0.15em",
               }}
             >
-              Principal Mobile Architect · VP Engineering · {DATA.location}
+              Principal Mobile Architect · VP Engineering · Kolkata, India
             </p>
           </div>
           <p
             style={{
-              fontSize: 10,
+              fontSize: 9,
               color: C.ghost,
               fontFamily: MONO,
               textAlign: "center",
+              letterSpacing: "0.12em",
             }}
           >
             © {new Date().getFullYear()} Amit Chakraborty · Built by hand. Not
@@ -3098,9 +3335,9 @@ export default function Home() {
           </p>
           <div style={{ display: "flex", gap: 24 }}>
             {[
-              ["LinkedIn", DATA.linkedin],
-              ["GitHub", DATA.github],
-              ["Medium", DATA.medium],
+              ["LinkedIn", D.linkedin],
+              ["GitHub", D.github],
+              ["Medium", D.medium],
             ].map(([l, h]) => (
               <a
                 key={l}
@@ -3108,12 +3345,12 @@ export default function Home() {
                 target="_blank"
                 rel="noreferrer"
                 style={{
-                  fontSize: 11,
+                  fontSize: 10,
                   fontFamily: MONO,
                   letterSpacing: "0.15em",
                   color: C.vfaint,
                   textDecoration: "none",
-                  transition: "color 0.2s",
+                  transition: "color .2s",
                 }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = C.gold)}
                 onMouseLeave={(e) => (e.currentTarget.style.color = C.vfaint)}
@@ -3126,21 +3363,27 @@ export default function Home() {
       </footer>
 
       <style>{`
-        @keyframes ac-pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
-        .hero-inner-grid { grid-template-columns: 1.1fr 0.9fr !important; }
-        .hero-photo-col { display: flex !important; }
-        @media (max-width: 960px) {
-          .hero-inner-grid { grid-template-columns: 1fr !important; }
-          .hero-photo-col { display: none !important; }
-        }
-        @media (max-width: 900px) {
-          .story-center-line { display: none !important; }
-          .story-row { grid-template-columns: 1fr !important; }
-        }
-        @media (max-width: 768px) {
-          .contact-grid { grid-template-columns: 1fr !important; }
-          .exp-row { grid-template-columns: 1fr !important; }
-        }
+        @keyframes ac-pulse{0%,100%{opacity:1}50%{opacity:.3}}
+        @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+        .marquee-track{display:flex;animation:marquee 30s linear infinite;width:max-content;}
+        .marquee-track:hover{animation-play-state:paused;}
+        .noise-overlay{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px 200px;}
+        html{scroll-behavior:smooth;}
+        *{box-sizing:border-box;}
+        input,textarea{font-family:inherit;}
+        .hero-grid{grid-template-columns:1.15fr .85fr;}
+        @media(max-width:960px){.hero-grid{grid-template-columns:1fr!important;}.hero-photo{display:none!important;}}
+        .stats-grid{grid-template-columns:repeat(4,1fr);}
+        @media(max-width:700px){.stats-grid{grid-template-columns:repeat(2,1fr)!important;}}
+        .bento-outer{grid-template-columns:repeat(12,1fr);}
+        @media(max-width:900px){.bento-outer{grid-template-columns:1fr!important;}.bento-outer>*{grid-column:auto!important;grid-row:auto!important;}}
+        @media(max-width:700px){.exp-row{grid-template-columns:1fr!important;}}
+        .story-spine{display:block;}
+        @media(max-width:780px){.story-spine{display:none!important;}.story-item{grid-template-columns:1fr!important;}.story-item>*{order:unset!important;padding:0!important;text-align:left!important;}}
+        .contact-grid{grid-template-columns:1fr 1.3fr;}
+        @media(max-width:900px){.contact-grid{grid-template-columns:1fr!important;}}
+        .form2col{grid-template-columns:1fr 1fr;}
+        @media(max-width:500px){.form2col{grid-template-columns:1fr!important;}}
       `}</style>
     </main>
   );
