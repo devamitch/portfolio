@@ -278,7 +278,7 @@ const Hero = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  Hire Me
+                  Let's Work Together →
                 </motion.a>
               </motion.div>
             </motion.div>

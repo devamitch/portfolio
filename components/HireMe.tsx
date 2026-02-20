@@ -24,7 +24,7 @@ const HireMe = () => {
           end: "bottom center",
           scrub: true,
         },
-      }
+      },
     );
   }, []);
 
@@ -44,7 +44,7 @@ const HireMe = () => {
               href="#contact"
               className="flex-row- flex items-center rounded-full bg-white px-8 py-3 text-lg font-semibold text-purple-600 transition-all duration-300 hover:bg-gray-100 hover:shadow-lg"
             >
-              Hire Me
+              Let's Work Together →
             </a>
 
             <a

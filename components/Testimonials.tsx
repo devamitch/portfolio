@@ -29,7 +29,7 @@ const testimonials = [
     image:
       "https://img.freepik.com/free-psd/3d-illustration-bald-person-with-glasses_23-2149436184.jpg",
     content:
-      "Amit's work on our dating app, Be4You, was exceptional. His expertise in React Native and custom animations significantly enhanced our user experience. The implementation of features like social login, Apple login, and Zoom-like video calls was seamless.",
+      "Amit's work on our dating app, Be4You, was exceptional. His expertise in React Native andanimations significantly enhanced our user experience. The implementation of features like social login, Apple login, and Zoom-like video calls was seamless.",
   },
   {
     name: "Sundarban Development Authority",
@@ -67,7 +67,7 @@ const Testimonials = () => {
           end: "bottom center",
           scrub: true,
         },
-      }
+      },
     );
   }, []);
 
