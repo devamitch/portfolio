@@ -830,9 +830,9 @@ export default function Scene3D() {
         position: "fixed",
         top: 0,
         right: 0,
-        width: "45vw",
+        width: "40vw",
         height: "100vh",
-        zIndex: 1,
+        zIndex: 0,
         pointerEvents: "none",
         opacity: 0.82,
       }}
