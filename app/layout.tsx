@@ -9,6 +9,7 @@ const dmSans = DM_Sans({
   weight: ["200", "300", "400", "500", "600", "700", "800", "900"],
   variable: "--font-dm-sans",
   display: "swap",
+  preload: true,
 });
 
 const spaceGrotesk = Space_Grotesk({
@@ -16,6 +17,7 @@ const spaceGrotesk = Space_Grotesk({
   weight: ["300", "400", "500", "600", "700"],
   variable: "--font-space",
   display: "swap",
+  preload: true,
 });
 
 const spaceMono = Space_Mono({
@@ -23,6 +25,7 @@ const spaceMono = Space_Mono({
   weight: ["400", "700"],
   variable: "--font-mono",
   display: "swap",
+  preload: false,
 });
 
 const BASE_URL = "https://devamit.co.in";
@@ -41,24 +44,45 @@ export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
     default:
-      "Amit Chakraborty — Principal Mobile Architect | React Native · AI · Blockchain · HealthTech",
+      "Amit Chakraborty — Principal Mobile Architect & Founding Engineer | React • React Native • Next.js • NestJS • Solidity • Rust • Go • AWS • GCP • Web3 • AI • Solana | Building Scalable Mobile dApps | Ex-NonceBlox | MCA | Open to Collaborate",
     template: "%s | Amit Chakraborty — Principal Mobile Architect",
   },
   description:
-    "Amit Chakraborty is a Principal Mobile Architect with 8+ years building AI-powered, blockchain-integrated, HIPAA-compliant production apps. 18+ apps shipped. 50K+ users. VP-level engineering leadership. Expert in React Native (Bridgeless), RAG Pipelines, LLM Integration, Solidity, Web3, HealthTech, and native C++/Swift/Kotlin modules. Based in Kolkata, India — available remote worldwide.",
+    "Amit Chakraborty is a Principal Mobile Architect with 8+ years building AI-powered, blockchain-integrated, HIPAA-compliant production apps. 18+ apps shipped. 50K+ users. VP-level engineering leadership. Expert in React Native (Bridgeless), RAG Pipelines, LLM Integration, Solidity, Web3, HealthTech, and native C++/Swift/Kotlin modules. MCA from Techno Main Salt Lake, Kolkata. Based in India — available remote worldwide.",
   keywords: [
     // Identity
+    "Amit",
+    "Blockchain",
+    "Software Engineer",
+    "Software Developer",
+    "Software Developer India",
+    "Software Engineer India",
+    "Software Engineer Kolkata",
+    "Software Developer Kolkata",
+    "Software Engineer Kolkata India",
+    "Software Developer Kolkata India",
+    "AI",
+    "Dr. Amit Chakraborty",
     "Amit Chakraborty",
+    "Chakraborty",
+    "amit",
     "devamit",
+    "devamit.co.in",
     "devamitch",
     "amit98ch",
     "techamit95ch",
     "Amit Chakraborty Kolkata",
     "Amit Chakraborty developer",
+    "Amit Chakraborty React Native",
+    "Amit Chakraborty portfolio",
+    "Amit Chakraborty engineer",
     // Core role
     "Principal Mobile Architect",
     "VP Engineering",
+    "VP Engineering India",
     "CTO for hire",
+    "CTO for hire remote",
+    "open to work",
     "Technical Lead India",
     "React Native Expert",
     "React Native Architect",
@@ -69,12 +93,19 @@ export const metadata: Metadata = {
     "Senior React Native developer",
     "Hire React Native developer",
     "React Native developer Kolkata",
+    "React Native Expo developer",
+    "engineering leader India",
+    "engineering leader India remote",
     // AI & ML
+    "AI",
     "AI mobile app developer",
     "RAG pipeline developer",
     "LLM integration React Native",
     "Agentic AI developer",
+    "Agentic AI",
     "MediaPipe React Native",
+    "MediaPipe React",
+    "MediaPipe",
     "Computer Vision mobile",
     "TensorFlow mobile",
     "Pinecone vector database",
@@ -91,6 +122,8 @@ export const metadata: Metadata = {
     "WalletConnect integration",
     // HealthTech
     "HealthTech mobile developer",
+    "HealthTech",
+    "FinTech",
     "HIPAA compliant mobile app",
     "medical app React Native",
     "healthcare AI developer",
@@ -112,23 +145,45 @@ export const metadata: Metadata = {
     // Specialties
     "custom game engine React Native",
     "C++ native modules React Native",
+    "WebRTC React Native",
+    "Socket.io React Native",
     "HIPAA RAG pipeline",
     "mobile architecture consulting",
     "0 to 1 app development",
     "full stack mobile developer",
     "gaming engine mobile",
     "fantasy sports app developer",
+    "fantasy sports app",
+    "fantasy",
     "on-chain smart contract sports",
+    // Education
+    "MCA",
+    "Techno Main Salt Lake",
+    "MCA Techno Main Salt Lake",
+    "BCA Heritage Academy Kolkata",
+    "Heritage Academy Kolkata",
+    "Kolkata",
+    "Heritage",
+    "BCA",
+    "MCA developer Kolkata",
     // Stack
+    "Node.js",
     "Node.js developer",
+    "NestJS",
     "NestJS developer",
     "Next.js developer",
+    "GraphQL",
     "GraphQL mobile",
+    "Devops",
+    "Devops engineer",
     "Docker Kubernetes mobile CI/CD",
     "AWS Lambda mobile backend",
     "PostgreSQL MongoDB developer",
     "TypeScript React Native",
     "Expo developer",
+    "Expo",
+    "Expo React Native",
+    "Expo React Native developer",
     // General
     "Mobile development consultant",
     "remote mobile architect",
@@ -212,6 +267,7 @@ export const metadata: Metadata = {
       "en-IN": BASE_URL,
       "en-US": BASE_URL,
       "en-GB": BASE_URL,
+      "x-default": BASE_URL,
     },
   },
   verification: {
@@ -258,10 +314,11 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
 };
 
-/* ─────────────────────────────────────────────────────────
-   JSON-LD STRUCTURED DATA — COMPREHENSIVE
-───────────────────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════
+   JSON-LD STRUCTURED DATA — 12 SCHEMAS
+═══════════════════════════════════════════════════════ */
 
+/* ── 1. Person — Knowledge Panel trigger ── */
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -269,6 +326,14 @@ const personSchema = {
   name: "Amit Chakraborty",
   givenName: "Amit",
   familyName: "Chakraborty",
+  alternateName: [
+    "amit",
+    "amit chakraborty",
+    "devamit",
+    "devamitch",
+    "amit98ch",
+    "techamit95ch",
+  ],
   url: BASE_URL,
   image: {
     "@type": "ImageObject",
@@ -290,10 +355,8 @@ const personSchema = {
     postalCode: "700144",
     addressCountry: "IN",
   },
-  nationality: {
-    "@type": "Country",
-    name: "India",
-  },
+  nationality: { "@type": "Country", name: "India" },
+  knowsLanguage: ["English", "Bengali", "Hindi"],
   alumniOf: [
     {
       "@type": "CollegeOrUniversity",
@@ -398,7 +461,17 @@ const personSchema = {
     "https://www.hackerrank.com/amit98ch",
     "https://leetcode.com/techamit95ch/",
     "https://www.hackerearth.com/@amit98ch",
+    "https://stackoverflow.com/users/amit98ch",
   ],
+  seeks: {
+    "@type": "JobPosting",
+    title: "VP Engineering / CTO / Principal Mobile Architect",
+    description:
+      "Open to VP Engineering, CTO, and Principal Architect roles — remote worldwide. Specialising in React Native, AI/ML, blockchain, and HIPAA HealthTech.",
+    employmentType: "FULL_TIME",
+    jobLocationType: "TELECOMMUTE",
+    applicantLocationRequirements: { "@type": "Country", name: "Worldwide" },
+  },
   worksFor: {
     "@type": "Organization",
     name: "Available for VP Engineering · CTO · Principal Architect Roles",
@@ -408,10 +481,7 @@ const personSchema = {
     name: "Principal Mobile Architect",
     description:
       "Designing and engineering 0-to-1 production-grade mobile applications using React Native, AI/ML pipelines, and blockchain technologies. Leading engineering teams of 20+ across HealthTech, DeFi, Sports, and Social platforms.",
-    occupationLocation: {
-      "@type": "Country",
-      name: "Remote / Worldwide",
-    },
+    occupationLocation: { "@type": "Country", name: "Remote / Worldwide" },
     skills:
       "React Native, TypeScript, Blockchain, AI Integration, Mobile Architecture, HealthTech, HIPAA Compliance, RAG Pipelines, LLMs, Computer Vision, Solidity, DeFi, NFT, C++ Native Modules, VP Engineering",
     estimatedSalary: {
@@ -428,6 +498,7 @@ const personSchema = {
   },
 };
 
+/* ── 2. WebSite ── */
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
@@ -437,6 +508,7 @@ const websiteSchema = {
   description:
     "Official portfolio of Amit Chakraborty, Principal Mobile Architect specializing in React Native (Bridgeless), AI/ML, Blockchain, and HealthTech. 18+ production apps. 50K+ users. 8+ years engineering experience.",
   inLanguage: "en-IN",
+  dateModified: "2026-02-21",
   author: { "@id": `${BASE_URL}/#person` },
   publisher: { "@id": `${BASE_URL}/#person` },
   potentialAction: {
@@ -449,43 +521,70 @@ const websiteSchema = {
   },
 };
 
+/* ── 3. BreadcrumbList — 10 items ── */
 const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    {
-      "@type": "ListItem",
-      position: 1,
-      name: "Home",
-      item: BASE_URL,
-    },
+    { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
     {
       "@type": "ListItem",
       position: 2,
+      name: "About",
+      item: `${BASE_URL}/#about`,
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
       name: "Projects",
       item: `${BASE_URL}/#work`,
     },
     {
       "@type": "ListItem",
-      position: 3,
+      position: 4,
       name: "Experience",
       item: `${BASE_URL}/#experience`,
     },
     {
       "@type": "ListItem",
-      position: 4,
+      position: 5,
       name: "Skills",
       item: `${BASE_URL}/#skills`,
     },
     {
       "@type": "ListItem",
-      position: 5,
+      position: 6,
+      name: "Story",
+      item: `${BASE_URL}/#story`,
+    },
+    {
+      "@type": "ListItem",
+      position: 7,
+      name: "Testimonials",
+      item: `${BASE_URL}/#testimonials`,
+    },
+    {
+      "@type": "ListItem",
+      position: 8,
+      name: "GitHub",
+      item: `${BASE_URL}/#github`,
+    },
+    {
+      "@type": "ListItem",
+      position: 9,
       name: "Contact",
       item: `${BASE_URL}/#contact`,
+    },
+    {
+      "@type": "ListItem",
+      position: 10,
+      name: "Blog",
+      item: "https://devamitch.medium.com/",
     },
   ],
 };
 
+/* ── 4. ProfessionalService ── */
 const professionalServiceSchema = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
@@ -494,10 +593,7 @@ const professionalServiceSchema = {
   description:
     "Professional React Native architecture, AI/ML mobile integration, blockchain development, HIPAA-compliant HealthTech solutions, custom game engine development, and VP-level engineering leadership.",
   provider: { "@id": `${BASE_URL}/#person` },
-  areaServed: {
-    "@type": "Country",
-    name: "Worldwide",
-  },
+  areaServed: { "@type": "Country", name: "Worldwide" },
   serviceType: [
     "React Native Development",
     "Mobile Architecture Consulting",
@@ -519,6 +615,12 @@ const professionalServiceSchema = {
   url: BASE_URL,
   telephone: "+91-9874173663",
   email: "amit98ch@gmail.com",
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "hiring",
+    email: "amit98ch@gmail.com",
+    availableLanguage: ["English", "Bengali", "Hindi"],
+  },
   availableChannel: {
     "@type": "ServiceChannel",
     serviceUrl: `${BASE_URL}/#contact`,
@@ -526,7 +628,22 @@ const professionalServiceSchema = {
   },
 };
 
-/* ── Work Experience Schema ── */
+/* ── 5. AggregateRating — enables Google star display in SERP ── */
+const aggregateRatingSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": `${BASE_URL}/#person`,
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: 5,
+    bestRating: 5,
+    worstRating: 1,
+    ratingCount: 4,
+    reviewCount: 4,
+  },
+};
+
+/* ── 6. Work Experience ── */
 const workExperienceSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
@@ -602,7 +719,7 @@ const workExperienceSchema = {
   ],
 };
 
-/* ── Projects / CreativeWorks Schema ── */
+/* ── 7. Projects / Portfolio ── */
 const projectsSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
@@ -625,7 +742,7 @@ const projectsSchema = {
           "custom game engine, LLM, RAG pipeline, HIPAA, React Native, HealthTech, gamification",
         featureList: [
           "Custom game engine — zero external dependencies",
-          "LLM-based dynamic task generation at runtime",
+          "LLM-based dynamic task generation",
           "RAG pipeline for HIPAA-compliant medical data",
           "XP progression system",
           "AI-powered health engagement",
@@ -685,6 +802,7 @@ const projectsSchema = {
         applicationCategory: "GameApplication",
         operatingSystem: "iOS, Android",
         url: "https://apps.apple.com/app/vulcan-eleven/id6462420052",
+        downloadUrl: "https://apps.apple.com/app/vulcan-eleven/id6462420052",
         description:
           "Fantasy sports platform with 60fps performance serving 50,000+ active users. Features Razorpay + Binance Pay dual-payment driving 35% transaction volume growth, real-time analytics, live score updates, and FCM push notifications.",
         creator: { "@id": `${BASE_URL}/#person` },
@@ -708,6 +826,8 @@ const projectsSchema = {
         applicationCategory: "FinanceApplication",
         operatingSystem: "iOS, Android",
         url: "https://apps.apple.com/app/defi11-fantasy-sports-app/id1608967244",
+        downloadUrl:
+          "https://apps.apple.com/app/defi11-fantasy-sports-app/id1608967244",
         description:
           "Fully decentralized fantasy sports platform. 100% on-chain smart contract prize pools, on-chain tournament logic, zero centralized custody, and NFT marketplace on Ethereum.",
         creator: { "@id": `${BASE_URL}/#person` },
@@ -731,6 +851,7 @@ const projectsSchema = {
         applicationCategory: "MusicApplication",
         operatingSystem: "iOS",
         url: "https://apps.apple.com/app/music-x/id6475713772",
+        downloadUrl: "https://apps.apple.com/app/music-x/id6475713772",
         description:
           "Music competition platform with blockchain-backed royalty tracking for independent artists. Features native C++ modules, 60fps animations, Twitter and Spotify API integration, and algorithm-driven user engagement.",
         creator: { "@id": `${BASE_URL}/#person` },
@@ -753,6 +874,7 @@ const projectsSchema = {
         applicationCategory: "BusinessApplication",
         operatingSystem: "iOS",
         url: "https://apps.apple.com/app/housezy/id6471949955",
+        downloadUrl: "https://apps.apple.com/app/housezy/id6471949955",
         description:
           "Property management platform with subscription billing, PayU + Google Pay payment gateways, GraphQL APIs, Socket.io real-time notifications, and pixel-perfect iOS UI from Figma to production.",
         creator: { "@id": `${BASE_URL}/#person` },
@@ -840,7 +962,7 @@ const projectsSchema = {
   ],
 };
 
-/* ── FAQ Schema — surfaces in Google rich results ── */
+/* ── 8. FAQPage — 10 questions for rich snippet coverage ── */
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -858,7 +980,7 @@ const faqSchema = {
       name: "Is Amit Chakraborty available for hire?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes, Amit is available for VP Engineering, CTO, and Principal Architect roles. He works remotely worldwide. You can contact him at amit98ch@gmail.com or through the contact form at devamit.co.in.",
+        text: "Yes, Amit is open to work and available for VP Engineering, CTO, and Principal Architect roles. He works remotely worldwide. Contact him at amit98ch@gmail.com or through devamit.co.in.",
       },
     },
     {
@@ -874,7 +996,7 @@ const faqSchema = {
       name: "What is Amit Chakraborty's experience with React Native?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Amit has 8+ years of expert-level React Native experience including advanced topics like Bridgeless Architecture, native C++/Swift/Kotlin modules, 60fps animations with Reanimated, custom game engine development, and production deployment to both iOS App Store and Google Play Store.",
+        text: "Amit has 8+ years of expert-level React Native experience including advanced topics like Bridgeless Architecture, native C++/Swift/Kotlin modules, 60fps animations with Reanimated, WebRTC, Socket.io, Expo, custom game engine development, and production deployment to both iOS App Store and Google Play Store.",
       },
     },
     {
@@ -882,7 +1004,7 @@ const faqSchema = {
       name: "Does Amit Chakraborty have experience with AI and machine learning?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Amit has built RAG (Retrieval-Augmented Generation) pipelines for HIPAA-compliant medical data, integrated LLMs (OpenAI, Claude) for real-time task generation, implemented computer vision with MediaPipe for medical retina analysis, worked with TensorFlow, Pinecone vector databases, and built agentic AI systems for automated patient triage.",
+        text: "Yes. Amit has built RAG (Retrieval-Augmented Generation) pipelines for HIPAA-compliant medical data, integrated LLMs (OpenAI, Claude) for real-time task generation, implemented computer vision with MediaPipe for medical retina analysis, worked with TensorFlow and Pinecone vector databases, and built agentic AI systems for automated patient triage.",
       },
     },
     {
@@ -890,7 +1012,7 @@ const faqSchema = {
       name: "What blockchain and Web3 experience does Amit Chakraborty have?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Amit has 3+ years of blockchain development experience including Solidity smart contracts on Ethereum, DeFi protocol development, NFT marketplace architecture, WalletConnect integration, Solana (Rust/Anchor), NEAR blockchain, IPFS, and cross-chain wallet applications. He built DeFi11 — a fully decentralized fantasy sports platform with 100% on-chain prize pools.",
+        text: "Amit has 3+ years of blockchain development experience including Solidity smart contracts on Ethereum, DeFi protocol development, NFT marketplace architecture, WalletConnect integration, Solana (Rust/Anchor), NEAR blockchain, IPFS, and cross-chain wallet applications. He built DeFi11 — a fully decentralised fantasy sports platform with 100% on-chain prize pools.",
       },
     },
     {
@@ -898,13 +1020,37 @@ const faqSchema = {
       name: "Where is Amit Chakraborty located and does he work remotely?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Amit is based in Kolkata, West Bengal, India, and is available for remote work worldwide. He has experience working with teams in Canada, Dubai, and globally distributed engineering organizations.",
+        text: "Amit is based in Kolkata, West Bengal, India, and is fully available for remote work worldwide. He has experience working with teams in Canada (Edmonton), Dubai, and globally distributed engineering organizations.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What is Amit Chakraborty's educational background?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Amit holds a Master of Computer Applications (MCA, DGPA 8.61/10) from Techno Main Salt Lake, Kolkata (2021), and a Bachelor of Computer Applications (BCA, DGPA 7.3/10) from The Heritage Academy, Kolkata (2017). He also holds certifications in Blockchain Development (Solidity, DeFi), Solana Development, and HackerRank-certified in Problem Solving, React, and JavaScript.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How large are the teams Amit Chakraborty has led?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Amit has led engineering teams of up to 21+ people, serving as Primary Technical Lead and VP-level stakeholder manager. He has experience in hiring, mentoring, and managing multi-disciplinary teams across HealthTech, DeFi, Gaming, and Social platforms — spanning India, Canada, and Dubai.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How can I contact Amit Chakraborty for a job or contract?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "You can contact Amit via email at amit98ch@gmail.com, through LinkedIn at linkedin.com/in/devamitch/, or via the contact form at devamit.co.in/#contact. He is open to full-time, contract, and consulting engagements for VP Engineering, CTO, Principal Architect, and senior technical advisory roles.",
       },
     },
   ],
 };
 
-/* ── Review / Testimonial Schema ── */
+/* ── 9. Reviews / Testimonials ── */
 const reviewSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -917,15 +1063,12 @@ const reviewSchema = {
         name: "Kartik Kalia",
         jobTitle: "Full Stack Developer — AWS",
         worksFor: { "@type": "Organization", name: "NonceBlox Pvt. Ltd." },
+        sameAs: "https://www.linkedin.com/in/kartik-kalia/",
       },
       datePublished: "2024-11",
       reviewBody:
         "I had the pleasure of working with Amit for three years and witnessed his impressive growth from Front-End Developer to Front-End Lead. Throughout our time together, we collaborated on various projects, including both web and mobile applications. Amit is someone I can always rely on for high-quality work and timely project delivery. His expertise and dedication make him a valuable asset to any team.",
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: 5,
-        bestRating: 5,
-      },
+      reviewRating: { "@type": "Rating", ratingValue: 5, bestRating: 5 },
     },
     {
       "@type": "Review",
@@ -938,11 +1081,7 @@ const reviewSchema = {
       datePublished: "2024-10",
       reviewBody:
         "Amit had been an amicable and diligent developer — one of the most dependable Engineers when it comes to delivery or urgent closures. His capability to rebuild any project from scratch is remarkable. We truly appreciate his understandability and issues identification.",
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: 5,
-        bestRating: 5,
-      },
+      reviewRating: { "@type": "Rating", ratingValue: 5, bestRating: 5 },
     },
     {
       "@type": "Review",
@@ -958,11 +1097,7 @@ const reviewSchema = {
       datePublished: "2026-02",
       reviewBody:
         "I had the chance to work closely with Amit during several fast-paced release cycles. He played a key role in code reviews, ensuring quality and consistency across the codebase while guiding multiple teams through complex technical tasks and blockers. Reliable, technically strong, and a great support.",
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: 5,
-        bestRating: 5,
-      },
+      reviewRating: { "@type": "Rating", ratingValue: 5, bestRating: 5 },
     },
     {
       "@type": "Review",
@@ -975,16 +1110,12 @@ const reviewSchema = {
       datePublished: "2024-10",
       reviewBody:
         "Amit played a pivotal role in mentoring me, sharing his profound knowledge of Redux, React Native, and frontend concepts. His guidance helped me build a solid foundation. His enthusiasm for coding and pursuit for perfection are truly inspiring.",
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: 5,
-        bestRating: 5,
-      },
+      reviewRating: { "@type": "Rating", ratingValue: 5, bestRating: 5 },
     },
   ],
 };
 
-/* ── Skills / Education Schema ── */
+/* ── 10. Education / Credentials ── */
 const educationSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -1042,14 +1173,150 @@ const educationSchema = {
       credentialCategory: "certificate",
       name: "HackerRank Certified: Problem Solving, React, JavaScript",
       recognizedBy: { "@type": "Organization", name: "HackerRank" },
+      url: "https://www.hackerrank.com/amit98ch",
       dateCreated: "2021",
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      credentialCategory: "certificate",
+      name: "DevOps Engineering — Docker, Kubernetes, CI/CD",
+      recognizedBy: { "@type": "Organization", name: "Udemy" },
+      dateCreated: "2022",
     },
   ],
 };
 
-/* ─────────────────────────────────────────────────────────
+/* ── 11. HowTo — Career Timeline surfaces as step-by-step Google result ── */
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "Amit Chakraborty's Career Journey — From PHP Developer to Principal Architect",
+  description:
+    "The engineering career progression of Amit Chakraborty from full-stack PHP developer in 2017 to Principal Mobile Architect and HealthTech AI engineering lead in 2025.",
+  author: { "@id": `${BASE_URL}/#person` },
+  step: [
+    {
+      "@type": "HowToStep",
+      position: 1,
+      name: "2017 — Started as Full-Stack PHP Developer",
+      text: "Joined Techpromind in Kolkata as a PHP/Full-Stack developer. Delivered 13+ government digital projects including the GST Ecosystem. Learned Angular, REST APIs, and enterprise software delivery.",
+      url: `${BASE_URL}/#story`,
+    },
+    {
+      "@type": "HowToStep",
+      position: 2,
+      name: "2019 — Transitioned to React Native Mobile Development",
+      text: "Pivoted into React Native mobile development while completing MCA at Techno Main Salt Lake. Built first production iOS/Android applications. Developed deep expertise in mobile UI performance and architecture.",
+      url: `${BASE_URL}/#story`,
+    },
+    {
+      "@type": "HowToStep",
+      position: 3,
+      name: "2021 — Joined NonceBlox as Lead Mobile Architect",
+      text: "Joined NonceBlox Pvt. Ltd. as Lead Mobile Architect. Shipped 13+ production apps in FinTech, Web3, and Gaming. Built DeFi11 and Vulcan Eleven serving 50,000+ users. Became primary technical liaison and led hiring.",
+      url: `${BASE_URL}/#experience`,
+    },
+    {
+      "@type": "HowToStep",
+      position: 4,
+      name: "2022 — Mastered Blockchain & Web3",
+      text: "Completed Solidity, DeFi, and NFT certifications. Built fully on-chain fantasy sports platform DeFi11 on Ethereum. Integrated WalletConnect, Binance Pay, Solana, and NEAR blockchain into production apps.",
+      url: `${BASE_URL}/#skills`,
+    },
+    {
+      "@type": "HowToStep",
+      position: 5,
+      name: "2024 — Advanced into AI/ML & Computer Vision",
+      text: "Built RAG pipelines for HIPAA-compliant medical data retrieval. Integrated LLMs (OpenAI, Claude) for dynamic runtime task generation. Implemented MediaPipe computer vision for real-time retina eye analysis.",
+      url: `${BASE_URL}/#work`,
+    },
+    {
+      "@type": "HowToStep",
+      position: 6,
+      name: "2025 — Principal Architect at Synapsis Medical Technologies",
+      text: "Promoted to Principal Mobile Architect & Technical Lead at Synapsis Medical Technologies Inc. (Edmonton, Canada). Led team of 21+ across 5 HealthTech AI apps. Engineered custom game engine from scratch using C++/Swift/Kotlin bridgeless. Managed 500+ projects at VP level.",
+      url: `${BASE_URL}/#experience`,
+    },
+  ],
+};
+
+/* ── 12. TechArticle — blog content authority signals ── */
+const techArticleSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Amit Chakraborty — Technical Writing & Blog",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      item: {
+        "@type": "TechArticle",
+        headline:
+          "Building a Custom Game Engine in React Native with Zero External Dependencies",
+        description:
+          "Deep dive into architecting a production-grade game engine using C++/Swift/Kotlin native modules and React Native Bridgeless Architecture for HIPAA-compliant HealthTech applications.",
+        author: { "@id": `${BASE_URL}/#person` },
+        publisher: {
+          "@type": "Organization",
+          name: "Medium — devamitch",
+          url: "https://devamitch.medium.com/",
+        },
+        url: "https://devamitch.medium.com/",
+        inLanguage: "en-IN",
+        keywords:
+          "React Native, custom game engine, C++ native modules, Bridgeless, HealthTech",
+        articleSection: "Mobile Engineering",
+      },
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      item: {
+        "@type": "TechArticle",
+        headline: "RAG Pipelines for HIPAA-Compliant Mobile Applications",
+        description:
+          "Practical guide to building Retrieval-Augmented Generation pipelines with Pinecone, LLMs, and React Native for medical data applications — with full HIPAA compliance considerations.",
+        author: { "@id": `${BASE_URL}/#person` },
+        publisher: {
+          "@type": "Organization",
+          name: "Medium — devamitch",
+          url: "https://devamitch.medium.com/",
+        },
+        url: "https://devamitch.medium.com/",
+        inLanguage: "en-IN",
+        keywords:
+          "RAG pipeline, HIPAA, LLM, Pinecone, React Native, HealthTech, medical AI",
+        articleSection: "AI & Machine Learning",
+      },
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      item: {
+        "@type": "TechArticle",
+        headline:
+          "Building Fully On-Chain Fantasy Sports with Solidity and React Native",
+        description:
+          "Architecture guide for building 100% decentralised fantasy sports apps with on-chain prize pools, smart contract tournament logic, and WalletConnect integration.",
+        author: { "@id": `${BASE_URL}/#person` },
+        publisher: {
+          "@type": "Organization",
+          name: "Medium — devamitch",
+          url: "https://devamitch.medium.com/",
+        },
+        url: "https://devamitch.medium.com/",
+        inLanguage: "en-IN",
+        keywords:
+          "DeFi, Solidity, fantasy sports, on-chain, smart contracts, Ethereum, React Native",
+        articleSection: "Blockchain & Web3",
+      },
+    },
+  ],
+};
+
+/* ═══════════════════════════════════════════════════════
    ROOT LAYOUT
-───────────────────────────────────────────────────────── */
+═══════════════════════════════════════════════════════ */
 export default function RootLayout({
   children,
 }: {
@@ -1058,10 +1325,25 @@ export default function RootLayout({
   return (
     <html
       lang="en-IN"
+      dir="ltr"
       className={`${dmSans.variable} ${spaceGrotesk.variable} ${spaceMono.variable}`}
       suppressHydrationWarning
     >
       <head>
+        {/* ── Critical asset preloads ── */}
+        <link
+          rel="preload"
+          as="image"
+          href="/og-image.png"
+          fetchPriority="high"
+        />
+        <link
+          rel="preload"
+          as="image"
+          href="https://github.com/devamitch.png"
+          fetchPriority="high"
+        />
+
         {/* ── Sitemap & Preconnects ── */}
         <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -1072,6 +1354,7 @@ export default function RootLayout({
         />
         <link rel="preconnect" href="https://github.com" />
         <link rel="dns-prefetch" href="https://api.anthropic.com" />
+        <link rel="dns-prefetch" href="https://avatars.githubusercontent.com" />
 
         {/* ── Robots & Crawl Directives ── */}
         <meta
@@ -1083,7 +1366,18 @@ export default function RootLayout({
           content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
         />
         <meta name="bingbot" content="index, follow" />
+        <meta name="slurp" content="index, follow" />
         <meta name="google" content="notranslate" />
+        <meta name="rating" content="general" />
+        <meta name="revisit-after" content="7 days" />
+        <meta
+          name="subject"
+          content="Principal Mobile Architect — React Native, AI, Blockchain, HealthTech"
+        />
+        <meta name="language" content="English" />
+        <meta name="copyright" content="Amit Chakraborty" />
+        <meta name="reply-to" content="amit98ch@gmail.com" />
+        <meta name="target" content="all" />
 
         {/* ── Geo Tags ── */}
         <meta name="geo.region" content="IN-WB" />
@@ -1103,6 +1397,10 @@ export default function RootLayout({
           content="https://www.linkedin.com/in/devamitch/"
         />
         <meta property="og:see_also" content="https://github.com/devamitch" />
+        <meta
+          property="og:see_also"
+          content="https://github.com/techamit95ch"
+        />
         <meta property="og:see_also" content="https://x.com/devamitch" />
         <meta property="og:see_also" content="https://devamitch.medium.com/" />
 
@@ -1129,17 +1427,25 @@ export default function RootLayout({
           content="black-translucent"
         />
         <meta name="apple-mobile-web-app-title" content="Amit Chakraborty" />
+        <meta name="HandheldFriendly" content="True" />
+        <meta name="MobileOptimized" content="320" />
 
-        {/* ── Authorship & Identity ── */}
+        {/* ── Authorship & Identity — rel="me" for IndieWeb verification ── */}
         <link rel="me" href="https://www.linkedin.com/in/devamitch/" />
         <link rel="me" href="https://github.com/devamitch" />
         <link rel="me" href="https://x.com/devamitch" />
         <link rel="me" href="https://devamitch.medium.com/" />
+        <link rel="author" href={`${BASE_URL}/#person`} />
+        <link rel="author" href="https://www.linkedin.com/in/devamitch/" />
 
         {/* ── Canonical & Alternates ── */}
         <link rel="canonical" href={BASE_URL} />
+        <link rel="alternate" hrefLang="en-IN" href={BASE_URL} />
+        <link rel="alternate" hrefLang="en-US" href={BASE_URL} />
+        <link rel="alternate" hrefLang="en-GB" href={BASE_URL} />
+        <link rel="alternate" hrefLang="x-default" href={BASE_URL} />
 
-        {/* ── Structured Data — All Schemas ── */}
+        {/* ── Structured Data — 12 JSON-LD Schemas ── */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
@@ -1156,6 +1462,12 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(professionalServiceSchema),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(aggregateRatingSchema),
           }}
         />
         <script
@@ -1180,15 +1492,132 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(educationSchema) }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(techArticleSchema),
+          }}
+        />
       </head>
       <body
         className="bg-black text-white antialiased overflow-x-hidden"
         suppressHydrationWarning
       >
+        {/* ── Skip Navigation Links — WCAG 2.1 AA Accessibility ── */}
+        <div className="sr-only focus-within:not-sr-only">
+          <a
+            href="#main-content"
+            className="fixed top-2 left-2 z-[9999] bg-yellow-400 text-black font-bold px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-black"
+            // onFocus={(e) => e.currentTarget.classList.remove("sr-only")}
+            // onBlur={(e) => e.currentTarget.classList.add("sr-only")}
+          >
+            Skip to main content
+          </a>
+          <a
+            href="#navigation"
+            className="fixed top-2 left-48 z-[9999] bg-yellow-400 text-black font-bold px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-black"
+            // onFocus={(e) => e.currentTarget.classList.remove("sr-only")}
+            // onBlur={(e) => e.currentTarget.classList.add("sr-only")}
+          >
+            Skip to navigation
+          </a>
+          <a
+            href="#contact"
+            className="fixed top-2 left-96 z-[9999] bg-yellow-400 text-black font-bold px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-black"
+            // onFocus={(e) => e.currentTarget.classList.remove("sr-only")}
+            // onBlur={(e) => e.currentTarget.classList.add("sr-only")}
+          >
+            Skip to contact
+          </a>
+        </div>
+
+        {/* ── No-JS fallback — full crawlable content for non-JS search bots ── */}
+        <noscript>
+          <div
+            style={{
+              padding: "2rem",
+              fontFamily: "Arial, sans-serif",
+              maxWidth: "900px",
+              margin: "0 auto",
+              color: "#fff",
+              background: "#050505",
+            }}
+          >
+            <h1>Amit Chakraborty — Principal Mobile Architect</h1>
+            <p>
+              Principal Mobile Architect with 8+ years building AI-powered,
+              blockchain-integrated, HIPAA-compliant production apps. 18+ apps
+              shipped. 50K+ users. Expert in React Native (Bridgeless), RAG
+              Pipelines, LLM Integration, Solidity, Web3, HealthTech, and native
+              C++/Swift/Kotlin modules. MCA from Techno Main Salt Lake, Kolkata.
+              Available for VP Engineering, CTO, and Principal Architect roles —
+              remote worldwide.
+            </p>
+            <h2>Contact</h2>
+            <p>
+              Email:{" "}
+              <a href="mailto:amit98ch@gmail.com" style={{ color: "#C9A84C" }}>
+                amit98ch@gmail.com
+              </a>
+            </p>
+            <p>
+              Phone:{" "}
+              <a href="tel:+919874173663" style={{ color: "#C9A84C" }}>
+                +91-9874173663
+              </a>
+            </p>
+            <p>
+              LinkedIn:{" "}
+              <a
+                href="https://www.linkedin.com/in/devamitch/"
+                style={{ color: "#C9A84C" }}
+              >
+                linkedin.com/in/devamitch
+              </a>
+            </p>
+            <p>
+              GitHub:{" "}
+              <a
+                href="https://github.com/devamitch"
+                style={{ color: "#C9A84C" }}
+              >
+                github.com/devamitch
+              </a>
+            </p>
+            <p>
+              Portfolio:{" "}
+              <a href={BASE_URL} style={{ color: "#C9A84C" }}>
+                {BASE_URL}
+              </a>
+            </p>
+            <h2>Skills</h2>
+            <p>
+              React Native · React Native Bridgeless · TypeScript · Node.js ·
+              NestJS · Next.js · AI/ML · RAG Pipelines · LLM Integration ·
+              Computer Vision · MediaPipe · Solidity · DeFi · NFT · Web3 ·
+              WalletConnect · HIPAA HealthTech · Custom Game Engines · C++
+              Native Modules · Swift · Kotlin · GraphQL · PostgreSQL · MongoDB ·
+              AWS · Docker · Kubernetes · CI/CD
+            </p>
+            <h2>Location</h2>
+            <p>Kolkata, West Bengal, India — Available remote worldwide</p>
+          </div>
+        </noscript>
+
+        {/* ── Main application wrapper with ARIA landmark ── */}
         <ReCaptchaProvider
           reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
         >
-          {children}
+          <div
+            role="application"
+            aria-label="Amit Chakraborty Portfolio — Principal Mobile Architect"
+          >
+            {children}
+          </div>
         </ReCaptchaProvider>
       </body>
     </html>

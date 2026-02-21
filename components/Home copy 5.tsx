@@ -104,49 +104,7 @@ const D = {
     "Go",
     "Firebase",
   ],
-  ethos: {
-    badge: "FOUNDER MINDSET",
-    status: "Always On",
-    location: "In the Trenches",
-    summary:
-      "No single company defines me. My dedication, my principles, and how I tackle the hardest technical blockers do. I operate as a specialized unit—putting my skin in the game for every project.",
-    metrics: [
-      { label: "Mindset", value: "100", unit: "% Founder" },
-      { label: "Ownership", value: "Extreme", unit: "" },
-      { label: "Delivery", value: "End-to-End", unit: "" },
-      { label: "Next Venture", value: "Unicorn", unit: "Target" },
-    ],
-    principles: [
-      {
-        label: "Skin in the Game",
-        detail:
-          "I treat your product like it's my own company. I fight till the end to ensure the architecture survives reality.",
-      },
-      {
-        label: "Tackling the Critical",
-        detail:
-          "When things break, I step in. I solve the blockers that make other engineers quit.",
-      },
-      {
-        label: "Building the Team",
-        detail:
-          "I don't just write code. I mentor, train, and instill strict engineering discipline in the teams I lead.",
-      },
-      {
-        label: "Zero-to-One Focus",
-        detail:
-          "Taking raw visions and turning them into scalable, robust technical realities from absolute zero.",
-      },
-    ],
-    story:
-      "I give everything to the craft. Day and night. I build entire technical universes from nothing—architectures, AI pipelines, game engines, and the teams that run them. A single title or past company doesn't capture who I am. What defines me is my resilience, my behavior under pressure, and my absolute refusal to ship mediocre work. Soon, I will be building my own venture from the ground up. Until then, I bring that exact same relentless, 'fight-till-the-end' energy to the teams I lead and the founders I partner with.",
-    highlights: [
-      "Architecting complex systems while taking full accountability for their survival in production.",
-      "Fostering a culture of excellence, mentoring junior to senior engineers into technical leaders.",
-      "Navigating high-pressure pivots and critical infrastructure failures with absolute calm.",
-      "Preparing to launch a new venture, bringing years of hardened 0-to-1 experience into my own business.",
-    ],
-  },
+
   experience: [
     {
       id: "synapsis",
@@ -162,19 +120,14 @@ const D = {
         "Retained to execute the complete 0-to-1 technical build of a HealthTech AI startup. Operated as a specialized unit — building the engineering foundation from absolute zero, delivering a production-ready ecosystem before handing off.",
       metrics: [
         { label: "Engineers Led", value: "21", unit: "people" },
-        {
-          label: "Apps Shipped",
-          value: "5",
-          unit: "iOS + Android + Web + AI + Desktop ",
-        },
+        { label: "Apps Shipped", value: "5", unit: "iOS + Android" },
         { label: "Uptime", value: "99.9", unit: "%" },
         { label: "CI/CD Speed", value: "30", unit: "% faster" },
       ],
       deliverables: [
         {
           label: "Technical Ecosystem",
-          detail:
-            "React Native · Next.js · NestJS · AWS · Docker · Kubernetes · PostgreSQL · MongoDB · Redis · GraphQL · GSAP · Framer Motion · TensorFlow · MediaPipe · Pinecone · Solidity · Web3.js · Fastlane · Electron · Time Scale DB · Supabase · Sequelize ·  — from absolute zero",
+          detail: "React Native · Next.js · NestJS · AWS — from absolute zero",
         },
         {
           label: "Proprietary Game Engine",
@@ -202,11 +155,11 @@ const D = {
       story:
         "I gave this everything. Day and night. Weeks without rest. I built their entire technical universe from nothing — game engines, AI pipelines, vision systems, entire teams. I was not just a developer. I was the architect, the recruiter, the mentor, the foundation. After successful delivery, I was not treated with the value I brought. But the code ships. The systems run. The users are served. That stands.",
       highlights: [
-        "Led engineering team of 21+ developers across 5 production iOS + Android + Progressive Web + AI + Desktop apps",
+        "Led engineering team of 21+ developers across 5 production iOS + Android apps",
         "Built proprietary game engine from scratch — C++/Swift/Kotlin bridgeless modules, zero external deps",
         "Architected HIPAA-compliant RAG pipelines for medical data retrieval, 99.9% uptime",
         "Computer Vision: MediaPipe for real-time retina analysis on mobile consumer hardware",
-        "Introduced proper CI/CD pipelines ; recruited & trained 21-person team from scratch",
+        "Reduced deployment time 30% via CI/CD; recruited & trained 21-person team from scratch",
       ],
     },
     {
@@ -642,17 +595,17 @@ const D = {
       text: "Amit had been an amicable and diligent developer, one of the most dependable Engineers when it comes to delivery or urgent closures. His capability to rebuild any project from scratch is remarkable.",
       li: "https://linkedin.com/in/neha-goel/",
     },
-    // {
-    //   name: "Puja Rani Tripathy",
-    //   role: "Software Developer",
-    //   company: "Synapsis Medical",
-    //   seniority: "TEAM MEMBER",
-    //   col: "#4FC3F7",
-    //   rel: "Reported to Amit directly",
-    //   date: "Feb 2026",
-    //   text: "Amit played a key role in code reviews, ensuring quality and consistency across the codebase while guiding multiple teams through complex technical tasks.",
-    //   li: "https://linkedin.com/in/puja-rani-tripathy/",
-    // },
+    {
+      name: "Puja Rani Tripathy",
+      role: "Software Developer",
+      company: "Synapsis Medical",
+      seniority: "TEAM MEMBER",
+      col: "#4FC3F7",
+      rel: "Reported to Amit directly",
+      date: "Feb 2026",
+      text: "Amit played a key role in code reviews, ensuring quality and consistency across the codebase while guiding multiple teams through complex technical tasks.",
+      li: "https://linkedin.com/in/puja-rani-tripathy/",
+    },
     {
       name: "Varun Chodha",
       role: "Senior Full-Stack · MERN",
@@ -3547,354 +3500,6 @@ function SynapsisSection() {
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   ██  SECTION: ENGINEERING ETHOS (Replaces Synapsis)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-function EthosSection() {
-  const ref = useRef<HTMLElement>(null);
-  const visible = useInView(ref as React.RefObject<Element>, 0.07);
-  const ethos = D.ethos;
-
-  return (
-    <section
-      id="ethos"
-      ref={ref}
-      style={{
-        padding: "clamp(80px,10vw,140px) 0",
-        position: "relative",
-        overflow: "hidden",
-        background: C.bg2,
-      }}
-    >
-      <div
-        style={{
-          position: "absolute",
-          right: "-10%",
-          top: "10%",
-          width: "55%",
-          height: "80%",
-          background: `radial-gradient(ellipse at 80% 50%,${C.goldF} 0%,transparent 70%)`,
-          pointerEvents: "none",
-        }}
-      />
-      <div
-        style={{
-          maxWidth: 1400,
-          margin: "0 auto",
-          padding: "0 32px",
-          position: "relative",
-        }}
-      >
-        <SLabel>What Defines Me</SLabel>
-
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={visible ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.75 }}
-          style={{ marginBottom: 48 }}
-        >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "flex-start",
-              gap: 28,
-              flexWrap: "wrap",
-            }}
-          >
-            <div style={{ flex: 1, minWidth: 280 }}>
-              <h2
-                style={{
-                  fontFamily: HN,
-                  fontSize: "clamp(28px,4.5vw,58px)",
-                  fontWeight: 900,
-                  letterSpacing: "-0.04em",
-                  lineHeight: 1.02,
-                  marginBottom: 16,
-                  color: C.text,
-                }}
-              >
-                Skin in the game.
-                <br />
-                <GoldAccent>Fight till the end.</GoldAccent>
-              </h2>
-              <p
-                style={{
-                  color: C.faint,
-                  fontSize: "clamp(14px,1.7vw,17px)",
-                  lineHeight: 1.65,
-                  maxWidth: 520,
-                }}
-              >
-                {ethos.summary}
-              </p>
-            </div>
-            <div
-              style={{
-                flexShrink: 0,
-                padding: "22px 28px",
-                border: `1px solid ${C.goldD}`,
-                background: C.goldF,
-              }}
-            >
-              <Badge color={C.gold}>{ethos.badge}</Badge>
-              <div
-                style={{
-                  fontFamily: MONO,
-                  fontSize: 11,
-                  color: C.faint,
-                  marginTop: 10,
-                  letterSpacing: "0.06em",
-                }}
-              >
-                {ethos.location}
-              </div>
-              <div style={{ fontFamily: MONO, fontSize: 11, marginTop: 6 }}>
-                <span style={{ color: C.green }}>● </span>
-                <span style={{ color: C.green }}>{ethos.status}</span>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Metrics row */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit,minmax(140px,1fr))",
-            gap: 14,
-            marginBottom: 48,
-          }}
-        >
-          {ethos.metrics.map((m, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={visible ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.5, delay: 0.1 + i * 0.07 }}
-              style={{
-                border: `1px solid ${C.border}`,
-                background: C.card,
-                padding: "20px 24px",
-                textAlign: "center",
-              }}
-            >
-              <div
-                style={{
-                  fontFamily: HN,
-                  fontSize: "clamp(22px,3vw,38px)",
-                  fontWeight: 900,
-                  letterSpacing: "-0.04em",
-                  color: C.gold,
-                  lineHeight: 1,
-                  marginBottom: 4,
-                }}
-              >
-                {m.value}
-              </div>
-              <div
-                style={{
-                  fontFamily: MONO,
-                  fontSize: 9,
-                  color: C.vfaint,
-                  letterSpacing: "0.16em",
-                  textTransform: "uppercase",
-                }}
-              >
-                {m.label}
-              </div>
-              {m.unit && (
-                <div
-                  style={{
-                    fontFamily: MONO,
-                    fontSize: 9,
-                    color: C.vfaint,
-                    letterSpacing: "0.06em",
-                  }}
-                >
-                  {m.unit}
-                </div>
-              )}
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Principles grid */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit,minmax(290px,1fr))",
-            gap: 14,
-            marginBottom: 56,
-          }}
-        >
-          {ethos.principles.map((p, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, x: -24 }}
-              animate={visible ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.12 + i * 0.07 }}
-              style={{
-                border: `1px solid ${C.border}`,
-                background: C.card,
-                padding: "22px 26px",
-                display: "flex",
-                gap: 16,
-                alignItems: "flex-start",
-              }}
-            >
-              <div
-                style={{
-                  width: 28,
-                  height: 28,
-                  flexShrink: 0,
-                  background: C.goldF,
-                  border: `1px solid ${C.goldD}`,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginTop: 2,
-                }}
-              >
-                <div
-                  style={{
-                    width: 7,
-                    height: 7,
-                    borderRadius: "50%",
-                    background: C.gold,
-                  }}
-                />
-              </div>
-              <div>
-                <div style={{ fontWeight: 700, fontSize: 14, marginBottom: 5 }}>
-                  {p.label}
-                </div>
-                <div
-                  style={{
-                    fontFamily: MONO,
-                    fontSize: 10,
-                    color: C.faint,
-                    letterSpacing: "0.05em",
-                    lineHeight: 1.5,
-                  }}
-                >
-                  {p.detail}
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* The full unfiltered story */}
-        <motion.div
-          initial={{ opacity: 0, y: 32 }}
-          animate={visible ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.85, delay: 0.5 }}
-        >
-          <div
-            style={{
-              padding: "clamp(32px,5vw,56px)",
-              background: `linear-gradient(135deg,rgba(201,168,76,.06),rgba(201,168,76,.02))`,
-              border: `1px solid ${C.goldD}`,
-              position: "relative",
-              overflow: "hidden",
-            }}
-          >
-            <div
-              aria-hidden
-              style={{
-                position: "absolute",
-                top: -30,
-                left: 24,
-                fontSize: 180,
-                lineHeight: 1,
-                color: C.goldD,
-                fontFamily: HN,
-                fontWeight: 900,
-                pointerEvents: "none",
-                userSelect: "none",
-              }}
-            >
-              "
-            </div>
-            <div style={{ position: "relative", zIndex: 1 }}>
-              <div
-                style={{
-                  fontFamily: MONO,
-                  fontSize: 10,
-                  color: C.gold,
-                  letterSpacing: "0.22em",
-                  textTransform: "uppercase",
-                  marginBottom: 24,
-                }}
-              >
-                — The Founder Mindset.
-              </div>
-              <p
-                style={{
-                  fontSize: "clamp(15px,1.9vw,18px)",
-                  lineHeight: 1.82,
-                  color: C.dim,
-                  fontStyle: "italic",
-                  maxWidth: 780,
-                }}
-              >
-                {ethos.story}
-              </p>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Technical highlights */}
-        <div style={{ marginTop: 40 }}>
-          <div
-            style={{
-              fontFamily: MONO,
-              fontSize: 10,
-              color: C.gold,
-              letterSpacing: "0.22em",
-              textTransform: "uppercase",
-              marginBottom: 24,
-            }}
-          >
-            How I Operate
-          </div>
-          {ethos.highlights.map((h, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, x: -20 }}
-              animate={visible ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.6 + i * 0.07 }}
-              style={{
-                display: "flex",
-                gap: 16,
-                alignItems: "flex-start",
-                padding: "18px 0",
-                borderBottom: `1px solid ${C.border}`,
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: MONO,
-                  fontSize: 11,
-                  color: C.gold,
-                  flexShrink: 0,
-                  marginTop: 2,
-                  letterSpacing: "0.04em",
-                }}
-              >
-                {String(i + 1).padStart(2, "0")}.
-              </span>
-              <p style={{ color: C.faint, fontSize: 14, lineHeight: 1.65 }}>
-                {h}
-              </p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    ██  SECTION: EXPERIENCE  (PrimaryHome style + Doc2 accordion)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 function ExperienceSection() {
@@ -6298,7 +5903,7 @@ export default function PrimaryHome() {
 
         <Div />
 
-        <EthosSection />
+        <SynapsisSection />
 
         <Div />
 

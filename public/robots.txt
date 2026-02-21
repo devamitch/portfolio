@@ -1,9 +1,26 @@
-# *
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /static/
 
-# Host
-Host: https://www.devamit.co.in
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
 
-# Sitemaps
-Sitemap: https://www.devamit.co.in/sitemap.xml
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+# Sitemap
+Sitemap: https://devamit.co.in/sitemap.xml
+Host: https://devamit.co.in

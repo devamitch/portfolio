@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import { useCallback, useState } from "react";
 import CustomCursor from "~/components/CustomCursor";
-import Home from "~/components/Home";
+import PrimaryHome from "~/components/Home";
 import Navigation from "~/components/Navigation";
 import Preloader from "~/components/Preloader";
 import SmoothScroll from "~/components/SmoothScroll";
@@ -70,7 +70,7 @@ export default function Page() {
             </div>
 
             <Navigation />
-            <Home />
+            <PrimaryHome />
           </SmoothScroll>
         </>
       )}
