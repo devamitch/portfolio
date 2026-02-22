@@ -1,13 +1,5 @@
 "use client";
 
-/**
- * ~/components/AIAssistantWidget.tsx
- *
- * Liquid gold canvas blob FAB → morphs into glassmorphism chat panel on open.
- * New first-time visitors (isFirstTimeVisitor === true): auto-expands.
- * Uses portfolioState exclusively — no direct localStorage access.
- */
-
 import { Bot, ChevronDown, Loader2, RotateCcw, Send, X } from "lucide-react";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
@@ -134,6 +126,7 @@ function LiquidBlobButton({
         const next = verts[(i + 1) % pts]!;
         const cpx = cur[0] + (next[0] - prev[0]) * 0.14;
         const cpy = cur[1] + (next[1] - prev[1]) * 0.14;
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         i === 0
           ? ctx.moveTo(cur[0], cur[1])
           : ctx.quadraticCurveTo(cpx, cpy, cur[0], cur[1]);
@@ -297,7 +290,7 @@ export function AIAssistantWidget({
       cancelAnimationFrame(panelRafRef.current);
       const start = performance.now();
       const duration = 220;
-      let from = panelOpacity; // captured in closure
+      const from = panelOpacity; // captured in closure
 
       const step = (now: number) => {
         const t = Math.min((now - start) / duration, 1);

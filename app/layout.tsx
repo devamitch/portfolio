@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
-import { ReCaptchaProvider } from "next-recaptcha-v3";
 import { DM_Sans, Space_Grotesk, Space_Mono } from "next/font/google";
 
+import AllProvider from "~/components/providers/all-provicer";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -1573,17 +1573,7 @@ export default function RootLayout({
           </div>
         </noscript>
 
-        {}
-        <ReCaptchaProvider
-          reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-        >
-          <div
-            role="application"
-            aria-label="Amit Chakraborty Portfolio — Principal Mobile Architect"
-          >
-            {children}
-          </div>
-        </ReCaptchaProvider>
+        <AllProvider>{children}</AllProvider>
       </body>
     </html>
   );

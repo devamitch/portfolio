@@ -9,6 +9,7 @@ import React, {
   useState,
 } from "react";
 import { AIAssistantWidget } from "~/components/widgets/AIAssistantWidget";
+import { LiquidGoldAnimation } from "../ui/LiquidGoldAnimation";
 
 export const SpeechContext = createContext({ supported: true, ready: false });
 
@@ -120,43 +121,12 @@ export function AIWidgetProvider({
           fontFamily: "'Space Mono', 'Courier New', monospace",
         }}
       >
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            height: "2px",
-            background: "linear-gradient(90deg, #8C6218, #D4AF37, #FBF5B7)",
-            boxShadow: "0 0 20px rgba(212, 175, 55, 0.8)",
-            animation: "plPulse 2s infinite ease-in-out",
-          }}
-        />
-        <div
-          style={{
-            color: "#D4AF37",
-            fontSize: "14px",
-            letterSpacing: "0.2em",
-            fontWeight: 700,
-            textTransform: "uppercase",
-            animation: "plFadeInOut 1.5s infinite ease-in-out",
-          }}
-        >
-          Initializing Portfolio Systems...
-        </div>
-        <style
-          dangerouslySetInnerHTML={{
-            __html: `
-          @keyframes plFadeInOut {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
-          }
-          @keyframes plPulse {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; }
-          }
-        `,
-          }}
+        <LiquidGoldAnimation
+          width={typeof window !== "undefined" ? window.innerWidth : 800}
+          height={typeof window !== "undefined" ? window.innerHeight : 600}
+          speed={0.03}
+          intensity={6}
+          particleCount={60}
         />
       </div>
     );
@@ -165,7 +135,7 @@ export function AIWidgetProvider({
   return (
     <SpeechContext.Provider value={speechState}>
       {children}
-      <AIAssistantWidget position={position} defaultOpen={defaultOpen} />
+      <AIAssistantWidget position={position} />
     </SpeechContext.Provider>
   );
 }

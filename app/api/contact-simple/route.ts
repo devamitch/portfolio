@@ -5,8 +5,8 @@ import nodemailer from "nodemailer";
 export const dynamic = "force-dynamic";
 
 const RATE_LIMIT_MAX = 3;
-const RATE_LIMIT_WINDOW = 60 * 60 * 1000; 
-const MAX_FILE_SIZE = 5 * 1024 * 1024; 
+const RATE_LIMIT_WINDOW = 60 * 60 * 1000;
+const MAX_FILE_SIZE = 5 * 1024 * 1024;
 const MAX_FILES = 3;
 const ALLOWED_FILE_TYPES = [
   "application/pdf",
@@ -116,7 +116,7 @@ function detectSpam(
     }
   }
 
-  const links = (message.match(/https?:\/\
+  const links = (message.match(/https?:\/\//g) || []).length;
   if (links > 3) score += links * 2;
 
   if (message.length < 10) score += 4;
@@ -506,7 +506,7 @@ export async function POST(req: Request) {
   }
 }
 
-// ─── GET Handler 
+// ─── GET Handler
 export async function GET() {
   return NextResponse.json({
     status: "operational",
