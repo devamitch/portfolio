@@ -379,10 +379,7 @@ export async function POST(req: Request) {
       }
     }
 
-    if (
-      !process.env.NEXT_PUBLIC_GMAIL_USER ||
-      !process.env.NEXT_PUBLIC_GMAIL_PASS
-    ) {
+    if (!process.env.GMAIL_PASS || !process.env.GMAIL_PASS) {
       console.error("❌ Gmail credentials not configured");
       return NextResponse.json(
         {
@@ -395,8 +392,8 @@ export async function POST(req: Request) {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: process.env.NEXT_PUBLIC_GMAIL_USER,
-        pass: process.env.NEXT_PUBLIC_GMAIL_PASS,
+        user: process.env.GMAIL_PASS,
+        pass: process.env.GMAIL_PASS,
       },
     });
 
@@ -405,7 +402,7 @@ export async function POST(req: Request) {
     } catch (verifyError) {
       console.error("❌ Email verification failed:", verifyError);
       throw new Error(
-        "Email configuration invalid. Check NEXT_PUBLIC_GMAIL_USER and NEXT_PUBLIC_GMAIL_PASS.",
+        "Email configuration invalid. Check GMAIL_PASS and GMAIL_PASS.",
       );
     }
 
@@ -427,7 +424,7 @@ export async function POST(req: Request) {
 
     try {
       await transporter.sendMail({
-        from: `"Portfolio Contact" <${process.env.NEXT_PUBLIC_GMAIL_USER}>`,
+        from: `"Portfolio Contact" <${process.env.GMAIL_PASS}>`,
         to: "amit98ch@gmail.com",
         replyTo: sEmail,
         subject:
@@ -451,7 +448,7 @@ export async function POST(req: Request) {
 
     try {
       await transporter.sendMail({
-        from: `"Amit Chakraborty" <${process.env.NEXT_PUBLIC_GMAIL_USER}>`,
+        from: `"Amit Chakraborty" <${process.env.GMAIL_PASS}>`,
         to: sEmail,
         subject: `Got your message — Amit Chakraborty`,
         html: generateThankYouEmailHTML(sName),

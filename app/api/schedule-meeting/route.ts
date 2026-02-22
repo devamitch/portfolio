@@ -15,10 +15,10 @@ export async function POST(req: Request) {
       );
     }
 
-    const key = JSON.parse(process.env.NEXT_PUBLIC_GOOGLE_SERVICE_ACCOUNT_KEY!);
+    const key = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_KEY!);
     const auth = new google.auth.GoogleAuth({
       credentials: key,
-      scopes: ["https://www.googleapis.com/auth/calendar.events"], 
+      scopes: ["https://www.googleapis.com/auth/calendar.events"],
     });
 
     const calendar = google.calendar({ version: "v3", auth });
@@ -30,8 +30,8 @@ export async function POST(req: Request) {
     const end = new Date(start.getTime() + (duration || 30) * 60000);
 
     const event = await calendar.events.insert({
-      calendarId: process.env.NEXT_PUBLIC_OWNER_CALENDAR_ID!,
-      conferenceDataVersion: 1, 
+      calendarId: process.env.OWNER_CALENDAR_ID!,
+      conferenceDataVersion: 1,
       sendUpdates: "all",
       requestBody: {
         summary: `${duration || 30}min Call — ${name}`,
@@ -45,7 +45,7 @@ export async function POST(req: Request) {
         conferenceData: {
           createRequest: {
             requestId: `meet-${Date.now()}-${Math.random().toString(36).substring(7)}`,
-            conferenceSolutionKey: { type: "hangoutsMeet" }, 
+            conferenceSolutionKey: { type: "hangoutsMeet" },
           },
         },
       },

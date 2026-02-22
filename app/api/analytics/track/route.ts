@@ -27,7 +27,7 @@ export async function POST(req: Request) {
 
     if (!getApps().length) {
       const key = Buffer.from(
-        process.env.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT_KEY!,
+        process.env.FIREBASE_SERVICE_ACCOUNT_KEY!,
         "base64",
       ).toString("utf-8");
       initializeApp({ credential: cert(JSON.parse(key)) });

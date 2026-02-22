@@ -6,7 +6,7 @@ import { AMIT_CONTEXT } from "~/lib/amit-context";
 export const dynamic = "force-dynamic";
 export const maxDuration = 30;
 
-const groq = createGroq({ apiKey: process.env.NEXT_PUBLIC_GROQ_API_KEY! });
+const groq = createGroq({ apiKey: process.env.GROQ_API_KEY! });
 
 function log(label: string, data?: unknown) {}
 
@@ -100,7 +100,7 @@ Try asking: What projects has he built recently?`,
             await import("firebase-admin/app");
           if (!getApps().length) {
             const key = Buffer.from(
-              process.env.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT_KEY!,
+              process.env.FIREBASE_SERVICE_ACCOUNT_KEY!,
               "base64",
             ).toString("utf-8");
             initializeApp({ credential: cert(JSON.parse(key)) });

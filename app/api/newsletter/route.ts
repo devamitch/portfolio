@@ -5,7 +5,7 @@ import nodemailer from "nodemailer";
 export const dynamic = "force-dynamic";
 
 const RATE_LIMIT_MAX = 5;
-const RATE_LIMIT_WINDOW = 24 * 60 * 60 * 1000; 
+const RATE_LIMIT_WINDOW = 24 * 60 * 60 * 1000;
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>();
 
 function checkRateLimit(ip: string) {
@@ -50,7 +50,7 @@ export async function POST(req: Request) {
 
       if (!getApps().length) {
         const key = Buffer.from(
-          process.env.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT_KEY!,
+          process.env.FIREBASE_SERVICE_ACCOUNT_KEY!,
           "base64",
         ).toString("utf-8");
         initializeApp({ credential: cert(JSON.parse(key)) });
@@ -66,27 +66,24 @@ export async function POST(req: Request) {
       console.warn("[newsletter] Firebase fail:", fbErr);
     }
 
-    if (
-      process.env.NEXT_PUBLIC_GMAIL_USER &&
-      process.env.NEXT_PUBLIC_GMAIL_PASS
-    ) {
+    if (process.env.GMAIL_PASS && process.env.GMAIL_PASS) {
       const transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
-          user: process.env.NEXT_PUBLIC_GMAIL_USER,
-          pass: process.env.NEXT_PUBLIC_GMAIL_PASS,
+          user: process.env.GMAIL_PASS,
+          pass: process.env.GMAIL_PASS,
         },
       });
 
       await transporter.sendMail({
-        from: `"Portfolio Newsletter" <${process.env.NEXT_PUBLIC_GMAIL_USER}>`,
+        from: `"Portfolio Newsletter" <${process.env.GMAIL_PASS}>`,
         to: "amit98ch@gmail.com",
         subject: `New Newsletter Subscriber: ${email}`,
         html: `<p>New subscriber: <b>${email}</b></p><p>IP: ${ip}</p>`,
       });
 
       await transporter.sendMail({
-        from: `"Amit Chakraborty" <${process.env.NEXT_PUBLIC_GMAIL_USER}>`,
+        from: `"Amit Chakraborty" <${process.env.GMAIL_PASS}>`,
         to: email,
         subject: "Welcome to my newsletter!",
         html: `<p>Hi there,</p><p>Thanks for subscribing to my newsletter. I'll share architecture insights and engineering essays occasionally.</p><p>Best,<br/>Amit</p>`,

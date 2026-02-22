@@ -7,12 +7,12 @@ function getAdminApp(): App {
   if (getApps().length) return getApps()[0];
 
   const serviceAccount = JSON.parse(
-    process.env.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT_KEY ?? "{}",
+    process.env.FIREBASE_SERVICE_ACCOUNT_KEY ?? "{}",
   );
 
   adminApp = initializeApp({
     credential: cert(serviceAccount),
-    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID, 
+    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
   });
 
   return adminApp;
