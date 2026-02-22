@@ -132,6 +132,7 @@ function LiquidBlobButton({
         const next = verts[(i + 1) % pts]!;
         const cpx = cur[0] + (next[0] - prev[0]) * 0.14;
         const cpy = cur[1] + (next[1] - prev[1]) * 0.14;
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         i === 0
           ? ctx.moveTo(cur[0], cur[1])
           : ctx.quadraticCurveTo(cpx, cpy, cur[0], cur[1]);
