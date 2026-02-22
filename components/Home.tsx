@@ -12,6 +12,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { BuyCoffeeModal, BuyCoffeePill } from "./BMC_MODAL";
 import ImageWithFallback from "./ImageWithFallback";
 
 const MeetingScheduler = dynamic(() => import("./MeetingScheduler"), {
@@ -3212,377 +3213,6 @@ function ProjectsSection() {
   );
 }
 
-/* 
-   ██  SECTION: SYNAPSIS DEEP-DIVE  (from Doc2, full story)
- */
-function SynapsisSection() {
-  const ref = useRef<HTMLElement>(null);
-  const visible = useInView(ref as React.RefObject<Element>, 0.07);
-  const exp = D.experience[0];
-
-  return (
-    <section
-      id="synapsis"
-      ref={ref}
-      style={{
-        padding: "clamp(80px,10vw,140px) 0",
-        position: "relative",
-        overflow: "hidden",
-        background: C.bg2,
-      }}
-    >
-      <div
-        style={{
-          position: "absolute",
-          right: "-10%",
-          top: "10%",
-          width: "55%",
-          height: "80%",
-          background: `radial-gradient(ellipse at 80% 50%,${C.goldF} 0%,transparent 70%)`,
-          pointerEvents: "none",
-        }}
-      />
-      <div
-        style={{
-          maxWidth: 1400,
-          margin: "0 auto",
-          padding: "0 32px",
-          position: "relative",
-        }}
-      >
-        <SLabel>The Work That Defines Me</SLabel>
-
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={visible ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.75 }}
-          style={{ marginBottom: 48 }}
-        >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "flex-start",
-              gap: 28,
-              flexWrap: "wrap",
-            }}
-          >
-            <div style={{ flex: 1, minWidth: 280 }}>
-              <h2
-                style={{
-                  fontFamily: HN,
-                  fontSize: "clamp(28px,4.5vw,58px)",
-                  fontWeight: 900,
-                  letterSpacing: "-0.04em",
-                  lineHeight: 1.02,
-                  marginBottom: 16,
-                }}
-              >
-                Synapsis Medical
-                <br />
-                <GoldAccent>Technologies</GoldAccent>
-              </h2>
-              <p
-                style={{
-                  color: C.faint,
-                  fontSize: "clamp(14px,1.7vw,17px)",
-                  lineHeight: 1.65,
-                  maxWidth: 520,
-                }}
-              >
-                {exp.summary}
-              </p>
-            </div>
-            <div
-              style={{
-                flexShrink: 0,
-                padding: "22px 28px",
-                border: `1px solid ${C.goldD}`,
-                background: C.goldF,
-              }}
-            >
-              <Badge color={C.gold}>{exp.badge}</Badge>
-              <div
-                style={{
-                  fontFamily: MONO,
-                  fontSize: 11,
-                  color: C.faint,
-                  marginTop: 10,
-                  letterSpacing: "0.06em",
-                }}
-              >
-                {exp.period}
-              </div>
-              <div style={{ fontFamily: MONO, fontSize: 11, marginTop: 6 }}>
-                <span style={{ color: C.green }}>● </span>
-                <span style={{ color: C.green }}>{exp.status}</span>
-              </div>
-              <div
-                style={{
-                  fontFamily: MONO,
-                  fontSize: 10,
-                  color: C.vfaint,
-                  marginTop: 8,
-                }}
-              >
-                {exp.location}
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Metrics row */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit,minmax(140px,1fr))",
-            gap: 14,
-            marginBottom: 48,
-          }}
-        >
-          {exp.metrics.map((m, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={visible ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.5, delay: 0.1 + i * 0.07 }}
-              style={{
-                border: `1px solid ${C.border}`,
-                background: C.card,
-                padding: "20px 24px",
-                textAlign: "center",
-              }}
-            >
-              <div
-                style={{
-                  fontFamily: HN,
-                  fontSize: "clamp(22px,3vw,38px)",
-                  fontWeight: 900,
-                  letterSpacing: "-0.04em",
-                  color: C.gold,
-                  lineHeight: 1,
-                  marginBottom: 4,
-                }}
-              >
-                {m.value}
-              </div>
-              <div
-                style={{
-                  fontFamily: MONO,
-                  fontSize: 9,
-                  color: C.vfaint,
-                  letterSpacing: "0.16em",
-                  textTransform: "uppercase",
-                }}
-              >
-                {m.label}
-              </div>
-              {m.unit && (
-                <div
-                  style={{
-                    fontFamily: MONO,
-                    fontSize: 9,
-                    color: C.vfaint,
-                    letterSpacing: "0.06em",
-                  }}
-                >
-                  {m.unit}
-                </div>
-              )}
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Deliverables grid */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit,minmax(290px,1fr))",
-            gap: 14,
-            marginBottom: 56,
-          }}
-        >
-          {exp.deliverables.map((d, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, x: -24 }}
-              animate={visible ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.12 + i * 0.07 }}
-              style={{
-                border: `1px solid ${C.border}`,
-                background: C.card,
-                padding: "22px 26px",
-                display: "flex",
-                gap: 16,
-                alignItems: "flex-start",
-              }}
-            >
-              <div
-                style={{
-                  width: 28,
-                  height: 28,
-                  flexShrink: 0,
-                  background: C.goldF,
-                  border: `1px solid ${C.goldD}`,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginTop: 2,
-                }}
-              >
-                <div
-                  style={{
-                    width: 7,
-                    height: 7,
-                    borderRadius: "50%",
-                    background: C.gold,
-                  }}
-                />
-              </div>
-              <div>
-                <div style={{ fontWeight: 700, fontSize: 14, marginBottom: 5 }}>
-                  {d.label}
-                </div>
-                <div
-                  style={{
-                    fontFamily: MONO,
-                    fontSize: 10,
-                    color: C.faint,
-                    letterSpacing: "0.05em",
-                    lineHeight: 1.5,
-                  }}
-                >
-                  {d.detail}
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* The full unfiltered story */}
-        <motion.div
-          initial={{ opacity: 0, y: 32 }}
-          animate={visible ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.85, delay: 0.5 }}
-        >
-          <div
-            style={{
-              padding: "clamp(32px,5vw,56px)",
-              background: `linear-gradient(135deg,rgba(201,168,76,.06),rgba(201,168,76,.02))`,
-              border: `1px solid ${C.goldD}`,
-              position: "relative",
-              overflow: "hidden",
-            }}
-          >
-            <div
-              aria-hidden
-              style={{
-                position: "absolute",
-                top: -30,
-                left: 24,
-                fontSize: 180,
-                lineHeight: 1,
-                color: C.goldD,
-                fontFamily: HN,
-                fontWeight: 900,
-                pointerEvents: "none",
-                userSelect: "none",
-              }}
-            >
-              "
-            </div>
-            <div style={{ position: "relative", zIndex: 1 }}>
-              <div
-                style={{
-                  fontFamily: MONO,
-                  fontSize: 10,
-                  color: C.gold,
-                  letterSpacing: "0.22em",
-                  textTransform: "uppercase",
-                  marginBottom: 24,
-                }}
-              >
-                — The full story. Unfiltered.
-              </div>
-              <p
-                style={{
-                  fontSize: "clamp(15px,1.9vw,18px)",
-                  lineHeight: 1.82,
-                  color: C.dim,
-                  fontStyle: "italic",
-                  maxWidth: 780,
-                }}
-              >
-                {exp.story}
-              </p>
-              <div
-                style={{
-                  marginTop: 28,
-                  display: "flex",
-                  gap: 10,
-                  flexWrap: "wrap",
-                }}
-              >
-                <Badge color={C.gold}>{exp.period}</Badge>
-                <Badge color={C.green}>Delivered</Badge>
-                <Badge color={C.blue}>{exp.location}</Badge>
-                <Badge color={C.faint}>{exp.type}</Badge>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
-        {}
-        <div style={{ marginTop: 40 }}>
-          <div
-            style={{
-              fontFamily: MONO,
-              fontSize: 10,
-              color: C.gold,
-              letterSpacing: "0.22em",
-              textTransform: "uppercase",
-              marginBottom: 24,
-            }}
-          >
-            What I built
-          </div>
-          {exp.highlights.map((h, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, x: -20 }}
-              animate={visible ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.6 + i * 0.07 }}
-              style={{
-                display: "flex",
-                gap: 16,
-                alignItems: "flex-start",
-                padding: "18px 0",
-                borderBottom: `1px solid ${C.border}`,
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: MONO,
-                  fontSize: 11,
-                  color: C.gold,
-                  flexShrink: 0,
-                  marginTop: 2,
-                  letterSpacing: "0.04em",
-                }}
-              >
-                {String(i + 1).padStart(2, "0")}.
-              </span>
-              <p style={{ color: C.faint, fontSize: 14, lineHeight: 1.65 }}>
-                {h}
-              </p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function EthosSection() {
   const ref = useRef<HTMLElement>(null);
   const visible = useInView(ref as React.RefObject<Element>, 0.07);
@@ -6188,6 +5818,9 @@ export default function PrimaryHome() {
   const [roleIdx, setRoleIdx] = useState(0);
   const scrambled = useScramble(D.tagline);
 
+  const [bmcOpen, setBmcOpen] = useState(false);
+  const [autoOpened, setAutoOpened] = useState(false);
+  const { scrollYProgress } = useScroll();
   useEffect(() => {
     const t = setInterval(
       () => setRoleIdx((i) => (i + 1) % D.roles.length),
@@ -6250,6 +5883,15 @@ export default function PrimaryHome() {
     return () => ctx.revert();
   }, []);
 
+  useEffect(() => {
+    return scrollYProgress.on("change", (v) => {
+      if (v > 0.4 && !autoOpened && !bmcOpen) {
+        setAutoOpened(true);
+        setBmcOpen(true);
+      }
+    });
+  }, [autoOpened, bmcOpen, scrollYProgress]);
+
   return (
     <>
       {/* ── Hidden SEO structured data ── */}
@@ -6263,10 +5905,8 @@ export default function PrimaryHome() {
           <span itemProp="addressCountry">India</span>
         </span>
       </div>
-
       {}
       <ScrollProgressBar />
-
       <main
         style={{
           fontFamily: HN,
@@ -6375,11 +6015,14 @@ export default function PrimaryHome() {
 
         <Footer />
       </main>
-
       {}
       <MobileNav />
-
-      {}
+      <BuyCoffeePill onOpen={() => setBmcOpen(true)} />
+      <AnimatePresence>
+        {bmcOpen && (
+          <BuyCoffeeModal open={bmcOpen} onClose={() => setBmcOpen(false)} />
+        )}
+      </AnimatePresence>
       <style>{`
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
