@@ -7,8 +7,8 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { AIAssistantWidget } from "~/components/widgets/AIAssistantWidget";
-import { LiquidGoldAnimation } from "../ui/LiquidGoldAnimation";
+import { AIAssistantWidget } from "~/components/home-comonents/widgets/AIAssistantWidget";
+import { LiquidGoldAnimation } from "../ui/PlasmaOrbs";
 
 export const SpeechContext = createContext({ supported: true, ready: false });
 

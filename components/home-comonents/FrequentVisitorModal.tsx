@@ -5,7 +5,7 @@ import { MessageSquare, Send, User, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { usePortfolioState } from "~/store/portfolio-state";
 
-export function FrequentVisitorModal() {
+export default function FrequentVisitorModal() {
   const {
     visitCount,
     isProfileComplete,

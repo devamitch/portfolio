@@ -13,7 +13,7 @@
 
 import { motion, useAnimation } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { SentientAURAOrb } from "../ui/LiquidGoldAnimation";
+import { SentientAURAOrb } from "../ui/PlasmaOrbs";
 import { SplashContext } from "./SplashContext";
 
 // Must exactly match AIAssistantWidget constants
