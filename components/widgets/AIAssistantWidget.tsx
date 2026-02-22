@@ -31,16 +31,18 @@ const C = {
 } as const;
 
 const SUGGESTED = [
-  "What projects has Amit built?",
-  "Tell me about his React Native expertise",
-  "What are Amit's consulting rates?",
+  "What's the most impressive thing you've built?",
+  "Tell me about your React Native expertise",
+  "What are your consulting rates?",
 ];
 
+// Human-sounding loading phrases — no robotic filler
 const LOADING_PHRASES = [
+  "Let me pull that up.",
+  "Good one, hang on.",
   "On it.",
-  "One moment.",
-  "Let me check.",
-  "Looking that up.",
+  "Yeah, one sec.",
+  "Checking that for you.",
 ];
 
 const FALLBACK_TRIGGERS = [
@@ -54,11 +56,14 @@ const FALLBACK_TRIGGERS = [
   "i'm sorry",
   "i'm not able",
 ];
+
+// Phonetic fallback — TTS reads "Ah-mit" correctly
 const FALLBACK_SPEAK =
-  "I don't have those details. You can email Amit directly at amit98ch at gmail dot com — he replies within twenty four hours.";
+  "Hmm, that one's beyond what I know. But you can email Ah-mit directly — amit98ch at gmail dot com. He usually replies within a day.";
 
 const isFallback = (t: string) =>
   FALLBACK_TRIGGERS.some((f) => t.toLowerCase().includes(f));
+
 const pickRandom = <T,>(arr: T[]): T =>
   arr[Math.floor(Math.random() * arr.length)]!;
 
@@ -73,11 +78,12 @@ function scrollToSection(target: ScrollTarget) {
 
 function getTimeGreeting() {
   const h = new Date().getHours();
-  return h < 12 ? "Good morning" : h < 17 ? "Good afternoon" : "Good evening";
+  if (h < 12) return "Morning";
+  if (h < 17) return "Hey";
+  return "Evening";
 }
 
-// ─── Liquid Blob Canvas Button ─────────────────────────────────────────────────
-
+// ─── Liquid Blob Canvas Button ────────────────────────────────────────────────
 function LiquidBlobButton({
   onClick,
   hasHistory,
@@ -126,7 +132,6 @@ function LiquidBlobButton({
         const next = verts[(i + 1) % pts]!;
         const cpx = cur[0] + (next[0] - prev[0]) * 0.14;
         const cpy = cur[1] + (next[1] - prev[1]) * 0.14;
-        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         i === 0
           ? ctx.moveTo(cur[0], cur[1])
           : ctx.quadraticCurveTo(cpx, cpy, cur[0], cur[1]);
@@ -151,14 +156,12 @@ function LiquidBlobButton({
       ctx.fill();
       ctx.shadowBlur = 0;
 
-      // "AURA" text
       ctx.font = "800 11px 'Helvetica Neue', Arial, sans-serif";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.fillStyle = "rgba(5,5,5,0.85)";
       ctx.fillText("AURA", cx, cy);
 
-      // History indicator
       if (hasHistory) {
         ctx.beginPath();
         ctx.arc(cx + baseR - 2, cy - baseR + 3, 5, 0, Math.PI * 2);
@@ -200,7 +203,6 @@ function LiquidBlobButton({
 }
 
 // ─── Widget ───────────────────────────────────────────────────────────────────
-
 interface Props {
   position?: "bottom-right" | "bottom-left";
   autoSpeak?: boolean;
@@ -210,7 +212,6 @@ export function AIAssistantWidget({
   position = "bottom-right",
   autoSpeak = true,
 }: Props) {
-  // Identity
   const {
     isNewUser,
     isFirstTimeVisitor,
@@ -220,7 +221,6 @@ export function AIAssistantWidget({
     hasGreetedUser,
   } = useUserIdentification();
 
-  // Panel state
   const [isOpen, setIsOpen] = useState(false);
   const [panelOpacity, setPanelOpacity] = useState(0);
   const [showSettings, setShowSettings] = useState(false);
@@ -283,14 +283,13 @@ export function AIAssistantWidget({
     [addQuery, submitText],
   );
 
-  // ── Panel fade helpers ─────────────────────────────────────────────────────
-
+  // ── Panel fade ────────────────────────────────────────────────────────────
   const fadePanel = useCallback(
     (toValue: number, onDone?: () => void) => {
       cancelAnimationFrame(panelRafRef.current);
       const start = performance.now();
       const duration = 220;
-      const from = panelOpacity; // captured in closure
+      const from = panelOpacity;
 
       const step = (now: number) => {
         const t = Math.min((now - start) / duration, 1);
@@ -311,7 +310,6 @@ export function AIAssistantWidget({
 
   const handleOpen = useCallback(() => {
     setIsOpen(true);
-    // next tick — let panel mount first, then fade in
     setTimeout(() => fadePanel(1), 16);
   }, [fadePanel]);
 
@@ -320,18 +318,16 @@ export function AIAssistantWidget({
     fadePanel(0, () => setIsOpen(false));
   }, [fadePanel, stopSpeaking]);
 
-  // ── Auto-open for brand new (first-time) visitors ──────────────────────────
+  // ── Auto-open for first-time visitors ────────────────────────────────────
   useEffect(() => {
     if (!isVerified || isIdentifying || hasAutoOpened.current) return;
     hasAutoOpened.current = true;
-
     if (isFirstTimeVisitor && isNewUser) {
-      console.log("[AURA] First-time visitor — auto-opening widget");
-      setTimeout(handleOpen, 600);
+      setTimeout(handleOpen, 800);
     }
   }, [isVerified, isIdentifying, isFirstTimeVisitor, isNewUser, handleOpen]);
 
-  // ── Greeting for new users ─────────────────────────────────────────────────
+  // ── Greeting ──────────────────────────────────────────────────────────────
   useEffect(() => {
     if (
       !isOpen ||
@@ -344,12 +340,13 @@ export function AIAssistantWidget({
     greetingSpoken.current = true;
     setHasGreetedUser(true);
 
-    const msg = `${getTimeGreeting()}! I'm AURA, Amit's portfolio assistant. Could you tell me your name and what brings you here?`;
-    speak(msg, () => {
-      if (isSupported) setTimeout(() => listen(), 500);
+    // Phonetic greeting — TTS reads "Ah-mit" correctly
+    const greeting = `${getTimeGreeting()}! I'm AURA — Ah-mit's portfolio assistant. Who am I talking to?`;
+    speak(greeting, () => {
+      if (isSupported) setTimeout(() => listen(), 400);
     });
     submitText(
-      "System: New visitor onboarding. Greet them as AURA and ask their name and purpose.",
+      "System: New visitor just arrived. Greet them naturally as AURA and ask their name in a casual way. Keep it under 20 words.",
     );
   }, [
     isOpen,
@@ -363,7 +360,7 @@ export function AIAssistantWidget({
     setHasGreetedUser,
   ]);
 
-  // ── Scroll listener ────────────────────────────────────────────────────────
+  // ── Scroll listener ───────────────────────────────────────────────────────
   useEffect(() => {
     const h = (e: Event) =>
       scrollToSection(
@@ -373,7 +370,7 @@ export function AIAssistantWidget({
     return () => window.removeEventListener(SCROLL_EVENT, h);
   }, []);
 
-  // ── Auto-speak ─────────────────────────────────────────────────────────────
+  // ── Auto-speak responses ──────────────────────────────────────────────────
   useEffect(() => {
     if (!autoSpeakEnabled || !isSupported) return;
     const prev = prevStatus.current;
@@ -437,9 +434,9 @@ export function AIAssistantWidget({
 
   const statusLine =
     status === "submitted"
-      ? "🔍 Searching..."
+      ? "🔍 Looking that up..."
       : status === "streaming"
-        ? "💬 Responding..."
+        ? "💬 Typing..."
         : voiceState === "speaking"
           ? "🔊 Speaking..."
           : voiceState === "listening"
@@ -469,9 +466,8 @@ export function AIAssistantWidget({
         .ai-sug:hover{background:rgba(201,168,76,0.08)!important;border-color:rgba(201,168,76,.3)!important}
       `}</style>
 
-      {/* Fixed anchor */}
       <div style={{ position: "fixed", zIndex: 9000, ...posStyle }}>
-        {/* ── Blob button (closed state) ── */}
+        {/* Blob button */}
         {!isOpen && (
           <div style={{ animation: "blobPulse 3.5s ease-in-out infinite" }}>
             <LiquidBlobButton
@@ -482,7 +478,7 @@ export function AIAssistantWidget({
           </div>
         )}
 
-        {/* ── Panel (open state) ── */}
+        {/* Panel */}
         {isOpen && (
           <div
             role="dialog"
@@ -518,7 +514,6 @@ export function AIAssistantWidget({
               }}
             >
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                {/* Organic logo mark */}
                 <div
                   style={{
                     width: 34,
@@ -561,8 +556,8 @@ export function AIAssistantWidget({
                   >
                     {statusLine ??
                       (userName
-                        ? `Hi, ${userName}`
-                        : "Voice · Portfolio · Live")}
+                        ? `Hey, ${userName}`
+                        : "Amit's AI · Voice Ready")}
                   </div>
                 </div>
               </div>
@@ -575,9 +570,7 @@ export function AIAssistantWidget({
                     setAutoSpeakEnabled((v) => !v);
                     if (voiceState === "speaking") stopSpeaking();
                   }}
-                  title={
-                    autoSpeakEnabled ? "Auto-speak ON" : "Enable auto-speak"
-                  }
+                  title={autoSpeakEnabled ? "Auto-speak on" : "Auto-speak off"}
                   style={{
                     width: 30,
                     height: 30,
@@ -670,7 +663,7 @@ export function AIAssistantWidget({
                       fontWeight: 600,
                     }}
                   >
-                    🎙 Voice — Chrome recommended for best quality
+                    🎙 Voice works best in Chrome
                   </p>
                   <p
                     style={{
@@ -680,8 +673,8 @@ export function AIAssistantWidget({
                       lineHeight: 1.5,
                     }}
                   >
-                    After each response AURA speaks a plain-English summary.
-                    Conversation is saved automatically.
+                    AURA reads responses aloud. Conversation saves automatically
+                    between visits.
                   </p>
                 </div>
                 <button
@@ -711,7 +704,7 @@ export function AIAssistantWidget({
                 >
                   <RotateCcw size={12} />
                   {confirmClear
-                    ? "Click again to confirm"
+                    ? "Tap again to confirm clear"
                     : "Clear conversation history"}
                 </button>
               </div>
@@ -751,7 +744,7 @@ export function AIAssistantWidget({
                           margin: 0,
                         }}
                       >
-                        Identifying you…
+                        One sec...
                       </p>
                     </>
                   ) : (
@@ -782,7 +775,7 @@ export function AIAssistantWidget({
                             letterSpacing: "-0.02em",
                           }}
                         >
-                          {userName ? `Welcome back, ${userName}` : "I'm AURA"}
+                          {userName ? `Hey, ${userName} 👋` : "Hey, I'm AURA"}
                         </p>
                         <p
                           style={{
@@ -793,8 +786,8 @@ export function AIAssistantWidget({
                           }}
                         >
                           {isFirstTimeVisitor
-                            ? "Amit's portfolio assistant. Let me get you oriented."
-                            : "Ask me anything about Amit's work."}
+                            ? "Amit's portfolio AI. Ask me anything — or just say hi."
+                            : "Good to see you again. What are we exploring?"}
                         </p>
                       </div>
 
@@ -818,8 +811,8 @@ export function AIAssistantWidget({
                               lineHeight: 1.5,
                             }}
                           >
-                            "{getTimeGreeting()}! Could you introduce yourself?
-                            What brings you here?"
+                            "{getTimeGreeting()}! I'm AURA — who am I talking
+                            to?"
                           </p>
                           <p
                             style={{
@@ -832,7 +825,7 @@ export function AIAssistantWidget({
                           >
                             {voiceState === "listening"
                               ? "🎤 Listening…"
-                              : "🎤 Voice guidance active"}
+                              : "🎤 Voice active — just speak"}
                           </p>
                         </div>
                       )}
@@ -993,8 +986,8 @@ export function AIAssistantWidget({
                       }}
                     >
                       {status === "submitted"
-                        ? "🔍 Searching Amit's portfolio..."
-                        : "💬 Writing response..."}
+                        ? "🔍 Searching..."
+                        : "✍️ Writing..."}
                     </span>
                   </div>
                 </div>
@@ -1039,7 +1032,7 @@ export function AIAssistantWidget({
                 <input
                   type="text"
                   className="ai-input"
-                  placeholder="Ask about Amit's portfolio…"
+                  placeholder="Ask anything about Amit…"
                   value={input}
                   onChange={handleInputChange}
                   onKeyDown={handleKeyDown}
@@ -1129,7 +1122,7 @@ export function AIAssistantWidget({
                         transition: "all .15s",
                       }}
                     >
-                      {voiceState === "speaking" ? "■ Stop" : "▶ Read"}
+                      {voiceState === "speaking" ? "■ Stop" : "▶ Read aloud"}
                     </button>
                   );
                 })()}
