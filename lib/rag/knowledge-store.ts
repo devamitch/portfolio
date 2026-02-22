@@ -1,16 +1,8 @@
-/**
- * Knowledge Store Manager
- * Handles loading and managing different data sources for the RAG system
- */
+
 
 import type { Document, KnowledgeBaseEntry } from './types'
 
-/**
- * Extract portfolio information into documents
- */
 export function extractPortfolioDocuments(): Document[] {
-  // This data would typically come from the PrimaryHome component
-  // For now, we create sample portfolio data
   const documents: Document[] = [
     {
       id: 'portfolio-skills',
@@ -58,16 +50,11 @@ export function extractPortfolioDocuments(): Document[] {
   return documents
 }
 
-/**
- * Extract documents from uploaded files
- * (This would be called after file processing)
- */
 export function createDocumentsFromUpload(
   filename: string,
   content: string,
   uploadId: string
 ): Document[] {
-  // Split content into chunks
   const chunks = splitIntoChunks(content, 500)
 
   return chunks.map((chunk, index) => ({
@@ -83,9 +70,6 @@ export function createDocumentsFromUpload(
   }))
 }
 
-/**
- * Create documents from scraped web content
- */
 export function createDocumentsFromScrape(
   url: string,
   content: string,
@@ -106,9 +90,6 @@ export function createDocumentsFromScrape(
   }))
 }
 
-/**
- * Create documents from manual knowledge base entries
- */
 export function createDocumentsFromKBEntries(
   entries: KnowledgeBaseEntry[]
 ): Document[] {
@@ -125,9 +106,6 @@ export function createDocumentsFromKBEntries(
   }))
 }
 
-/**
- * Split text into chunks for better retrieval
- */
 export function splitIntoChunks(
   text: string,
   chunkSize: number = 500,
@@ -142,7 +120,6 @@ export function splitIntoChunks(
 
     chunks.push(chunk.trim())
 
-    // Move to next chunk with overlap
     currentIndex = end - overlap
     if (currentIndex < 0) {
       break
@@ -152,12 +129,8 @@ export function splitIntoChunks(
   return chunks.filter((chunk) => chunk.length > 0)
 }
 
-/**
- * Process and combine multiple document sources
- */
 export function combineDocuments(...docArrays: Document[][]): Document[] {
   return docArrays.flat().reduce((unique, doc) => {
-    // Avoid duplicates by ID
     if (!unique.find((d) => d.id === doc.id)) {
       unique.push(doc)
     }
@@ -165,24 +138,15 @@ export function combineDocuments(...docArrays: Document[][]): Document[] {
   }, [] as Document[])
 }
 
-/**
- * Initialize default knowledge base with portfolio info
- */
 export function initializeDefaultKnowledgeBase(): Document[] {
   const portfolioData = extractPortfolioDocuments()
   return portfolioData
 }
 
-/**
- * Format documents for storage/transmission
- */
 export function serializeDocuments(documents: Document[]): string {
   return JSON.stringify(documents)
 }
 
-/**
- * Deserialize documents from storage
- */
 export function deserializeDocuments(json: string): Document[] {
   try {
     const parsed = JSON.parse(json)

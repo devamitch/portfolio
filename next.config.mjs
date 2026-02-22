@@ -54,9 +54,8 @@ const nextConfig = {
     //   react/jsx-runtime    → "Can't resolve" crash
     //   react-dom/client     → "Can't resolve" crash (drei Html)
     //
-    // The ReactCurrentOwner problem is fully solved by
-    // dynamic(() => import("./Scene3D"), { ssr: false })
-    // in page.tsx. No alias needed.
+    // The ReactCurrentOwner problem is solved by proper hydration
+    // management in Next.js 15. No alias needed.
 
     return config;
   },

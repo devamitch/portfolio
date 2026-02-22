@@ -15,15 +15,14 @@ export async function POST(req: Request) {
       );
     }
 
-    const key = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_KEY!);
+    const key = JSON.parse(process.env.NEXT_PUBLIC_GOOGLE_SERVICE_ACCOUNT_KEY!);
     const auth = new google.auth.GoogleAuth({
       credentials: key,
-      scopes: ["https://www.googleapis.com/auth/calendar.events"], // Specific scope is safer
+      scopes: ["https://www.googleapis.com/auth/calendar.events"], 
     });
 
     const calendar = google.calendar({ version: "v3", auth });
 
-    // Safely parse Indian Standard Time (IST)
     const [h, m] = time.split(":").map(Number);
     const start = new Date(
       `${date}T${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}:00+05:30`,
@@ -31,8 +30,8 @@ export async function POST(req: Request) {
     const end = new Date(start.getTime() + (duration || 30) * 60000);
 
     const event = await calendar.events.insert({
-      calendarId: process.env.OWNER_CALENDAR_ID!,
-      conferenceDataVersion: 1, // Required to generate Google Meet links
+      calendarId: process.env.NEXT_PUBLIC_OWNER_CALENDAR_ID!,
+      conferenceDataVersion: 1, 
       sendUpdates: "all",
       requestBody: {
         summary: `${duration || 30}min Call — ${name}`,
@@ -40,13 +39,13 @@ export async function POST(req: Request) {
         start: { dateTime: start.toISOString(), timeZone: "Asia/Kolkata" },
         end: { dateTime: end.toISOString(), timeZone: "Asia/Kolkata" },
         attendees: [
-          { email: process.env.OWNER_EMAIL!, organizer: true },
+          { email: process.env.NEXT_PUBLIC_OWNER_EMAIL!, organizer: true },
           { email },
         ],
         conferenceData: {
           createRequest: {
             requestId: `meet-${Date.now()}-${Math.random().toString(36).substring(7)}`,
-            conferenceSolutionKey: { type: "hangoutsMeet" }, // Generates the Google Meet
+            conferenceSolutionKey: { type: "hangoutsMeet" }, 
           },
         },
       },

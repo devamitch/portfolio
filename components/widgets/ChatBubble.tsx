@@ -1,7 +1,4 @@
-/**
- * ChatBubble — dark/gold theme
- * Assistant bubbles have a speaker button to read them aloud
- */
+
 "use client";
 
 import { Bot, User, Volume2, VolumeX } from "lucide-react";
@@ -79,7 +76,7 @@ export function ChatBubble({
         justifyContent: isUser ? "flex-end" : "flex-start",
       }}
     >
-      {/* Assistant avatar */}
+      {}
       {!isUser && (
         <div
           style={{
@@ -99,7 +96,7 @@ export function ChatBubble({
         </div>
       )}
 
-      {/* Bubble */}
+      {}
       <div
         style={{
           maxWidth: "80%",
@@ -126,7 +123,7 @@ export function ChatBubble({
           {text}
         </p>
 
-        {/* Sources */}
+        {}
         {!isUser && sources && sources.length > 0 && (
           <div
             style={{
@@ -159,7 +156,7 @@ export function ChatBubble({
           </div>
         )}
 
-        {/* Footer row: timestamp + TTS button (assistant only) */}
+        {}
         <div
           style={{
             display: "flex",
@@ -182,7 +179,7 @@ export function ChatBubble({
             </div>
           )}
 
-          {/* TTS speaker button — assistant messages only */}
+          {}
           {!isUser && (
             <button
               type="button"
@@ -231,7 +228,7 @@ export function ChatBubble({
         </div>
       </div>
 
-      {/* User avatar */}
+      {}
       {isUser && (
         <div
           style={{

@@ -1,7 +1,4 @@
-// ── UI Component Library ─────────────────────────────────────
-// Dark gold portfolio design system
-// Drop these into ~/components/ui/ in your Next.js project
-// ─────────────────────────────────────────────────────────────
+
 
 export { Badge } from "./badge";
 export type { BadgeProps } from "./badge";

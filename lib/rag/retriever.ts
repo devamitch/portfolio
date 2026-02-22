@@ -1,31 +1,21 @@
-/**
- * Retriever Module
- * Handles semantic search and document retrieval from vector store
- */
+
 
 import { queryCollection } from './chroma-client'
 import { generateEmbedding, cosineSimilarity } from './embeddings'
 import type { QueryResult } from './types'
 
-/**
- * Retrieve relevant documents for a query
- */
 export async function retrieveRelevantDocuments(
   query: string,
   collectionName: string = 'portfolio',
   topK: number = 5
 ): Promise<QueryResult[]> {
   try {
-    // Get query embedding
     const queryEmbedding = await generateEmbedding(query)
 
-    // Search in Chroma collection
     const results = await queryCollection(collectionName, query, topK)
 
-    // Re-rank results if we have embeddings
     const rankedResults = results.map((result) => ({
       ...result,
-      // Use the similarity score from Chroma
       similarity: Math.max(0, Math.min(1, result.similarity)),
     }))
 
@@ -36,9 +26,6 @@ export async function retrieveRelevantDocuments(
   }
 }
 
-/**
- * Format retrieved documents for LLM context
- */
 export function formatDocumentsForContext(
   documents: QueryResult[]
 ): string {

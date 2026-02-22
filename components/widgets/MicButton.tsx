@@ -1,13 +1,5 @@
 "use client";
 
-/**
- * MicButton — voice input + TTS indicator, my own design
- * States:
- *   idle     → gold-outlined mic, click to start listening
- *   listening → pulsing red rings, click to cancel
- *   speaking  → animated wave bars, click to stop TTS
- */
-
 import { MicIcon, MicOffIcon } from "lucide-react";
 import type { VoiceState } from "~/hooks/use-voice";
 
@@ -74,9 +66,9 @@ export function MicButton({
       style={{ display: "flex", alignItems: "center", gap: 8 }}
       className={className}
     >
-      {/* ── Main Button ── */}
+      {}
       <div style={{ position: "relative", flexShrink: 0 }}>
-        {/* Pulse rings for listening state */}
+        {}
         {isListening && (
           <>
             <style>{`
@@ -106,7 +98,7 @@ export function MicButton({
           </>
         )}
 
-        {/* Wave bars for speaking state */}
+        {}
         {isSpeaking && (
           <>
             <style>{`
@@ -164,7 +156,7 @@ export function MicButton({
         </button>
       </div>
 
-      {/* ── Status text ── */}
+      {}
       <div style={{ minWidth: 0, flex: 1 }}>
         {error && (
           <p
@@ -214,7 +206,6 @@ export function MicButton({
   );
 }
 
-/** Animated sound-wave bars — shown during TTS */
 function WaveBars() {
   const bars = [
     { delay: "0s", height: 8 },

@@ -36,7 +36,6 @@ export function AIWidgetProvider({
     setLoading(false);
   }, []);
 
-  // Track initialization so we don't spam the reset on every re-render
   const initialized = useRef(false);
 
   useEffect(() => {
@@ -48,24 +47,18 @@ export function AIWidgetProvider({
       return;
     }
 
-    // ─── THE AUTOMATED DEFIBRILLATOR ───
-    // Forces Chrome's audio engine to wake up and clear invisible jams
     const wakeUpEngine = () => {
       try {
         window.speechSynthesis.cancel();
         window.speechSynthesis.pause();
         window.speechSynthesis.resume();
 
-        // The Secret Sauce: Force a silent, empty utterance through the pipe
         const wakeUpPing = new SpeechSynthesisUtterance("");
         wakeUpPing.volume = 0;
         wakeUpPing.rate = 10;
         window.speechSynthesis.speak(wakeUpPing);
 
         window.speechSynthesis.cancel();
-        console.log(
-          "[Voice Engine] ⚡ Engine shocked awake and queue cleared.",
-        );
       } catch (e) {
         console.warn("[Voice Engine] Failed to wake up TTS:", e);
       }
@@ -76,25 +69,21 @@ export function AIWidgetProvider({
       initialized.current = true;
     }
 
-    // ─── SAFE VOICE LOADING ───
     const loadVoices = () => {
       const voices = window.speechSynthesis.getVoices();
       if (voices.length > 0) {
-        console.log(`[Voice Engine] Ready. Loaded ${voices.length} voices.`);
         setSpeechState({ supported: true, ready: true });
         return true;
       }
       return false;
     };
 
-    // Browsers fetch voices asynchronously. Try immediately, then listen.
     if (!loadVoices()) {
       window.speechSynthesis.onvoiceschanged = () => {
         loadVoices();
       };
     }
 
-    // Failsafe timeout so your app never hangs waiting for the browser
     const fallbackTimer = setTimeout(() => {
       if (!speechState.ready) {
         console.warn("[Voice Engine] Timeout reached, forcing ready state.");
@@ -102,16 +91,11 @@ export function AIWidgetProvider({
       }
     }, 1500);
 
-    // ─── THE CRASH PREVENTER ───
-    // This is the most important part for Next.js development.
-    // It kills the audio right BEFORE React hot-reloads or the user leaves the page,
-    // which prevents Chrome from creating the "zombie" process that breaks TTS.
     const handleBeforeUnload = () => {
       window.speechSynthesis.cancel();
     };
     window.addEventListener("beforeunload", handleBeforeUnload);
 
-    // Cleanup on unmount
     return () => {
       clearTimeout(fallbackTimer);
       window.removeEventListener("beforeunload", handleBeforeUnload);

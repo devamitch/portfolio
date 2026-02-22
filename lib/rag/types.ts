@@ -1,6 +1,4 @@
-/**
- * RAG System Type Definitions
- */
+
 
 export interface Document {
   id: string

@@ -1,16 +1,10 @@
-/**
- * Generator Module
- * Handles LLM integration for RAG response generation
- */
+
 
 import { generateText, streamText } from 'ai'
 import type { QueryResult } from './types'
 
 const DEFAULT_MODEL = 'openai/gpt-4-turbo'
 
-/**
- * System prompt for RAG assistant
- */
 function buildSystemPrompt(context: string): string {
   return `You are a helpful AI assistant that answers questions based on provided context.
 
@@ -25,9 +19,6 @@ Instructions:
 - If you're uncertain, express that uncertainty`
 }
 
-/**
- * Generate RAG response using streaming
- */
 export async function generateRAGResponse(
   query: string,
   context: string,
@@ -52,9 +43,6 @@ export async function generateRAGResponse(
   return result
 }
 
-/**
- * Generate RAG response (non-streaming, for simple queries)
- */
 export async function generateRAGResponseSync(
   query: string,
   context: string,
@@ -84,9 +72,6 @@ export async function generateRAGResponseSync(
   }
 }
 
-/**
- * Build a conversational prompt with chat history
- */
 export function buildConversationalPrompt(
   currentQuery: string,
   chatHistory: Array<{ role: 'user' | 'assistant'; content: string }>,
@@ -99,9 +84,6 @@ export function buildConversationalPrompt(
   return `${messages.join('\n')}\n\nContext for answering:\n${context}\n\nUser: ${currentQuery}`
 }
 
-/**
- * Generate response with conversation history
- */
 export async function generateConversationalResponse(
   currentQuery: string,
   chatHistory: Array<{ role: 'user' | 'assistant'; content: string }>,
@@ -110,7 +92,6 @@ export async function generateConversationalResponse(
 ) {
   const systemPrompt = buildSystemPrompt(context)
 
-  // Convert chat history to message format
   const messages = [
     ...chatHistory.map((msg) => ({
       role: msg.role as 'user' | 'assistant',
@@ -133,9 +114,6 @@ export async function generateConversationalResponse(
   return result
 }
 
-/**
- * Extract key information from text
- */
 export async function extractKeyInformation(
   text: string,
   model: string = DEFAULT_MODEL
@@ -154,7 +132,6 @@ export async function extractKeyInformation(
       maxTokens: 512,
     })
 
-    // Parse response into array
     return result.text
       .split('\n')
       .filter((line) => line.trim())

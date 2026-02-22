@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { ReCaptchaProvider } from "next-recaptcha-v3";
 import { DM_Sans, Space_Grotesk, Space_Mono } from "next/font/google";
 
-import { AIWidgetProvider } from "~/components/providers/AIWidgetProvider";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -51,7 +50,6 @@ export const metadata: Metadata = {
   description:
     "Amit Chakraborty is a Principal Mobile Architect with 8+ years building AI-powered, blockchain-integrated, HIPAA-compliant production apps. 18+ apps shipped. 50K+ users. VP-level engineering leadership. Expert in React Native (Bridgeless), RAG Pipelines, LLM Integration, Solidity, Web3, HealthTech, and native C++/Swift/Kotlin modules. MCA from Techno Main Salt Lake, Kolkata. Based in India — available remote worldwide.",
   keywords: [
-    // Identity
     "Amit",
     "Blockchain",
     "Software Engineer",
@@ -77,7 +75,6 @@ export const metadata: Metadata = {
     "Amit Chakraborty React Native",
     "Amit Chakraborty portfolio",
     "Amit Chakraborty engineer",
-    // Core role
     "Principal Mobile Architect",
     "VP Engineering",
     "VP Engineering India",
@@ -97,7 +94,6 @@ export const metadata: Metadata = {
     "React Native Expo developer",
     "engineering leader India",
     "engineering leader India remote",
-    // AI & ML
     "AI",
     "AI mobile app developer",
     "RAG pipeline developer",
@@ -111,7 +107,6 @@ export const metadata: Metadata = {
     "TensorFlow mobile",
     "Pinecone vector database",
     "OpenAI integration developer",
-    // Blockchain / Web3
     "Blockchain mobile developer",
     "Web3 mobile developer",
     "Solidity developer",
@@ -121,7 +116,6 @@ export const metadata: Metadata = {
     "Ethereum React Native",
     "Solana developer",
     "WalletConnect integration",
-    // HealthTech
     "HealthTech mobile developer",
     "HealthTech",
     "FinTech",
@@ -130,9 +124,8 @@ export const metadata: Metadata = {
     "healthcare AI developer",
     "women health app developer",
     "eye care app MediaPipe",
-    // Projects
     "Spyk Health",
-    "oLo Eye Care",
+    "Eye Care",
     "myTeal women health",
     "VitalQuest game engine",
     "Vulcan Eleven fantasy sports",
@@ -143,7 +136,6 @@ export const metadata: Metadata = {
     "Be4You dating app",
     "Nexus AI marketing",
     "vBoil recycled oil",
-    // Specialties
     "custom game engine React Native",
     "C++ native modules React Native",
     "WebRTC React Native",
@@ -157,7 +149,6 @@ export const metadata: Metadata = {
     "fantasy sports app",
     "fantasy",
     "on-chain smart contract sports",
-    // Education
     "MCA",
     "Techno Main Salt Lake",
     "MCA Techno Main Salt Lake",
@@ -167,7 +158,6 @@ export const metadata: Metadata = {
     "Heritage",
     "BCA",
     "MCA developer Kolkata",
-    // Stack
     "Node.js",
     "Node.js developer",
     "NestJS",
@@ -185,7 +175,6 @@ export const metadata: Metadata = {
     "Expo",
     "Expo React Native",
     "Expo React Native developer",
-    // General
     "Mobile development consultant",
     "remote mobile architect",
     "Principal engineer India",
@@ -315,11 +304,6 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
 };
 
-/* ═══════════════════════════════════════════════════════
-   JSON-LD STRUCTURED DATA — 12 SCHEMAS
-═══════════════════════════════════════════════════════ */
-
-/* ── 1. Person — Knowledge Panel trigger ── */
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -499,7 +483,6 @@ const personSchema = {
   },
 };
 
-/* ── 2. WebSite ── */
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
@@ -522,7 +505,6 @@ const websiteSchema = {
   },
 };
 
-/* ── 3. BreadcrumbList — 10 items ── */
 const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
@@ -585,7 +567,6 @@ const breadcrumbSchema = {
   ],
 };
 
-/* ── 4. ProfessionalService ── */
 const professionalServiceSchema = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
@@ -629,7 +610,6 @@ const professionalServiceSchema = {
   },
 };
 
-/* ── 5. AggregateRating — enables Google star display in SERP ── */
 const aggregateRatingSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -644,7 +624,6 @@ const aggregateRatingSchema = {
   },
 };
 
-/* ── 6. Work Experience ── */
 const workExperienceSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
@@ -720,7 +699,6 @@ const workExperienceSchema = {
   ],
 };
 
-/* ── 7. Projects / Portfolio ── */
 const projectsSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
@@ -755,7 +733,7 @@ const projectsSchema = {
       position: 2,
       item: {
         "@type": "SoftwareApplication",
-        name: "oLo Eye Care",
+        name: "Eye Care",
         applicationCategory: "MedicalApplication",
         operatingSystem: "iOS, Android",
         description:
@@ -963,7 +941,6 @@ const projectsSchema = {
   ],
 };
 
-/* ── 8. FAQPage — 10 questions for rich snippet coverage ── */
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -989,7 +966,7 @@ const faqSchema = {
       name: "What apps has Amit Chakraborty built?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Amit has built 18+ production apps including: Spyk Health (custom game engine + LLMs), oLo Eye Care (MediaPipe computer vision), myTeal (women's health AI), Vulcan Eleven (fantasy sports, 50K+ users), DeFi11 (fully on-chain fantasy sports), MusicX (blockchain royalties), Housezy (property management), Maskwa (Indigenous communities platform), Be4You (dating app MVP), Nexus AI (enterprise marketing AI), and vBoil (recycled oil supply chain).",
+        text: "Amit has built 18+ production apps including: Spyk Health (custom game engine + LLMs), Eye Care (MediaPipe computer vision), myTeal (women's health AI), Vulcan Eleven (fantasy sports, 50K+ users), DeFi11 (fully on-chain fantasy sports), MusicX (blockchain royalties), Housezy (property management), Maskwa (Indigenous communities platform), Be4You (dating app MVP), Nexus AI (enterprise marketing AI), and vBoil (recycled oil supply chain).",
       },
     },
     {
@@ -1051,7 +1028,6 @@ const faqSchema = {
   ],
 };
 
-/* ── 9. Reviews / Testimonials ── */
 const reviewSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -1116,7 +1092,6 @@ const reviewSchema = {
   ],
 };
 
-/* ── 10. Education / Credentials ── */
 const educationSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -1187,7 +1162,6 @@ const educationSchema = {
   ],
 };
 
-/* ── 11. HowTo — Career Timeline surfaces as step-by-step Google result ── */
 const howToSchema = {
   "@context": "https://schema.org",
   "@type": "HowTo",
@@ -1241,7 +1215,6 @@ const howToSchema = {
   ],
 };
 
-/* ── 12. TechArticle — blog content authority signals ── */
 const techArticleSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
@@ -1315,9 +1288,6 @@ const techArticleSchema = {
   ],
 };
 
-/* ═══════════════════════════════════════════════════════
-   ROOT LAYOUT
-═══════════════════════════════════════════════════════ */
 export default function RootLayout({
   children,
 }: {
@@ -1331,7 +1301,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        {/* ── Critical asset preloads ── */}
+        {}
         <link
           rel="preload"
           as="image"
@@ -1345,7 +1315,7 @@ export default function RootLayout({
           fetchPriority="high"
         />
 
-        {/* ── Sitemap & Preconnects ── */}
+        {}
         <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -1357,7 +1327,7 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://api.anthropic.com" />
         <link rel="dns-prefetch" href="https://avatars.githubusercontent.com" />
 
-        {/* ── Robots & Crawl Directives ── */}
+        {}
         <meta
           name="robots"
           content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
@@ -1380,13 +1350,13 @@ export default function RootLayout({
         <meta name="reply-to" content="amit98ch@gmail.com" />
         <meta name="target" content="all" />
 
-        {/* ── Geo Tags ── */}
+        {}
         <meta name="geo.region" content="IN-WB" />
         <meta name="geo.placename" content="Kolkata, West Bengal, India" />
         <meta name="geo.position" content="22.5726;88.3639" />
         <meta name="ICBM" content="22.5726, 88.3639" />
 
-        {/* ── Open Graph Extended ── */}
+        {}
         <meta property="og:locale" content="en_IN" />
         <meta property="og:type" content="profile" />
         <meta property="profile:first_name" content="Amit" />
@@ -1405,7 +1375,7 @@ export default function RootLayout({
         <meta property="og:see_also" content="https://x.com/devamitch" />
         <meta property="og:see_also" content="https://devamitch.medium.com/" />
 
-        {/* ── Twitter / X Extended ── */}
+        {}
         <meta name="twitter:site" content="@devamitch" />
         <meta name="twitter:creator" content="@devamitch" />
         <meta name="twitter:domain" content="devamit.co.in" />
@@ -1415,7 +1385,7 @@ export default function RootLayout({
         <meta name="twitter:label2" content="Apps Shipped" />
         <meta name="twitter:data2" content="18+ Production Apps" />
 
-        {/* ── MS/Apple App Tags ── */}
+        {}
         <meta name="msapplication-TileColor" content="#C9A84C" />
         <meta
           name="msapplication-TileImage"
@@ -1431,7 +1401,7 @@ export default function RootLayout({
         <meta name="HandheldFriendly" content="True" />
         <meta name="MobileOptimized" content="320" />
 
-        {/* ── Authorship & Identity — rel="me" for IndieWeb verification ── */}
+        {}
         <link rel="me" href="https://www.linkedin.com/in/devamitch/" />
         <link rel="me" href="https://github.com/devamitch" />
         <link rel="me" href="https://x.com/devamitch" />
@@ -1439,14 +1409,14 @@ export default function RootLayout({
         <link rel="author" href={`${BASE_URL}/#person`} />
         <link rel="author" href="https://www.linkedin.com/in/devamitch/" />
 
-        {/* ── Canonical & Alternates ── */}
+        {}
         <link rel="canonical" href={BASE_URL} />
         <link rel="alternate" hrefLang="en-IN" href={BASE_URL} />
         <link rel="alternate" hrefLang="en-US" href={BASE_URL} />
         <link rel="alternate" hrefLang="en-GB" href={BASE_URL} />
         <link rel="alternate" hrefLang="x-default" href={BASE_URL} />
 
-        {/* ── Structured Data — 12 JSON-LD Schemas ── */}
+        {}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
@@ -1508,35 +1478,29 @@ export default function RootLayout({
         className="bg-black text-white antialiased overflow-x-hidden"
         suppressHydrationWarning
       >
-        {/* ── Skip Navigation Links — WCAG 2.1 AA Accessibility ── */}
+        {}
         <div className="sr-only focus-within:not-sr-only">
           <a
             href="#main-content"
             className="fixed top-2 left-2 z-[9999] bg-yellow-400 text-black font-bold px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-black"
-            // onFocus={(e) => e.currentTarget.classList.remove("sr-only")}
-            // onBlur={(e) => e.currentTarget.classList.add("sr-only")}
           >
             Skip to main content
           </a>
           <a
             href="#navigation"
             className="fixed top-2 left-48 z-[9999] bg-yellow-400 text-black font-bold px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-black"
-            // onFocus={(e) => e.currentTarget.classList.remove("sr-only")}
-            // onBlur={(e) => e.currentTarget.classList.add("sr-only")}
           >
             Skip to navigation
           </a>
           <a
             href="#contact"
             className="fixed top-2 left-96 z-[9999] bg-yellow-400 text-black font-bold px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-black"
-            // onFocus={(e) => e.currentTarget.classList.remove("sr-only")}
-            // onBlur={(e) => e.currentTarget.classList.add("sr-only")}
           >
             Skip to contact
           </a>
         </div>
 
-        {/* ── No-JS fallback — full crawlable content for non-JS search bots ── */}
+        {}
         <noscript>
           <div
             style={{
@@ -1609,18 +1573,16 @@ export default function RootLayout({
           </div>
         </noscript>
 
-        {/* ── Main application wrapper with ARIA landmark ── */}
+        {}
         <ReCaptchaProvider
           reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
         >
-          <AIWidgetProvider>
-            <div
-              role="application"
-              aria-label="Amit Chakraborty Portfolio — Principal Mobile Architect"
-            >
-              {children}
-            </div>
-          </AIWidgetProvider>
+          <div
+            role="application"
+            aria-label="Amit Chakraborty Portfolio — Principal Mobile Architect"
+          >
+            {children}
+          </div>
         </ReCaptchaProvider>
       </body>
     </html>

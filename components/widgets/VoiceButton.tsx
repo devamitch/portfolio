@@ -1,8 +1,4 @@
-/**
- * VoiceButton — dark/gold theme
- * STT with live interim transcript + TTS readback toggle
- * Uses Indian male voice via voice-utils
- */
+
 "use client";
 
 import { Mic, Square, Volume2, VolumeX } from "lucide-react";
@@ -28,7 +24,6 @@ const C = {
 
 interface VoiceButtonProps {
   onTranscript: (text: string) => void;
-  /** If provided, speaking toggle appears and this text is read aloud */
   lastAssistantMessage?: string;
   disabled?: boolean;
 }
@@ -98,7 +93,7 @@ export function VoiceButton({
           flexWrap: "wrap",
         }}
       >
-        {/* ── Mic button ── */}
+        {}
         <button
           type="button"
           onClick={handleMicClick}
@@ -128,7 +123,7 @@ export function VoiceButton({
             <>
               <Square size={11} fill="currentColor" />
               <span>Stop</span>
-              {/* pulse dot */}
+              {}
               <span
                 style={{
                   width: "6px",
@@ -148,7 +143,7 @@ export function VoiceButton({
           )}
         </button>
 
-        {/* ── TTS readback toggle ── */}
+        {}
         {isTTSSupported && (
           <button
             type="button"
@@ -203,7 +198,7 @@ export function VoiceButton({
           </button>
         )}
 
-        {/* ── Listening status ── */}
+        {}
         {isListening && (
           <span
             style={{
@@ -229,7 +224,7 @@ export function VoiceButton({
         )}
       </div>
 
-      {/* ── Live interim transcript ── */}
+      {}
       {isListening && interimTranscript && (
         <div
           style={{
@@ -260,7 +255,7 @@ export function VoiceButton({
         </div>
       )}
 
-      {/* ── Last final transcript (confirmation) ── */}
+      {}
       {!isListening && transcript && (
         <div
           style={{
@@ -277,7 +272,7 @@ export function VoiceButton({
         </div>
       )}
 
-      {/* ── Error — always string, never object ── */}
+      {}
       {error && (
         <div
           style={{

@@ -1,9 +1,4 @@
-/**
- * Portfolio Indexing API Endpoint
- * POST /api/rag/index-portfolio
- *
- * Initializes the knowledge base with portfolio data
- */
+
 
 import { initializeDefaultKnowledgeBase } from "~/lib/rag/knowledge-store";
 import { createRAGEngine } from "~/lib/rag/rag-engine";
@@ -19,9 +14,6 @@ async function getEngine() {
   return ragEngine;
 }
 
-/**
- * POST handler to initialize portfolio knowledge base
- */
 export async function POST(request: Request) {
   try {
     if (isInitialized) {
@@ -40,7 +32,6 @@ export async function POST(request: Request) {
     const engine = await getEngine();
     const documents = initializeDefaultKnowledgeBase();
 
-    // Add portfolio documents to the knowledge base
     await engine.addDocuments(documents);
 
     isInitialized = true;
@@ -72,9 +63,6 @@ export async function POST(request: Request) {
   }
 }
 
-/**
- * GET handler for initialization status
- */
 export async function GET() {
   return new Response(
     JSON.stringify({

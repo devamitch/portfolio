@@ -9,7 +9,6 @@ interface UseVoiceOptions {
   lang?: string;
 }
 
-// Enhanced voice selection with better scoring
 const FEMALE_KW =
   /female|woman|zira|hazel|kalpana|heera|priya|neerja|lekha|aditi|fiona|karen|moira|tessa|veena|samantha/i;
 const AVOID_KW = /compact|mobile|junior|novelty/i;
@@ -28,25 +27,20 @@ function pickBestVoice(): SpeechSynthesisVoice | null {
 
     let s = 0;
 
-    // Premium voices (Azure Neural TTS)
     if (name.includes("natural")) s += 100;
     if (name.includes("prabhat")) s += 90;
 
-    // Apple Premium voices
     if (name.includes("premium") || name.includes("enhanced")) s += 80;
     if (name.includes("rishi")) s += 75;
 
-    // Google voices (Chrome)
     if (name === "google uk english male") s += 70;
     if (name === "google us english") s += 60;
     if (name.includes("google") && lang.startsWith("en-")) s += 55;
 
-    // macOS system voices
     if (name.includes("daniel")) s += 50;
     if (name.includes("arthur")) s += 50;
     if (name.includes("oliver")) s += 45;
 
-    // Microsoft Edge voices
     if (
       name.includes("ryan") ||
       name.includes("thomas") ||
@@ -54,7 +48,6 @@ function pickBestVoice(): SpeechSynthesisVoice | null {
     )
       s += 48;
 
-    // Language preference
     if (lang === "en-gb") s += 20;
     if (lang === "en-au") s += 15;
     if (lang === "en-us") s += 10;
@@ -105,7 +98,6 @@ function preprocessText(text: string): string {
     .trim();
 }
 
-// Enhanced speak function with multiple fallback strategies
 export function speakText(
   text: string,
   onEnd?: () => void,
@@ -123,7 +115,6 @@ export function speakText(
 
   const retryCount = options?.retryCount ?? 0;
 
-  // Cancel any ongoing speech
   try {
     window.speechSynthesis.cancel();
   } catch (e) {
@@ -133,7 +124,6 @@ export function speakText(
   const processed = preprocessText(text);
   const utter = new SpeechSynthesisUtterance(processed);
 
-  // Cinematic settings
   utter.rate = options?.rate ?? 0.88;
   utter.pitch = options?.pitch ?? 0.85;
   utter.volume = 1.0;
@@ -158,7 +148,6 @@ export function speakText(
     }
   };
 
-  // Timeout fallback (in case speech events don't fire)
   const estimatedDuration =
     ((processed.length / 10) * 1000) / (utter.rate || 1);
   const timeoutId = setTimeout(() => {
@@ -175,7 +164,6 @@ export function speakText(
     clearTimeout(timeoutId);
     console.error("[Voice] Speech error:", event.error);
 
-    // Retry logic for certain errors
     if (
       retryCount < 2 &&
       (event.error === "interrupted" || event.error === "canceled")
@@ -204,7 +192,6 @@ export function speakText(
     }
   };
 
-  // Get voices and speak
   const voices = window.speechSynthesis.getVoices();
 
   if (voices.length > 0) {
@@ -223,7 +210,6 @@ export function speakText(
       { once: true },
     );
 
-    // Fallback if voiceschanged never fires
     setTimeout(() => {
       window.speechSynthesis.removeEventListener(
         "voiceschanged",
@@ -261,7 +247,6 @@ export function useVoice({
     ("SpeechRecognition" in window || "webkitSpeechRecognition" in window) &&
     "speechSynthesis" in window;
 
-  // Preload voices on mount
   useEffect(() => {
     if (typeof window !== "undefined" && window.speechSynthesis) {
       const loadVoices = () => {
@@ -340,17 +325,18 @@ export function useVoice({
   const stopListening = useCallback(() => {
     try {
       recognitionRef.current?.stop();
-    } catch {
-      /* ignore */
-    }
+    } catch {}
     setVoiceState("idle");
   }, []);
 
-  const speak = useCallback((text: string) => {
+  const speak = useCallback((text: string, onEnd?: () => void) => {
     if (!text.trim()) return;
     setVoiceState("speaking");
     setError(null);
-    speakText(text, () => setVoiceState("idle"));
+    speakText(text, () => {
+      setVoiceState("idle");
+      onEnd?.();
+    });
   }, []);
 
   const stopSpeaking = useCallback(() => {
@@ -368,14 +354,10 @@ export function useVoice({
     return () => {
       try {
         recognitionRef.current?.abort();
-      } catch {
-        /* ignore */
-      }
+      } catch {}
       try {
         window.speechSynthesis?.cancel();
-      } catch {
-        /* ignore */
-      }
+      } catch {}
     };
   }, []);
 

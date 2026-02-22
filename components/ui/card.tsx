@@ -5,7 +5,6 @@ import React from "react";
 const HN = "'Helvetica Neue',Helvetica,Arial,sans-serif";
 const MONO = "'JetBrains Mono','Space Mono',monospace";
 
-/* ── Card ────────────────────────────────────────────────────── */
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: "default" | "gold" | "featured";
   glow?: boolean;
@@ -61,7 +60,6 @@ export function Card({
   );
 }
 
-/* ── CardHeader ───────────────────────────────────────────────── */
 export function CardHeader({
   style,
   children,
@@ -83,7 +81,6 @@ export function CardHeader({
   );
 }
 
-/* ── CardTitle ───────────────────────────────────────────────── */
 export function CardTitle({
   style,
   children,
@@ -108,7 +105,6 @@ export function CardTitle({
   );
 }
 
-/* ── CardDescription ─────────────────────────────────────────── */
 export function CardDescription({
   style,
   children,
@@ -133,7 +129,6 @@ export function CardDescription({
   );
 }
 
-/* ── CardContent ─────────────────────────────────────────────── */
 export function CardContent({
   style,
   children,
@@ -152,7 +147,6 @@ export function CardContent({
   );
 }
 
-/* ── CardFooter ──────────────────────────────────────────────── */
 export function CardFooter({
   style,
   children,

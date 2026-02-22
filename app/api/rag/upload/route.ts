@@ -1,9 +1,4 @@
-/**
- * Document Upload API Endpoint
- * POST /api/rag/upload
- *
- * Handles document uploads and processes them into the knowledge base
- */
+
 
 import { createDocumentsFromUpload } from "~/lib/rag/knowledge-store";
 import { createRAGEngine } from "~/lib/rag/rag-engine";
@@ -21,9 +16,6 @@ async function getEngine() {
   return ragEngine;
 }
 
-/**
- * POST handler for file uploads
- */
 export async function POST(request: Request) {
   try {
     const formData = await request.formData();
@@ -36,7 +28,6 @@ export async function POST(request: Request) {
       });
     }
 
-    // Check file size (limit to 10MB)
     const maxSize = 10 * 1024 * 1024;
     if (file.size > maxSize) {
       return new Response(
@@ -45,14 +36,11 @@ export async function POST(request: Request) {
       );
     }
 
-    // Read file content
     const text = await file.text();
 
-    // Create documents from upload
     const uploadId = Date.now().toString();
     const documents = createDocumentsFromUpload(file.name, text, uploadId);
 
-    // Add to knowledge base
     const engine = await getEngine();
     await engine.addDocuments(documents);
 

@@ -6,7 +6,10 @@ import PrimaryHome from "~/components/Home";
 import Navigation from "~/components/Navigation";
 import Preloader from "~/components/Preloader";
 import SmoothScroll from "~/components/SmoothScroll";
-import { useSpeechContext } from "~/components/providers/AIWidgetProvider";
+import {
+  AIWidgetProvider,
+  useSpeechContext,
+} from "~/components/providers/AIWidgetProvider";
 import { usePortfolioState } from "~/store/portfolio-state";
 
 window.speechSynthesis.cancel();
@@ -16,7 +19,6 @@ export default function Page() {
   const setHasSeenPreloader = usePortfolioState((s) => s.setHasSeenPreloader);
 
   const onPreloaderComplete = useCallback(() => {
-    console.log("[App] Preloader completed, saving to storage");
     setHasSeenPreloader(true);
   }, [setHasSeenPreloader]);
 
@@ -28,7 +30,7 @@ export default function Page() {
       {!hasSeenPreloader ? (
         <Preloader onComplete={onPreloaderComplete} />
       ) : (
-        <>
+        <AIWidgetProvider>
           <SmoothScroll>
             <div
               style={{
@@ -61,7 +63,7 @@ export default function Page() {
             <Navigation />
             <PrimaryHome />
           </SmoothScroll>
-        </>
+        </AIWidgetProvider>
       )}
 
       <style>{`

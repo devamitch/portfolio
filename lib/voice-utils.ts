@@ -1,10 +1,4 @@
-/**
- * Voice Utilities — Indian Male Voice Edition
- * Finds the best available Indian male voice (en-IN / hi-IN)
- * with natural-sounding rate/pitch. Falls back gracefully.
- */
 
-// ─── Type declarations ─────────────────────────────────────────────────────
 
 declare global {
   interface Window {
@@ -78,21 +72,13 @@ export interface VoiceError extends Error {
   isNotSupportedError?: boolean;
 }
 
-// ─── Voice selection ────────────────────────────────────────────────────────
-
-/**
- * Priority-ordered list of known good Indian male voices.
- * The browser's voice list varies — we score each voice and pick the best.
- */
 const INDIAN_MALE_VOICE_KEYWORDS = [
-  // Google Indian voices (best quality, available in Chrome)
   "google hindi",
   "google हिन्दी",
-  // en-IN male voices
-  "rishi", // Apple en-IN male
-  "aaron", // Some builds
-  "hemant", // Microsoft en-IN male
-  "kalpana", // Avoid — female
+  "rishi", 
+  "aaron", 
+  "hemant", 
+  "kalpana", 
 ];
 
 const FEMALE_KEYWORDS = [
@@ -113,9 +99,6 @@ function isFemaleVoice(voice: SpeechSynthesisVoice): boolean {
   return FEMALE_KEYWORDS.some((kw) => lower.includes(kw));
 }
 
-/**
- * Score a voice — higher = better Indian male match.
- */
 function scoreVoice(voice: SpeechSynthesisVoice): number {
   const name = voice.name.toLowerCase();
   const lang = voice.lang.toLowerCase();
@@ -124,32 +107,24 @@ function scoreVoice(voice: SpeechSynthesisVoice): number {
 
   let score = 0;
 
-  // Language match
   if (lang === "en-in") score += 40;
   else if (lang === "hi-in") score += 30;
   else if (lang.startsWith("en-")) score += 5;
 
-  // Google voices sound natural
   if (name.includes("google")) score += 20;
 
-  // Known good Indian male voices
   if (name.includes("rishi")) score += 25;
   if (name.includes("hemant")) score += 22;
 
   return score;
 }
 
-/**
- * Pick the best Indian male voice from available voices.
- * Returns null if nothing suitable found (caller should use system default).
- */
 function pickIndianMaleVoice(): SpeechSynthesisVoice | null {
   if (typeof window === "undefined" || !window.speechSynthesis) return null;
 
   const voices = window.speechSynthesis.getVoices();
   if (voices.length === 0) return null;
 
-  // Score all voices
   const scored = voices
     .map((v) => ({ v, score: scoreVoice(v) }))
     .filter(({ score }) => score > 0)
@@ -157,8 +132,6 @@ function pickIndianMaleVoice(): SpeechSynthesisVoice | null {
 
   return scored[0]?.v ?? null;
 }
-
-// ─── VoiceManager class ─────────────────────────────────────────────────────
 
 export class VoiceManager {
   private recognition: SpeechRecognition | null = null;
@@ -327,10 +300,6 @@ export class VoiceManager {
     if (this.recognitionTimeout) clearTimeout(this.recognitionTimeout);
   }
 
-  /**
-   * Speak text using the best available Indian male voice.
-   * Uses SSML-friendly preprocessing to improve name/tech-term pronunciation.
-   */
   speak(
     text: string,
     onEnd?: () => void,
@@ -346,16 +315,12 @@ export class VoiceManager {
 
       const utterance = new SpeechSynthesisUtterance(preprocessForSpeech(text));
 
-      // Voice selection — prefer Indian male, set on voices loaded
       const applyVoice = () => {
         const voice = pickIndianMaleVoice();
         if (voice) {
           utterance.voice = voice;
-          // Match lang to voice
           utterance.lang = voice.lang || "en-IN";
         } else {
-          // No Indian voice found — use en-IN locale which may trigger
-          // platform's Indian TTS even without an explicit voice object
           utterance.lang = "en-IN";
         }
       };
@@ -364,16 +329,12 @@ export class VoiceManager {
       if (voices.length > 0) {
         applyVoice();
       } else {
-        // Voices not loaded yet — wait for them
         window.speechSynthesis.onvoiceschanged = () => {
           applyVoice();
           window.speechSynthesis.onvoiceschanged = null;
         };
       }
 
-      // Natural-sounding Indian male settings:
-      // Rate: slightly slower than default so technical terms are clear
-      // Pitch: slightly lower than 1.0 for male timbre
       utterance.rate = 0.92;
       utterance.pitch = 0.88;
       utterance.volume = 1;
@@ -406,16 +367,9 @@ export class VoiceManager {
   }
 }
 
-// ─── Speech preprocessing ────────────────────────────────────────────────────
-
-/**
- * Make the TTS read technical terms, names, and abbreviations naturally.
- * Expands common abbreviations and adds pauses at punctuation.
- */
 function preprocessForSpeech(text: string): string {
   return (
     text
-      // Common tech abbreviations → readable form
       .replace(/\bRAG\b/g, "R-A-G")
       .replace(/\bAPI\b/g, "A-P-I")
       .replace(/\bLLM\b/g, "L-L-M")
@@ -432,10 +386,8 @@ function preprocessForSpeech(text: string): string {
       .replace(/\bDeFi\b/gi, "dee-fie")
       .replace(/\bNFT\b/g, "N-F-T")
       .replace(/\bWeb3\b/gi, "Web Three")
-      // Names — spelled naturally
-      .replace(/\bAmit\b/g, "Ameet") // phonetic
+      .replace(/\bAmit\b/g, "Ameet") 
       .replace(/\bChakraborty\b/g, "Chokroborti")
-      // Framework names
       .replace(/\bNext\.js\b/gi, "Next JS")
       .replace(/\bNode\.js\b/gi, "Node JS")
       .replace(/\bNestJS\b/gi, "Nest JS")
@@ -443,16 +395,12 @@ function preprocessForSpeech(text: string): string {
       .replace(/\bTypeScript\b/gi, "Type Script")
       .replace(/\bSolidity\b/gi, "Solidity")
       .replace(/\bSolana\b/gi, "Solana")
-      // Natural pauses — replace em-dash and ellipsis
       .replace(/—/g, ", ")
       .replace(/\.\.\./g, ", ")
-      // Clean up extra whitespace
       .replace(/\s+/g, " ")
       .trim()
   );
 }
-
-// ─── Singleton ────────────────────────────────────────────────────────────────
 
 let _instance: VoiceManager | null = null;
 
@@ -460,8 +408,6 @@ export function getVoiceManager(): VoiceManager {
   if (!_instance) _instance = new VoiceManager();
   return _instance;
 }
-
-// ─── Helper utilities ─────────────────────────────────────────────────────────
 
 export async function speechToText(
   config?: VoiceConfig,
@@ -474,7 +420,6 @@ export async function speechToText(
     }
 
     const manager = getVoiceManager();
-    // let timeoutId: ReturnType<typeof setTimeout>;
 
     const timeoutId = setTimeout(() => {
       manager.abort();
@@ -545,7 +490,6 @@ export async function checkVoiceSupport(): Promise<{
     errors.push("Microphone access denied");
   }
 
-  // Check if Indian voice available
   const voices = manager.getVoices();
   const indianVoice = pickIndianMaleVoice();
 

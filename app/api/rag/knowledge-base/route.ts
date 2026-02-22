@@ -1,10 +1,4 @@
-/**
- * Knowledge Base Management API
- * GET /api/rag/knowledge-base - List entries
- * POST /api/rag/knowledge-base - Create entry
- * PUT /api/rag/knowledge-base/:id - Update entry
- * DELETE /api/rag/knowledge-base/:id - Delete entry
- */
+
 
 import { createDocumentsFromKBEntries } from "~/lib/rag/knowledge-store";
 import { createRAGEngine } from "~/lib/rag/rag-engine";
@@ -24,9 +18,6 @@ async function getEngine() {
   return ragEngine;
 }
 
-/**
- * GET - List all knowledge base entries
- */
 export async function GET() {
   try {
     const entries = Array.from(kbEntries.values());
@@ -51,9 +42,6 @@ export async function GET() {
   }
 }
 
-/**
- * POST - Create new knowledge base entry
- */
 export async function POST(request: Request) {
   try {
     const body = await request.json();
@@ -66,7 +54,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // Create entry
     const entry: KnowledgeBaseEntry = {
       id: `kb-${Date.now()}`,
       title,
@@ -75,10 +62,8 @@ export async function POST(request: Request) {
       tags: tags || [],
     };
 
-    // Store entry
     kbEntries.set(entry.id, entry);
 
-    // Add to RAG engine
     const engine = await getEngine();
     const documents = createDocumentsFromKBEntries([entry]);
     await engine.addDocuments(documents);
@@ -103,9 +88,6 @@ export async function POST(request: Request) {
   }
 }
 
-/**
- * PUT - Update knowledge base entry
- */
 export async function PUT(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
@@ -121,7 +103,6 @@ export async function PUT(request: Request) {
     const body = await request.json();
     const { title, content, category, tags } = body;
 
-    // Update entry
     const entry = kbEntries.get(id)!;
     const updated: KnowledgeBaseEntry = {
       ...entry,
@@ -133,7 +114,6 @@ export async function PUT(request: Request) {
 
     kbEntries.set(id, updated);
 
-    // Update in RAG engine
     const engine = await getEngine();
     const documents = createDocumentsFromKBEntries([updated]);
     await engine.addDocuments(documents);
@@ -158,9 +138,6 @@ export async function PUT(request: Request) {
   }
 }
 
-/**
- * DELETE - Remove knowledge base entry
- */
 export async function DELETE(request: Request) {
   try {
     const { searchParams } = new URL(request.url);

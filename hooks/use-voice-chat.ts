@@ -1,9 +1,4 @@
-/**
- * useVoiceChat — Indian male voice, natural speech
- * - STT: en-IN locale recognition
- * - TTS: auto-selects best Indian male voice, reads assistant responses
- * - Error is always string|null — safe to render
- */
+
 
 "use client";
 
@@ -14,7 +9,7 @@ export interface UseVoiceChatReturn {
   isListening: boolean;
   isSpeaking: boolean;
   transcript: string;
-  interimTranscript: string; // live partial transcript while speaking
+  interimTranscript: string; 
   error: string | null;
   isSupported: boolean;
   isTTSSupported: boolean;
@@ -37,8 +32,8 @@ export function useVoiceChat(
 ): UseVoiceChatReturn {
   const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
-  const [transcript, setTranscript] = useState(""); // last final
-  const [interimTranscript, setInterimTranscript] = useState(""); // live
+  const [transcript, setTranscript] = useState(""); 
+  const [interimTranscript, setInterimTranscript] = useState(""); 
   const [error, setError] = useState<string | null>(null);
 
   const interimRef = useRef("");
@@ -49,7 +44,6 @@ export function useVoiceChat(
 
   const clearError = useCallback(() => setError(null), []);
 
-  // ─── Start STT ────────────────────────────────────────────────────────────
   const startListening = useCallback(async () => {
     if (!isSupported) {
       setError(
@@ -82,7 +76,7 @@ export function useVoiceChat(
         setInterimTranscript("");
       },
       {
-        language: "en-IN", // Indian English recognition
+        language: "en-IN", 
         continuous: false,
         interimResults: true,
       },
@@ -93,10 +87,8 @@ export function useVoiceChat(
     }
   }, [isSupported, vm, onFinalTranscript]);
 
-  // ─── Stop STT ─────────────────────────────────────────────────────────────
   const stopListening = useCallback(() => {
     vm.stopListening();
-    // If there was interim text, treat it as final
     if (interimRef.current) {
       const captured = interimRef.current;
       setTranscript(captured);
@@ -107,7 +99,6 @@ export function useVoiceChat(
     setIsListening(false);
   }, [vm, onFinalTranscript]);
 
-  // ─── TTS ──────────────────────────────────────────────────────────────────
   const speakText = useCallback(
     (text: string) => {
       if (!isTTSSupported) {
@@ -121,7 +112,7 @@ export function useVoiceChat(
 
       const ok = vm.speak(
         text,
-        () => setIsSpeaking(false), // onEnd
+        () => setIsSpeaking(false), 
         (err) => {
           setIsSpeaking(false);
           setError(errToString(err));

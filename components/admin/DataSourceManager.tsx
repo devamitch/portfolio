@@ -22,7 +22,6 @@ export function DataSourceManager() {
     text: string;
   } | null>(null);
 
-  // Upload handler
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -56,7 +55,6 @@ export function DataSourceManager() {
     }
   };
 
-  // Scrape handler
   const handleScrape = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -92,7 +90,6 @@ export function DataSourceManager() {
     }
   };
 
-  // Manual KB entry handler
   const handleManualEntry = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -136,7 +133,6 @@ export function DataSourceManager() {
     }
   };
 
-  // Initialize portfolio
   const handleInitialize = async () => {
     setIsLoading(true);
     try {
@@ -176,7 +172,7 @@ export function DataSourceManager() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          {/* Status Message */}
+          {}
           {message && (
             <div
               className={`p-4 rounded-lg ${
@@ -189,7 +185,7 @@ export function DataSourceManager() {
             </div>
           )}
 
-          {/* Initialize Button */}
+          {}
           <div>
             <Button
               onClick={handleInitialize}
@@ -204,7 +200,7 @@ export function DataSourceManager() {
             </p>
           </div>
 
-          {/* Tabs */}
+          {}
           <div className="border-b">
             <div className="flex gap-4">
               <button
@@ -243,7 +239,7 @@ export function DataSourceManager() {
             </div>
           </div>
 
-          {/* Upload Tab */}
+          {}
           {activeTab === "upload" && (
             <div className="space-y-4">
               <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
@@ -268,7 +264,7 @@ export function DataSourceManager() {
             </div>
           )}
 
-          {/* Scrape Tab */}
+          {}
           {activeTab === "scrape" && (
             <form onSubmit={handleScrape} className="space-y-4">
               <div>
@@ -294,7 +290,7 @@ export function DataSourceManager() {
             </form>
           )}
 
-          {/* Manual Entry Tab */}
+          {}
           {activeTab === "manual" && (
             <form onSubmit={handleManualEntry} className="space-y-4">
               <div>

@@ -1,9 +1,4 @@
-/**
- * Web Scraping API Endpoint
- * POST /api/rag/scrape
- *
- * Scrapes content from URLs and adds to knowledge base
- */
+
 
 import { createDocumentsFromScrape } from "~/lib/rag/knowledge-store";
 import { createRAGEngine } from "~/lib/rag/rag-engine";
@@ -21,11 +16,7 @@ async function getEngine() {
   return ragEngine;
 }
 
-/**
- * Extract text content from HTML
- */
 function extractTextFromHTML(html: string): string {
-  // Simple HTML tag removal
   const text = html
     .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "")
     .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, "")
@@ -36,9 +27,6 @@ function extractTextFromHTML(html: string): string {
   return text;
 }
 
-/**
- * POST handler for URL scraping
- */
 export async function POST(request: Request) {
   try {
     const body = await request.json();
@@ -51,7 +39,6 @@ export async function POST(request: Request) {
       });
     }
 
-    // Validate URL
     try {
       new URL(url);
     } catch {
@@ -61,7 +48,6 @@ export async function POST(request: Request) {
       });
     }
 
-    // Fetch content from URL
     let content: string;
     try {
       const response = await fetch(url, {
@@ -69,7 +55,7 @@ export async function POST(request: Request) {
           "User-Agent":
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
         },
-        timeout: 10000, // 10 second timeout
+        timeout: 10000, 
       } as RequestInit & { timeout: number });
 
       if (!response.ok) {
@@ -96,11 +82,9 @@ export async function POST(request: Request) {
       );
     }
 
-    // Create documents from scraped content
     const scrapeId = Date.now().toString();
     const documents = createDocumentsFromScrape(url, content, scrapeId);
 
-    // Add to knowledge base
     const engine = await getEngine();
     await engine.addDocuments(documents);
 
@@ -132,9 +116,6 @@ export async function POST(request: Request) {
   }
 }
 
-/**
- * GET handler for health check
- */
 export async function GET() {
   return new Response(
     JSON.stringify({

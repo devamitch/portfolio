@@ -2,13 +2,11 @@ import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
-// ✅ Required for Next.js 15
 export const dynamic = "force-dynamic";
 
-// ─── Configuration ──────────────────────────────────────────────
 const RATE_LIMIT_MAX = 3;
-const RATE_LIMIT_WINDOW = 60 * 60 * 1000; // 1 hour
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const RATE_LIMIT_WINDOW = 60 * 60 * 1000; 
+const MAX_FILE_SIZE = 5 * 1024 * 1024; 
 const MAX_FILES = 3;
 const ALLOWED_FILE_TYPES = [
   "application/pdf",
@@ -21,7 +19,6 @@ const ALLOWED_FILE_TYPES = [
   "text/plain",
 ];
 
-// ─── Rate Limiting ──────────────────────────────────────────────
 const rateLimitStore = new Map<
   string,
   { count: number; resetTime: number; blocked: boolean }
@@ -63,7 +60,6 @@ function checkRateLimit(ip: string) {
   };
 }
 
-// ─── Validation Functions ───────────────────────────────────────
 function sanitizeInput(input: string, maxLength = 5000) {
   return input
     .trim()
@@ -120,7 +116,7 @@ function detectSpam(
     }
   }
 
-  const links = (message.match(/https?:\/\//g) || []).length;
+  const links = (message.match(/https?:\/\
   if (links > 3) score += links * 2;
 
   if (message.length < 10) score += 4;
@@ -154,7 +150,6 @@ function validateFile(file: { name: string; type: string; size: number }) {
   return { valid: true };
 }
 
-// ─── Email Templates ────────────────────────────────────────────
 function generateAdminEmailHTML(
   name: string,
   email: string,
@@ -169,7 +164,6 @@ function generateAdminEmailHTML(
 <body style="margin:0;padding:0;background:#060606;font-family:-apple-system,'Helvetica Neue',Arial,sans-serif;">
   <table cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="max-width:660px;margin:40px auto;">
     <tr><td style="padding:0 20px;">
-      
       <table width="100%" style="background:#0D0D0D;border-top:3px solid #C9A84C;border-radius:12px 12px 0 0;">
         <tr><td style="padding:40px;">
           <div style="display:inline-block;font-size:22px;font-weight:900;color:#fff;letter-spacing:-0.04em;margin-bottom:8px;">
@@ -189,13 +183,10 @@ function generateAdminEmailHTML(
             <tr><td style="padding:28px;">
               <p style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:0.3em;font-family:monospace;margin:0 0 6px;">From</p>
               <p style="font-size:24px;font-weight:900;color:#111;margin:0 0 20px;">${name}</p>
-              
               <p style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:0.3em;font-family:monospace;margin:0 0 6px;">Email</p>
               <a href="mailto:${email}" style="font-size:15px;color:#C9A84C;font-weight:600;text-decoration:none;display:inline-block;padding:8px 14px;background:rgba(201,168,76,0.1);margin-bottom:20px;">${email}</a>
-              
               ${company ? `<p style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:0.3em;font-family:monospace;margin:0 0 6px;">Company</p><p style="font-size:15px;color:#333;font-weight:600;margin:0 0 20px;">${company}</p>` : ""}
               ${role ? `<p style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:0.3em;font-family:monospace;margin:0 0 6px;">Role</p><p style="font-size:15px;color:#333;font-weight:600;margin:0 0 20px;">${role}</p>` : ""}
-              
               <p style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:0.3em;font-family:monospace;margin:0 0 6px;">Subject</p>
               <p style="font-size:15px;color:#333;font-weight:600;margin:0;">${subject || "General Inquiry"}</p>
             </td></tr>
@@ -234,7 +225,6 @@ function generateThankYouEmailHTML(name: string) {
 <body style="margin:0;padding:0;background:#060606;font-family:-apple-system,'Helvetica Neue',Arial,sans-serif;">
   <table cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="max-width:620px;margin:40px auto;">
     <tr><td style="padding:0 20px;">
-      
       <table width="100%" style="background:#0D0D0D;border-top:3px solid #C9A84C;border-radius:12px 12px 0 0;">
         <tr><td style="padding:48px 48px 36px;text-align:center;">
           <div style="font-size:26px;font-weight:900;color:#fff;letter-spacing:-0.04em;margin-bottom:24px;">
@@ -288,26 +278,18 @@ function generateThankYouEmailHTML(name: string) {
 </html>`;
 }
 
-// ─── POST Handler ───────────────────────────────────────────────
 export async function POST(req: Request) {
   const startTime = Date.now();
 
   try {
-    console.log("\n🚀 ===== NEW CONTACT FORM SUBMISSION =====");
-
-    // Get IP
     const headersList = await headers();
     const ip =
       headersList.get("x-forwarded-for")?.split(",")[0] ||
       headersList.get("x-real-ip") ||
       "unknown";
 
-    console.log("📍 IP:", ip);
-
-    // ✅ FIXED: Rate limit check enabled
     const rateLimit = checkRateLimit(ip);
     if (!rateLimit.allowed) {
-      console.log("⛔ Rate limit exceeded for IP:", ip);
       return NextResponse.json(
         {
           error: rateLimit.blocked
@@ -325,22 +307,9 @@ export async function POST(req: Request) {
       );
     }
 
-    // Parse body
-    console.log("📦 Parsing request body...");
     const body = await req.json();
     const { name, email, message, subject, company, role, files } = body;
 
-    console.log("📋 Form data received:", {
-      name,
-      email,
-      subject,
-      company,
-      role,
-      messageLength: message?.length,
-      filesCount: files?.length || 0,
-    });
-
-    // Validate required fields
     if (!name || !email || !message) {
       console.error("❌ Missing required fields");
       return NextResponse.json(
@@ -349,7 +318,6 @@ export async function POST(req: Request) {
       );
     }
 
-    // Sanitize inputs
     const sName = sanitizeInput(name, 100);
     const sEmail = sanitizeInput(email, 254);
     const sMessage = sanitizeInput(message, 5000);
@@ -357,7 +325,6 @@ export async function POST(req: Request) {
     const sCompany = company ? sanitizeInput(company, 150) : "";
     const sRole = role ? sanitizeInput(role, 100) : "";
 
-    // Validate email
     if (!validateEmail(sEmail)) {
       console.error("❌ Invalid email:", sEmail);
       return NextResponse.json(
@@ -371,7 +338,6 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Message too short" }, { status: 400 });
     }
 
-    // Spam detection
     const spam = detectSpam(sName, sEmail, sMessage, sCompany);
     if (spam.isSpam) {
       console.warn(`⚠️ SPAM detected: ${sEmail} — score ${spam.score}`);
@@ -384,9 +350,6 @@ export async function POST(req: Request) {
       );
     }
 
-    console.log("✅ Spam check passed");
-
-    // Validate files
     const validatedFiles: Array<{
       filename: string;
       size: number;
@@ -414,12 +377,12 @@ export async function POST(req: Request) {
           data: f.data,
         });
       }
-
-      console.log(`✅ ${validatedFiles.length} files validated`);
     }
 
-    // Check email configuration
-    if (!process.env.GMAIL_USER || !process.env.GMAIL_PASS) {
+    if (
+      !process.env.NEXT_PUBLIC_GMAIL_USER ||
+      !process.env.NEXT_PUBLIC_GMAIL_PASS
+    ) {
       console.error("❌ Gmail credentials not configured");
       return NextResponse.json(
         {
@@ -429,27 +392,20 @@ export async function POST(req: Request) {
       );
     }
 
-    console.log("✅ Email credentials found");
-
-    // Create transporter
-    console.log("📧 Creating email transporter...");
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_PASS,
+        user: process.env.NEXT_PUBLIC_GMAIL_USER,
+        pass: process.env.NEXT_PUBLIC_GMAIL_PASS,
       },
     });
 
-    // Verify transporter
-    console.log("🔍 Verifying email configuration...");
     try {
       await transporter.verify();
-      console.log("✅ Email transporter verified");
     } catch (verifyError) {
       console.error("❌ Email verification failed:", verifyError);
       throw new Error(
-        "Email configuration invalid. Check GMAIL_USER and GMAIL_PASS.",
+        "Email configuration invalid. Check NEXT_PUBLIC_GMAIL_USER and NEXT_PUBLIC_GMAIL_PASS.",
       );
     }
 
@@ -469,11 +425,9 @@ export async function POST(req: Request) {
       encoding: "base64" as const,
     }));
 
-    // Send notification email to admin
-    console.log("📤 Sending admin notification email...");
     try {
       await transporter.sendMail({
-        from: `"Portfolio Contact" <${process.env.GMAIL_USER}>`,
+        from: `"Portfolio Contact" <${process.env.NEXT_PUBLIC_GMAIL_USER}>`,
         to: "amit98ch@gmail.com",
         replyTo: sEmail,
         subject:
@@ -490,33 +444,24 @@ export async function POST(req: Request) {
         ),
         attachments: attachments.length > 0 ? attachments : undefined,
       });
-      console.log("✅ Admin notification sent");
     } catch (emailError) {
       console.error("❌ Failed to send admin email:", emailError);
       throw new Error("Failed to send notification email");
     }
 
-    // Send thank-you email to visitor
-    console.log("📤 Sending thank-you email to visitor...");
     try {
       await transporter.sendMail({
-        from: `"Amit Chakraborty" <${process.env.GMAIL_USER}>`,
+        from: `"Amit Chakraborty" <${process.env.NEXT_PUBLIC_GMAIL_USER}>`,
         to: sEmail,
         subject: `Got your message — Amit Chakraborty`,
         html: generateThankYouEmailHTML(sName),
       });
-      console.log("✅ Thank-you email sent");
     } catch (err) {
       console.warn("⚠️ Thank-you email failed (non-critical):", err);
     }
 
     const processingTime = Date.now() - startTime;
-    console.log(
-      `✅ Email sent successfully: ${sEmail} → amit98ch@gmail.com (${processingTime}ms)`,
-    );
-    console.log("🎉 ===== SUBMISSION COMPLETE =====\n");
 
-    // ✅ FIXED: rateLimit is now properly defined
     return NextResponse.json(
       {
         success: true,
@@ -561,7 +506,7 @@ export async function POST(req: Request) {
   }
 }
 
-// ─── GET Handler ────────────────────────────────────────────────
+// ─── GET Handler 
 export async function GET() {
   return NextResponse.json({
     status: "operational",

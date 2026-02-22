@@ -57,7 +57,6 @@ export default function Navigation() {
   const btnRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const prevY = useRef(0);
 
-  /* ── active section via IntersectionObserver ── */
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
     NAV_ITEMS.forEach(({ id }) => {
@@ -75,7 +74,6 @@ export default function Navigation() {
     return () => observers.forEach((o) => o.disconnect());
   }, []);
 
-  /* ── indicator position ── */
   useEffect(() => {
     const idx = NAV_ITEMS.findIndex((n) => n.id === active);
     const btn = btnRefs.current[idx];
@@ -86,7 +84,6 @@ export default function Navigation() {
     setIndicator({ left: bRect.left - pRect.left, width: bRect.width });
   }, [active]);
 
-  /* ── scroll hide / show ── */
   useEffect(() => {
     const onScroll = () => {
       const y = window.scrollY;
@@ -129,7 +126,7 @@ export default function Navigation() {
             "background 0.3s, backdrop-filter 0.3s, border-color 0.3s",
         }}
       >
-        {/* ── Logo ── */}
+        {}
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <div
             style={{
@@ -175,7 +172,7 @@ export default function Navigation() {
           </div>
         </div>
 
-        {/* ── Center Pill Nav ── */}
+        {}
         <div
           ref={pillRef}
           className="nav-pill"
@@ -191,7 +188,7 @@ export default function Navigation() {
             padding: "3px 4px",
           }}
         >
-          {/* Sliding indicator */}
+          {}
           {indicator && (
             <motion.div
               animate={{ left: indicator.left, width: indicator.width }}
@@ -237,7 +234,7 @@ export default function Navigation() {
           ))}
         </div>
 
-        {/* ── Right: CTA + Hamburger ── */}
+        {}
         <div
           style={{
             display: "flex",
@@ -317,7 +314,7 @@ export default function Navigation() {
         </div>
       </motion.nav>
 
-      {/* ── Mobile Overlay ── */}
+      {}
       <AnimatePresence>
         {menuOpen && (
           <motion.div

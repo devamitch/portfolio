@@ -53,7 +53,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         >
           {children}
         </select>
-        {/* chevron */}
+        {}
         <div
           style={{
             position: "absolute",

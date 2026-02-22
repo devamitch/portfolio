@@ -24,7 +24,6 @@ self.addEventListener("fetch", (event) => {
   if (request.method !== "GET") return;
   if (url.pathname.startsWith("/api/")) return;
 
-  // Images: cache first
   if (request.destination === "image") {
     event.respondWith(
       caches.open(CACHE_NAME).then((cache) =>
@@ -41,7 +40,6 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // JS/CSS: stale-while-revalidate
   if (["script", "style"].includes(request.destination)) {
     event.respondWith(
       caches.open(CACHE_NAME).then((cache) =>
@@ -57,7 +55,6 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // HTML: network first
   event.respondWith(
     fetch(request)
       .then((response) => {

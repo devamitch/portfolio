@@ -3,8 +3,7 @@
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 import { useCallback, useEffect, useRef, useState } from "react";
-
-// ─── Types ────────────────────────────────────────────────────────────────────
+import { usePortfolioState } from "~/store/portfolio-state";
 
 export type ScrollTarget =
   | "hero"
@@ -23,27 +22,22 @@ export type ScrollTarget =
 export interface StoredMessage {
   id: string;
   role: "user" | "assistant";
-  text: string; // plain text only — stripped of markdown for storage
+  text: string;
   ts: number;
 }
 
 export interface ParsedResponse {
-  voiceLine: string; // extracted VOICE: line — what gets spoken
-  displayText: string; // everything after VOICE: line — shown in chat
+  voiceLine: string;
+  displayText: string;
 }
 
-// ─── Constants ────────────────────────────────────────────────────────────────
-
 export const SCROLL_EVENT = "amit:scrollToSection";
-const STORAGE_KEY = "amit:chat:v3"; // bump version to clear any broken old data
+const STORAGE_KEY = "amit:chat:v3";
 const MAX_STORED = 25;
 
-// ─── Text extraction from AI SDK v6 message object ───────────────────────────
-// Handles both parts[] format (AI SDK v6) and plain content string
 export function extractRawText(msg: any): string {
   if (!msg) return "";
 
-  // Try parts array first (AI SDK v6 format)
   const parts: any[] = msg?.parts ?? [];
   const fromParts = parts
     .filter((p: any) => p?.type === "text")
@@ -52,7 +46,6 @@ export function extractRawText(msg: any): string {
     .trim();
   if (fromParts) return fromParts;
 
-  // Fallback: plain content field
   const c = msg?.content;
   if (typeof c === "string") return c.trim();
   if (Array.isArray(c)) {
@@ -65,12 +58,6 @@ export function extractRawText(msg: any): string {
   return "";
 }
 
-// ─── VOICE: line parser ───────────────────────────────────────────────────────
-// The AI prefixes every response with:
-//   VOICE: Amit has shipped eighteen production apps over eight years.
-//
-// We extract that line for speaking, and strip it from the displayed chat text
-// so users don't see an ugly "VOICE:" prefix in the message bubble.
 export function parseResponse(rawText: string): ParsedResponse {
   if (!rawText?.trim()) return { voiceLine: "", displayText: "" };
 
@@ -78,7 +65,6 @@ export function parseResponse(rawText: string): ParsedResponse {
   const voiceIdx = lines.findIndex((l) => /^VOICE:/i.test(l.trim()));
 
   if (voiceIdx === -1) {
-    // AI didn't follow the format — extract first clean sentence as fallback
     const clean = rawText
       .replace(/^#{1,6}\s+/gm, "")
       .replace(/\*\*?([^*]+)\*\*?/g, "$1")
@@ -92,17 +78,13 @@ export function parseResponse(rawText: string): ParsedResponse {
     };
   }
 
-  // Extract the VOICE line content
   const voiceLine = lines[voiceIdx]!.replace(/^VOICE:\s*/i, "").trim();
 
-  // Remove the VOICE line (and any immediately adjacent blank line) from display
   const displayLines = lines.filter((_, i) => i !== voiceIdx);
   const displayText = displayLines.join("\n").replace(/^\n+/, "").trim();
 
   return { voiceLine, displayText };
 }
-
-// ─── localStorage helpers ─────────────────────────────────────────────────────
 
 function saveSnapshot(messages: any[]) {
   if (typeof window === "undefined") return;
@@ -119,9 +101,7 @@ function saveSnapshot(messages: any[]) {
       .filter((m) => m.text.trim().length > 0)
       .slice(-MAX_STORED);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(snapshot));
-  } catch {
-    // Storage quota exceeded — silently ignore
-  }
+  } catch {}
 }
 
 function loadSnapshot(): StoredMessage[] {
@@ -140,25 +120,18 @@ export function clearStoredMessages() {
   if (typeof window === "undefined") return;
   try {
     localStorage.removeItem(STORAGE_KEY);
-  } catch {
-    /* ignore */
-  }
+  } catch {}
 }
-
-// ─── Scroll dispatch ──────────────────────────────────────────────────────────
 
 export function dispatchScroll(target: ScrollTarget) {
   if (typeof window === "undefined") return;
   window.dispatchEvent(new CustomEvent(SCROLL_EVENT, { detail: { target } }));
 }
 
-// ─── Hook ─────────────────────────────────────────────────────────────────────
-
 export function useRAGChat() {
   const [input, setInput] = useState("");
   const processedToolCallIds = useRef(new Set<string>());
 
-  // Load snapshot ONCE on mount — shown while live chat is empty
   const [restoredMessages] = useState<StoredMessage[]>(() => loadSnapshot());
 
   const {
@@ -171,13 +144,9 @@ export function useRAGChat() {
   } = useChat({
     transport: new DefaultChatTransport({ api: "/api/rag/chat" }),
 
-    // DO NOT pass initialMessages from storage — AI SDK v6 can't round-trip
-    // complex parts[] objects through JSON. We render restoredMessages separately.
-
     onError: (err) => console.error("[RAGChat] error:", err),
 
     onFinish: ({ message }) => {
-      // Handle scroll tool results from onFinish (tool-scrollToSection parts)
       for (const part of message.parts) {
         if (
           part.type === "tool-scrollToSection" &&
@@ -196,34 +165,56 @@ export function useRAGChat() {
     },
   });
 
-  // ── Save snapshot whenever live messages change ────────────────────────────
   useEffect(() => {
     if (messages.length > 0) {
       saveSnapshot(messages);
     }
   }, [messages]);
 
-  // ── Watch for scroll tool-invocation results (streaming path) ─────────────
   useEffect(() => {
     for (const msg of messages) {
       if (msg.role !== "assistant") continue;
       const parts: any[] = (msg as any).parts ?? [];
       for (const part of parts) {
         if (part.type !== "tool-invocation") continue;
-        if (part.toolName !== "scrollToSection") continue;
-        if (part.state !== "result") continue;
+
         const id = part.toolCallId as string;
         if (processedToolCallIds.current.has(id)) continue;
-        processedToolCallIds.current.add(id);
-        const target = (part.result?.sectionId ?? part.result?.scrollTo) as
-          | ScrollTarget
-          | undefined;
-        if (target) setTimeout(() => dispatchScroll(target), 300);
+
+        if (part.state === "result") {
+          processedToolCallIds.current.add(id);
+
+          if (part.toolName === "scrollToSection") {
+            const target = (part.result?.sectionId ?? part.result?.scrollTo) as
+              | ScrollTarget
+              | undefined;
+            if (target) setTimeout(() => dispatchScroll(target), 300);
+          }
+
+          if (part.toolName === "identifyUser") {
+            const { identified, name, interest } = part.result;
+            if (identified && name) {
+              const { setUserName, setIsProfileComplete, visitorId } =
+                usePortfolioState.getState();
+              setUserName(name);
+              setIsProfileComplete(true);
+
+              fetch("/api/analytics/profile", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  visitorId,
+                  name,
+                  interest,
+                }),
+              }).catch((err) => console.error("[identify] Save failed:", err));
+            }
+          }
+        }
       }
     }
   }, [messages]);
 
-  // ── Derived ───────────────────────────────────────────────────────────────
   const isLoading = status === "submitted" || status === "streaming";
 
   const error: string | null = rawError
@@ -232,7 +223,6 @@ export function useRAGChat() {
       : String(rawError)
     : null;
 
-  // ── Handlers ──────────────────────────────────────────────────────────────
   const handleInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
       setInput(e.target.value),
@@ -246,7 +236,8 @@ export function useRAGChat() {
       if (!text || isLoading) return;
       setInput("");
       try {
-        await sendMessage({ text });
+        const userName = usePortfolioState.getState().userName;
+        await sendMessage({ text }, { body: { userName } });
       } catch (err) {
         console.error("[RAGChat] send error:", err);
       }
@@ -260,7 +251,8 @@ export function useRAGChat() {
       if (!t || isLoading) return;
       setInput("");
       try {
-        await sendMessage({ text: t });
+        const userName = usePortfolioState.getState().userName;
+        await sendMessage({ text: t }, { body: { userName } });
       } catch (err) {
         console.error("[RAGChat] submitText error:", err);
       }
@@ -274,8 +266,8 @@ export function useRAGChat() {
   }, [setMessages]);
 
   return {
-    messages, // live AI SDK v6 messages (active session)
-    restoredMessages, // simple {id, role, text, ts} shown on first load
+    messages,
+    restoredMessages,
     input,
     setInput,
     handleInputChange,

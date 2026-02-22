@@ -71,7 +71,7 @@ I don't generate code. I architect systems.`,
         "Built RAG pipeline for medical data retrieval and contextual AI processing",
         "Implemented HIPAA-compliant blockchain health record integration using Solidity + Web3.js",
         "Migrated full codebase to React Native Bridgeless Architecture withnative modules",
-        "Delivered oLo eye health app with MediaPipe integration for real-time retina/blink analysis",
+        "Delivered eye health app with MediaPipe integration for real-time retina/blink analysis",
         "Built AI-powered onboarding and personalization flows for medical platforms",
         "Reduced deployment time by 30% through CI/CD pipeline optimization",
         "Maintained 99.9% uptime across all production systems",
@@ -100,7 +100,7 @@ I don't generate code. I architect systems.`,
         "Gumlet API",
         "MediaPipe",
       ],
-      apps: ["Spyk Health", "oLo Eye Care", "My Teal Women's Health", "vBoil"],
+      apps: ["Spyk Health", "Eye Care", "My Teal Women's Health", "vBoil"],
       projects: [
         {
           name: "Spyk Health",
@@ -113,7 +113,7 @@ I don't generate code. I architect systems.`,
           highlight: true,
         },
         {
-          name: "oLo Eye Care",
+          name: "Eye Care",
           category: "HealthTech · Computer Vision",
           description:
             "Eye health monitoring app using MediaPipe for real-time retina coverage analysis, blink rate detection, eye redness assessment, and luminance tracking.",
@@ -838,9 +838,6 @@ I don't generate code. I architect systems.`,
 export default resumeData;
 
 export const DATA = {
-  // ─────────────────────────────────────────────
-  //  PERSONAL INFO
-  // ─────────────────────────────────────────────
   name: "Amit Chakraborty",
   nameFirst: "Amit",
   nameLast: "Chakraborty",
@@ -865,9 +862,6 @@ I don't generate code. I architect systems.`,
 
   roles: ["VP Engineering", "Principal Architect", "CTO", "Technical Lead"],
 
-  // ─────────────────────────────────────────────
-  //  CONTACT & LINKS
-  // ─────────────────────────────────────────────
   location: "Kolkata, West Bengal, India",
   locationFull: "Kolkata, India · Remote Worldwide",
   availability: "Remote Worldwide",
@@ -900,9 +894,6 @@ I don't generate code. I architect systems.`,
     "https://leetcode.com/techamit95ch/",
   ],
 
-  // ─────────────────────────────────────────────
-  //  STATS
-  // ─────────────────────────────────────────────
   stats: [
     { value: "8+", label: "Years", suffix: "Experience" },
     { value: "13+", label: "Apps", suffix: "Shipped" },
@@ -923,9 +914,6 @@ I don't generate code. I architect systems.`,
     companiesWorked: 3,
   },
 
-  // ─────────────────────────────────────────────
-  //  EXPERIENCE
-  // ─────────────────────────────────────────────
   experience: [
     {
       title: "Senior Mobile Architect & Technical Lead",
@@ -967,7 +955,7 @@ I don't generate code. I architect systems.`,
       ],
       apps: [
         "Spyk Health",
-        "oLo Eye Care",
+        "Eye Care",
         "My Teal Women's Health",
         "vBoil",
         "Maskwa",
@@ -1051,11 +1039,7 @@ I don't generate code. I architect systems.`,
     },
   ],
 
-  // ─────────────────────────────────────────────
-  //  PROJECTS
-  // ─────────────────────────────────────────────
   projects: [
-    // ── FEATURED ──
     {
       id: "spyk",
       name: "Spyk Health",
@@ -1083,7 +1067,7 @@ I don't generate code. I architect systems.`,
     },
     {
       id: "olo",
-      name: "oLo Eye Care",
+      name: "Eye Care",
       featured: true,
       badge: "MEDTECH",
       cat: "HealthTech · Computer Vision · Medical",
@@ -1188,7 +1172,6 @@ I don't generate code. I architect systems.`,
       ],
       color: "#FF9800",
     },
-    // ── NON-FEATURED ──
     {
       id: "vulcan",
       name: "Vulcan Eleven",
@@ -1302,9 +1285,6 @@ I don't generate code. I architect systems.`,
     },
   ],
 
-  // ─────────────────────────────────────────────
-  //  FREELANCE PROJECTS
-  // ─────────────────────────────────────────────
   freelanceProjects: [
     {
       name: "Be4You Dating App MVP",
@@ -1317,9 +1297,6 @@ I don't generate code. I architect systems.`,
     },
   ],
 
-  // ─────────────────────────────────────────────
-  //  OPEN SOURCE & PORTFOLIO PROJECTS
-  // ─────────────────────────────────────────────
   portfolioProjects: [
     {
       name: "MediVault",
@@ -1371,9 +1348,6 @@ I don't generate code. I architect systems.`,
     },
   ],
 
-  // ─────────────────────────────────────────────
-  //  SKILLS
-  // ─────────────────────────────────────────────
   skills: {
     categories: [
       {
@@ -1492,9 +1466,6 @@ I don't generate code. I architect systems.`,
     ],
   },
 
-  // ─────────────────────────────────────────────
-  //  EDUCATION
-  // ─────────────────────────────────────────────
   education: [
     {
       degree: "Master of Computer Applications (MCA)",
@@ -1549,9 +1520,6 @@ I don't generate code. I architect systems.`,
     },
   ],
 
-  // ─────────────────────────────────────────────
-  //  CERTIFICATIONS
-  // ─────────────────────────────────────────────
   certifications: [
     {
       name: "Blockchain Development - Solidity, Smart Contracts, DeFi, NFTs",
@@ -1595,9 +1563,6 @@ I don't generate code. I architect systems.`,
     },
   ],
 
-  // ─────────────────────────────────────────────
-  //  TESTIMONIALS
-  // ─────────────────────────────────────────────
   testimonials: [
     {
       name: "Kartik Kalia",
@@ -1645,9 +1610,6 @@ I don't generate code. I architect systems.`,
     },
   ],
 
-  // ─────────────────────────────────────────────
-  //  STORY / TIMELINE
-  // ─────────────────────────────────────────────
   story: [
     {
       yr: "2017",
@@ -1681,9 +1643,6 @@ I don't generate code. I architect systems.`,
     },
   ],
 
-  // ─────────────────────────────────────────────
-  //  ACHIEVEMENTS
-  // ─────────────────────────────────────────────
   achievements: [
     {
       title: "13+ Successful App Launches",
@@ -1740,9 +1699,6 @@ I don't generate code. I architect systems.`,
     },
   ],
 
-  // ─────────────────────────────────────────────
-  //  BLOGS
-  // ─────────────────────────────────────────────
   blogs: [
     {
       title: "React Native Bridgeless Architecture: What They Don't Tell You",
@@ -1764,18 +1720,12 @@ I don't generate code. I architect systems.`,
     },
   ],
 
-  // ─────────────────────────────────────────────
-  //  SPOKEN LANGUAGES
-  // ─────────────────────────────────────────────
   spokenLanguages: [
     { name: "Bengali", proficiency: "Native" },
     { name: "English", proficiency: "Full Professional Proficiency" },
     { name: "Hindi", proficiency: "Conversational" },
   ],
 
-  // ─────────────────────────────────────────────
-  //  INTERESTS
-  // ─────────────────────────────────────────────
   interests: [
     "Building decentralized healthcare systems",
     "AI/ML in healthcare applications",
@@ -1788,9 +1738,6 @@ I don't generate code. I architect systems.`,
     "Mobile architecture optimization",
   ],
 
-  // ─────────────────────────────────────────────
-  //  CAREER GOALS
-  // ─────────────────────────────────────────────
   careerGoals: {
     shortTerm:
       "Lead engineering teams at scale, deliver innovative AI + Blockchain solutions in healthcare",

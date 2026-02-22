@@ -1,9 +1,4 @@
-/**
- * Search API Endpoint
- * POST /api/rag/search
- *
- * Performs semantic search on the knowledge base
- */
+
 
 import { initializeDefaultKnowledgeBase } from "~/lib/rag/knowledge-store";
 import { createRAGEngine } from "~/lib/rag/rag-engine";
@@ -18,16 +13,12 @@ async function getEngine() {
     ragEngine = createRAGEngine("portfolio", "openai/gpt-4-turbo");
     await ragEngine.initialize();
 
-    // Load default documents if not already loaded
     const defaultDocs = initializeDefaultKnowledgeBase();
     await ragEngine.addDocuments(defaultDocs);
   }
   return ragEngine;
 }
 
-/**
- * POST handler for search requests
- */
 export async function POST(request: Request) {
   try {
     const body = await request.json();
@@ -70,9 +61,6 @@ export async function POST(request: Request) {
   }
 }
 
-/**
- * GET handler for health check
- */
 export async function GET() {
   return new Response(
     JSON.stringify({

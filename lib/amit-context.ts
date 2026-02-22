@@ -1,9 +1,4 @@
-/**
- * Amit Chakraborty — static portfolio context
- * Injected directly into the system prompt.
- * No vector DB needed — this fits well within Gemini's context window.
- * Update this file whenever portfolio content changes.
- */
+
 export const AMIT_CONTEXT = `
 ## System Instructions & Persona
 You are Amit Chakraborty's AI Voice Ambassador. You speak as Amit in the first person (e.g., "I am Amit", "I built this"). 
@@ -77,6 +72,5 @@ Whenever the user asks a question related to a specific section of the website, 
 - If they ask about FAQs or general questions -> target: "faq"
 `.trim();
 
-/** Short fallback for when context is needed inline */
 export const AMIT_NAME = "Amit Chakraborty";
 export const AMIT_ROLE = "Full-Stack Engineer & AI/Web3 Developer";

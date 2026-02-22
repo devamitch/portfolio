@@ -4,11 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ═══════════════════════════════════════════════════════════════
-   ROOT VARIABLES — UNIFIED PREMIUM SYSTEM
-   ═══════════════════════════════════════════════════════════════ */
 :root {
-  /* ─── BACKGROUNDS ─── */
   --bg: #060606;
   --bg-elevated: #0c0c0c;
   --black-pure: #000000;
@@ -17,7 +13,6 @@
   --black-charcoal: #1c1c1c;
   --black-slate: #262626;
 
-  /* ─── TEXT ─── */
   --text: #ffffff;
   --text-dim: rgba(255, 255, 255, 0.7);
   --text-faint: rgba(255, 255, 255, 0.48);
@@ -27,7 +22,6 @@
   --white-cream: #faf8f0;
   --white-pearl: #f5f3eb;
 
-  /* ─── GOLD PALETTE ─── */
   --gold: #c9a84c;
   --gold-primary: #d4af37;
   --gold-light: #f5c842;
@@ -38,7 +32,6 @@
   --gold-bronze: #cd7f32;
   --gold-glow: rgba(201, 168, 76, 0.12);
 
-  /* ─── GRADIENTS ─── */
   --gold-gradient: linear-gradient(
     135deg,
     #daa520 0%,
@@ -60,33 +53,26 @@
   );
   --gradient-black: linear-gradient(180deg, #0a0a0a 0%, #000000 100%);
 
-  /* ─── BORDERS ─── */
   --border: rgba(255, 255, 255, 0.06);
   --border-hover: rgba(255, 255, 255, 0.12);
 
-  /* ─── SHADOWS ─── */
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.45);
   --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.5);
   --shadow-2xl: 0 24px 64px rgba(0, 0, 0, 0.55);
 
-  /* ─── GOLD GLOWS ─── */
   --glow-gold:
     0 0 40px rgba(212, 175, 55, 0.25), 0 0 80px rgba(212, 175, 55, 0.12);
   --glow-gold-strong:
     0 0 60px rgba(212, 175, 55, 0.35), 0 0 120px rgba(212, 175, 55, 0.18);
 
-  /* ─── MISC ─── */
   --radius: 0px;
   --transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   BASE
-   ═══════════════════════════════════════════════════════════════ */
 *,
 *::before,
 *::after {
@@ -98,7 +84,7 @@
 html {
   background: var(--bg);
   color: var(--text);
-  scroll-behavior: auto; /* Lenis handles smooth scroll */
+  scroll-behavior: auto; 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -170,9 +156,6 @@ img {
   image-rendering: crisp-edges;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   SCROLLBAR
-   ═══════════════════════════════════════════════════════════════ */
 ::-webkit-scrollbar {
   width: 4px;
   height: 4px;
@@ -200,9 +183,6 @@ img {
   display: none;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   CUSTOM CURSOR
-   ═══════════════════════════════════════════════════════════════ */
 .cursor-dot {
   width: 8px;
   height: 8px;
@@ -250,9 +230,6 @@ img {
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   NOISE OVERLAY
-   ═══════════════════════════════════════════════════════════════ */
 .noise-overlay {
   position: fixed;
   inset: 0;
@@ -264,7 +241,6 @@ img {
   background-size: 256px 256px;
 }
 
-/* Pseudo-element variant for relative containers */
 .noise-overlay-pseudo {
   position: relative;
 }
@@ -279,9 +255,6 @@ img {
   z-index: 1;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   PRELOADER
-   ═══════════════════════════════════════════════════════════════ */
 .preloader {
   position: fixed;
   inset: 0;
@@ -306,9 +279,6 @@ img {
   transition: width 0.3s;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   LAYOUT
-   ═══════════════════════════════════════════════════════════════ */
 .section-padding {
   padding: 140px 0;
 }
@@ -329,7 +299,6 @@ img {
   }
 }
 
-/* ─── GRID LINE (Decorative) ─── */
 .grid-lines {
   position: fixed;
   inset: 0;
@@ -357,9 +326,6 @@ img {
   background: var(--border);
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   TYPOGRAPHY
-   ═══════════════════════════════════════════════════════════════ */
 .font-display {
   font-family: "Space Grotesk", "Inter", sans-serif;
   font-weight: 900;
@@ -381,11 +347,6 @@ img {
     0 4px 16px rgba(0, 0, 0, 0.4);
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   BUTTONS
-   ═══════════════════════════════════════════════════════════════ */
-
-/* Filled gold — magnetic style */
 .magnetic-btn {
   position: relative;
   display: inline-flex;
@@ -434,7 +395,6 @@ img {
   transform: translateY(0);
 }
 
-/* Outlined gold */
 .magnetic-btn-outline {
   position: relative;
   display: inline-flex;
@@ -458,7 +418,6 @@ img {
   box-shadow: 0 0 30px rgba(201, 168, 76, 0.1);
 }
 
-/* Semantic aliases */
 .btn-gold {
   @extend .magnetic-btn;
 }
@@ -466,9 +425,6 @@ img {
   @extend .magnetic-btn-outline;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   CARDS & SURFACES
-   ═══════════════════════════════════════════════════════════════ */
 .glass {
   background: rgba(255, 255, 255, 0.02);
   backdrop-filter: blur(12px);
@@ -510,9 +466,6 @@ img {
   backdrop-filter: blur(20px);
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   GRADIENT BORDER
-   ═══════════════════════════════════════════════════════════════ */
 .gradient-border {
   position: relative;
 }
@@ -535,9 +488,6 @@ img {
   background: var(--gradient-gold-sunset);
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   GLOW UTILITIES
-   ═══════════════════════════════════════════════════════════════ */
 .glow-gold {
   box-shadow: var(--glow-gold);
 }
@@ -551,9 +501,6 @@ img {
   box-shadow: var(--glow-gold-strong);
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   SHADOW UTILITIES
-   ═══════════════════════════════════════════════════════════════ */
 .shadow-premium-sm {
   box-shadow: var(--shadow-sm);
 }
@@ -570,9 +517,6 @@ img {
   box-shadow: var(--shadow-2xl);
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   TEXT UTILITIES
-   ═══════════════════════════════════════════════════════════════ */
 .text-gradient,
 .gradient-gold-text {
   background: var(--gradient-gold-luxury);
@@ -587,9 +531,6 @@ img {
   background: var(--gradient-gold-sunset);
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   GRID PATTERNS
-   ═══════════════════════════════════════════════════════════════ */
 .grid-pattern {
   background-image:
     linear-gradient(rgba(212, 175, 55, 0.04) 1px, transparent 1px),
@@ -603,9 +544,6 @@ img {
   background-size: 48px 48px;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   HORIZONTAL RULE
-   ═══════════════════════════════════════════════════════════════ */
 .gold-rule {
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--gold), transparent);
@@ -613,9 +551,6 @@ img {
   opacity: 0.3;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   REVEAL ANIMATIONS
-   ═══════════════════════════════════════════════════════════════ */
 .reveal-text {
   overflow: hidden;
 }
@@ -643,9 +578,6 @@ img {
   transform: translateY(0);
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   MARQUEE
-   ═══════════════════════════════════════════════════════════════ */
 @keyframes marquee {
   0% {
     transform: translateX(0);
@@ -663,9 +595,6 @@ img {
   animation-play-state: paused;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   GLITCH TEXT
-   ═══════════════════════════════════════════════════════════════ */
 @keyframes glitch-1 {
   0%,
   100% {
@@ -713,9 +642,6 @@ img {
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   KEYFRAME ANIMATIONS
-   ═══════════════════════════════════════════════════════════════ */
 @keyframes pulse-gold {
   0%,
   100% {
@@ -762,17 +688,11 @@ img {
   animation: shimmer 3s infinite;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   PERFORMANCE
-   ═══════════════════════════════════════════════════════════════ */
 .gpu-accelerated {
   transform: translateZ(0);
   will-change: transform;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   RESPONSIVE
-   ═══════════════════════════════════════════════════════════════ */
 @media (max-width: 640px) {
   html {
     font-size: 14px;
@@ -812,9 +732,6 @@ img {
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   DARK MODE OVERRIDES
-   ═══════════════════════════════════════════════════════════════ */
 @media (prefers-color-scheme: light) {
   :root {
     --black-rich: #faf8f0;
@@ -825,16 +742,11 @@ img {
     color: var(--black-rich);
   }
 }
-/* ══════════════════════════════════════════════════════════════
-   GLOBALS — Amit Chakraborty Portfolio Design System
-   Helvetica Neue · Gold Palette · Refined Minimalism
-══════════════════════════════════════════════════════════════ */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ── Reset + Base ───────────────────────────────────────────── */
 *,
 *::before,
 *::after {
@@ -855,10 +767,9 @@ body {
   color: #ffffff;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   overflow-x: hidden;
-  cursor: none; /*cursor on desktop */
+  cursor: none; 
 }
 
-/* ── Custom Cursor ──────────────────────────────────────────── */
 .cursor-dot {
   position: fixed;
   width: 8px;
@@ -909,7 +820,6 @@ body {
   }
 }
 
-/* ── Noise Overlay ──────────────────────────────────────────── */
 .noise-overlay {
   position: fixed;
   inset: 0;
@@ -920,7 +830,6 @@ body {
   background-size: 192px 192px;
 }
 
-/* ── Marquee ────────────────────────────────────────────────── */
 @keyframes marquee {
   from {
     transform: translateX(0);
@@ -939,7 +848,6 @@ body {
   animation-play-state: paused;
 }
 
-/* ── Scrollbar ──────────────────────────────────────────────── */
 ::-webkit-scrollbar {
   width: 4px;
 }
@@ -954,13 +862,11 @@ body {
   background: rgba(201, 168, 76, 0.6);
 }
 
-/* ── Selection ──────────────────────────────────────────────── */
 ::selection {
   background: rgba(201, 168, 76, 0.25);
   color: #ffffff;
 }
 
-/* ── Gold Rule ──────────────────────────────────────────────── */
 .gold-rule {
   height: 1px;
   background: linear-gradient(
@@ -973,7 +879,6 @@ body {
   opacity: 0.5;
 }
 
-/* ── Magnetic Button ────────────────────────────────────────── */
 .magnetic-btn {
   position: relative;
   display: inline-block;
@@ -981,7 +886,6 @@ body {
   transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-/* ── Grid Pattern (utility class) ──────────────────────────── */
 .grid-pattern {
   background-image:
     linear-gradient(rgba(201, 168, 76, 0.025) 1px, transparent 1px),
@@ -989,7 +893,6 @@ body {
   background-size: 72px 72px;
 }
 
-/* ── Animations ─────────────────────────────────────────────── */
 @keyframes ac-pulse {
   0%,
   100% {
@@ -1019,24 +922,20 @@ body {
   }
 }
 
-/* ── Focus visible ──────────────────────────────────────────── */
 :focus-visible {
   outline: 2px solid rgba(201, 168, 76, 0.6);
   outline-offset: 3px;
 }
 
-/* ── Link defaults ──────────────────────────────────────────── */
 a {
   text-decoration: none;
   color: inherit;
 }
 
-/* ── Calendly overrides ─────────────────────────────────────── */
 .calendly-inline-widget {
   border-radius: 0 !important;
 }
 
-/* ── React-hot-toast positioning ───────────────────────────── */
 .Toastify__toast {
   font-family: "JetBrains Mono", monospace !important;
 }

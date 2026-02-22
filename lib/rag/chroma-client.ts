@@ -1,24 +1,15 @@
-/**
- * Chroma Vector Database Client
- * Manages initialization and collections
- */
+
 
 import type { Document } from './types'
 
-// Chroma client will be initialized lazily
 let chromaInstance: any = null
 
-/**
- * Initialize Chroma client for in-memory vector storage
- */
 export async function initializeChroma() {
   if (chromaInstance) {
     return chromaInstance
   }
 
   try {
-    // For now, we'll use a simple in-memory store
-    // In production, you could use Chroma REST API or other persistence
     chromaInstance = {
       collections: new Map(),
       vectors: new Map(),
@@ -31,9 +22,6 @@ export async function initializeChroma() {
   }
 }
 
-/**
- * Get or create a collection for storing vectors
- */
 export async function getOrCreateCollection(collectionName: string) {
   const chroma = await initializeChroma()
 
@@ -48,10 +36,6 @@ export async function getOrCreateCollection(collectionName: string) {
   return chroma.collections.get(collectionName)
 }
 
-/**
- * Add documents to collection with semantic search capability
- * (Vector embeddings would be computed via embeddings service)
- */
 export async function addDocumentsToCollection(
   collectionName: string,
   documents: Document[]
@@ -74,9 +58,6 @@ export async function addDocumentsToCollection(
   return collection
 }
 
-/**
- * Query collection for similar documents (simulated semantic search)
- */
 export async function queryCollection(
   collectionName: string,
   query: string,
@@ -88,8 +69,6 @@ export async function queryCollection(
     return []
   }
 
-  // Simple relevance scoring based on keyword matching
-  // In production, use actual embeddings for semantic search
   const results = collection.vectors
     .map((vector: any) => ({
       ...vector,
@@ -107,10 +86,6 @@ export async function queryCollection(
   return results
 }
 
-/**
- * Simple relevance scoring (word overlap)
- * Replace with real embedding similarity in production
- */
 function calculateRelevance(query: string, content: string): number {
   const queryWords = query.toLowerCase().split(/\s+/)
   const contentWords = content.toLowerCase().split(/\s+/)
@@ -125,9 +100,6 @@ function calculateRelevance(query: string, content: string): number {
   return matches > 0 ? matches / queryWords.length : 0
 }
 
-/**
- * Delete documents from collection
- */
 export async function deleteFromCollection(
   collectionName: string,
   documentIds: string[]
@@ -145,9 +117,6 @@ export async function deleteFromCollection(
   return true
 }
 
-/**
- * Clear entire collection
- */
 export async function clearCollection(collectionName: string) {
   const chroma = await initializeChroma()
   if (chroma.collections.has(collectionName)) {
@@ -156,9 +125,6 @@ export async function clearCollection(collectionName: string) {
   return true
 }
 
-/**
- * Get collection stats
- */
 export async function getCollectionStats(collectionName: string) {
   const collection = await getOrCreateCollection(collectionName)
 

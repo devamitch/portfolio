@@ -10,15 +10,21 @@ import {
 } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import dynamic from "next/dynamic";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import ImageWithFallback from "./ImageWithFallback";
-import MeetingScheduler from "./MeetingScheduler";
+
+const MeetingScheduler = dynamic(() => import("./MeetingScheduler"), {
+  ssr: false,
+  loading: () => (
+    <div className="h-[400px] flex items-center justify-center bg-black/20 animate-pulse border border-white/5">
+      Loading Scheduler...
+    </div>
+  ),
+});
 
 if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   DESIGN TOKENS  (PrimaryHome palette — source of truth)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 const C = {
   bg: "#050505",
   bg2: "#0A0A0A",
@@ -46,9 +52,6 @@ const HN = "'Helvetica Neue',Helvetica,Arial,sans-serif";
 const MONO = "'JetBrains Mono','Space Mono',monospace";
 const EASE_X = [0.18, 1, 0.3, 1] as const;
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   PORTFOLIO DATA  (merged & enriched from both files)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 const D = {
   nameFirst: "Amit",
   nameLast: "Chakraborty",
@@ -337,7 +340,7 @@ const D = {
     },
     {
       id: "olo",
-      name: "oLo Eye Care",
+      name: "Eye Care",
       role: "Technical Lead",
       badge: "MEDTECH",
       featured: false,
@@ -643,17 +646,6 @@ const D = {
       text: "Amit had been an amicable and diligent developer, one of the most dependable Engineers when it comes to delivery or urgent closures. His capability to rebuild any project from scratch is remarkable.",
       li: "https://linkedin.com/in/neha-goel/",
     },
-    // {
-    //   name: "Puja Rani Tripathy",
-    //   role: "Software Developer",
-    //   company: "Synapsis Medical",
-    //   seniority: "TEAM MEMBER",
-    //   col: "#4FC3F7",
-    //   rel: "Reported to Amit directly",
-    //   date: "Feb 2026",
-    //   text: "Amit played a key role in code reviews, ensuring quality and consistency across the codebase while guiding multiple teams through complex technical tasks.",
-    //   li: "https://linkedin.com/in/puja-rani-tripathy/",
-    // },
     {
       name: "Varun Chodha",
       role: "Senior Full-Stack · MERN",
@@ -693,7 +685,6 @@ const D = {
         "After 8 years and 18 apps, I see the same architecture mistake made over and over.",
     },
   ],
-  // --- UPDATED BLOGS ARRAY ---
   blogs: [
     {
       title: "Say Goodbye to Git Woes: Become a Git Wizard Today! 🧙‍♂️",
@@ -903,9 +894,6 @@ const getYrs = () =>
       (365.25 * 24 * 60 * 60 * 1000),
   );
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   UTILITY HOOKS
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 function useScramble(target: string, speed = 35) {
   const [text, setText] = useState(target);
   const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$!";
@@ -951,9 +939,6 @@ function useInView(ref: React.RefObject<Element | null>, threshold = 0.15) {
   return visible;
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   ANIMATED COUNTER  (intersection-observer driven)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
   const [val, setVal] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
@@ -983,9 +968,6 @@ function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   SCROLL PROGRESS BAR
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 function ScrollProgressBar() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
@@ -1006,9 +988,6 @@ function ScrollProgressBar() {
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   BADGE  (compact pill label)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 function Badge({
   children,
   color = C.gold,
@@ -1036,9 +1015,6 @@ function Badge({
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   3-D TILT CARD  (mouse tracking perspective)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 function TiltCard({
   children,
   style,
@@ -1098,9 +1074,6 @@ function TiltCard({
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   CONTRIBUTION GRAPH  (PrimaryHome version — enhanced)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 function ContribGraph() {
   const data = useMemo(
     () =>
@@ -1190,9 +1163,6 @@ function ContribGraph() {
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   SECTION LABEL  (PrimaryHome style)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 function SLabel({ num, children }: { num?: string; children: string }) {
   return (
     <motion.div
@@ -1237,7 +1207,6 @@ function SLabel({ num, children }: { num?: string; children: string }) {
   );
 }
 
-/* Section heading  (PrimaryHome style) */
 function SH({
   l1,
   l2,
@@ -1274,7 +1243,6 @@ function SH({
   );
 }
 
-/* Gold-text gradient heading accent */
 function GoldAccent({ children }: { children: React.ReactNode }) {
   return (
     <span
@@ -1290,9 +1258,6 @@ function GoldAccent({ children }: { children: React.ReactNode }) {
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   3-D PROJECT CARD  (PrimaryHome version — full featured)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 function ProjectCard({ p, i }: { p: (typeof D.projects)[0]; i: number }) {
   const [hov, setHov] = useState(false);
   const rx = useMotionValue(0);
@@ -1539,9 +1504,6 @@ function ProjectCard({ p, i }: { p: (typeof D.projects)[0]; i: number }) {
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   CONTACT FORM
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 function ContactForm() {
   const [form, setForm] = useState({
     name: "",
@@ -1771,9 +1733,6 @@ function ContactForm() {
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   PITCH FORM  (from Doc2, styled to match PrimaryHome)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 function PitchForm() {
   const emptyForm = {
     name: "",
@@ -2077,9 +2036,9 @@ function PitchForm() {
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+/* 
    DIVIDER
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+ */
 function Div() {
   return (
     <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 32px" }}>
@@ -2096,9 +2055,9 @@ function Div() {
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+/* 
    MOBILE BOTTOM NAV  (from Doc2)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+ */
 function MobileNav() {
   const navItems = [
     { label: "Home", href: "#hero", icon: "⌂" },
@@ -2155,9 +2114,9 @@ function MobileNav() {
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+/* 
    ██  SECTION: HERO  (PrimaryHome — full fidelity)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+ */
 function HeroSection({
   roleIdx,
   scrambled,
@@ -2819,9 +2778,9 @@ function HeroSection({
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+/* 
    ██  SECTION: MARQUEE TECH STACK  (from Doc2)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+ */
 function MarqueeSection() {
   const items = [...D.techStack, ...D.techStack];
   return (
@@ -2900,9 +2859,9 @@ function MarqueeSection() {
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+/* 
    ██  SECTION: ABOUT — BENTO GRID  (PrimaryHome)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+ */
 function AboutSection() {
   return (
     <section id="about" style={{ padding: "120px 0", background: C.bg2 }}>
@@ -3201,9 +3160,9 @@ function AboutSection() {
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+/* 
    ██  SECTION: PROJECTS  (PrimaryHome 3D cards)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+ */
 function ProjectsSection() {
   const featured = D.projects.filter((p) => p.featured);
   const rest = D.projects.filter((p) => !p.featured);
@@ -3253,9 +3212,9 @@ function ProjectsSection() {
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+/* 
    ██  SECTION: SYNAPSIS DEEP-DIVE  (from Doc2, full story)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+ */
 function SynapsisSection() {
   const ref = useRef<HTMLElement>(null);
   const visible = useInView(ref as React.RefObject<Element>, 0.07);
@@ -3573,7 +3532,7 @@ function SynapsisSection() {
           </div>
         </motion.div>
 
-        {/* Technical highlights */}
+        {}
         <div style={{ marginTop: 40 }}>
           <div
             style={{
@@ -3624,9 +3583,6 @@ function SynapsisSection() {
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   ██  SECTION: ENGINEERING ETHOS (Replaces Synapsis)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 function EthosSection() {
   const ref = useRef<HTMLElement>(null);
   const visible = useInView(ref as React.RefObject<Element>, 0.07);
@@ -3664,7 +3620,7 @@ function EthosSection() {
       >
         <SLabel>What Defines Me</SLabel>
 
-        {/* Header */}
+        {}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={visible ? { opacity: 1, y: 0 } : {}}
@@ -3734,7 +3690,7 @@ function EthosSection() {
           </div>
         </motion.div>
 
-        {/* Metrics row */}
+        {}
         <div
           style={{
             display: "grid",
@@ -3796,7 +3752,7 @@ function EthosSection() {
           ))}
         </div>
 
-        {/* Principles grid */}
+        {}
         <div
           style={{
             display: "grid",
@@ -3862,7 +3818,7 @@ function EthosSection() {
           ))}
         </div>
 
-        {/* The full unfiltered story */}
+        {}
         <motion.div
           initial={{ opacity: 0, y: 32 }}
           animate={visible ? { opacity: 1, y: 0 } : {}}
@@ -3972,9 +3928,9 @@ function EthosSection() {
     </section>
   );
 }
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+/* 
    ██  SECTION: EXPERIENCE  (PrimaryHome style + Doc2 accordion)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+ */
 function ExperienceSection() {
   const expRef = useRef<HTMLElement>(null);
   const visible = useInView(expRef as React.RefObject<Element>, 0.08);
@@ -4228,9 +4184,9 @@ function ExperienceSection() {
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+/* 
    ██  SECTION: SKILLS  (PrimaryHome tabs + Doc2 progress bars)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+ */
 function SkillsSection() {
   const skillsRef = useRef<HTMLElement>(null);
   const visible = useInView(skillsRef as React.RefObject<Element>, 0.1);
@@ -4380,9 +4336,9 @@ function SkillsSection() {
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+/* 
    ██  SECTION: STORY TIMELINE  (PrimaryHome alternating layout)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+ */
 function StorySection() {
   const storyRef = useRef<HTMLElement>(null);
   const visible = useInView(storyRef as React.RefObject<Element>, 0.1);
@@ -4514,9 +4470,9 @@ function StorySection() {
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+/* 
    ██  SECTION: GITHUB CONTRIB  (PrimaryHome enhanced)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+ */
 function GitHubSection() {
   return (
     <section id="github" style={{ padding: "80px 0", background: C.bg2 }}>
@@ -4625,9 +4581,9 @@ function GitHubSection() {
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+/* 
    ██  SECTION: TESTIMONIALS  (all 4, TiltCard + PrimaryHome styling)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+ */
 function TestimonialsSection() {
   return (
     <section id="testimonials" style={{ padding: "120px 0", background: C.bg }}>
@@ -4789,9 +4745,6 @@ function TestimonialsSection() {
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   ██  SECTION: SERVICES  (from Doc2, PrimaryHome styling)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 function ServicesSection() {
   const ref = useRef<HTMLElement>(null);
   const visible = useInView(ref as React.RefObject<Element>, 0.1);
@@ -5017,9 +4970,9 @@ function ServicesSection() {
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+/* 
    ██  SECTION: PITCH YOUR IDEA  (from Doc2)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+ */
 function PitchSection() {
   const ref = useRef<HTMLElement>(null);
   const visible = useInView(ref as React.RefObject<Element>, 0.1);
@@ -5182,9 +5135,9 @@ function PitchSection() {
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+/* 
    ██  SECTION: PROCESS  (from Doc2)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+ */
 function ProcessSection() {
   const ref = useRef<HTMLElement>(null);
   const visible = useInView(ref as React.RefObject<Element>, 0.1);
@@ -5303,9 +5256,9 @@ function ProcessSection() {
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+/* 
    ██  SECTION: FAQ  (from Doc2, PrimaryHome styling)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+ */
 function FAQSection() {
   const ref = useRef<HTMLElement>(null);
   const visible = useInView(ref as React.RefObject<Element>, 0.1);
@@ -5531,9 +5484,9 @@ function FAQSection() {
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+/* 
    ██  SECTION: BLOG
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+ */
 function BlogSection() {
   return (
     <section id="blog" style={{ padding: "80px 0", background: C.bg2 }}>
@@ -5672,9 +5625,9 @@ function BlogSection() {
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+/* 
    ██  SECTION: CONTACT  (PrimaryHome form + meeting tab)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+ */
 function ContactSection() {
   const [ctab, setCtab] = useState<"message" | "meeting">("message");
   return (
@@ -5843,9 +5796,9 @@ function ContactSection() {
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+/* 
    ██  FOOTER  (enhanced from Doc2, PrimaryHome style)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+ */
 function Footer() {
   const [email, setEmail] = useState("");
   const [subStatus, setSubStatus] = useState<"idle" | "pending" | "done">(
@@ -6222,9 +6175,9 @@ function Footer() {
   );
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+/* 
    ██  ROOT: PRIMARY HOME  (full assembly)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+ */
 export default function PrimaryHome() {
   const heroRef = useRef<HTMLElement>(null);
   const aboutRef = useRef<HTMLElement>(null);
@@ -6304,14 +6257,14 @@ export default function PrimaryHome() {
         <span itemScope itemType="https://schema.org/Person">
           <span itemProp="name">Amit Chakraborty</span>
           <span itemProp="jobTitle">Principal Mobile Architect</span>
-          <span itemProp="url">https://devamitch.in</span>
+          <span itemProp="url">https://devamit.co.in</span>
           <span itemProp="email">{D.email}</span>
           <span itemProp="addressLocality">Kolkata</span>
           <span itemProp="addressCountry">India</span>
         </span>
       </div>
 
-      {/* ── Scroll progress bar ── */}
+      {}
       <ScrollProgressBar />
 
       <main
@@ -6324,7 +6277,7 @@ export default function PrimaryHome() {
       >
         <div className="noise-overlay" />
 
-        {/* Global ambient orbs */}
+        {}
         <div
           style={{
             position: "fixed",
@@ -6363,7 +6316,7 @@ export default function PrimaryHome() {
           ))}
         </div>
 
-        {/* ── SECTIONS ── */}
+        {}
         <div ref={heroRef as React.RefObject<HTMLDivElement>}>
           <HeroSection roleIdx={roleIdx} scrambled={scrambled} />
         </div>
@@ -6423,10 +6376,10 @@ export default function PrimaryHome() {
         <Footer />
       </main>
 
-      {/* Mobile bottom navigation */}
+      {}
       <MobileNav />
 
-      {/* ── GLOBAL STYLES ── */}
+      {}
       <style>{`
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }

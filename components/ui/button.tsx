@@ -3,7 +3,6 @@
 import React from "react";
 import { cn } from "~/lib/utils";
 
-/* ── Design tokens (mirrors PrimaryHome palette) ───────────── */
 const MONO = "'JetBrains Mono','Space Mono',monospace";
 
 export interface ButtonProps

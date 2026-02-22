@@ -87,7 +87,6 @@ function pickVoice(): SpeechSynthesisVoice | null {
   return indianMale || ukMale || voices[0] || null;
 }
 
-// ─── LIQUID GOLD AUDIO PLAYER COMPONENT ───
 const LiquidAudioPlayer = ({
   isPlaying,
   togglePlay,
@@ -111,11 +110,9 @@ const LiquidAudioPlayer = ({
       const cx = w / 2;
       const cy = h / 2;
 
-      // Draw the morphing liquid blob
       ctx.beginPath();
       const rBase = w / 2 - 8;
       for (let i = 0; i < Math.PI * 2; i += 0.1) {
-        // Complex sine wave math for organic liquid movement
         const r =
           rBase +
           Math.sin(i * 3 + t * 0.05) * 3 +
@@ -127,7 +124,6 @@ const LiquidAudioPlayer = ({
       }
       ctx.closePath();
 
-      // Liquid Gold Gradient
       const grad = ctx.createLinearGradient(0, 0, w, h);
       grad.addColorStop(0, "#FCF6BA");
       grad.addColorStop(0.5, "#D4AF37");
@@ -135,10 +131,9 @@ const LiquidAudioPlayer = ({
 
       ctx.fillStyle = grad;
       ctx.shadowColor = "rgba(212, 175, 55, 0.6)";
-      ctx.shadowBlur = isPlaying ? 15 : 5; // Glows more when playing
+      ctx.shadowBlur = isPlaying ? 15 : 5; 
       ctx.fill();
 
-      // Only animate the blob if audio is playing
       if (isPlaying) t += 1;
       reqId = requestAnimationFrame(draw);
     };
@@ -186,7 +181,7 @@ const LiquidAudioPlayer = ({
         }}
       />
 
-      {/* Play/Pause SVG Icons */}
+      {}
       <div
         style={{
           position: "relative",
@@ -235,7 +230,6 @@ export default function Preloader({ onComplete }: Props) {
   const [realmProgress, setRealmProgress] = useState(0);
   const [showNotification, setShowNotification] = useState(false);
 
-  // Audio Controls
   const [isAudioUnlocked, setIsAudioUnlocked] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
 
@@ -245,7 +239,6 @@ export default function Preloader({ onComplete }: Props) {
 
   const displayedSubtitle = useCypherText(subtitle, !!subtitle, 25);
 
-  // ─── BACKGROUND PARTICLES ───
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -320,7 +313,6 @@ export default function Preloader({ onComplete }: Props) {
     };
   }, []);
 
-  // ─── INITIAL AUDIO FIRE ───
   const startAudio = () => {
     if (!supported || typeof window === "undefined" || !window.speechSynthesis)
       return;
@@ -348,16 +340,13 @@ export default function Preloader({ onComplete }: Props) {
     }
   };
 
-  // ─── THE TRANSPARENT UNLOCKER CLICK ───
   const handleInvisibleUnlock = () => {
     if (!isAudioUnlocked) {
       setIsAudioUnlocked(true);
-      // Play a silent pip to unlock the Web Audio API context permanently
       if (typeof window !== "undefined" && window.speechSynthesis) {
         const unlock = new SpeechSynthesisUtterance("");
         unlock.volume = 0;
         window.speechSynthesis.speak(unlock);
-        // If Chrome paused our main script, un-pause it!
         window.speechSynthesis.resume();
       }
     }
@@ -375,7 +364,6 @@ export default function Preloader({ onComplete }: Props) {
     }
   };
 
-  // ─── 9-SECOND TIMELINE ───
   useEffect(() => {
     if (sequenceRunning.current) return;
     sequenceRunning.current = true;
@@ -495,7 +483,7 @@ export default function Preloader({ onComplete }: Props) {
         overflow: "hidden",
       }}
     >
-      {/* ── TRANSPARENT OVERLAY UNLOCKER ── */}
+      {}
       {!isAudioUnlocked && (
         <div
           onClick={handleInvisibleUnlock}
@@ -864,7 +852,7 @@ export default function Preloader({ onComplete }: Props) {
         )}
       </main>
 
-      {/* ── SUBTITLE STRIP ── */}
+      {}
       {subtitle && (
         <div
           aria-hidden="true"
@@ -904,7 +892,7 @@ export default function Preloader({ onComplete }: Props) {
         </div>
       )}
 
-      {/* ── LIQUID AUDIO WIDGET ── */}
+      {}
       {supported && phase !== "exit" && (
         <LiquidAudioPlayer isPlaying={isPlaying} togglePlay={togglePlay} />
       )}

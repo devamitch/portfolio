@@ -1,62 +1,8 @@
 "use client";
 
-// ══════════════════════════════════════════════════════════════
-//  MeetingScheduler.tsx — Google Meet via Calendar API
-//
-//  BACKEND SETUP (app/api/schedule-meeting/route.ts):
-//  ─────────────────────────────────────────────────
-//  1. Google Cloud Console → Enable Calendar API
-//  2. IAM → Create Service Account → Download JSON key
-//  3. Share YOUR Google Calendar with service account email
-//     (give it "Make changes to events" permission)
-//  4. Install: pnpm add googleapis
-//  5. Set env vars:
-//       GOOGLE_SERVICE_ACCOUNT_KEY='{"type":"service_account",...}'
-//       OWNER_CALENDAR_ID='amit98ch@gmail.com'
-//       OWNER_EMAIL='amit98ch@gmail.com'
-//
-//  route.ts content:
-//  ─────────────────
-//  import { google } from 'googleapis'
-//  export async function POST(req: Request) {
-//    const { name, email, date, time, message, duration } = await req.json()
-//    const key = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_KEY!)
-//    const auth = new google.auth.GoogleAuth({
-//      credentials: key,
-//      scopes: ['https://www.googleapis.com/auth/calendar'],
-//    })
-//    const calendar = google.calendar({ version: 'v3', auth })
-//    const [h, m] = time.split(':').map(Number)
-//    const start = new Date(`${date}T00:00:00`)
-//    start.setHours(h, m, 0, 0)
-//    const end = new Date(start.getTime() + duration * 60000)
-//    const event = await calendar.events.insert({
-//      calendarId: process.env.OWNER_CALENDAR_ID!,
-//      conferenceDataVersion: 1,
-//      sendUpdates: 'all',
-//      requestBody: {
-//        summary: `${duration}min Call — ${name}`,
-//        description: message || 'Meeting scheduled via portfolio.',
-//        start: { dateTime: start.toISOString(), timeZone: 'Asia/Kolkata' },
-//        end:   { dateTime: end.toISOString(),   timeZone: 'Asia/Kolkata' },
-//        attendees: [
-//          { email: process.env.OWNER_EMAIL!, organizer: true },
-//          { email },
-//        ],
-//        conferenceData: {
-//          createRequest: { requestId: `meet-${Date.now()}-${Math.random()}` },
-//        },
-//      },
-//    })
-//    const meetLink = event.data.conferenceData?.entryPoints?.[0]?.uri ?? ''
-//    return Response.json({ meetLink, eventId: event.data.id })
-//  }
-// ══════════════════════════════════════════════════════════════
-
 import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useState } from "react";
 
-/* ─── Design tokens ─────────────────────────────────────────── */
 const C = {
   bg: "#0A0A0A",
   border: "rgba(255,255,255,0.07)",
@@ -76,7 +22,6 @@ const MONO = "'JetBrains Mono','Space Mono',monospace";
 type Status = "idle" | "sending" | "success" | "error";
 type Duration = 15 | 30 | 60;
 
-/* ─── Shared input styles ────────────────────────────────────── */
 const INP: React.CSSProperties = {
   width: "100%",
   padding: "12px 14px",
@@ -100,7 +45,6 @@ const LBL: React.CSSProperties = {
   marginBottom: 6,
 };
 
-/* ─── Month names ────────────────────────────────────────────── */
 const MONTHS = [
   "January",
   "February",
@@ -117,7 +61,6 @@ const MONTHS = [
 ];
 const DAY_LABELS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 
-/* ─── Available time slots (IST) ────────────────────────────── */
 const TIME_SLOTS = [
   { label: "10:00", value: "10:00" },
   { label: "10:30", value: "10:30" },
@@ -140,9 +83,6 @@ const fmt24to12 = (t: string) => {
   return `${h12}:${String(m).padStart(2, "0")} ${ampm}`;
 };
 
-/* ════════════════════════════════════════════════════════════
-   DATE PICKER
-════════════════════════════════════════════════════════════ */
 function DatePicker({
   value,
   onChange,
@@ -187,7 +127,7 @@ function DatePicker({
         padding: 16,
       }}
     >
-      {/* Month nav */}
+      {}
       <div
         style={{
           display: "flex",
@@ -240,7 +180,7 @@ function DatePicker({
         </button>
       </div>
 
-      {/* Weekday headers */}
+      {}
       <div
         style={{
           display: "grid",
@@ -266,7 +206,7 @@ function DatePicker({
         ))}
       </div>
 
-      {/* Day cells */}
+      {}
       <div
         style={{
           display: "grid",
@@ -314,9 +254,6 @@ function DatePicker({
   );
 }
 
-/* ════════════════════════════════════════════════════════════
-   STEP PROGRESS BAR
-════════════════════════════════════════════════════════════ */
 function Progress({ step, total }: { step: number; total: number }) {
   return (
     <div style={{ display: "flex", gap: 4, marginBottom: 24 }}>
@@ -348,9 +285,6 @@ function Progress({ step, total }: { step: number; total: number }) {
   );
 }
 
-/* ════════════════════════════════════════════════════════════
-   STEP LABEL
-════════════════════════════════════════════════════════════ */
 function StepLabel({ n, label }: { n: number; label: string }) {
   return (
     <div
@@ -392,9 +326,6 @@ function StepLabel({ n, label }: { n: number; label: string }) {
   );
 }
 
-/* ════════════════════════════════════════════════════════════
-   GOOGLE MEET FORM — 3 steps
-════════════════════════════════════════════════════════════ */
 function GoogleMeetForm() {
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [duration, setDuration] = useState<Duration>(30);
@@ -447,7 +378,6 @@ function GoogleMeetForm() {
     [form, date, time, duration],
   );
 
-  /* ─── Success screen ──────────────────────────────────────── */
   if (result)
     return (
       <motion.div
@@ -550,14 +480,12 @@ function GoogleMeetForm() {
       </motion.div>
     );
 
-  /* ─── Step 1 — Duration ───────────────────────────────────── */
   const durations: { value: Duration; label: string; sub: string }[] = [
     { value: 15, label: "15 min", sub: "Quick sync" },
     { value: 30, label: "30 min", sub: "Discovery call" },
     { value: 60, label: "60 min", sub: "Deep dive" },
   ];
 
-  /* ─── Step 2 — Summary bar ────────────────────────────────── */
   const SummaryBar = () =>
     date && time ? (
       <motion.div
@@ -587,7 +515,7 @@ function GoogleMeetForm() {
       <Progress step={step} total={3} />
 
       <AnimatePresence mode="wait">
-        {/* ── STEP 1 ── */}
+        {}
         {step === 1 && (
           <motion.div
             key="s1"
@@ -674,7 +602,7 @@ function GoogleMeetForm() {
           </motion.div>
         )}
 
-        {/* ── STEP 2 ── */}
+        {}
         {step === 2 && (
           <motion.div
             key="s2"
@@ -723,7 +651,7 @@ function GoogleMeetForm() {
             >
               <DatePicker value={date} onChange={setDate} />
 
-              {/* Time slots */}
+              {}
               <div>
                 <div
                   style={{
@@ -837,7 +765,7 @@ function GoogleMeetForm() {
           </motion.div>
         )}
 
-        {/* ── STEP 3 ── */}
+        {}
         {step === 3 && !result && (
           <motion.div
             key="s3"
@@ -1001,9 +929,6 @@ function GoogleMeetForm() {
   );
 }
 
-/* ════════════════════════════════════════════════════════════
-   MAIN EXPORT
-════════════════════════════════════════════════════════════ */
 export default function MeetingScheduler() {
   const calendlyUrl = process.env.NEXT_PUBLIC_CALENDLY_URL ?? "";
   const [tab, setTab] = useState<"meet" | "calendly">("meet");
@@ -1040,7 +965,7 @@ export default function MeetingScheduler() {
 
   return (
     <div>
-      {/* Header */}
+      {}
       <div style={{ marginBottom: 20 }}>
         <div
           style={{
@@ -1085,7 +1010,7 @@ export default function MeetingScheduler() {
         </p>
       </div>
 
-      {/* Tab row — only show Calendly option if URL configured */}
+      {}
       {calendlyUrl ? (
         <div style={{ display: "flex", gap: 6, marginBottom: 24 }}>
           <TabBtn id="meet" label="Google Meet" />
