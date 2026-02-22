@@ -3,7 +3,7 @@ import { createGroq } from "@ai-sdk/groq";
 import { createOpenAI } from "@ai-sdk/openai";
 import { convertToModelMessages, streamText, tool } from "ai";
 import { z } from "zod";
-import { AMIT_CONTEXT } from "~/lib/amit-context";
+import { selectRelevantChunks } from "~/lib/amit-context";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 30;
@@ -33,7 +33,7 @@ function buildOpenAI() {
   if (!process.env.OPENAI_API_KEY) return null;
   try {
     const openai = createOpenAI({ apiKey: process.env.OPENAI_API_KEY });
-    return openai("gpt-4o-mini"); // cheap + fast
+    return openai("gpt-4o-mini");
   } catch {
     return null;
   }
@@ -42,7 +42,6 @@ function buildOpenAI() {
 function buildHuggingFace() {
   if (!process.env.HUGGINGFACE_API_KEY) return null;
   try {
-    // HuggingFace via OpenAI-compatible endpoint
     const hf = createOpenAI({
       apiKey: process.env.HUGGINGFACE_API_KEY,
       baseURL: "https://api-inference.huggingface.co/v1",
@@ -97,10 +96,21 @@ export async function POST(req: Request) {
 
     const modelMessages = await convertToModelMessages(messages);
 
+    // ─── DYNAMIC CONTEXT SELECTION ─────────────────────────────────────────
+    // Get the last user message to determine what context to load
+    const lastUserMessage =
+      messages.filter((m: any) => m.role === "user").pop()?.content || "";
+
+    // Select only relevant chunks (saves 80%+ tokens!)
+    const relevantContext = selectRelevantChunks(lastUserMessage, 4000);
+
+    console.log(
+      `[AURA] Loaded ${Math.ceil(relevantContext.length / 4)} tokens of context (vs 28K full)`,
+    );
+
     let providerName: ProviderName;
     let model: ReturnType<typeof buildGroq>;
 
-    // Try primary provider, attempt fallback on error
     try {
       const result = getModel();
       providerName = result.name;
@@ -120,7 +130,8 @@ export async function POST(req: Request) {
       maxTokens: 400,
       temperature: 0.75,
 
-      system: `${AMIT_CONTEXT}
+      // ─── USE DYNAMIC CONTEXT ───────────────────────────────────────────
+      system: `${relevantContext}
 
 ---
 ## CURRENT SESSION
@@ -189,7 +200,6 @@ ${
   } catch (err) {
     console.error("[AURA Chat] error:", err);
 
-    // Friendly error — don't expose internals
     return Response.json(
       {
         error: "Something went wrong on my end. Try again in a moment.",
