@@ -1,6 +1,9 @@
 import { google } from "googleapis";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+export const maxDuration = 30;
+
 export async function POST(req: Request) {
   try {
     const { name, email, date, time, message, duration } = await req.json();

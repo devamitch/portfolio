@@ -474,7 +474,12 @@ export async function speechToText(
     }
 
     const manager = getVoiceManager();
-    let timeoutId: ReturnType<typeof setTimeout>;
+    // let timeoutId: ReturnType<typeof setTimeout>;
+
+    const timeoutId = setTimeout(() => {
+      manager.abort();
+      reject(new Error("No speech detected — please try again."));
+    }, timeoutMs);
 
     manager.startListening(
       (text, isFinal) => {
@@ -498,11 +503,6 @@ export async function speechToText(
       },
       config,
     );
-
-    timeoutId = setTimeout(() => {
-      manager.abort();
-      reject(new Error("No speech detected — please try again."));
-    }, timeoutMs);
   });
 }
 

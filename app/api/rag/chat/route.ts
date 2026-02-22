@@ -8,6 +8,9 @@ import { convertToModelMessages, streamText, tool } from "ai";
 import { z } from "zod/v4";
 import { AMIT_CONTEXT } from "~/lib/amit-context";
 
+export const dynamic = "force-dynamic";
+export const maxDuration = 30;
+
 const groq = createGroq({ apiKey: process.env.GROQ_API_KEY! });
 
 function log(label: string, data?: unknown) {

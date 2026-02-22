@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import React, {
   createContext,
   useContext,
@@ -28,6 +29,12 @@ export function AIWidgetProvider({
     supported: true,
     ready: false,
   });
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
+
+  useEffect(() => {
+    setLoading(false);
+  }, []);
 
   // Track initialization so we don't spam the reset on every re-render
   const initialized = useRef(false);
@@ -113,6 +120,63 @@ export function AIWidgetProvider({
       }
     };
   }, [speechState.ready]);
+
+  if (loading) {
+    return (
+      <div
+        style={{
+          position: "fixed",
+          inset: 0,
+          background: "#030303",
+          zIndex: 99999,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          fontFamily: "'Space Mono', 'Courier New', monospace",
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            height: "2px",
+            background: "linear-gradient(90deg, #8C6218, #D4AF37, #FBF5B7)",
+            boxShadow: "0 0 20px rgba(212, 175, 55, 0.8)",
+            animation: "plPulse 2s infinite ease-in-out",
+          }}
+        />
+        <div
+          style={{
+            color: "#D4AF37",
+            fontSize: "14px",
+            letterSpacing: "0.2em",
+            fontWeight: 700,
+            textTransform: "uppercase",
+            animation: "plFadeInOut 1.5s infinite ease-in-out",
+          }}
+        >
+          Initializing Portfolio Systems...
+        </div>
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+          @keyframes plFadeInOut {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+          }
+          @keyframes plPulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+          }
+        `,
+          }}
+        />
+      </div>
+    );
+  }
 
   return (
     <SpeechContext.Provider value={speechState}>

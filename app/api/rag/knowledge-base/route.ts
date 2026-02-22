@@ -10,8 +10,11 @@ import { createDocumentsFromKBEntries } from "~/lib/rag/knowledge-store";
 import { createRAGEngine } from "~/lib/rag/rag-engine";
 import type { KnowledgeBaseEntry } from "~/lib/rag/types";
 
+export const dynamic = "force-dynamic";
+export const maxDuration = 30;
+
 let ragEngine: ReturnType<typeof createRAGEngine> | null = null;
-let kbEntries: Map<string, KnowledgeBaseEntry> = new Map();
+const kbEntries: Map<string, KnowledgeBaseEntry> = new Map();
 
 async function getEngine() {
   if (!ragEngine) {

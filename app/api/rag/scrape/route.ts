@@ -10,6 +10,9 @@ import { createRAGEngine } from "~/lib/rag/rag-engine";
 
 let ragEngine: ReturnType<typeof createRAGEngine> | null = null;
 
+export const dynamic = "force-dynamic";
+export const maxDuration = 30;
+
 async function getEngine() {
   if (!ragEngine) {
     ragEngine = createRAGEngine("portfolio", "openai/gpt-4-turbo");
@@ -23,7 +26,7 @@ async function getEngine() {
  */
 function extractTextFromHTML(html: string): string {
   // Simple HTML tag removal
-  let text = html
+  const text = html
     .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "")
     .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, "")
     .replace(/<[^>]+>/g, " ")
