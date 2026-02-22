@@ -17,9 +17,9 @@ import { SentientAURAOrb } from "../ui/LiquidGoldAnimation";
 import { SplashContext } from "./SplashContext";
 
 // Must exactly match AIAssistantWidget constants
-const ORB_CANVAS = 180; // SentientAURAOrb canvas size (fixed in that component)
-const ORB_WIDGET = 82; // PlasmaOrb size in widget
-const MARGIN = 20; // widget's bottom/right margin
+const ORB_CANVAS  = 180;  // SentientAURAOrb canvas size (fixed in that component)
+const ORB_WIDGET  = 82;   // PlasmaOrb size in widget
+const MARGIN      = 20;   // widget's bottom/right margin
 
 // SSR-safe window size
 function useWindowSize() {
@@ -33,24 +33,18 @@ function useWindowSize() {
   return size;
 }
 
-export default function AllProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const [mounted, setMounted] = useState(false);
-  const [showBg, setShowBg] = useState(true); // dark splash bg
-  const [showOrb, setShowOrb] = useState(true); // flying orb
-  const [splashDone, setSplashDone] = useState(false); // widget orb reveal
-  const [contentReady, setContentReady] = useState(false); // page content
-  const { w, h } = useWindowSize();
-  const didFly = useRef(false);
+export default function AllProvider({ children }: { children: React.ReactNode }) {
+  const [mounted,      setMounted]      = useState(false);
+  const [showBg,       setShowBg]       = useState(true);   // dark splash bg
+  const [showOrb,      setShowOrb]      = useState(true);   // flying orb
+  const [splashDone,   setSplashDone]   = useState(false);  // widget orb reveal
+  const [contentReady, setContentReady] = useState(false);  // page content
+  const { w, h }  = useWindowSize();
+  const didFly    = useRef(false);
   const orbControls = useAnimation();
 
   // ── Step 1: hydrate ───────────────────────────────────────────────────────
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  useEffect(() => { setMounted(true); }, []);
 
   // ── Step 2: wait for page load, then start flight ─────────────────────────
   useEffect(() => {
@@ -63,21 +57,21 @@ export default function AllProvider({
       // Orb center starts at (w/2, h/2).
       // Widget orb center is at (w - MARGIN - ORB_WIDGET/2, h - MARGIN - ORB_WIDGET/2).
       // Framer x/y are additive from initial pos.
-      const toX = w / 2 - MARGIN - ORB_WIDGET / 2;
-      const toY = h / 2 - MARGIN - ORB_WIDGET / 2;
-      const toScale = ORB_WIDGET / ORB_CANVAS; // 82/180 ≈ 0.456
+      const toX    =  (w / 2) - MARGIN - (ORB_WIDGET / 2);
+      const toY    =  (h / 2) - MARGIN - (ORB_WIDGET / 2);
+      const toScale = ORB_WIDGET / ORB_CANVAS;   // 82/180 ≈ 0.456
 
       // bg fades out on its own via state below
       setShowBg(false);
 
       // Spring the orb to corner — organic, slight overshoot
       orbControls.start({
-        x: toX,
-        y: toY,
+        x:     toX,
+        y:     toY,
         scale: toScale,
         transition: {
-          x: { type: "spring", stiffness: 55, damping: 16, mass: 0.9 },
-          y: { type: "spring", stiffness: 55, damping: 16, mass: 0.9 },
+          x:     { type: "spring", stiffness: 55, damping: 16, mass: 0.9 },
+          y:     { type: "spring", stiffness: 55, damping: 16, mass: 0.9 },
           scale: { type: "spring", stiffness: 50, damping: 15, mass: 1.0 },
         },
       });
@@ -105,15 +99,13 @@ export default function AllProvider({
       window.addEventListener("load", onLoad, { once: true });
       // Hard cap — never block more than 5s
       const cap = setTimeout(fly, 5000);
-      return () => {
-        window.removeEventListener("load", onLoad);
-        clearTimeout(cap);
-      };
+      return () => { window.removeEventListener("load", onLoad); clearTimeout(cap); };
     }
   }, [mounted, w, h, orbControls]);
 
   return (
     <SplashContext.Provider value={{ splashDone }}>
+
       {/* ── DARK BACKGROUND ─────────────────────────────────────────────────
           Separate from the orb so it can fade on its own timeline.
           Fades out quickly once flight begins, revealing the site underneath.
@@ -126,9 +118,9 @@ export default function AllProvider({
             // fully transparent = safe to remove from paint
           }}
           style={{
-            position: "fixed",
-            inset: 0,
-            zIndex: 99997,
+            position:   "fixed",
+            inset:       0,
+            zIndex:      99997,
             background: "#030303",
             pointerEvents: "none",
             // Don't block interaction once invisible
@@ -147,29 +139,26 @@ export default function AllProvider({
           animate={orbControls}
           initial={{ x: 0, y: 0, scale: 1, opacity: 1 }}
           style={{
-            position: "fixed",
-            left: w / 2 - ORB_CANVAS / 2,
-            top: h / 2 - ORB_CANVAS / 2,
-            width: ORB_CANVAS,
-            height: ORB_CANVAS,
-            zIndex: 99999,
+            position:    "fixed",
+            left:         w / 2 - ORB_CANVAS / 2,
+            top:          h / 2 - ORB_CANVAS / 2,
+            width:        ORB_CANVAS,
+            height:       ORB_CANVAS,
+            zIndex:       99999,
             pointerEvents: "none",
             transformOrigin: "center center",
-            willChange: "transform, opacity",
+            willChange:   "transform, opacity",
           }}
         >
           {/* Outer halo — fades with orb naturally */}
-          <div
-            style={{
-              position: "absolute",
-              inset: "-30px",
-              borderRadius: "50%",
-              background:
-                "radial-gradient(circle, rgba(201,140,30,0.18) 0%, transparent 65%)",
-              filter: "blur(18px)",
-              pointerEvents: "none",
-            }}
-          />
+          <div style={{
+            position:    "absolute",
+            inset:        "-30px",
+            borderRadius: "50%",
+            background:  "radial-gradient(circle, rgba(201,140,30,0.18) 0%, transparent 65%)",
+            filter:      "blur(18px)",
+            pointerEvents: "none",
+          }} />
 
           {/* The actual animated orb canvas */}
           <SentientAURAOrb />
@@ -189,6 +178,7 @@ export default function AllProvider({
       >
         {children}
       </motion.div>
+
     </SplashContext.Provider>
   );
 }
