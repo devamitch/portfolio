@@ -34,7 +34,10 @@ const HN = "'Helvetica Neue',Helvetica,Arial,sans-serif";
 const MONO = "'JetBrains Mono','Space Mono','Courier New',monospace";
 
 const TTS_SCRIPT =
-  "System online. Scanning database for principal architect. Match verified. Amit. Portal is now open.";
+  "System online. Scanning database for principal architect. Match verified. Ah-meet. Portal is now open.";
+
+// ── How long to wait before speaking (ms) ────────────────────────────────────
+const SPEECH_DELAY_MS = 1800; // adjust freely — 1800ms feels natural
 
 function scramble(target: string, progress: number): string {
   return target
@@ -131,7 +134,7 @@ const LiquidAudioPlayer = ({
 
       ctx.fillStyle = grad;
       ctx.shadowColor = "rgba(212, 175, 55, 0.6)";
-      ctx.shadowBlur = isPlaying ? 15 : 5; 
+      ctx.shadowBlur = isPlaying ? 15 : 5;
       ctx.fill();
 
       if (isPlaying) t += 1;
@@ -180,8 +183,6 @@ const LiquidAudioPlayer = ({
           pointerEvents: "none",
         }}
       />
-
-      {}
       <div
         style={{
           position: "relative",
@@ -239,6 +240,7 @@ export default function Preloader({ onComplete }: Props) {
 
   const displayedSubtitle = useCypherText(subtitle, !!subtitle, 25);
 
+  // Background particle canvas
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -318,8 +320,7 @@ export default function Preloader({ onComplete }: Props) {
       return;
     try {
       window.speechSynthesis.cancel();
-      const processed = TTS_SCRIPT.replace(/Amit/gi, "Ah-meet").trim();
-      const utter = new SpeechSynthesisUtterance(processed);
+      const utter = new SpeechSynthesisUtterance(TTS_SCRIPT);
       utter.rate = 0.95;
       utter.pitch = 0.85;
       utter.volume = 1;
@@ -375,9 +376,10 @@ export default function Preloader({ onComplete }: Props) {
           : "> SYSTEM ONLINE... INITIATING SECURE DIRECTORY OVERRIDE...",
       );
 
+      // ── Delayed audio start — gives the boot animation a moment to breathe ──
       if (supported && !audioInitialized.current) {
         audioInitialized.current = true;
-        startAudio();
+        setTimeout(startAudio, SPEECH_DELAY_MS);
       }
 
       setPhase("boot");
@@ -483,7 +485,6 @@ export default function Preloader({ onComplete }: Props) {
         overflow: "hidden",
       }}
     >
-      {}
       {!isAudioUnlocked && (
         <div
           onClick={handleInvisibleUnlock}
@@ -513,6 +514,7 @@ export default function Preloader({ onComplete }: Props) {
         }}
       />
 
+      {/* Progress bar */}
       <div
         style={{
           position: "absolute",
@@ -852,7 +854,7 @@ export default function Preloader({ onComplete }: Props) {
         )}
       </main>
 
-      {}
+      {/* Subtitle ticker */}
       {subtitle && (
         <div
           aria-hidden="true"
@@ -892,7 +894,7 @@ export default function Preloader({ onComplete }: Props) {
         </div>
       )}
 
-      {}
+      {/* Audio toggle button */}
       {supported && phase !== "exit" && (
         <LiquidAudioPlayer isPlaying={isPlaying} togglePlay={togglePlay} />
       )}

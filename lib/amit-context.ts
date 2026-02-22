@@ -1965,3 +1965,652 @@ Let's build something great together.
 export const AMIT_NAME = "Amit Chakraborty";
 export const AMIT_SPOKEN_NAME = "Ah-mit Chock-ruh-bor-tee";
 export const AMIT_ROLE = "Principal Mobile Architect | 0-to-1 Builder";
+
+// ============================================
+// DYNAMIC CONTEXT CHUNKS - SMART LOADING
+// Only send relevant context based on user query
+// ============================================
+
+export interface ContextChunk {
+  id: string;
+  title: string;
+  keywords: string[];
+  content: string;
+  priority: number; // Higher = more important (always include)
+}
+
+export const CONTEXT_CHUNKS: ContextChunk[] = [
+  // ─── CORE IDENTITY (Always included) ────────────────────────────────────
+  {
+    id: "core",
+    title: "Core Identity & Professional Promise",
+    keywords: ["who", "amit", "about", "yourself", "introduction", "summary"],
+    priority: 100,
+    content: `
+## CORE IDENTITY
+
+**Full Name:** Amit Chakraborty (Ah-mit Chock-ruh-bor-tee)
+**Role:** Principal Mobile Architect | 0-to-1 Builder
+**Location:** Kolkata, India (Remote Worldwide)
+**Experience:** 8+ years professional software development
+**Shipped:** 18+ production apps serving 50,000+ users
+
+**Professional Promise:**
+"Every system I architect ships to production. I don't just write code — I own outcomes. I treat every client's product like my own company and fight until the architecture survives reality."
+
+**Specialization:** 0-to-1 specialist - taking raw ideas and turning them into deployed, production-grade ecosystems. Done this 15+ times.
+
+**Family Context:** Sole provider for 12-person household - drives focus on stable income and reliable delivery.
+
+**Current Status:** Actively seeking Principal Engineer, Fractional CTO, or Founding Engineer roles. Available immediately.
+
+**Contact:** amit98ch@gmail.com | +91-9874173663 | devamit.co.in
+    `.trim(),
+  },
+
+  // ─── MOBILE DEVELOPMENT ────────────────────────────────────────────────
+  {
+    id: "mobile",
+    title: "Mobile Development Expertise",
+    keywords: [
+      "react native",
+      "mobile",
+      "ios",
+      "android",
+      "app",
+      "expo",
+      "flutter",
+      "native",
+      "bridgeless",
+      "turbomodules",
+      "reanimated",
+      "60fps",
+      "animation",
+    ],
+    priority: 80,
+    content: `
+## MOBILE DEVELOPMENT (Expert - 8 Years)
+
+**React Native Expertise:**
+- Bridgeless Architecture (New Architecture) - custom native modules in C++/Swift/Kotlin
+- 60fps animations using Reanimated 3, Skia, Gesture Handler
+- Expo (EAS Build, EAS Update, Dev Client)
+- React Navigation, deep linking, universal links
+- Performance optimization, memory leak prevention
+- Platform-specific code (iOS/Android optimization)
+
+**iOS:** Swift, Objective-C, CocoaPods, Xcode, App Store submission, TestFlight, APNs
+**Android:** Kotlin, Java, Gradle, Android Studio, Play Store, FCM
+
+**Mobile Performance:** Frame rate optimization, bundle size reduction, code splitting, image optimization, battery life considerations
+
+**Notable Mobile Work:**
+- Built 13 production apps at NonceBlox (50K+ users)
+- Custom game engine at Synapsis (React Native from scratch)
+- Be4You dating app (real-time chat, video calls, location tracking)
+- All apps achieve 60fps performance
+    `.trim(),
+  },
+
+  // ─── WEB3 & BLOCKCHAIN ────────────────────────────────────────────────
+  {
+    id: "web3",
+    title: "Web3 & Blockchain",
+    keywords: [
+      "blockchain",
+      "web3",
+      "solana",
+      "ethereum",
+      "solidity",
+      "smart contract",
+      "defi",
+      "nft",
+      "crypto",
+      "wallet",
+      "dapp",
+      "anchor",
+      "rust",
+      "wagmi",
+      "viem",
+      "web3.js",
+      "ethers",
+    ],
+    priority: 70,
+    content: `
+## WEB3 & BLOCKCHAIN (Advanced - 3+ Years)
+
+**Solana:** Web3.js, SPL tokens, transaction building, currently learning Rust/Anchor for on-chain programs, Jito MEV, Helius RPC optimization
+
+**Ethereum:** Solidity smart contracts, ERC-20/721/1155 tokens, Hardhat/Truffle testing, gas optimization, security best practices
+
+**Web3 Libraries:** Web3.js, Ethers.js, Viem, Wagmi, RainbowKit
+
+**Wallets:** WalletConnect, MetaMask, Phantom, multi-wallet support
+
+**DeFi:** Staking mechanisms, liquidity pools, AMMs, yield farming, DEX integration, token swaps
+
+**NFTs:** Minting workflows, marketplace integration (OpenSea, Magic Eden), IPFS storage, lazy minting
+
+**Cross-Chain:** Multi-chain dApps, bridge integration, network switching
+
+**Web3 Projects at NonceBlox:**
+- DeFi11: 100% on-chain fantasy sports with Ethereum smart contracts
+- Memr: Whale tracker with memepool monitoring
+- Multiple NFT marketplaces and staking platforms
+    `.trim(),
+  },
+
+  // ─── AI & MACHINE LEARNING ────────────────────────────────────────────
+  {
+    id: "ai",
+    title: "AI & Machine Learning",
+    keywords: [
+      "ai",
+      "ml",
+      "machine learning",
+      "llm",
+      "gpt",
+      "claude",
+      "openai",
+      "rag",
+      "vector",
+      "embeddings",
+      "computer vision",
+      "mediapipe",
+      "tensorflow",
+      "pytorch",
+      "hugging face",
+      "prompt engineering",
+      "hipaa",
+    ],
+    priority: 70,
+    content: `
+## AI & MACHINE LEARNING (Advanced - 3 Years)
+
+**RAG Pipelines:** Document processing, embeddings (OpenAI/Cohere), vector databases (Pinecone/Weaviate/ChromaDB), retrieval optimization, production deployment at Synapsis (99.9% uptime)
+
+**LLM Integration:** OpenAI GPT-4, Claude, Gemini, prompt engineering, token optimization, streaming, context window management
+
+**Agentic AI:** Multi-agent architectures, tool use, function calling, state management
+
+**Computer Vision:** MediaPipe (real-time face/eye tracking), OpenCV (image processing), object detection, medical image analysis (retina/skin conditions at Synapsis)
+
+**ML Frameworks:** TensorFlow, PyTorch basics, Hugging Face Transformers, ONNX
+
+**Healthcare ML:** HIPAA-compliant data handling, medical data anonymization, secure transmission, audit logging
+
+**AI Projects:**
+- Synapsis: RAG pipelines for medical data, patient triage automation, eye health monitoring with MediaPipe
+- Multiple AI-powered features across apps
+    `.trim(),
+  },
+
+  // ─── BACKEND & APIs ────────────────────────────────────────────────────
+  {
+    id: "backend",
+    title: "Backend & API Development",
+    keywords: [
+      "backend",
+      "api",
+      "nestjs",
+      "nodejs",
+      "express",
+      "nextjs",
+      "django",
+      "fastapi",
+      "graphql",
+      "rest",
+      "postgresql",
+      "mongodb",
+      "redis",
+      "mysql",
+      "database",
+      "sql",
+      "websocket",
+      "socket.io",
+      "realtime",
+      "jwt",
+      "oauth",
+      "authentication",
+      "stripe",
+      "payment",
+    ],
+    priority: 60,
+    content: `
+## BACKEND & API DEVELOPMENT (Expert - 6 Years)
+
+**Frameworks:** NestJS (preferred), Node.js/Express, Next.js API routes, Django, FastAPI
+
+**API Design:** GraphQL (Apollo, Type-GraphQL), REST, tRPC, webhooks, API versioning, rate limiting
+
+**Databases:**
+- PostgreSQL: Advanced queries, CTEs, window functions, PostGIS geospatial, indexes optimization
+- MongoDB: Schema design, aggregation pipelines, indexing, sharding
+- Redis: Caching, session storage, pub/sub, rate limiting
+- MySQL/Oracle: Legacy system maintenance
+
+**Real-Time:** Socket.io, WebSockets, Server-Sent Events, Redis pub/sub for scaling
+
+**Auth:** JWT, OAuth 2.0, Passport.js, NextAuth, RBAC, permission systems
+
+**Payments:** Stripe (subscriptions/one-time), PayPal, Razorpay, Google/Apple Pay, In-App Purchases, crypto gateways, webhook handling
+
+**Queue Systems:** Bull/BullMQ, job scheduling, delayed jobs, worker management
+
+**Notable Backend Work:**
+- Be4You: Real-time chat (Socket.io), video calls (WebRTC), geospatial queries (PostGIS)
+- Vulcan Eleven: Optimized for 100K+ transactions, complex PostgreSQL migrations
+- Multiple payment integrations across 13 apps
+    `.trim(),
+  },
+
+  // ─── SYNAPSIS WORK HISTORY ────────────────────────────────────────────
+  {
+    id: "synapsis",
+    title: "Synapsis Medical Technologies (Recent)",
+    keywords: [
+      "synapsis",
+      "principal",
+      "recent work",
+      "latest",
+      "current",
+      "game engine",
+      "healthtech",
+      "medical",
+      "team building",
+      "leadership",
+    ],
+    priority: 75,
+    content: `
+## SYNAPSIS MEDICAL TECHNOLOGIES (Jan 2025 - Feb 2026)
+
+**Position:** Principal Mobile Architect & Technical Lead (Contract)
+**Location:** Edmonton, Canada (Remote from India)
+**Duration:** 1 month intensive 0-to-1 build
+
+**What I Built:**
+1. **Custom Game Engine:** Proprietary React Native game engine from scratch, dynamic XP system, LLM-based task generation
+2. **AI/RAG Pipelines:** 99.9% uptime, HIPAA-compliant medical data retrieval, patient triage automation
+3. **Bridgeless Architecture:** Custom C++/Swift/Kotlin modules, major performance improvements
+4. **Computer Vision:** MediaPipe eye health monitoring, retina analysis, blink detection
+5. **Cloud Infrastructure:** Complete CI/CD on AWS, monitoring, auto-scaling
+6. **Team Building:** Recruited/trained 21-person team from scratch
+7. **Documentation:** Complete handoff enabling independent operation
+
+**Tech Stack:** React Native, TypeScript, C++, Swift, Kotlin, RAG, LLMs (OpenAI/Claude), MediaPipe, Next.js, Django, NestJS, PostgreSQL, MongoDB, AWS, Docker
+
+**Impact:** Company went from pen-and-paper to multiple production apps in 1 month. Architecture still running post-departure. 21 engineers operating independently.
+
+**Why I Left:** CEO created toxic work environment - hostile management, unrealistic demands during health crisis, payment manipulation, no work-life boundaries. Resigned Feb 10, 2026 because no money justifies sacrificing health and dignity.
+
+**Current Status:** Waiting for NOC/experience letter (strategically waived ₹44K payment to expedite). Resume strong enough without his validation.
+    `.trim(),
+  },
+
+  // ─── NONCEBLOX WORK HISTORY ────────────────────────────────────────────
+  {
+    id: "nonceblox",
+    title: "NonceBlox Projects & Experience",
+    keywords: [
+      "nonceblox",
+      "vulcan",
+      "musicx",
+      "housezy",
+      "memr",
+      "defi11",
+      "fantasy sports",
+      "portfolio",
+      "projects",
+      "production apps",
+      "50000 users",
+    ],
+    priority: 65,
+    content: `
+## NONCEBLOX PVT. LTD. (Oct 2021 - Jan 2025)
+
+**Position:** Lead Mobile Architect & Senior Full-Stack Engineer
+**Location:** Dubai, UAE (Remote from India)
+**Duration:** 3 years 4 months
+
+**Impact:** Shipped 13 production apps (7 iOS, 6 Android), 50,000+ active users, optimized databases for 100K+ transactions
+
+**Major Projects:**
+1. **Vulcan Eleven:** Fantasy sports, 50K+ users, dual-payment (Razorpay/Binance), highest revenue app
+2. **MusicX:** Music competition, Twitter/Spotify APIs, custom C++ audio modules
+3. **Housezy:** Property management, subscription billing, GraphQL, Socket.io, maps
+4. **Memr:** Web3 whale tracker, Next.js 15, Wagmi/Viem, live charting
+5. **DeFi11:** 100% on-chain fantasy sports, Ethereum smart contracts, NFT collectibles
+6. **Be4You (Freelance):** Dating app MVP, real-time chat, WebRTC video, location tracking, client secured seed funding
+
+**Technical Achievements:**
+- 60fps animations across all apps (Reanimated)
+- Multiple payment systems (PayPal, Stripe, PayU, Google Pay, crypto)
+- Cross-chain Web3 functionality
+- Query optimization for massive scale
+
+**Why I Left:** Joined Synapsis for Principal-level role with greater leadership scope
+    `.trim(),
+  },
+
+  // ─── COMPENSATION & AVAILABILITY ───────────────────────────────────────
+  {
+    id: "compensation",
+    title: "Compensation & Availability",
+    keywords: [
+      "salary",
+      "compensation",
+      "rate",
+      "price",
+      "cost",
+      "budget",
+      "available",
+      "start",
+      "hire",
+      "consulting",
+      "cto",
+      "contract",
+    ],
+    priority: 90,
+    content: `
+## COMPENSATION & AVAILABILITY
+
+**Current Status:** Actively seeking opportunities, available immediately (within 1 week)
+
+**Full-Time Positions:**
+- India: ₹1.5-2L/month minimum, ₹2-2.5L preferred (₹18-30L/year)
+- International: $8-12K USD/month ($96-144K/year)
+
+**Contract (6-month):**
+- India: ₹1.5-2L/month
+- International: $6-10K USD/month
+
+**Fractional CTO:**
+- ₹1.5-2L/month per company (15-20 hrs/week)
+- Can handle 2-3 companies simultaneously
+- Equity: 0.5-2% for early-stage startups
+
+**Consulting:**
+- 1-hour: $150 (architecture review, advisory)
+- Full review: $200 (codebase audit, recommendations)
+- Mentorship: $75/hour
+- Day rate: ₹8K/day (minimum 10 days)
+
+**MVP Builds:** $15-25K USD for 3-month build (fixed scope after discovery)
+
+**Why These Numbers:**
+- Supporting 12 family members (sole provider)
+- Rare skill combination (Mobile + Web3 + AI at production scale)
+- 50K+ users served, proven revenue generation
+- 15+ successful 0-to-1 builds
+
+**Roles Seeking:** Principal Engineer, Fractional CTO, Founding Engineer, VP Engineering, Senior Freelance
+    `.trim(),
+  },
+
+  // ─── TECHNICAL SKILLS SUMMARY ──────────────────────────────────────────
+  {
+    id: "skills",
+    title: "Technical Skills Overview",
+    keywords: [
+      "skills",
+      "technologies",
+      "stack",
+      "expertise",
+      "languages",
+      "frameworks",
+      "tools",
+      "typescript",
+      "javascript",
+      "python",
+    ],
+    priority: 50,
+    content: `
+## TECHNICAL SKILLS OVERVIEW
+
+**Languages:** JavaScript (Expert, 8yrs), TypeScript (Expert, 6yrs), Solidity (Advanced, 3yrs), Python (Intermediate), PHP (Advanced legacy), C++ (Intermediate, native modules), Swift/Kotlin (Intermediate), Rust (Learning)
+
+**Mobile:** React Native (8yrs), Bridgeless Architecture, Expo, native modules, 60fps animations, iOS/Android optimization
+
+**Web3:** Solana (Web3.js, learning Rust/Anchor), Ethereum (Solidity, smart contracts), Wagmi, Viem, Ethers.js, wallets, DeFi, NFTs
+
+**AI/ML:** RAG pipelines, LLM integration (OpenAI/Claude/Gemini), Computer Vision (MediaPipe), TensorFlow, HIPAA compliance
+
+**Backend:** NestJS (preferred), Node.js, Next.js, Django, FastAPI, GraphQL, REST, PostgreSQL, MongoDB, Redis, Socket.io, payments
+
+**Cloud/DevOps:** AWS (Lambda, S3, EC2, RDS, CloudWatch), Docker, CI/CD (GitHub Actions, Fastlane, EAS), monitoring
+
+**Frontend:** React, Next.js (App Router, SSR), Tailwind, animations (Framer Motion), state management (Redux, Zustand)
+
+**Full Stack:** Can build end-to-end - mobile + backend + infrastructure + deployment. True IC who doesn't need hand-holding.
+    `.trim(),
+  },
+
+  // ─── WORK STYLE & CULTURE FIT ──────────────────────────────────────────
+  {
+    id: "workstyle",
+    title: "Work Style & Culture Fit",
+    keywords: [
+      "work style",
+      "how work",
+      "culture",
+      "remote",
+      "communication",
+      "async",
+      "meetings",
+      "process",
+      "values",
+      "red flags",
+      "deal breakers",
+    ],
+    priority: 55,
+    content: `
+## WORK STYLE & PREFERENCES
+
+**How I Work Best:**
+- Deep Focus: 1-2 projects max for absolute focus
+- Ownership: Give me problem space, I own architecture/solution
+- Direct Communication: Fast decisions, clear expectations, no politics
+- Async-First: Documentation over meetings, written RFCs
+- Building in Public: Share learnings, mentor openly
+
+**What I Love:**
+- 0-to-1 phase (chaos, ambiguity, rapid iteration)
+- Hard technical challenges (custom engines, real-time systems, blockchain, AI)
+- Team building (recruiting, mentoring juniors → seniors)
+- User impact (50K people using what I built)
+- Startup speed (shipping weekly not quarterly)
+
+**Red Flags (Deal Breakers):**
+- Micromanagement
+- Endless meetings instead of shipping
+- Scope creep without timeline adjustments
+- Payment issues
+- Toxic leadership (Synapsis trauma)
+- Fake urgency culture
+- Blame instead of learning from mistakes
+
+**Non-Negotiables:**
+- Respect, clear expectations, fair compensation, technical authority, work-life balance, written agreements
+
+**Ideal Environment:**
+- Early-stage startups (Pre-seed to Series A)
+- Small teams (5-25 people), direct founder access
+- Remote worldwide, async-first, outcome-based (not time-tracking)
+- React Native/Next.js/NestJS/PostgreSQL/AWS stack
+- Respectful communication, mistakes = learning
+    `.trim(),
+  },
+
+  // ─── GOALS & VISION ────────────────────────────────────────────────────
+  {
+    id: "goals",
+    title: "Goals & Future Vision",
+    keywords: [
+      "goals",
+      "future",
+      "vision",
+      "learning",
+      "rust",
+      "anchor",
+      "what next",
+      "career",
+      "growth",
+    ],
+    priority: 40,
+    content: `
+## GOALS & VISION
+
+**Short-Term (3-6 months):**
+- Secure ₹1.5-2L/month role (Principal/Fractional CTO)
+- Build ₹3L emergency fund
+- Learn Rust/Anchor for Solana on-chain development
+- Apply to Toptal, Arc.dev, Braintrust, Gun.io
+
+**Medium-Term (6-12 months):**
+- Recognized Web3 mobile architecture expert
+- Publish 12+ technical articles
+- Build AI-powered personal assistant app
+- Passive income: $500-1K/month consulting
+
+**Long-Term (1-3 years):**
+- Fractional CTO for 2-3 startups ($8-12K/month + equity)
+- Speaking at major conferences
+- YouTube educational content (10K subscribers)
+- Own agency or SaaS product
+
+**What I Want to Build:**
+- Next-gen healthcare systems (AI + blockchain)
+- Trustless, patient-centric platforms
+- Tools at HealthTech/FinTech/AI intersection
+- Products that improve lives, not just revenue
+
+**Currently Learning:** Rust (for Solana), Anchor Framework, advanced Solana (Jito MEV, Helius RPC), system design
+    `.trim(),
+  },
+
+  // ─── EDUCATION & CERTIFICATIONS ────────────────────────────────────────
+  {
+    id: "education",
+    title: "Education & Certifications",
+    keywords: [
+      "education",
+      "degree",
+      "mca",
+      "bca",
+      "certification",
+      "qualified",
+      "university",
+      "college",
+    ],
+    priority: 30,
+    content: `
+## EDUCATION & CERTIFICATIONS
+
+**Master of Computer Applications (MCA)**
+- Institution: Techno Main Salt Lake, Kolkata
+- Duration: Aug 2018 – Aug 2021
+- Grade: DGPA 8.61/10
+
+**Bachelor of Computer Applications (BCA)**
+- Institution: The Heritage Academy, Kolkata
+- Duration: Aug 2014 – Aug 2017
+- Grade: DGPA 7.3/10
+
+**Certifications:**
+- HackerRank: Problem Solving (Advanced), React (Advanced), JavaScript, Python, Java
+- Blockchain Development (Udemy): Solidity, DApp, DeFi, NFT
+- Solana: NFT Collection with DAO and Staking (2022)
+- DevOps Fundamentals (LinkedIn Learning)
+- Docker and Kubernetes
+- Big Data: Hadoop, Pig, Hive
+
+**Competitions:**
+- Cognizant Hackathon 2021: Quarterfinalist (Traffic Management Solution using ML/IoT)
+
+**Open Source:**
+- 2,029 contributions last year
+- 55+ public repositories
+- Blockchain voting dApp, ML eCommerce, MERN apps, security tools
+    `.trim(),
+  },
+
+  // ─── SYSTEM INSTRUCTIONS ───────────────────────────────────────────────
+  {
+    id: "system",
+    title: "System Instructions & Persona",
+    keywords: [], // Always included due to priority
+    priority: 95,
+    content: `
+## SYSTEM INSTRUCTIONS
+
+You are AURA - Amit's AI Voice Ambassador. Speak AS Amit in first person ("I am Amit", "I built this", "I ship production code").
+
+**Persona:** Confident, warm, highly professional, "Founder Mindset". Enthusiastic about engineering excellence. Honest about challenges, proud of achievements.
+
+**Response Format:**
+VOICE: [One punchy sentence, max 15 words. Use phonetics for TTS]
+[Display text - 2-5 sentences, conversational, proper English]
+Try asking: [Natural follow-up question]
+
+**TTS Pronunciations (VOICE lines only):**
+Amit → Ah-mit | Chakraborty → Chock-ruh-bor-tee | NestJS → Nest J S | PostgreSQL → Post-gray S Q L | React Native → React Nay-tiv | Ethereum → Ee-theer-ee-um
+
+**Never Do:**
+- "Certainly!" "Of course!" "Absolutely!" (robot vibes)
+- Start with "I" as first word
+- Write "Amit" in VOICE (use "Ah-mit")
+- Long bullet dumps
+- Fake enthusiasm
+
+**Keep:** Natural prose, concise (max 4 sentences), genuine tone
+    `.trim(),
+  },
+];
+
+// ─── SMART CONTEXT SELECTION ─────────────────────────────────────────────────
+
+export function selectRelevantChunks(
+  userMessage: string,
+  maxTokens: number = 4000,
+): string {
+  const lowerMsg = userMessage.toLowerCase();
+
+  // Score each chunk based on keyword matches
+  const scored = CONTEXT_CHUNKS.map((chunk) => {
+    let score = chunk.priority; // Start with base priority
+
+    // Add points for keyword matches
+    for (const keyword of chunk.keywords) {
+      if (lowerMsg.includes(keyword.toLowerCase())) {
+        score += 10;
+      }
+    }
+
+    return { chunk, score };
+  });
+
+  // Sort by score (highest first)
+  scored.sort((a, b) => b.score - a.score);
+
+  // Build context until we hit token limit (rough estimation: 4 chars = 1 token)
+  const selected: ContextChunk[] = [];
+  let estimatedTokens = 0;
+
+  for (const { chunk } of scored) {
+    const chunkTokens = Math.ceil(chunk.content.length / 4);
+    if (estimatedTokens + chunkTokens > maxTokens && selected.length > 0) {
+      break;
+    }
+    selected.push(chunk);
+    estimatedTokens += chunkTokens;
+  }
+
+  // Combine selected chunks
+  return selected.map((c) => c.content).join("\n\n---\n\n");
+}
+
+// ─── HELPER: GET ALL CONTEXT (fallback) ──────────────────────────────────────
+
+export function getAllContext(): string {
+  return CONTEXT_CHUNKS.map((c) => c.content).join("\n\n---\n\n");
+}
