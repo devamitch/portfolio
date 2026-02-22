@@ -118,10 +118,9 @@ export default function Navigation() {
           left: 0,
           right: 0,
           zIndex: 100,
-          padding: "20px 70px",
+          padding: "clamp(16px, 4vw, 20px) clamp(24px, 6vw, 70px)",
           display: "flex",
           justifyContent: "space-between",
-          gridTemplateColumns: "1fr auto 1fr",
           alignItems: "center",
           background: scrolled ? "rgba(5,5,5,0.94)" : "transparent",
           backdropFilter: scrolled ? "blur(24px) saturate(180%)" : "none",
@@ -150,7 +149,7 @@ export default function Navigation() {
           >
             A
           </div>
-          <div>
+          <div className="nav-brand-text">
             <div
               style={{
                 fontSize: 12,
@@ -181,7 +180,9 @@ export default function Navigation() {
           ref={pillRef}
           className="nav-pill"
           style={{
-            position: "relative",
+            position: "absolute",
+            left: "50%",
+            transform: "translateX(-50%)",
             display: "flex",
             alignItems: "center",
             background: "rgba(255,255,255,0.035)",
@@ -201,8 +202,6 @@ export default function Navigation() {
                 bottom: 3,
                 borderRadius: 36,
                 background: "linear-gradient(135deg, #d4a841 0%, #f5c842 100%)",
-                // background:
-                // "linear-gradient(90deg, rgba(212,168,65,0.22), rgba(212,168,65,0.12))",
                 border: "1px solid rgba(212,168,65,0.3)",
                 pointerEvents: "none",
               }}
@@ -222,36 +221,15 @@ export default function Navigation() {
                 background: "transparent",
                 border: "none",
                 cursor: "pointer",
-                padding: "6px 11px",
-                fontSize: 8.5,
+                padding: "8px 12px",
+                fontSize: 9,
                 fontWeight: active === id ? 700 : 400,
                 letterSpacing: "0.14em",
                 textTransform: "uppercase",
-                // color: active === id ? "#d4a841" : "rgba(255,255,255,0.55)",
-                transition: "color 0.2s",
+                color: active === id ? "#000000" : "rgba(255, 255, 255, 0.75)",
+                transition: "color 0.2s ease-in-out",
                 whiteSpace: "nowrap",
-
-                // // Layout & Alignment
-                display: "block",
-                alignItems: id === active ? "center" : "flex-start",
-                textAlign: id === active ? "center" : "left",
-                gap: id === active ? 10 : 0,
-
-                // Background & Shape
-
-                borderRadius: 15, // Added a subtle 4px border-radius for inactive hover states
-
-                // Shadow / Glow
-                boxShadow:
-                  id === active ? "0 6px 24px rgba(201,168,76,0.25)" : "none",
-
-                // Typography
-                color: id === active ? "#000000" : "rgba(255, 255, 255, 0.75)",
-                // fontWeight: 700,
-                // fontSize: 8.5 ,
-                // letterSpacing: id === active ? "0.22em" : "-0.02em",
-                // textTransform: id === active ? "uppercase" : "none",
-                // fontFamily: id === active ? MONO : "inherit",
+                borderRadius: 15,
               }}
             >
               {label}
@@ -265,7 +243,7 @@ export default function Navigation() {
             display: "flex",
             alignItems: "center",
             justifyContent: "flex-end",
-            gap: 10,
+            gap: 16,
           }}
         >
           <button
@@ -275,23 +253,26 @@ export default function Navigation() {
               background: "linear-gradient(135deg, #d4a841, #f5c842)",
               border: "none",
               borderRadius: 20,
-              padding: "7px 16px",
-              fontSize: 8,
+              padding: "10px 20px",
+              fontSize: 9,
               fontWeight: 700,
               letterSpacing: "0.14em",
               textTransform: "uppercase",
-              // color: "#0a0a0a",
-              cursor: "pointer",
-              // background: C.goldG,
               color: "#000",
-              // padding: "15px 30px",
-              // fontSize: 10,
-              // fontWeight: 700,
-              // letterSpacing: "0.22em",
-              // textTransform: "uppercase",
-              // fontFamily: MONO,
+              cursor: "pointer",
               textDecoration: "none",
               boxShadow: "0 6px 24px rgba(201,168,76,.25)",
+              transition: "transform 0.2s, box-shadow 0.2s",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "translateY(-2px)";
+              e.currentTarget.style.boxShadow =
+                "0 8px 32px rgba(201,168,76,.4)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "translateY(0)";
+              e.currentTarget.style.boxShadow =
+                "0 6px 24px rgba(201,168,76,.25)";
             }}
           >
             Let's Build
@@ -305,7 +286,7 @@ export default function Navigation() {
               background: "transparent",
               border: "1px solid rgba(255,255,255,0.15)",
               borderRadius: 8,
-              padding: "6px 10px",
+              padding: "8px 10px",
               cursor: "pointer",
               flexDirection: "column",
               gap: 4,
@@ -354,15 +335,18 @@ export default function Navigation() {
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              gap: 0,
+              overflowY: "auto",
+              padding: "80px 24px 40px",
             }}
           >
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap: "4px 24px",
-                marginBottom: 36,
+                gridTemplateColumns: "1fr",
+                gap: 16,
+                marginBottom: 40,
+                width: "100%",
+                maxWidth: 320,
               }}
             >
               {NAV_ITEMS.map(({ id, label }, i) => (
@@ -376,35 +360,24 @@ export default function Navigation() {
                     cursor: "pointer",
                     border: "none",
                     textDecoration: "none",
-
-                    // Smooth animation between states
                     transition: "all 0.3s ease-in-out",
-
-                    // Layout & Alignment
                     display: "block",
-                    alignItems: id === active ? "center" : "flex-start",
-                    textAlign: id === active ? "center" : "left",
-                    gap: id === active ? 10 : 0,
-
-                    // Background & Shape
+                    width: "100%",
+                    textAlign: "center",
                     background:
                       id === active
                         ? "linear-gradient(135deg, #d4a841 0%, #f5c842 100%)"
                         : "transparent",
-                    borderRadius: id === active ? 28 : 4, // Added a subtle 4px border-radius for inactive hover states
-                    padding: id === active ? "14px 40px" : "12px 8px",
-
-                    // Shadow / Glow
+                    borderRadius: 28,
+                    padding: id === active ? "16px 20px" : "12px 20px",
                     boxShadow:
                       id === active
                         ? "0 6px 24px rgba(201,168,76,0.25)"
                         : "none",
-
-                    // Typography
                     color:
                       id === active ? "#000000" : "rgba(255, 255, 255, 0.75)",
-                    fontWeight: 700,
-                    fontSize: id === active ? 13 : 22,
+                    fontWeight: id === active ? 700 : 400,
+                    fontSize: id === active ? 14 : 24,
                     letterSpacing: id === active ? "0.22em" : "-0.02em",
                     textTransform: id === active ? "uppercase" : "none",
                     fontFamily: id === active ? MONO : "inherit",
@@ -414,42 +387,46 @@ export default function Navigation() {
                 </motion.button>
               ))}
             </div>
+
             <motion.button
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.42 }}
               onClick={() => scrollTo("contact")}
               style={{
-                background: "linear-gradient(135deg, #d4a841, #f5c842)",
-                border: "none",
+                background: "transparent",
+                border: `1px solid ${C.gold}`,
                 borderRadius: 28,
-                padding: "14px 40px",
+                padding: "16px 40px",
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 10,
-                color: "#000",
+                color: C.gold,
                 fontSize: 13,
                 fontWeight: 700,
                 letterSpacing: "0.22em",
                 textTransform: "uppercase",
                 fontFamily: MONO,
                 textDecoration: "none",
-                boxShadow: "0 6px 24px rgba(201,168,76,.25)",
+                width: "100%",
+                maxWidth: 320,
+                justifyContent: "center",
               }}
             >
-              Let's Build
+              Contact Me
             </motion.button>
           </motion.div>
         )}
       </AnimatePresence>
 
       <style>{`
-        @media (max-width: 900px) {
+        @media (max-width: 960px) {
           .nav-pill { display: none !important; }
           .nav-hamburger { display: flex !important; }
         }
         @media (max-width: 640px) {
           .nav-cta { display: none !important; }
+          .nav-brand-text { display: none !important; }
         }
       `}</style>
     </>

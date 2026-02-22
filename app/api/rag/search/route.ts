@@ -1,0 +1,83 @@
+/**
+ * Search API Endpoint
+ * POST /api/rag/search
+ *
+ * Performs semantic search on the knowledge base
+ */
+
+import { initializeDefaultKnowledgeBase } from "~/lib/rag/knowledge-store";
+import { createRAGEngine } from "~/lib/rag/rag-engine";
+
+let ragEngine: ReturnType<typeof createRAGEngine> | null = null;
+
+async function getEngine() {
+  if (!ragEngine) {
+    ragEngine = createRAGEngine("portfolio", "openai/gpt-4-turbo");
+    await ragEngine.initialize();
+
+    // Load default documents if not already loaded
+    const defaultDocs = initializeDefaultKnowledgeBase();
+    await ragEngine.addDocuments(defaultDocs);
+  }
+  return ragEngine;
+}
+
+/**
+ * POST handler for search requests
+ */
+export async function POST(request: Request) {
+  try {
+    const body = await request.json();
+    const { query, topK = 5 } = body;
+
+    if (!query) {
+      return new Response(JSON.stringify({ error: "No query provided" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    const engine = await getEngine();
+    const results = await engine.search(query, Math.min(topK, 10));
+
+    return new Response(
+      JSON.stringify({
+        success: true,
+        query,
+        results,
+        count: results.length,
+      }),
+      {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      },
+    );
+  } catch (error) {
+    console.error("Search API error:", error);
+    return new Response(
+      JSON.stringify({
+        error: "Failed to perform search",
+        details: error instanceof Error ? error.message : "Unknown error",
+      }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      },
+    );
+  }
+}
+
+/**
+ * GET handler for health check
+ */
+export async function GET() {
+  return new Response(
+    JSON.stringify({
+      status: "ok",
+      message: "Search API is running",
+    }),
+    {
+      headers: { "Content-Type": "application/json" },
+    },
+  );
+}

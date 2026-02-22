@@ -72,6 +72,7 @@ const D = {
   github: "https://github.com/devamitch",
   githubAlt: "https://github.com/techamit95ch",
   linkedin: "https://linkedin.com/in/devamitch",
+  twitter: "https://x.com/devamitch",
   medium: "https://devamitch.medium.com/",
   profileImage: "/images/amit-profile.jpg",
   profileFallback: "https://github.com/devamitch.png",
@@ -666,7 +667,7 @@ const D = {
     },
   ],
 
-  blogs: [
+  blogs2: [
     {
       title: "React Native Bridgeless Architecture: What They Don't Tell You",
       cat: "Mobile",
@@ -690,6 +691,54 @@ const D = {
       readTime: "10 min",
       teaser:
         "After 8 years and 18 apps, I see the same architecture mistake made over and over.",
+    },
+  ],
+  // --- UPDATED BLOGS ARRAY ---
+  blogs: [
+    {
+      title: "Say Goodbye to Git Woes: Become a Git Wizard Today! 🧙‍♂️",
+      cat: "DevOps / Git",
+      color: "#C9A84C",
+      date: "Jan 17, 2025",
+      teaser:
+        "Git isn’t just a tool; it’s a superpower. Whether you’re a beginner or an experienced developer, mastering Git practices will transform...",
+      link: "https://devamitch.medium.com/say-goodbye-to-git-woes-become-a-git-wizard-today-c6f6e7c10b7a",
+    },
+    {
+      title: "Let’s Build Your First Electron App: The Magical Feed App! 🪄",
+      cat: "Desktop / Electron",
+      color: "#F5C842",
+      date: "Nov 23, 2024",
+      teaser:
+        "Hey there, future tech wizards! Are you ready to dive into the world of coding and create your very own app? With just some simple...",
+      link: "https://devamitch.medium.com/lets-build-your-first-electron-app-the-magical-feed-app-7d8e9f2a1b3c",
+    },
+    {
+      title: "From TypeScript to Rust & Go — Day 3: Mastering Functions",
+      cat: "Rust & Go",
+      color: "#DAA520",
+      date: "Nov 23, 2024",
+      teaser:
+        "Day 3: Writing Reusable Functions and Handling Errors in Rust and Go. Each post introduces concepts step-by-step in plain English.",
+      link: "https://devamitch.medium.com/from-typescript-to-rust-go-day-3-mastering-functions-and-error-handling-c2d1e4f5a6b7",
+    },
+    {
+      title: "Expo vs. Bare React Native: Which Should You Use and When?",
+      cat: "Mobile / React Native",
+      color: "#4FC3F7",
+      date: "Oct 25, 2024",
+      teaser:
+        "React Native has become a popular choice for mobile app development. Here is how to choose between Expo's managed workflow and Bare React Native.",
+      link: "https://devamitch.medium.com/expo-vs-bare-react-native-which-should-you-use-and-when-f2b3c4d5e6f7",
+    },
+    {
+      title: "Understanding Type vs. Interface in TypeScript",
+      cat: "TypeScript",
+      color: "#34D399",
+      date: "Sep 28, 2024",
+      teaser:
+        "As I mentor my junior developers on the importance of type safety, I’ve observed a persistent gap in their understanding of foundational...",
+      link: "https://devamitch.medium.com/understanding-type-vs-interface-in-typescript-a-guide-for-junior-developers-a1b2c3d4e5f6",
     },
   ],
 
@@ -2441,6 +2490,35 @@ function HeroSection({
                 }}
               >
                 LinkedIn ↗
+              </motion.a>
+              <motion.a
+                href={D.twitter}
+                target="_blank"
+                rel="noreferrer"
+                whileHover={{ scale: 1.02 }}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 10,
+                  border: `1px solid ${C.border}`,
+                  color: C.faint,
+                  padding: "15px 22px",
+                  fontSize: 10,
+                  letterSpacing: "0.18em",
+                  textTransform: "uppercase",
+                  fontFamily: MONO,
+                  textDecoration: "none",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = C.text;
+                  e.currentTarget.style.borderColor = C.dim;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = C.faint;
+                  e.currentTarget.style.borderColor = C.border;
+                }}
+              >
+                X (Twitter) ↗
               </motion.a>
             </motion.div>
 
@@ -5493,7 +5571,7 @@ function BlogSection() {
               whiteSpace: "nowrap",
             }}
           >
-            MEDIUM ↗
+            ALL ARTICLES ↗
           </a>
         </div>
         <div
@@ -5511,23 +5589,32 @@ function BlogSection() {
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
             >
-              <div
+              {/* Made the entire card a clickable link */}
+              <a
+                href={post.link}
+                target="_blank"
+                rel="noreferrer"
                 style={{
+                  display: "block",
                   padding: 28,
                   border: `1px solid ${C.border}`,
                   background: C.card,
                   height: "100%",
                   cursor: "pointer",
                   borderTop: `2px solid ${post.color}33`,
-                  transition: "border-color .25s",
+                  transition: "border-color .25s, transform .25s",
+                  textDecoration: "none",
                 }}
-                onMouseEnter={(e) =>
-                  ((e.currentTarget as HTMLElement).style.borderColor = C.goldD)
-                }
-                onMouseLeave={(e) =>
-                  ((e.currentTarget as HTMLElement).style.borderColor =
-                    C.border)
-                }
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLElement).style.borderColor = C.goldD;
+                  (e.currentTarget as HTMLElement).style.transform =
+                    "translateY(-4px)";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLElement).style.borderColor = C.border;
+                  (e.currentTarget as HTMLElement).style.transform =
+                    "translateY(0)";
+                }}
               >
                 <div
                   style={{
@@ -5541,7 +5628,7 @@ function BlogSection() {
                   <span
                     style={{ fontFamily: MONO, fontSize: 9, color: C.vfaint }}
                   >
-                    {post.readTime} read
+                    {post.date}
                   </span>
                 </div>
                 <h3
@@ -5567,24 +5654,16 @@ function BlogSection() {
                 >
                   {post.teaser}
                 </p>
-                <a
-                  href={D.medium}
-                  target="_blank"
-                  rel="noreferrer"
+                <div
                   style={{
                     fontSize: 10,
                     color: "rgba(201,168,76,.55)",
                     fontFamily: MONO,
-                    textDecoration: "none",
                   }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = C.gold)}
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.color = "rgba(201,168,76,.55)")
-                  }
                 >
-                  Upcoming on Medium →
-                </a>
-              </div>
+                  Read Article →
+                </div>
+              </a>
             </motion.div>
           ))}
         </div>
@@ -5808,6 +5887,7 @@ function Footer() {
     ],
     Connect: [
       { label: "LinkedIn", href: D.linkedin },
+      { label: "X", href: D.twitter },
       { label: "GitHub", href: D.github },
       { label: "Medium", href: D.medium },
       { label: "Email", href: `mailto:${D.email}` },
