@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import React, {
   createContext,
   useContext,
@@ -31,7 +30,6 @@ export function AIWidgetProvider({
     ready: false,
   });
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
 
   useEffect(() => {
     setLoading(false);

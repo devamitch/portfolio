@@ -1,5 +1,4 @@
 "use client";
-import { ReCaptchaProvider } from "next-recaptcha-v3";
 import { useEffect, useState } from "react";
 import { LiquidGoldAnimation } from "../ui/LiquidGoldAnimation";
 
@@ -35,16 +34,12 @@ const AllProvider = ({ children }: { children: React.ReactNode }) => {
     );
   }
   return (
-    <ReCaptchaProvider
-      reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+    <div
+      role="application"
+      aria-label="Amit Chakraborty Portfolio — Principal Mobile Architect"
     >
-      <div
-        role="application"
-        aria-label="Amit Chakraborty Portfolio — Principal Mobile Architect"
-      >
-        {children}
-      </div>
-    </ReCaptchaProvider>
+      {children}
+    </div>
   );
 };
 

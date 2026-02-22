@@ -1,18 +1,13 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import CustomCursor from "~/components/CustomCursor";
 import PrimaryHome from "~/components/Home";
 import Navigation from "~/components/Navigation";
 import Preloader from "~/components/Preloader";
 import SmoothScroll from "~/components/SmoothScroll";
-import {
-  AIWidgetProvider,
-  useSpeechContext,
-} from "~/components/providers/AIWidgetProvider";
+import { AIWidgetProvider } from "~/components/providers/AIWidgetProvider";
 import { usePortfolioState } from "~/store/portfolio-state";
-
-window.speechSynthesis.cancel();
 
 export default function Page() {
   const hasSeenPreloader = usePortfolioState((s) => s.hasSeenPreloader);
@@ -22,7 +17,12 @@ export default function Page() {
     setHasSeenPreloader(true);
   }, [setHasSeenPreloader]);
 
-  const { supported, ready } = useSpeechContext();
+  // Safe: only runs client-side after mount
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.speechSynthesis) {
+      window.speechSynthesis.cancel();
+    }
+  }, []);
 
   return (
     <>
@@ -59,7 +59,6 @@ export default function Page() {
                 <source src="/videos/rand.mp4" type="video/mp4" />
               </video>
             </div>
-
             <Navigation />
             <PrimaryHome />
           </SmoothScroll>
@@ -68,33 +67,20 @@ export default function Page() {
 
       <style>{`
         .cursor-dot {
-          position: fixed;
-          width: 6px;
-          height: 6px;
-          borderRadius: 50%;
-          background: #C9A84C;
-          pointerEvents: none;
-          zIndex: 99998;
+          position: fixed; width: 6px; height: 6px; border-radius: 50%;
+          background: #C9A84C; pointer-events: none; z-index: 99998;
           transform: translate(-50%, -50%);
           transition: width 0.2s, height 0.2s, background 0.2s;
         }
         .cursor-ring {
-          position: fixed;
-          width: 32px;
-          height: 32px;
-          borderRadius: 50%;
-          border: 1px solid rgba(201,168,76,0.5);
-          pointerEvents: none;
-          zIndex: 99997;
+          position: fixed; width: 32px; height: 32px; border-radius: 50%;
+          border: 1px solid rgba(201,168,76,0.5); pointer-events: none; z-index: 99997;
           transform: translate(-50%, -50%);
           transition: width 0.3s, height 0.3s, border-color 0.3s;
         }
-        .cursor-dot.hovering  { width: 10px; height: 10px; background: #F5C842; }
+        .cursor-dot.hovering { width: 10px; height: 10px; background: #F5C842; }
         .cursor-ring.hovering { width: 48px; height: 48px; border-color: rgba(201,168,76,0.8); }
-
-        @media (max-width: 768px) {
-          .scene3d-panel { display: none !important; }
-        }
+        @media (max-width: 768px) { .scene3d-panel { display: none !important; } }
       `}</style>
     </>
   );
