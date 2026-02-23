@@ -4,18 +4,14 @@ import { makeLoading } from "../ui/LazyLoadingSkeleton";
 
 /* ─── Static / above-the-fold exports ─────────────── */
 export { default as AboutSection } from "./AboutSection";
-export {
-  default as HeroSection,
-  MobileNav,
-  ScrollProgressBar,
-} from "./HeroSection";
+export { default as HeroSection, ScrollProgressBar } from "./HeroSection";
 export { default as MarqueeSection } from "./MarqueeSection";
 export { default as ProjectsSection } from "./ProjectsSection";
+export { MobileNav } from "./layout/MobileNav";
 
 /* ─── Already-extracted section exports ───────────── */
 export { default as BlogSection } from "./BlogSection";
 export { default as FAQSection } from "./FAQSection";
-export { default as FrequentVisitorModal } from "./FrequentVisitorModal";
 
 /* ─── Loading skeletons ────────────────────────────── */
 const makeSection = (label: string, height = 500) =>

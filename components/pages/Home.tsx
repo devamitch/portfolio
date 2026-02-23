@@ -27,7 +27,7 @@ import {
   StorySection,
   TestimonialsSection,
 } from "../home-comonents";
-import { BuyCoffeeModal, BuyCoffeePill } from "../home-comonents/BMC_MODAL";
+import { BuyCoffeeModal } from "../home-comonents/BMC_MODAL";
 import OrbsOverlay from "../ui/OrbsOverlay";
 import { Div } from "../ui/SectionsComponents";
 
@@ -176,7 +176,7 @@ export default function PrimaryHome() {
       </main>
 
       <MobileNav />
-      <BuyCoffeePill onOpen={() => setBmcOpen(true)} />
+      {/* <BuyCoffeePill onOpen={() => setBmcOpen(true)} /> */}
       <AnimatePresence>
         {bmcOpen && (
           <BuyCoffeeModal open={bmcOpen} onClose={() => setBmcOpen(false)} />

@@ -1,11 +1,12 @@
 "use client";
 
+import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { useRef, useState } from "react";
 import { COLORS, EASE_X, HN, MONO, PROFILE_DATA } from "~/data/portfolio.data";
 import { useInView } from "~/hooks/useInView";
 import { SH, SLabel } from "../ui/SectionsComponents";
-import { Badge } from "./shared";
+import { Badge, Card3D, ExpandIcon } from "./shared";
 
 export default function ExperienceSection() {
   const expRef = useRef<HTMLElement>(null);
@@ -24,6 +25,7 @@ export default function ExperienceSection() {
         <SH l1="3 companies." l2="8+ years. Zero shortcuts." />
 
         <div style={{ position: "relative" }}>
+          {/* Timeline spine */}
           <div
             style={{
               position: "absolute",
@@ -43,13 +45,9 @@ export default function ExperienceSection() {
               transition={{ duration: 0.7, delay: i * 0.14, ease: EASE_X }}
               onMouseEnter={() => setHovExp(i)}
               onMouseLeave={() => setHovExp(null)}
-              style={{
-                paddingLeft: 56,
-                marginBottom: 24,
-                position: "relative",
-                transition: "background .3s",
-              }}
+              style={{ paddingLeft: 56, marginBottom: 24, position: "relative" }}
             >
+              {/* Timeline dot */}
               <div
                 style={{
                   position: "absolute",
@@ -62,20 +60,27 @@ export default function ExperienceSection() {
                   background: expanded === exp.id ? exp.color : COLORS.bg,
                   transition: "background .3s",
                   zIndex: 1,
+                  boxShadow: expanded === exp.id ? `0 0 12px ${exp.color}66` : "none",
                 }}
               />
 
-              <div
-                style={{
-                  border: `1px solid ${expanded === exp.id ? exp.color + "44" : COLORS.border}`,
-                  background: COLORS.card,
-                  overflow: "hidden",
-                  transition: "border-color .4s",
-                  cursor: "pointer",
-                }}
+              <Card3D
+                variant="default"
+                accentColor={exp.color}
+                tilt={false}
+                hoverLift={false}
+                padding={0}
                 onClick={() => setExpanded(expanded === exp.id ? null : exp.id)}
+                style={{
+                  cursor: "pointer",
+                  border: `1px solid ${expanded === exp.id ? exp.color + "44" : COLORS.border}`,
+                  transition: "border-color .4s, box-shadow .3s",
+                  boxShadow: hovExp === i
+                    ? `0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px ${exp.color}20`
+                    : "0 2px 12px rgba(0,0,0,0.2)",
+                }}
               >
-                {/* Header row */}
+                {/* Header */}
                 <div
                   style={{
                     padding: "clamp(20px,3vw,28px)",
@@ -114,9 +119,7 @@ export default function ExperienceSection() {
                     >
                       {exp.company}
                     </h3>
-                    <div
-                      style={{ color: COLORS.faint, fontSize: 14, marginBottom: 8 }}
-                    >
+                    <div style={{ color: COLORS.faint, fontSize: 14, marginBottom: 8 }}>
                       {exp.role}
                     </div>
                     <div
@@ -134,18 +137,7 @@ export default function ExperienceSection() {
                       <span>{exp.location}</span>
                     </div>
                   </div>
-                  <div
-                    style={{
-                      fontSize: 20,
-                      color: expanded === exp.id ? COLORS.gold : COLORS.faint,
-                      transform: expanded === exp.id ? "rotate(45deg)" : "rotate(0)",
-                      transition: "transform .3s,color .3s",
-                      flexShrink: 0,
-                      marginTop: 4,
-                    }}
-                  >
-                    +
-                  </div>
+                  <ExpandIcon open={expanded === exp.id} color={exp.color} />
                 </div>
 
                 {/* Expanded content */}
@@ -174,13 +166,15 @@ export default function ExperienceSection() {
                           }}
                         >
                           {exp.metrics.map((m, mi) => (
-                            <div
+                            <Card3D
                               key={mi}
+                              variant="stat"
+                              accentColor={exp.color}
+                              tiltDeg={8}
+                              padding="12px 16px"
                               style={{
-                                padding: "12px 16px",
                                 background: `${exp.color}10`,
                                 border: `1px solid ${exp.color}22`,
-                                textAlign: "center",
                               }}
                             >
                               <div
@@ -206,10 +200,11 @@ export default function ExperienceSection() {
                               >
                                 {m.label}
                               </div>
-                            </div>
+                            </Card3D>
                           ))}
                         </div>
                       )}
+
                       {/* Highlights */}
                       {exp.highlights.map((pt, j) => (
                         <motion.div
@@ -224,16 +219,11 @@ export default function ExperienceSection() {
                             marginBottom: 14,
                           }}
                         >
-                          <span
-                            style={{
-                              color: exp.color,
-                              flexShrink: 0,
-                              fontSize: 10,
-                              marginTop: 2,
-                            }}
-                          >
-                            →
-                          </span>
+                          <ArrowRight
+                            size={13}
+                            color={exp.color}
+                            style={{ flexShrink: 0, marginTop: 3 }}
+                          />
                           <span
                             style={{
                               fontSize: 13,
@@ -249,7 +239,7 @@ export default function ExperienceSection() {
                     </div>
                   </motion.div>
                 )}
-              </div>
+              </Card3D>
             </motion.div>
           ))}
         </div>

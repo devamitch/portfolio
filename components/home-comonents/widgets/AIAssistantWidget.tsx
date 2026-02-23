@@ -1,6 +1,8 @@
 "use client";
 
+import { Bot, Send, Settings, Volume2, VolumeX, X } from "lucide-react";
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import { COLORS } from "~/data/portfolio.data";
 import {
   SCROLL_EVENT,
   extractRawText,
@@ -12,21 +14,8 @@ import { useUserIdentification } from "~/hooks/use-user-identification";
 import { useVoice } from "~/hooks/use-voice";
 import { usePortfolioState } from "~/store/portfolio-state";
 import { ChatBubble } from "./ChatBubble";
-import { MicButton } from "./MicButton";
 
-// ─── Palette ─────────────────────────────────────────────────────────────────
-const C = {
-  bg: "#050505",
-  bg3: "#0F0F0F",
-  text: "#FFFFFF",
-  dim: "rgba(255,255,255,0.68)",
-  faint: "rgba(255,255,255,0.42)",
-  gold: "#C9A84C",
-  goldD: "rgba(201,168,76,0.32)",
-  goldF: "rgba(201,168,76,0.08)",
-  goldG: "linear-gradient(135deg,#DAA520 0%,#F5C842 50%,#B8860B 100%)",
-} as const;
-
+// ─── Constants ────────────────────────────────────────────────────────────────
 const LOADING_PHRASES = [
   "Let me pull that up.",
   "Good one, hang on.",
@@ -70,7 +59,19 @@ function getTimeGreeting() {
   return "Evening";
 }
 
-// ─── Plasma Orb Canvas ────────────────────────────────────────────────────────
+// ─── useMobile ────────────────────────────────────────────────────────────────
+function useMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 640);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+  return isMobile;
+}
+
+// ─── Plasma Orb Canvas ───────────────────────────────────────────────────────
 function PlasmaOrb({
   size,
   dimmed,
@@ -92,9 +93,7 @@ function PlasmaOrb({
   });
 
   useEffect(() => {
-    const CX = size / 2,
-      CY = size / 2,
-      R = size * 0.4;
+    const R = size * 0.4;
     const s = st.current;
     s.blobs = Array.from({ length: 5 }, (_, i) => ({
       angle: (i / 5) * Math.PI * 2,
@@ -145,14 +144,12 @@ function PlasmaOrb({
 
       ctx.clearRect(0, 0, size, size);
 
-      // Ambient
       const amb = ctx.createRadialGradient(CX, CY, 0, CX, CY, R * 1.4);
       amb.addColorStop(0, `rgba(201,140,30,${0.06 * E})`);
       amb.addColorStop(1, "rgba(0,0,0,0)");
       ctx.fillStyle = amb;
       ctx.fillRect(0, 0, size, size);
 
-      // Back particles
       s.particles
         .filter((p: any) => !p.front)
         .forEach((p: any) => {
@@ -168,7 +165,6 @@ function PlasmaOrb({
           }
         });
 
-      // Dark glass sphere
       const glass = ctx.createRadialGradient(
         CX - R * 0.2,
         CY - R * 0.25,
@@ -185,7 +181,6 @@ function PlasmaOrb({
       ctx.fillStyle = glass;
       ctx.fill();
 
-      // Inner plasma (clipped)
       ctx.save();
       ctx.beginPath();
       ctx.arc(CX, CY, R - 1, 0, Math.PI * 2);
@@ -222,14 +217,12 @@ function PlasmaOrb({
         ctx.fill();
       });
 
-      // Core glow
       const core = ctx.createRadialGradient(CX, CY, 0, CX, CY, R * 0.48);
       core.addColorStop(0, `rgba(255,210,80,${0.09 + E * 0.13})`);
       core.addColorStop(1, "rgba(0,0,0,0)");
       ctx.fillStyle = core;
       ctx.fillRect(CX - R, CY - R, R * 2, R * 2);
 
-      // AURA text
       const tp = 0.65 + Math.sin(s.pulsePhase * 1.1) * 0.14 + E * 0.2;
       ctx.font = `800 ${Math.round(size * 0.13)}px 'Courier New',monospace`;
       ctx.textAlign = "center";
@@ -252,7 +245,6 @@ function PlasmaOrb({
       ctx.shadowBlur = 0;
       ctx.restore();
 
-      // Tendrils
       s.tendrils.forEach((t: any) => {
         t.phase += t.speed;
         const ang = t.baseAngle + Math.sin(t.phase) * 0.36;
@@ -282,7 +274,6 @@ function PlasmaOrb({
         ctx.stroke();
       });
 
-      // Glass rim
       const rim = ctx.createRadialGradient(CX, CY, R * 0.83, CX, CY, R);
       rim.addColorStop(0, "rgba(0,0,0,0)");
       rim.addColorStop(0.68, `rgba(201,168,76,${0.1 + E * 0.06})`);
@@ -295,13 +286,7 @@ function PlasmaOrb({
       ctx.strokeStyle = `rgba(201,168,76,${0.2 + E * 0.16})`;
       ctx.lineWidth = 0.8;
       ctx.stroke();
-      ctx.beginPath();
-      ctx.arc(CX, CY, R + 1.5, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(201,140,30,${0.07 + E * 0.1})`;
-      ctx.lineWidth = 6;
-      ctx.stroke();
 
-      // Front particles
       s.particles
         .filter((p: any) => p.front)
         .forEach((p: any) => {
@@ -320,24 +305,6 @@ function PlasmaOrb({
           }
         });
 
-      // Specular highlight
-      const hl = ctx.createRadialGradient(
-        CX - R * 0.32,
-        CY - R * 0.35,
-        0,
-        CX - R * 0.2,
-        CY - R * 0.24,
-        R * 0.5,
-      );
-      hl.addColorStop(0, "rgba(255,245,220,0.18)");
-      hl.addColorStop(0.35, "rgba(255,240,200,0.05)");
-      hl.addColorStop(1, "rgba(255,255,255,0)");
-      ctx.beginPath();
-      ctx.arc(CX, CY, R, 0, Math.PI * 2);
-      ctx.fillStyle = hl;
-      ctx.fill();
-
-      // History badge
       if (hasHistory) {
         ctx.beginPath();
         ctx.arc(CX + R * 0.65, CY - R * 0.65, 4.5, 0, Math.PI * 2);
@@ -363,21 +330,11 @@ function PlasmaOrb({
   );
 }
 
-// ─── Widget ───────────────────────────────────────────────────────────────────
-interface Props {
-  position?: "bottom-right" | "bottom-left";
-  autoSpeak?: boolean;
-}
-
-const ORB_SIZE = 82;
-const PANEL_W = 370;
-const PANEL_H = 590;
-
-// Spring simulation for organic morphing
+// ─── Spring morph ─────────────────────────────────────────────────────────────
 function useSpringMorph() {
-  const morphRef = useRef(0); // current value
-  const velRef = useRef(0); // current velocity
-  const targetRef = useRef(0); // target value
+  const morphRef = useRef(0);
+  const velRef = useRef(0);
+  const targetRef = useRef(0);
   const rafRef = useRef(0);
   const [display, setDisplay] = useState(0);
   const onDoneRef = useRef<(() => void) | null>(null);
@@ -390,18 +347,15 @@ function useSpringMorph() {
     cancelAnimationFrame(rafRef.current);
 
     const tick = () => {
-      // Spring constants: stiffness & damping tuned for organic liquid feel
-      const stiffness = 0.045; // lower = slower/bouncier
-      const damping = 0.72; // lower = more bounce
+      const stiffness = 0.045,
+        damping = 0.72;
       const delta = targetRef.current - morphRef.current;
       velRef.current = velRef.current * damping + delta * stiffness;
       morphRef.current += velRef.current;
-
       setDisplay(morphRef.current);
 
       const settled =
         Math.abs(velRef.current) < 0.0004 && Math.abs(delta) < 0.0004;
-
       if (!settled) {
         rafRef.current = requestAnimationFrame(tick);
       } else {
@@ -418,9 +372,19 @@ function useSpringMorph() {
   }, []);
 
   useEffect(() => () => cancelAnimationFrame(rafRef.current), []);
-
   return { mp: display, springTo };
 }
+
+// ─── Widget ───────────────────────────────────────────────────────────────────
+interface Props {
+  position?: "bottom-right" | "bottom-left";
+  autoSpeak?: boolean;
+}
+
+const ORB_SIZE = 82;
+const PANEL_W = 370;
+const PANEL_H = 590;
+const MOBILE_NAV_H = 64;
 
 export function AIAssistantWidget({
   position = "bottom-right",
@@ -435,11 +399,11 @@ export function AIAssistantWidget({
     hasGreetedUser,
   } = useUserIdentification();
 
-  // "orb" | "morphing" | "chat" | "closing"
   const [phase, setPhase] = useState<"orb" | "morphing" | "chat" | "closing">(
     "orb",
   );
   const { mp, springTo } = useSpringMorph();
+  const isMobile = useMobile();
 
   const [showSettings, setShowSettings] = useState(false);
   const [autoSpeakEnabled, setAutoSpeakEnabled] = useState(autoSpeak);
@@ -484,6 +448,9 @@ export function AIAssistantWidget({
     },
   });
 
+  // Derived: are we in an active voice mode?
+  const isVoiceActive = voiceState === "speaking" || voiceState === "listening";
+
   const onHandleSubmit = useCallback(
     (e: { preventDefault?: () => void }) => {
       e.preventDefault?.();
@@ -501,7 +468,6 @@ export function AIAssistantWidget({
     [addQuery, submitText],
   );
 
-  // ── Open / Close with spring morph ───────────────────────────────────────
   const handleOpen = useCallback(() => {
     setPhase("morphing");
     springTo(1, () => {
@@ -516,14 +482,12 @@ export function AIAssistantWidget({
     springTo(0, () => setPhase("orb"));
   }, [springTo, stopSpeaking]);
 
-  // ── Auto-open for first-time visitors ────────────────────────────────────
   useEffect(() => {
     if (!isVerified || isIdentifying || hasAutoOpened.current) return;
     hasAutoOpened.current = true;
     if (isFirstTimeVisitor && isNewUser) setTimeout(handleOpen, 800);
   }, [isVerified, isIdentifying, isFirstTimeVisitor, isNewUser, handleOpen]);
 
-  // ── Greeting ──────────────────────────────────────────────────────────────
   useEffect(() => {
     if (
       phase !== "chat" ||
@@ -554,7 +518,6 @@ export function AIAssistantWidget({
     setHasGreetedUser,
   ]);
 
-  // ── Scroll listener ───────────────────────────────────────────────────────
   useEffect(() => {
     const h = (e: Event) =>
       scrollToSection(
@@ -564,11 +527,10 @@ export function AIAssistantWidget({
     return () => window.removeEventListener(SCROLL_EVENT, h);
   }, []);
 
-  // ── Auto-speak ────────────────────────────────────────────────────────────
   useEffect(() => {
     if (!autoSpeakEnabled || !isSupported) return;
-    const prev = prevStatus.current;
-    const now = status;
+    const prev = prevStatus.current,
+      now = status;
     if (
       prev === "ready" &&
       (now === "submitted" || now === "streaming") &&
@@ -600,7 +562,6 @@ export function AIAssistantWidget({
     prevStatus.current = now;
   }, [status, messages, autoSpeakEnabled, isSupported, speak, stopSpeaking]);
 
-  // ── Scroll to bottom ──────────────────────────────────────────────────────
   useEffect(() => {
     if (phase === "chat")
       messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -619,29 +580,38 @@ export function AIAssistantWidget({
     }
   };
 
-  // ── Derived morph geometry ────────────────────────────────────────────────
+  // ── Geometry ─────────────────────────────────────────────────────────────
   const isOrb = phase === "orb";
   const isChat = phase === "chat";
-  const p = mp; // spring value, may overshoot slightly
+  const pc = Math.max(0, Math.min(1, mp));
 
-  // Clamp for geometry calculations only
-  const pc = Math.max(0, Math.min(1, p));
+  // Mobile: FULL SCREEN when expanded
+  const mobileW = typeof window !== "undefined" ? window.innerWidth : 390;
+  const mobileH = typeof window !== "undefined" ? window.innerHeight : 844;
+
+  const targetW = isMobile ? mobileW : PANEL_W;
+  const targetH = isMobile ? mobileH : PANEL_H;
 
   const W = isOrb
     ? ORB_SIZE
     : isChat
-      ? PANEL_W
-      : ORB_SIZE + (PANEL_W - ORB_SIZE) * pc;
+      ? targetW
+      : ORB_SIZE + (targetW - ORB_SIZE) * pc;
   const H = isOrb
     ? ORB_SIZE
     : isChat
-      ? PANEL_H
-      : ORB_SIZE + (PANEL_H - ORB_SIZE) * pc;
+      ? targetH
+      : ORB_SIZE + (targetH - ORB_SIZE) * pc;
+
+  // On mobile full-screen: no border radius when fully open
   const BR = isOrb
     ? ORB_SIZE / 2
     : isChat
-      ? 22
-      : Math.max(22, (ORB_SIZE / 2) * (1 - pc * 1.6));
+      ? isMobile
+        ? 0
+        : 22
+      : Math.max(0, (ORB_SIZE / 2) * (1 - pc * 1.6));
+
   const bgA = isOrb ? 0 : isChat ? 1 : pc;
   const panelOp = isChat ? 1 : Math.max(0, (pc - 0.52) / 0.48);
   const orbOp = isOrb ? 1 : isChat ? 0 : Math.max(0, 1 - pc * 3.2);
@@ -651,19 +621,66 @@ export function AIAssistantWidget({
 
   const statusLine =
     status === "submitted"
-      ? "🔍 Looking that up..."
+      ? "Searching..."
       : status === "streaming"
-        ? "💬 Typing..."
+        ? "Typing..."
         : voiceState === "speaking"
-          ? "🔊 Speaking..."
+          ? "Speaking..."
           : voiceState === "listening"
-            ? "🎤 Listening..."
+            ? "Listening..."
             : null;
 
-  const posStyle: React.CSSProperties =
-    position === "bottom-right"
-      ? { bottom: "20px", right: "20px" }
-      : { bottom: "20px", left: "20px" };
+  // ── Positioning ──────────────────────────────────────────────────────────
+  // Mobile orb: sits above nav bar
+  // Mobile expanded: FULL SCREEN — inset 0
+  const posStyle: React.CSSProperties = (() => {
+    if (isMobile) {
+      const safeBase = "max(10px, env(safe-area-inset-bottom, 10px))";
+      if (isOrb) {
+        return {
+          bottom: `calc(${MOBILE_NAV_H}px + ${safeBase} + 10px)`,
+          right: position === "bottom-right" ? 16 : undefined,
+          left: position === "bottom-left" ? 16 : undefined,
+        };
+      }
+      // Full screen — anchor to all edges
+      return {
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+      };
+    }
+    // Desktop
+    return position === "bottom-right"
+      ? { bottom: 20, right: 20 }
+      : { bottom: 20, left: 20 };
+  })();
+
+  const dynamicPosStyle: React.CSSProperties = (() => {
+    if (!isMobile || isOrb) return posStyle;
+    // morphing/closing/chat: full screen
+    return {
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+    };
+  })();
+
+  const finalPosStyle =
+    phase === "morphing" || phase === "closing" || isChat
+      ? dynamicPosStyle
+      : posStyle;
+
+  // Last assistant message for read-aloud button
+  const lastAssistantRaw = (() => {
+    const last = messages.filter((m) => m.role === "assistant").at(-1);
+    return last ? extractRawText(last) : "";
+  })();
+  const lastAssistantDisplay = lastAssistantRaw
+    ? parseResponse(lastAssistantRaw).displayText
+    : "";
 
   return (
     <>
@@ -673,24 +690,43 @@ export function AIAssistantWidget({
         @keyframes sp{0%,100%{opacity:.65}50%{opacity:1}}
         @keyframes orbfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
         @keyframes haloglow{0%,100%{opacity:.4;transform:scale(1.1)}50%{opacity:.75;transform:scale(1.32)}}
-        @keyframes pulsedot{0%,100%{opacity:.5}50%{opacity:1}}
-        @keyframes fadeup{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
         @keyframes blobPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
+        @keyframes waveBar{0%,100%{transform:scaleY(0.25);opacity:0.4}50%{transform:scaleY(1);opacity:1}}
         .ai-scroll::-webkit-scrollbar{width:3px}
         .ai-scroll::-webkit-scrollbar-thumb{background:rgba(201,168,76,.2);border-radius:999px}
-        .ai-input{background:#050505!important;color:#fff!important;font-family:inherit!important}
-        .ai-input::placeholder{color:rgba(255,255,255,.24)!important}
-        .ai-input:focus{outline:none!important;border-color:rgba(201,168,76,.5)!important;box-shadow:0 0 0 3px rgba(201,168,76,.08)!important}
+        .ai-input{background:transparent!important;color:#fff!important;font-family:inherit!important;border:none!important;outline:none!important;}
+        .ai-input::placeholder{color:rgba(255,255,255,.22)!important}
+        .ai-input:focus{outline:none!important;box-shadow:none!important}
         .ai-ib:hover{background:rgba(255,255,255,.1)!important}
-        .ai-send:hover:not(:disabled){filter:brightness(1.12);box-shadow:0 0 20px rgba(201,168,76,.4)}
-        .ai-send:disabled{opacity:.35;cursor:not-allowed}
+        .ai-send{transition:all .22s cubic-bezier(.34,1.4,.64,1)!important}
+        .ai-send:hover:not(:disabled){
+          transform:scale(1.07)!important;
+          box-shadow:inset 0 1px 0 rgba(255,255,255,0.45), 0 0 28px rgba(201,168,76,0.38)!important;
+        }
+        .ai-send:active:not(:disabled){
+          transform:scale(0.93)!important;
+          filter:brightness(0.88)!important;
+        }
+        .ai-send:disabled{opacity:.28;cursor:not-allowed}
         .ai-clr:hover{background:rgba(255,68,68,.12)!important;border-color:rgba(255,68,68,.35)!important;color:#FF6666!important}
         .ai-restored{font-size:9px;color:rgba(255,255,255,.15);text-align:center;padding:6px 0 2px;letter-spacing:.1em}
         .ai-sug:hover{background:rgba(201,168,76,.08)!important;border-color:rgba(201,168,76,.3)!important}
+        .ai-pill-btn{transition:all .18s ease!important}
+        .ai-pill-btn:hover{opacity:0.8!important}
+        .ai-pill-btn:active{transform:scale(0.96)!important}
       `}</style>
 
-      <div style={{ position: "fixed", zIndex: 9000, ...posStyle }}>
-        {/* Halo behind orb */}
+      <div
+        style={{
+          position: "fixed",
+          zIndex: 9000,
+          ...finalPosStyle,
+          transition: isOrb
+            ? "none"
+            : "top 0.35s cubic-bezier(.4,0,.2,1), bottom 0.35s cubic-bezier(.4,0,.2,1), left 0.35s cubic-bezier(.4,0,.2,1), right 0.35s cubic-bezier(.4,0,.2,1)",
+        }}
+      >
+        {/* Halo — only on orb state */}
         {(isOrb || (phase === "morphing" && pc < 0.3)) && (
           <div
             style={{
@@ -709,7 +745,7 @@ export function AIAssistantWidget({
           />
         )}
 
-        {/* ── THE ONE MORPHING CONTAINER ───────────────────────────── */}
+        {/* ── THE MORPHING CONTAINER ── */}
         <div
           onClick={isOrb ? handleOpen : undefined}
           style={{
@@ -723,9 +759,11 @@ export function AIAssistantWidget({
                 ? `blur(${Math.round(30 * bgA)}px) saturate(${1 + 0.9 * bgA})`
                 : "none",
             border:
-              bgA > 0.05 ? `1px solid rgba(201,168,76,${0.13 * bgA})` : "none",
+              bgA > 0.05 && !isMobile
+                ? `1px solid rgba(201,168,76,${0.13 * bgA})`
+                : "none",
             boxShadow:
-              bgA > 0.1
+              bgA > 0.1 && !isMobile
                 ? `0 32px 100px rgba(0,0,0,${0.9 * bgA}), 0 0 0 1px rgba(201,168,76,${0.06 * bgA}), inset 0 1px 0 rgba(255,255,255,${0.05 * bgA})`
                 : "none",
             overflow: "hidden",
@@ -733,9 +771,15 @@ export function AIAssistantWidget({
             animation: isOrb ? "orbfloat 4.2s ease-in-out infinite" : "none",
             fontFamily: "inherit",
             willChange: "width, height, border-radius",
+            transform:
+              isChat && !isMobile
+                ? "perspective(1200px) rotateX(0.5deg)"
+                : "none",
+            transformOrigin: "bottom center",
+            transition: "transform 0.4s ease",
           }}
         >
-          {/* Plasma orb — fades as panel appears */}
+          {/* Plasma orb */}
           <div
             style={{
               position: "absolute",
@@ -754,7 +798,7 @@ export function AIAssistantWidget({
             />
           </div>
 
-          {/* Chat panel — fades in at ~52% morph */}
+          {/* Chat panel */}
           {!isOrb && (
             <div
               role="dialog"
@@ -768,17 +812,18 @@ export function AIAssistantWidget({
                 pointerEvents: isChat ? "auto" : "none",
               }}
             >
-              {/* ── Header ─────────────────────────────────────────── */}
+              {/* ── Header ── */}
               <div
                 style={{
                   flexShrink: 0,
-                  padding: "14px 16px",
+                  padding: isMobile ? "52px 16px 14px" : "14px 16px",
                   background:
                     "linear-gradient(180deg,rgba(201,168,76,.09) 0%,transparent 100%)",
-                  borderBottom: "1px solid rgba(255,255,255,0.07)",
+                  borderBottom: `1px solid ${COLORS.border}`,
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",
+                  boxShadow: "inset 0 -1px 0 rgba(255,255,255,0.03)",
                 }}
               >
                 <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -788,23 +833,22 @@ export function AIAssistantWidget({
                       height: 34,
                       flexShrink: 0,
                       borderRadius: "40% 60% 55% 45%/45% 55% 45% 55%",
-                      background: C.goldG,
+                      background: COLORS.goldG,
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      boxShadow: `0 0 16px ${C.goldD}, inset 0 1px 1px rgba(255,255,255,0.22)`,
+                      boxShadow: `0 0 16px ${COLORS.goldD}, inset 0 1px 1px rgba(255,255,255,0.22)`,
                       animation: "blobPulse 3.5s ease-in-out infinite",
-                      fontSize: 14,
                     }}
                   >
-                    ✦
+                    <Bot size={14} color="#050505" strokeWidth={2.5} />
                   </div>
                   <div>
                     <div
                       style={{
                         fontSize: 14,
                         fontWeight: 700,
-                        color: C.text,
+                        color: COLORS.text ?? "#fff",
                         letterSpacing: "-0.01em",
                       }}
                     >
@@ -816,7 +860,7 @@ export function AIAssistantWidget({
                         fontWeight: 600,
                         letterSpacing: "0.06em",
                         textTransform: "uppercase",
-                        color: statusLine ? C.gold : "rgba(201,168,76,.5)",
+                        color: statusLine ? COLORS.gold : "rgba(201,168,76,.5)",
                         animation: statusLine
                           ? "sp 1.2s ease-in-out infinite"
                           : "none",
@@ -845,15 +889,20 @@ export function AIAssistantWidget({
                       borderRadius: 8,
                       border: "none",
                       cursor: "pointer",
-                      fontSize: 14,
-                      background: autoSpeakEnabled ? C.goldF : "transparent",
+                      background: autoSpeakEnabled
+                        ? COLORS.goldF
+                        : "transparent",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
                       transition: "background .15s",
                     }}
                   >
-                    {autoSpeakEnabled ? "🔊" : "🔇"}
+                    {autoSpeakEnabled ? (
+                      <Volume2 size={14} color={COLORS.gold} />
+                    ) : (
+                      <VolumeX size={14} color="rgba(255,255,255,0.42)" />
+                    )}
                   </button>
                   <button
                     onClick={() => setShowSettings((v) => !v)}
@@ -868,12 +917,15 @@ export function AIAssistantWidget({
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      color: C.faint,
-                      fontSize: 13,
                       transition: "background .15s",
                     }}
                   >
-                    {showSettings ? "▴" : "▾"}
+                    <Settings
+                      size={14}
+                      color={
+                        showSettings ? COLORS.gold : "rgba(255,255,255,0.42)"
+                      }
+                    />
                   </button>
                   <button
                     onClick={handleClose}
@@ -888,24 +940,22 @@ export function AIAssistantWidget({
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      color: C.faint,
-                      fontSize: 15,
                       transition: "background .15s",
                     }}
                   >
-                    ✕
+                    <X size={16} color="rgba(255,255,255,0.42)" />
                   </button>
                 </div>
               </div>
 
-              {/* ── Settings drawer ─────────────────────────────────── */}
+              {/* ── Settings drawer ── */}
               {showSettings && (
                 <div
                   style={{
                     flexShrink: 0,
                     padding: "12px 16px",
-                    background: C.bg3,
-                    borderBottom: "1px solid rgba(255,255,255,0.07)",
+                    background: "#0F0F0F",
+                    borderBottom: `1px solid ${COLORS.border}`,
                     display: "flex",
                     flexDirection: "column",
                     gap: 8,
@@ -914,25 +964,25 @@ export function AIAssistantWidget({
                   <div
                     style={{
                       padding: "8px 10px",
-                      background: C.goldF,
+                      background: COLORS.goldF,
                       borderRadius: 8,
-                      border: `1px solid ${C.goldD}`,
+                      border: `1px solid ${COLORS.goldD}`,
                     }}
                   >
                     <p
                       style={{
                         fontSize: 11,
-                        color: C.gold,
+                        color: COLORS.gold,
                         margin: "0 0 4px",
                         fontWeight: 600,
                       }}
                     >
-                      🎙 Voice works best in Chrome
+                      Voice works best in Chrome
                     </p>
                     <p
                       style={{
                         fontSize: 10,
-                        color: C.faint,
+                        color: "rgba(255,255,255,0.42)",
                         margin: 0,
                         lineHeight: 1.5,
                       }}
@@ -958,7 +1008,9 @@ export function AIAssistantWidget({
                       borderRadius: 8,
                       background: "rgba(255,255,255,.03)",
                       border: `1px solid ${confirmClear ? "rgba(255,68,68,.35)" : "rgba(255,255,255,0.07)"}`,
-                      color: confirmClear ? "#FF6666" : C.faint,
+                      color: confirmClear
+                        ? "#FF6666"
+                        : "rgba(255,255,255,0.42)",
                       fontSize: 11,
                       cursor: "pointer",
                       transition: "all .15s",
@@ -966,7 +1018,6 @@ export function AIAssistantWidget({
                       justifyContent: "center",
                     }}
                   >
-                    ↺{" "}
                     {confirmClear
                       ? "Tap again to confirm clear"
                       : "Clear conversation history"}
@@ -974,12 +1025,11 @@ export function AIAssistantWidget({
                 </div>
               )}
 
-              {/* ── Messages ────────────────────────────────────────── */}
+              {/* ── Messages ── */}
               <div
                 className="ai-scroll"
                 style={{ flex: 1, overflowY: "auto", padding: "16px 14px 8px" }}
               >
-                {/* Empty state */}
                 {!hasLive && !hasHistory && (
                   <div
                     style={{
@@ -999,7 +1049,7 @@ export function AIAssistantWidget({
                           style={{
                             width: 22,
                             height: 22,
-                            border: "2px solid " + C.gold,
+                            border: `2px solid ${COLORS.gold}`,
                             borderTopColor: "transparent",
                             borderRadius: "50%",
                             animation: "spin 1s linear infinite",
@@ -1008,7 +1058,7 @@ export function AIAssistantWidget({
                         <p
                           style={{
                             fontSize: 13,
-                            color: C.gold,
+                            color: COLORS.gold,
                             fontWeight: 500,
                             margin: 0,
                           }}
@@ -1023,33 +1073,32 @@ export function AIAssistantWidget({
                             width: 56,
                             height: 56,
                             borderRadius: "40% 60% 55% 45%/45% 55% 45% 55%",
-                            background: C.goldG,
+                            background: COLORS.goldG,
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
-                            boxShadow: `0 0 28px ${C.goldD}`,
+                            boxShadow: `0 0 28px ${COLORS.goldD}`,
                             animation: "blobPulse 3.5s ease-in-out infinite",
-                            fontSize: 22,
                           }}
                         >
-                          ✦
+                          <Bot size={22} color="#050505" strokeWidth={2} />
                         </div>
                         <div>
                           <p
                             style={{
                               fontSize: 18,
                               fontWeight: 800,
-                              color: C.gold,
+                              color: COLORS.gold,
                               margin: "0 0 6px",
                               letterSpacing: "-0.02em",
                             }}
                           >
-                            {userName ? `Hey, ${userName} 👋` : "Hey, I'm AURA"}
+                            {userName ? `Hey, ${userName}` : "Hey, I'm AURA"}
                           </p>
                           <p
                             style={{
                               fontSize: 12,
-                              color: C.faint,
+                              color: "rgba(255,255,255,0.42)",
                               margin: 0,
                               lineHeight: 1.6,
                             }}
@@ -1059,44 +1108,6 @@ export function AIAssistantWidget({
                               : "Good to see you again. What are we exploring?"}
                           </p>
                         </div>
-                        {isFirstTimeVisitor && (
-                          <div
-                            style={{
-                              padding: "12px 14px",
-                              background: C.goldF,
-                              borderRadius: 12,
-                              border: `1px solid ${C.goldD}`,
-                              textAlign: "left",
-                              width: "100%",
-                            }}
-                          >
-                            <p
-                              style={{
-                                margin: 0,
-                                fontSize: 12,
-                                color: C.gold,
-                                fontStyle: "italic",
-                                lineHeight: 1.5,
-                              }}
-                            >
-                              "{getTimeGreeting()}! I'm AURA — who am I talking
-                              to?"
-                            </p>
-                            <p
-                              style={{
-                                margin: "6px 0 0",
-                                fontSize: 10,
-                                color: C.faint,
-                                textTransform: "uppercase",
-                                letterSpacing: "0.06em",
-                              }}
-                            >
-                              {voiceState === "listening"
-                                ? "🎤 Listening…"
-                                : "🎤 Voice active — just speak"}
-                            </p>
-                          </div>
-                        )}
                         <div
                           style={{
                             width: "100%",
@@ -1108,7 +1119,7 @@ export function AIAssistantWidget({
                           <p
                             style={{
                               fontSize: 9,
-                              color: C.faint,
+                              color: "rgba(255,255,255,0.42)",
                               textTransform: "uppercase",
                               letterSpacing: "0.14em",
                               textAlign: "left",
@@ -1131,16 +1142,20 @@ export function AIAssistantWidget({
                                 textAlign: "left",
                                 padding: "9px 13px",
                                 borderRadius: 10,
-                                background: "rgba(201,168,76,0.03)",
-                                border: "1px solid rgba(201,168,76,0.12)",
-                                color: C.dim,
+                                background: COLORS.goldF,
+                                border: `1px solid ${COLORS.goldD}`,
+                                color: "rgba(255,255,255,0.68)",
                                 fontSize: 12,
                                 cursor: "pointer",
                                 transition: "all .15s",
+                                boxShadow:
+                                  "0 2px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04)",
                               }}
                             >
-                              <span style={{ color: C.gold, marginRight: 6 }}>
-                                ✦
+                              <span
+                                style={{ color: COLORS.gold, marginRight: 6 }}
+                              >
+                                ▸
                               </span>
                               {q}
                             </button>
@@ -1151,7 +1166,6 @@ export function AIAssistantWidget({
                   </div>
                 )}
 
-                {/* Restored history */}
                 {!hasLive && hasHistory && (
                   <>
                     <div className="ai-restored">— Previous conversation —</div>
@@ -1174,7 +1188,6 @@ export function AIAssistantWidget({
                   </>
                 )}
 
-                {/* Live messages */}
                 {hasLive &&
                   messages.map((msg) => {
                     const raw = extractRawText(msg);
@@ -1194,7 +1207,6 @@ export function AIAssistantWidget({
                     );
                   })}
 
-                {/* Typing indicator */}
                 {isLoading && (
                   <div
                     style={{
@@ -1211,14 +1223,13 @@ export function AIAssistantWidget({
                         flexShrink: 0,
                         marginTop: 2,
                         borderRadius: "40% 60% 55% 45%/45% 55% 45% 55%",
-                        background: C.goldG,
+                        background: COLORS.goldG,
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        fontSize: 11,
                       }}
                     >
-                      ✦
+                      <Bot size={12} color="#050505" strokeWidth={2.5} />
                     </div>
                     <div
                       style={{
@@ -1231,8 +1242,8 @@ export function AIAssistantWidget({
                         style={{
                           padding: "12px 16px",
                           borderRadius: "18px 18px 18px 4px",
-                          background: C.bg3,
-                          border: "1px solid rgba(255,255,255,0.07)",
+                          background: "#0F0F0F",
+                          border: `1px solid ${COLORS.border}`,
                           display: "flex",
                           gap: 5,
                           alignItems: "center",
@@ -1245,7 +1256,7 @@ export function AIAssistantWidget({
                               width: 6,
                               height: 6,
                               borderRadius: "50%",
-                              background: C.gold,
+                              background: COLORS.gold,
                               display: "inline-block",
                               animation: `typingBounce 1.2s ${d}ms infinite`,
                             }}
@@ -1255,15 +1266,13 @@ export function AIAssistantWidget({
                       <span
                         style={{
                           fontSize: 10,
-                          color: C.gold,
+                          color: COLORS.gold,
                           fontStyle: "italic",
                           paddingLeft: 2,
                           animation: "sp 1.5s ease-in-out infinite",
                         }}
                       >
-                        {status === "submitted"
-                          ? "🔍 Searching..."
-                          : "✍️ Writing..."}
+                        {status === "submitted" ? "Searching..." : "Writing..."}
                       </span>
                     </div>
                   </div>
@@ -1271,7 +1280,6 @@ export function AIAssistantWidget({
                 <div ref={messagesEndRef} />
               </div>
 
-              {/* Error bar */}
               {error && (
                 <div
                   style={{
@@ -1291,121 +1299,361 @@ export function AIAssistantWidget({
                 </div>
               )}
 
-              {/* ── Input ───────────────────────────────────────────── */}
+              {/* ── Bottom Bar ── */}
               <div
                 style={{
                   flexShrink: 0,
-                  padding: "12px 14px 14px",
-                  borderTop: "1px solid rgba(255,255,255,0.07)",
-                  background: C.bg3,
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 10,
+                  background: "rgba(6,6,6,0.88)",
+                  backdropFilter: "blur(32px) saturate(160%)",
+                  WebkitBackdropFilter: "blur(32px) saturate(160%)",
+                  borderTop: "1px solid rgba(255,255,255,0.06)",
+                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04)",
+                  padding: isMobile
+                    ? `14px 14px max(20px, env(safe-area-inset-bottom, 20px))`
+                    : "14px 14px 16px",
                 }}
               >
-                <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                  <input
-                    ref={inputRef}
-                    type="text"
-                    className="ai-input"
-                    placeholder="Ask anything about Amit…"
-                    value={input}
-                    onChange={handleInputChange}
-                    onKeyDown={handleKeyDown}
-                    disabled={isLoading}
+                <div style={{ position: "relative", height: 52 }}>
+                  {/* Layer A — text input */}
+                  <div
                     style={{
-                      flex: 1,
-                      padding: "9px 14px",
-                      borderRadius: 999,
-                      background: C.bg,
-                      border: "1px solid rgba(255,255,255,0.07)",
-                      color: C.text,
-                      fontSize: 13,
-                      fontFamily: "inherit",
-                      transition: "border-color .2s, box-shadow .2s",
-                    }}
-                  />
-                  <button
-                    type="button"
-                    className="ai-send"
-                    onClick={(e) => onHandleSubmit(e)}
-                    disabled={isLoading || !input?.trim()}
-                    style={{
-                      width: 36,
-                      height: 36,
-                      borderRadius: "50%",
-                      background: C.goldG,
-                      border: "none",
-                      flexShrink: 0,
+                      position: "absolute",
+                      inset: 0,
                       display: "flex",
                       alignItems: "center",
-                      justifyContent: "center",
-                      cursor: "pointer",
-                      transition: "all .2s",
+                      gap: 10,
+                      opacity: isVoiceActive ? 0 : 1,
+                      transform: isVoiceActive
+                        ? "translateY(5px) scale(0.97)"
+                        : "translateY(0) scale(1)",
+                      transition:
+                        "opacity 0.26s ease, transform 0.26s cubic-bezier(.4,0,.2,1)",
+                      pointerEvents: isVoiceActive ? "none" : "auto",
                     }}
                   >
-                    {isLoading ? (
-                      <span
+                    {/* Input trough — concave glass */}
+                    <div
+                      style={{
+                        flex: 1,
+                        height: 52,
+                        display: "flex",
+                        alignItems: "center",
+                        borderRadius: 26,
+                        background: "rgba(255,255,255,0.045)",
+                        border: "1px solid rgba(255,255,255,0.08)",
+                        boxShadow:
+                          "inset 0 2px 6px rgba(0,0,0,0.45), inset 0 1px 0 rgba(0,0,0,0.2)",
+                        overflow: "hidden",
+                      }}
+                      onClick={() => inputRef.current?.focus()}
+                    >
+                      <button
+                        type="button"
+                        className="ai-pill-btn"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          voiceState === "listening"
+                            ? stopListening()
+                            : listen();
+                        }}
                         style={{
-                          animation: "spin 1s linear infinite",
-                          display: "block",
-                          fontSize: 14,
+                          flexShrink: 0,
+                          width: 48,
+                          height: 52,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          background: "none",
+                          border: "none",
+                          cursor: isSupported ? "pointer" : "default",
+                          opacity: isSupported ? 1 : 0.28,
+                          color: COLORS.gold,
                         }}
                       >
-                        ◌
-                      </span>
-                    ) : (
-                      <span style={{ fontSize: 15 }}>↑</span>
-                    )}
-                  </button>
-                </div>
+                        <svg
+                          width="15"
+                          height="15"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
+                          <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                          <line x1="12" y1="19" x2="12" y2="23" />
+                          <line x1="8" y1="23" x2="16" y2="23" />
+                        </svg>
+                      </button>
 
-                {/* Voice controls row */}
-                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                  <MicButton
-                    voiceState={voiceState}
-                    isSupported={isSupported}
-                    transcript={transcript}
-                    error={voiceError}
-                    onMicClick={
-                      voiceState === "listening" ? stopListening : listen
-                    }
-                    onStopSpeaking={stopSpeaking}
-                  />
-                  {(() => {
-                    const last = messages
-                      .filter((m) => m.role === "assistant")
-                      .at(-1);
-                    const raw = last ? extractRawText(last) : "";
-                    const display = raw ? parseResponse(raw).displayText : "";
-                    if (!display) return null;
-                    return (
+                      <div
+                        style={{
+                          width: 1,
+                          height: 18,
+                          background: "rgba(255,255,255,0.06)",
+                          flexShrink: 0,
+                        }}
+                      />
+
+                      <input
+                        ref={inputRef}
+                        type="text"
+                        className="ai-input"
+                        placeholder="Ask anything about Amit…"
+                        value={input}
+                        onChange={handleInputChange}
+                        onKeyDown={handleKeyDown}
+                        disabled={isLoading}
+                        style={{
+                          flex: 1,
+                          height: "100%",
+                          padding: "0 12px",
+                          background: "transparent",
+                          border: "none",
+                          color: "#fff",
+                          fontSize: 13,
+                          fontFamily: "inherit",
+                        }}
+                      />
+
+                      {lastAssistantDisplay && (
+                        <button
+                          type="button"
+                          className="ai-pill-btn"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            voiceState === "speaking"
+                              ? stopSpeaking()
+                              : speak(lastAssistantDisplay);
+                          }}
+                          style={{
+                            flexShrink: 0,
+                            width: 44,
+                            height: 52,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            background: "none",
+                            border: "none",
+                            cursor: "pointer",
+                            color: "rgba(255,255,255,0.22)",
+                          }}
+                        >
+                          <Volume2 size={14} />
+                        </button>
+                      )}
+                    </div>
+
+                    {/* Send — clean convex gold disc */}
+                    <button
+                      type="button"
+                      className="ai-send"
+                      onClick={(e) => onHandleSubmit(e)}
+                      disabled={isLoading || !input?.trim()}
+                      style={{
+                        flexShrink: 0,
+                        width: 52,
+                        height: 52,
+                        borderRadius: "50%",
+                        background:
+                          "linear-gradient(155deg, #F0C040 0%, #C8A030 55%, #A07820 100%)",
+                        border: "1px solid rgba(150,110,20,0.35)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        cursor: "pointer",
+                        /* Single top specular — that's the entire 3D illusion */
+                        boxShadow:
+                          "inset 0 1px 0 rgba(255,255,255,0.38), 0 0 18px rgba(201,168,76,0.22)",
+                      }}
+                    >
+                      {isLoading ? (
+                        <span
+                          style={{
+                            animation: "spin 1s linear infinite",
+                            display: "block",
+                            fontSize: 16,
+                            color: "#000",
+                          }}
+                        >
+                          ◌
+                        </span>
+                      ) : (
+                        <Send size={16} color="#000" strokeWidth={2.6} />
+                      )}
+                    </button>
+                  </div>
+
+                  {/* Layer B — voice active */}
+                  <div
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      display: "flex",
+                      alignItems: "center",
+                      opacity: isVoiceActive ? 1 : 0,
+                      transform: isVoiceActive
+                        ? "translateY(0) scale(1)"
+                        : "translateY(5px) scale(0.97)",
+                      transition:
+                        "opacity 0.26s ease, transform 0.26s cubic-bezier(.4,0,.2,1)",
+                      pointerEvents: isVoiceActive ? "auto" : "none",
+                    }}
+                  >
+                    <div
+                      style={{
+                        flex: 1,
+                        height: 52,
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 10,
+                        borderRadius: 26,
+                        padding: "0 8px",
+                        background:
+                          voiceState === "listening"
+                            ? "rgba(201,168,76,0.07)"
+                            : "rgba(52,211,153,0.06)",
+                        border: `1px solid ${voiceState === "listening" ? "rgba(201,168,76,0.18)" : "rgba(52,211,153,0.16)"}`,
+                        boxShadow:
+                          voiceState === "listening"
+                            ? "inset 0 1px 0 rgba(245,200,66,0.12), inset 0 -1px 0 rgba(0,0,0,0.1)"
+                            : "inset 0 1px 0 rgba(52,211,153,0.1), inset 0 -1px 0 rgba(0,0,0,0.1)",
+                        transition:
+                          "background 0.35s, border-color 0.35s, box-shadow 0.35s",
+                      }}
+                    >
                       <button
-                        onClick={() =>
-                          voiceState === "speaking"
-                            ? stopSpeaking()
-                            : speak(display)
+                        type="button"
+                        onClick={
+                          voiceState === "listening"
+                            ? stopListening
+                            : stopSpeaking
                         }
                         style={{
                           flexShrink: 0,
-                          padding: "5px 10px",
-                          borderRadius: 8,
-                          border: `1px solid ${voiceState === "speaking" ? "rgba(52,211,153,.4)" : "rgba(201,168,76,.25)"}`,
+                          width: 38,
+                          height: 38,
+                          borderRadius: "50%",
                           background:
-                            voiceState === "speaking"
-                              ? "rgba(52,211,153,.08)"
-                              : "rgba(201,168,76,.05)",
-                          color: voiceState === "speaking" ? "#34D399" : C.gold,
-                          fontSize: 11,
+                            voiceState === "listening"
+                              ? "rgba(201,168,76,0.12)"
+                              : "rgba(52,211,153,0.1)",
+                          border: `1px solid ${voiceState === "listening" ? "rgba(201,168,76,0.22)" : "rgba(52,211,153,0.18)"}`,
                           cursor: "pointer",
-                          whiteSpace: "nowrap",
-                          transition: "all .15s",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          color:
+                            voiceState === "listening"
+                              ? COLORS.gold
+                              : "#34D399",
+                          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.14)",
+                          animation: "sp 1.8s ease-in-out infinite",
+                          transition: "all 0.3s ease",
                         }}
                       >
-                        {voiceState === "speaking" ? "■ Stop" : "▶ Read aloud"}
+                        {voiceState === "listening" ? (
+                          <svg
+                            width="14"
+                            height="14"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2.2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
+                            <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                            <line x1="12" y1="19" x2="12" y2="23" />
+                            <line x1="8" y1="23" x2="16" y2="23" />
+                          </svg>
+                        ) : (
+                          <Volume2 size={14} />
+                        )}
                       </button>
-                    );
-                  })()}
+
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 2.5,
+                          flexShrink: 0,
+                        }}
+                      >
+                        {[
+                          0.55, 1, 0.38, 0.85, 0.48, 0.95, 0.65, 0.42, 0.8,
+                          0.55,
+                        ].map((h, i) => (
+                          <span
+                            key={i}
+                            style={{
+                              display: "inline-block",
+                              width: 2.5,
+                              height: Math.round(h * 22),
+                              borderRadius: 3,
+                              background:
+                                voiceState === "listening"
+                                  ? COLORS.gold
+                                  : "#34D399",
+                              transformOrigin: "center",
+                              animation: `waveBar ${0.5 + (i % 3) * 0.2}s ${i * 55}ms ease-in-out infinite`,
+                              filter:
+                                voiceState === "listening"
+                                  ? "drop-shadow(0 0 3px rgba(201,168,76,0.65))"
+                                  : "drop-shadow(0 0 3px rgba(52,211,153,0.65))",
+                            }}
+                          />
+                        ))}
+                      </div>
+
+                      <span
+                        style={{
+                          flex: 1,
+                          fontSize: 13,
+                          fontWeight: 500,
+                          color:
+                            voiceState === "listening"
+                              ? COLORS.gold
+                              : "#34D399",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        {voiceState === "listening"
+                          ? transcript || "Listening…"
+                          : "Speaking…"}
+                      </span>
+
+                      <button
+                        type="button"
+                        onClick={
+                          voiceState === "listening"
+                            ? stopListening
+                            : stopSpeaking
+                        }
+                        style={{
+                          flexShrink: 0,
+                          width: 38,
+                          height: 38,
+                          borderRadius: "50%",
+                          background: "rgba(255,255,255,0.05)",
+                          border: "1px solid rgba(255,255,255,0.09)",
+                          cursor: "pointer",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          color: "rgba(255,255,255,0.45)",
+                          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08)",
+                          transition: "all 0.18s ease",
+                        }}
+                      >
+                        <X size={13} />
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

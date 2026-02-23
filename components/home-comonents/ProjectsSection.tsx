@@ -197,7 +197,11 @@ function ProjectCard({
                 }}
               >
                 <span
-                  style={{ color: p.color || COLORS.gold, flexShrink: 0, fontSize: 10 }}
+                  style={{
+                    color: p.color || COLORS.gold,
+                    flexShrink: 0,
+                    fontSize: 10,
+                  }}
                 >
                   →
                 </span>
@@ -206,7 +210,12 @@ function ProjectCard({
             ))}
           </div>
           <div
-            style={{ display: "flex", flexWrap: "wrap", gap: 5, marginBottom: 12 }}
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 5,
+              marginBottom: 12,
+            }}
           >
             {p.tech.map((t) => (
               <span

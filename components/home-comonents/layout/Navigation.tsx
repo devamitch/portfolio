@@ -1,7 +1,9 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
+import { Coffee } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { COLORS } from "~/data/portfolio.data";
 
 const NAV_ITEMS = [
   { id: "hero", label: "Home" },
@@ -15,32 +17,7 @@ const NAV_ITEMS = [
   { id: "contact", label: "Contact" },
 ];
 
-const C = {
-  bg: "#050505",
-  bg2: "#0A0A0A",
-  bg3: "#0F0F0F",
-  text: "#FFFFFF",
-  dim: "rgba(255,255,255,0.68)",
-  faint: "rgba(255,255,255,0.42)",
-  vfaint: "rgba(255,255,255,0.24)",
-  ghost: "rgba(255,255,255,0.10)",
-  border: "rgba(255,255,255,0.07)",
-  card: "rgba(255,255,255,0.025)",
-  gold: "#C9A84C",
-  goldL: "#F5C842",
-  goldD: "rgba(201,168,76,0.32)",
-  goldF: "rgba(201,168,76,0.08)",
-  goldG: "linear-gradient(135deg,#DAA520 0%,#F5C842 50%,#B8860B 100%)",
-  green: "#34D399",
-  blue: "#4FC3F7",
-  red: "#FF4444",
-  purple: "#C084FC",
-} as const;
-
-const GRID = "rgba(201,168,76,0.022)";
-const HN = "'Helvetica Neue',Helvetica,Arial,sans-serif";
 const MONO = "'JetBrains Mono','Space Mono',monospace";
-const EASE_X = [0.18, 1, 0.3, 1] as const;
 
 export default function Navigation() {
   const [active, setActive] = useState("hero");
@@ -51,8 +28,8 @@ export default function Navigation() {
     left: number;
     width: number;
   } | null>(null);
+  const [pressedId, setPressedId] = useState<string | null>(null);
 
-  const navRef = useRef<HTMLDivElement>(null);
   const pillRef = useRef<HTMLDivElement>(null);
   const btnRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const prevY = useRef(0);
@@ -63,8 +40,8 @@ export default function Navigation() {
       const el = document.getElementById(id);
       if (!el) return;
       const obs = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) setActive(id);
+        ([e]) => {
+          if (e.isIntersecting) setActive(id);
         },
         { rootMargin: "-35% 0px -55% 0px" },
       );
@@ -79,9 +56,9 @@ export default function Navigation() {
     const btn = btnRefs.current[idx];
     const pill = pillRef.current;
     if (!btn || !pill) return;
-    const bRect = btn.getBoundingClientRect();
-    const pRect = pill.getBoundingClientRect();
-    setIndicator({ left: bRect.left - pRect.left, width: bRect.width });
+    const br = btn.getBoundingClientRect();
+    const pr = pill.getBoundingClientRect();
+    setIndicator({ left: br.left - pr.left, width: br.width });
   }, [active]);
 
   useEffect(() => {
@@ -106,42 +83,60 @@ export default function Navigation() {
   return (
     <>
       <motion.nav
-        ref={navRef}
         animate={{ y: hidden && !menuOpen ? -90 : 0 }}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        transition={{ type: "spring", stiffness: 320, damping: 32 }}
         style={{
           position: "fixed",
           top: 0,
           left: 0,
           right: 0,
           zIndex: 100,
-          padding: "clamp(16px, 4vw, 20px) clamp(24px, 6vw, 70px)",
+          padding: "clamp(14px,4vw,18px) clamp(24px,6vw,70px)",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          background: scrolled ? "rgba(5,5,5,0.94)" : "transparent",
-          backdropFilter: scrolled ? "blur(24px) saturate(180%)" : "none",
-          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.05)" : "none",
+          /* Liquid glass bar — depth from blur + single hairline, not shadows */
+          background: scrolled ? "rgba(5,5,5,0.72)" : "transparent",
+          backdropFilter: scrolled ? "blur(48px) saturate(180%)" : "none",
+          WebkitBackdropFilter: scrolled ? "blur(48px) saturate(180%)" : "none",
+          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.06)" : "none",
           transition:
-            "background 0.3s, backdrop-filter 0.3s, border-color 0.3s",
+            "background 0.4s, backdrop-filter 0.4s, border-color 0.4s",
         }}
       >
-        {}
+        {/* Logo */}
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <div
             style={{
               width: 34,
               height: 34,
-              background: "linear-gradient(135deg,#C9A84C,#B8860B)",
+              /* Clean metallic face — no thick bottom edge */
+              background:
+                "linear-gradient(145deg, #E8B422 0%, #C9A84C 60%, #A07820 100%)",
+              /* Single top specular = perceived 3D convexity */
+              boxShadow:
+                "inset 0 1px 0 rgba(255,255,255,0.35), 0 0 14px rgba(201,168,76,0.18)",
+              border: "1px solid rgba(160,120,30,0.4)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              fontFamily: HN,
               fontSize: 15,
               fontWeight: 900,
               color: "#000",
-              flexShrink: 0,
-              borderRadius: 4,
+              borderRadius: 6,
+              transition:
+                "transform 0.3s cubic-bezier(.34,1.4,.64,1), box-shadow 0.3s",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform =
+                "perspective(300px) rotateY(-8deg) rotateX(4deg)";
+              e.currentTarget.style.boxShadow =
+                "inset 0 1px 0 rgba(255,255,255,0.45), 0 0 24px rgba(201,168,76,0.3)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "";
+              e.currentTarget.style.boxShadow =
+                "inset 0 1px 0 rgba(255,255,255,0.35), 0 0 14px rgba(201,168,76,0.18)";
             }}
           >
             A
@@ -162,7 +157,7 @@ export default function Navigation() {
               style={{
                 fontSize: 8,
                 letterSpacing: "0.18em",
-                color: "rgba(212,168,65,0.7)",
+                color: "rgba(212,168,65,0.65)",
                 textTransform: "uppercase",
                 marginTop: 2,
               }}
@@ -172,7 +167,7 @@ export default function Navigation() {
           </div>
         </div>
 
-        {}
+        {/* Pill nav */}
         <div
           ref={pillRef}
           className="nav-pill"
@@ -182,111 +177,181 @@ export default function Navigation() {
             transform: "translateX(-50%)",
             display: "flex",
             alignItems: "center",
-            background: "rgba(255,255,255,0.035)",
+            /* Liquid glass pill — depth from a single inset specular + soft ambient glow */
+            background: "rgba(255,255,255,0.04)",
             border: "1px solid rgba(255,255,255,0.07)",
             borderRadius: 40,
             padding: "3px 4px",
+            boxShadow:
+              "inset 0 1px 0 rgba(255,255,255,0.07), 0 8px 32px rgba(0,0,0,0.35)",
           }}
         >
-          {}
+          {/* Sliding active indicator — clean liquid glass platform */}
           {indicator && (
             <motion.div
               animate={{ left: indicator.left, width: indicator.width }}
-              transition={{ type: "spring", stiffness: 380, damping: 32 }}
+              transition={{ type: "spring", stiffness: 420, damping: 36 }}
               style={{
                 position: "absolute",
                 top: 3,
                 bottom: 3,
                 borderRadius: 36,
-                background: "linear-gradient(135deg, #d4a841 0%, #f5c842 100%)",
-                border: "1px solid rgba(212,168,65,0.3)",
+                /* Gold glass — specular on top, ambient glow underneath */
+                background: "linear-gradient(170deg, #F0C040 0%, #C9A030 100%)",
+                /* Single top-edge highlight = depth without any edge shadow */
+                boxShadow:
+                  "inset 0 1px 0 rgba(255,255,255,0.4), 0 0 16px rgba(201,168,76,0.25)",
+                border: "1px solid rgba(160,120,20,0.3)",
                 pointerEvents: "none",
               }}
             />
           )}
 
-          {NAV_ITEMS.map(({ id, label }, i) => (
-            <button
-              key={id}
-              ref={(el) => {
-                btnRefs.current[i] = el;
-              }}
-              onClick={() => scrollTo(id)}
-              style={{
-                position: "relative",
-                zIndex: 1,
-                background: "transparent",
-                border: "none",
-                cursor: "pointer",
-                padding: "8px 12px",
-                fontSize: 9,
-                fontWeight: active === id ? 700 : 400,
-                letterSpacing: "0.14em",
-                textTransform: "uppercase",
-                color: active === id ? "#000000" : "rgba(255, 255, 255, 0.75)",
-                transition: "color 0.2s ease-in-out",
-                whiteSpace: "nowrap",
-                borderRadius: 15,
-              }}
-            >
-              {label}
-            </button>
-          ))}
+          {NAV_ITEMS.map(({ id, label }, i) => {
+            const isActive = active === id;
+            const isPressed = pressedId === id;
+            return (
+              <button
+                key={id}
+                ref={(el) => {
+                  btnRefs.current[i] = el;
+                }}
+                onClick={() => scrollTo(id)}
+                onMouseDown={() => setPressedId(id)}
+                onMouseUp={() => setPressedId(null)}
+                onMouseLeave={() => setPressedId(null)}
+                style={{
+                  position: "relative",
+                  zIndex: 1,
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  padding: "8px 12px",
+                  fontSize: 9,
+                  fontWeight: isActive ? 700 : 400,
+                  letterSpacing: "0.14em",
+                  textTransform: "uppercase",
+                  color: isActive ? "#000" : "rgba(255,255,255,0.7)",
+                  /* Micro press — just scale, no rotation gimmick */
+                  transform: isPressed ? "scale(0.92)" : "scale(1)",
+                  transition: isPressed
+                    ? "transform 0.07s ease"
+                    : "transform 0.3s cubic-bezier(.34,1.4,.64,1), color 0.18s",
+                  whiteSpace: "nowrap",
+                  borderRadius: 15,
+                }}
+              >
+                {label}
+              </button>
+            );
+          })}
         </div>
 
-        {}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "flex-end",
-            gap: 16,
-          }}
-        >
+        {/* Right actions */}
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          {/* Coffee — liquid glass circle */}
+          <button
+            onClick={() =>
+              window.open("https://buymeacoffee.com/amithellmab", "_blank")
+            }
+            style={{
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              padding: 0,
+            }}
+          >
+            <span
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 40,
+                height: 40,
+                borderRadius: "50%",
+                background: "rgba(201,168,76,0.08)",
+                border: "1px solid rgba(201,168,76,0.18)",
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.12)",
+                transition: "all 0.22s cubic-bezier(.34,1.4,.64,1)",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.background =
+                  "rgba(201,168,76,0.14)";
+                (e.currentTarget as HTMLElement).style.transform =
+                  "scale(1.06)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.background =
+                  "rgba(201,168,76,0.08)";
+                (e.currentTarget as HTMLElement).style.transform = "scale(1)";
+              }}
+              onMouseDown={(e) => {
+                (e.currentTarget as HTMLElement).style.transform =
+                  "scale(0.92)";
+              }}
+              onMouseUp={(e) => {
+                (e.currentTarget as HTMLElement).style.transform =
+                  "scale(1.06)";
+              }}
+            >
+              <Coffee size={18} color="#f5c842" strokeWidth={2.2} />
+            </span>
+          </button>
+
+          {/* CTA — clean gold glass pill */}
           <button
             onClick={() => scrollTo("contact")}
             className="nav-cta"
             style={{
-              background: "linear-gradient(135deg, #d4a841, #f5c842)",
-              border: "none",
+              background: "linear-gradient(170deg, #F0C040 0%, #C9A030 100%)",
+              border: "1px solid rgba(160,120,20,0.3)",
               borderRadius: 20,
-              padding: "10px 20px",
+              padding: "10px 22px",
               fontSize: 9,
               fontWeight: 700,
               letterSpacing: "0.14em",
               textTransform: "uppercase",
               color: "#000",
               cursor: "pointer",
-              textDecoration: "none",
-              boxShadow: "0 6px 24px rgba(201,168,76,.25)",
-              transition: "transform 0.2s, box-shadow 0.2s",
+              /* Single top specular only — clean and premium */
+              boxShadow:
+                "inset 0 1px 0 rgba(255,255,255,0.35), 0 0 16px rgba(201,168,76,0.2)",
+              transition: "all 0.2s cubic-bezier(.34,1.4,.64,1)",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "translateY(-2px)";
+              e.currentTarget.style.transform = "scale(1.04)";
               e.currentTarget.style.boxShadow =
-                "0 8px 32px rgba(201,168,76,.4)";
+                "inset 0 1px 0 rgba(255,255,255,0.45), 0 0 28px rgba(201,168,76,0.35)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "translateY(0)";
+              e.currentTarget.style.transform = "";
               e.currentTarget.style.boxShadow =
-                "0 6px 24px rgba(201,168,76,.25)";
+                "inset 0 1px 0 rgba(255,255,255,0.35), 0 0 16px rgba(201,168,76,0.2)";
+            }}
+            onMouseDown={(e) => {
+              e.currentTarget.style.transform = "scale(0.96)";
+            }}
+            onMouseUp={(e) => {
+              e.currentTarget.style.transform = "scale(1.04)";
             }}
           >
             Let's Build
           </button>
 
+          {/* Hamburger */}
           <button
             onClick={() => setMenuOpen((o) => !o)}
             className="nav-hamburger"
             style={{
               display: "none",
-              background: "transparent",
-              border: "1px solid rgba(255,255,255,0.15)",
+              background: "rgba(255,255,255,0.04)",
+              border: "1px solid rgba(255,255,255,0.09)",
               borderRadius: 8,
               padding: "8px 10px",
               cursor: "pointer",
               flexDirection: "column",
               gap: 4,
+              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06)",
             }}
           >
             {[0, 1, 2].map((i) => (
@@ -296,9 +361,9 @@ export default function Navigation() {
                   display: "block",
                   width: 18,
                   height: 1.5,
-                  background: "rgba(255,255,255,0.7)",
+                  background: "rgba(255,255,255,0.65)",
                   borderRadius: 2,
-                  transition: "transform 0.2s, opacity 0.2s",
+                  transition: "transform 0.22s, opacity 0.22s",
                   transform: menuOpen
                     ? i === 0
                       ? "rotate(45deg) translate(4px,4px)"
@@ -314,20 +379,20 @@ export default function Navigation() {
         </div>
       </motion.nav>
 
-      {}
+      {/* Full-screen menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
             initial={{ opacity: 0, clipPath: "circle(0% at 95% 5%)" }}
             animate={{ opacity: 1, clipPath: "circle(150% at 95% 5%)" }}
             exit={{ opacity: 0, clipPath: "circle(0% at 95% 5%)" }}
-            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
             style={{
               position: "fixed",
               inset: 0,
               zIndex: 99,
-              background: "rgba(5,5,5,0.97)",
-              backdropFilter: "blur(24px)",
+              background: "rgba(4,4,4,0.92)",
+              backdropFilter: "blur(40px)",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
@@ -339,45 +404,52 @@ export default function Navigation() {
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "1fr",
-                gap: 16,
-                marginBottom: 40,
+                gap: 10,
+                marginBottom: 36,
                 width: "100%",
-                maxWidth: 320,
+                maxWidth: 300,
               }}
             >
               {NAV_ITEMS.map(({ id, label }, i) => (
                 <motion.button
                   key={id}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.04 }}
+                  transition={{
+                    delay: i * 0.035,
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 24,
+                  }}
                   onClick={() => scrollTo(id)}
                   style={{
                     cursor: "pointer",
-                    border: "none",
-                    textDecoration: "none",
-                    transition: "all 0.3s ease-in-out",
-                    display: "block",
+                    border: "1px solid",
+                    borderColor:
+                      id === active
+                        ? "rgba(201,168,76,0.22)"
+                        : "rgba(255,255,255,0.05)",
+                    textAlign: "left",
                     width: "100%",
-                    textAlign: "center",
                     background:
                       id === active
-                        ? "linear-gradient(135deg, #d4a841 0%, #f5c842 100%)"
-                        : "transparent",
-                    borderRadius: 28,
-                    padding: id === active ? "16px 20px" : "12px 20px",
-                    boxShadow:
-                      id === active
-                        ? "0 6px 24px rgba(201,168,76,0.25)"
-                        : "none",
+                        ? "rgba(201,168,76,0.08)"
+                        : "rgba(255,255,255,0.02)",
+                    borderRadius: 14,
+                    padding: "15px 20px",
                     color:
-                      id === active ? "#000000" : "rgba(255, 255, 255, 0.75)",
+                      id === active ? COLORS.gold : "rgba(255,255,255,0.65)",
                     fontWeight: id === active ? 700 : 400,
-                    fontSize: id === active ? 14 : 24,
-                    letterSpacing: id === active ? "0.22em" : "-0.02em",
+                    fontSize: id === active ? 11 : 22,
+                    letterSpacing: id === active ? "0.2em" : "-0.02em",
                     textTransform: id === active ? "uppercase" : "none",
                     fontFamily: id === active ? MONO : "inherit",
+                    /* Clean glass card — one specular line */
+                    boxShadow:
+                      id === active
+                        ? "inset 0 1px 0 rgba(255,255,255,0.08)"
+                        : "inset 0 1px 0 rgba(255,255,255,0.03)",
+                    transition: "all 0.18s ease",
                   }}
                 >
                   {label}
@@ -386,28 +458,28 @@ export default function Navigation() {
             </div>
 
             <motion.button
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.42 }}
+              transition={{ delay: 0.38 }}
               onClick={() => scrollTo("contact")}
               style={{
                 background: "transparent",
-                border: `1px solid ${C.gold}`,
+                border: `1px solid rgba(201,168,76,0.35)`,
                 borderRadius: 28,
-                padding: "16px 40px",
+                padding: "15px 40px",
                 display: "inline-flex",
                 alignItems: "center",
-                gap: 10,
-                color: C.gold,
-                fontSize: 13,
+                color: COLORS.gold,
+                fontSize: 12,
                 fontWeight: 700,
-                letterSpacing: "0.22em",
+                letterSpacing: "0.2em",
                 textTransform: "uppercase",
                 fontFamily: MONO,
-                textDecoration: "none",
                 width: "100%",
-                maxWidth: 320,
+                maxWidth: 300,
                 justifyContent: "center",
+                cursor: "pointer",
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06)",
               }}
             >
               Contact Me
@@ -417,14 +489,8 @@ export default function Navigation() {
       </AnimatePresence>
 
       <style>{`
-        @media (max-width: 960px) {
-          .nav-pill { display: none !important; }
-          .nav-hamburger { display: flex !important; }
-        }
-        @media (max-width: 640px) {
-          .nav-cta { display: none !important; }
-          .nav-brand-text { display: none !important; }
-        }
+        @media (max-width: 960px) { .nav-pill { display: none !important; } .nav-hamburger { display: flex !important; } }
+        @media (max-width: 640px) { .nav-cta { display: none !important; } .nav-brand-text { display: none !important; } }
       `}</style>
     </>
   );

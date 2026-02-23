@@ -1,10 +1,36 @@
 "use client";
 
+import {
+  ArrowRight,
+  CheckCircle2,
+  Code2,
+  FlaskConical,
+  Handshake,
+  Layers,
+  MessageSquare,
+  Rocket,
+  Search,
+  Target,
+} from "lucide-react";
 import { motion } from "framer-motion";
 import { useRef } from "react";
 import { COLORS, EASE_X, HN, MONO, PROFILE_DATA } from "~/data/portfolio.data";
 import { useInView } from "~/hooks/useInView";
 import { SH, SLabel } from "../ui/SectionsComponents";
+import { Card3D, IconBox } from "./shared";
+
+// Map process step index → Lucide icon
+const PROCESS_ICONS = [
+  Search,
+  MessageSquare,
+  Target,
+  Layers,
+  Code2,
+  FlaskConical,
+  CheckCircle2,
+  Rocket,
+  Handshake,
+];
 
 export default function ProcessSection() {
   const ref = useRef<HTMLElement>(null);
@@ -20,6 +46,7 @@ export default function ProcessSection() {
         overflow: "hidden",
       }}
     >
+      {/* Ambient glow */}
       <div
         style={{
           position: "absolute",
@@ -38,6 +65,7 @@ export default function ProcessSection() {
       >
         <SLabel num="07">How I Work</SLabel>
         <SH l1="The process." l2="No black boxes." />
+
         <div
           style={{
             display: "grid",
@@ -45,80 +73,129 @@ export default function ProcessSection() {
             gap: 20,
           }}
         >
-          {PROFILE_DATA.process.map((step, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 40 }}
-              animate={visible ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.65, delay: i * 0.09, ease: EASE_X }}
-            >
-              <div
-                style={{
-                  padding: "clamp(24px,3vw,36px)",
-                  border: `1px solid ${COLORS.border}`,
-                  background: COLORS.card,
-                  height: "100%",
-                  position: "relative",
-                  overflow: "hidden",
-                }}
+          {PROFILE_DATA.process.map((step, i) => {
+            const StepIcon = PROCESS_ICONS[i % PROCESS_ICONS.length]!;
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 40 }}
+                animate={visible ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.65, delay: i * 0.09, ease: EASE_X }}
               >
-                <div
-                  aria-hidden
-                  style={{
-                    position: "absolute",
-                    top: -10,
-                    right: 16,
-                    fontSize: 80,
-                    fontFamily: HN,
-                    fontWeight: 900,
-                    color: `${step.color}0C`,
-                    lineHeight: 1,
-                    pointerEvents: "none",
-                    userSelect: "none",
-                    letterSpacing: "-0.04em",
-                  }}
+                <Card3D
+                  variant="process"
+                  accentColor={step.color}
+                  topBar
+                  tiltDeg={10}
+                  padding="clamp(24px,3vw,36px)"
+                  style={{ height: "100%", position: "relative", overflow: "hidden" }}
                 >
-                  {step.step}
-                </div>
-                <div
-                  style={{
-                    fontFamily: MONO,
-                    fontSize: 9,
-                    color: step.color,
-                    letterSpacing: "0.22em",
-                    textTransform: "uppercase",
-                    marginBottom: 14,
-                  }}
-                >
-                  Step {step.step} · {step.duration}
-                </div>
-                <h3
-                  style={{
-                    fontSize: "clamp(18px,2.2vw,22px)",
-                    fontWeight: 800,
-                    marginBottom: 12,
-                    letterSpacing: "-0.02em",
-                    fontFamily: HN,
-                  }}
-                >
-                  {step.title}
-                </h3>
-                <p style={{ color: COLORS.faint, fontSize: 14, lineHeight: 1.7 }}>
-                  {step.desc}
-                </p>
-                <div
-                  style={{
-                    position: "absolute",
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    height: 2,
-                    background: `linear-gradient(90deg,transparent,${step.color}44,transparent)`,
-                  }}
-                />
-              </div>
-            </motion.div>
-          ))}
+                  {/* Watermark number */}
+                  <div
+                    aria-hidden
+                    style={{
+                      position: "absolute",
+                      top: -10,
+                      right: 16,
+                      fontSize: 80,
+                      fontFamily: HN,
+                      fontWeight: 900,
+                      color: `${step.color}0C`,
+                      lineHeight: 1,
+                      pointerEvents: "none",
+                      userSelect: "none",
+                      letterSpacing: "-0.04em",
+                    }}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </div>
+
+                  {/* Step number badge */}
+                  <div
+                    style={{
+                      fontFamily: MONO,
+                      fontSize: 9,
+                      color: step.color,
+                      letterSpacing: "0.24em",
+                      textTransform: "uppercase",
+                      marginBottom: 16,
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 8,
+                    }}
+                  >
+                    <span>Step {String(i + 1).padStart(2, "0")}</span>
+                  </div>
+
+                  {/* Icon */}
+                  <div style={{ marginBottom: 16 }}>
+                    <IconBox
+                      icon={<StepIcon size={16} color={step.color} strokeWidth={2} />}
+                      variant="colored"
+                      color={step.color}
+                      size={36}
+                      shape="square"
+                    />
+                  </div>
+
+                  {/* Title */}
+                  <h3
+                    style={{
+                      fontSize: "clamp(16px,2vw,20px)",
+                      fontWeight: 800,
+                      letterSpacing: "-0.02em",
+                      marginBottom: 10,
+                      fontFamily: HN,
+                      color: COLORS.text,
+                    }}
+                  >
+                    {step.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p
+                    style={{
+                      fontSize: 13,
+                      color: COLORS.faint,
+                      lineHeight: 1.7,
+                      marginBottom: 16,
+                    }}
+                  >
+                    {step.desc}
+                  </p>
+
+                  {/* Deliverables */}
+                  {step.deliverables?.map((d, di) => (
+                    <div
+                      key={di}
+                      style={{
+                        display: "flex",
+                        gap: 8,
+                        alignItems: "flex-start",
+                        marginBottom: 6,
+                      }}
+                    >
+                      <ArrowRight
+                        size={11}
+                        color={step.color}
+                        style={{ flexShrink: 0, marginTop: 3 }}
+                      />
+                      <span
+                        style={{
+                          fontFamily: MONO,
+                          fontSize: 10,
+                          color: COLORS.vfaint,
+                          letterSpacing: "0.04em",
+                        }}
+                      >
+                        {d}
+                      </span>
+                    </div>
+                  ))}
+                </Card3D>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -1,10 +1,12 @@
 "use client";
 
+import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { useRef } from "react";
 import { COLORS, EASE_X, HN, MONO, PROFILE_DATA } from "~/data/portfolio.data";
 import { useInView } from "~/hooks/useInView";
 import { SH, SLabel } from "../ui/SectionsComponents";
+import { Btn, Card3D, ServiceIcon } from "./shared";
 
 export default function ServicesSection() {
   const ref = useRef<HTMLElement>(null);
@@ -21,6 +23,7 @@ export default function ServicesSection() {
         background: COLORS.bg2,
       }}
     >
+      {/* Ambient glow */}
       <div
         style={{
           position: "absolute",
@@ -52,6 +55,7 @@ export default function ServicesSection() {
           Whether you have a raw idea, need an expert review, or want a complete
           build — here's how we work together.
         </p>
+
         <div
           style={{
             display: "grid",
@@ -66,46 +70,20 @@ export default function ServicesSection() {
               animate={visible ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.72, delay: i * 0.13, ease: EASE_X }}
             >
-              <motion.div
-                whileHover={{
-                  y: -8,
-                  boxShadow:
-                    "0 32px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(201,168,76,.15)",
-                }}
-                transition={{ duration: 0.4 }}
-                style={{
-                  padding: "clamp(28px,4vw,40px)",
-                  border: `1px solid ${svc.color}28`,
-                  background: COLORS.card,
-                  display: "flex",
-                  flexDirection: "column",
-                  height: "100%",
-                  position: "relative",
-                  overflow: "hidden",
-                  transition: "box-shadow .4s",
-                }}
+              <Card3D
+                variant="service"
+                accentColor={svc.color}
+                topBar
+                tiltDeg={9}
+                padding="clamp(28px,4vw,40px)"
+                style={{ display: "flex", flexDirection: "column", height: "100%" }}
               >
-                <div
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    height: 2,
-                    background: svc.color,
-                  }}
-                />
-                <div
-                  style={{
-                    fontSize: 28,
-                    color: svc.color,
-                    marginBottom: 20,
-                    fontWeight: 900,
-                    lineHeight: 1,
-                  }}
-                >
-                  {svc.icon}
+                {/* Icon */}
+                <div style={{ marginBottom: 20 }}>
+                  <ServiceIcon icon={svc.icon} color={svc.color} size={26} />
                 </div>
+
+                {/* Title */}
                 <div style={{ marginBottom: 24 }}>
                   <h3
                     style={{
@@ -114,6 +92,7 @@ export default function ServicesSection() {
                       letterSpacing: "-0.025em",
                       marginBottom: 6,
                       fontFamily: HN,
+                      color: COLORS.text,
                     }}
                   >
                     {svc.title}
@@ -130,36 +109,33 @@ export default function ServicesSection() {
                     {svc.sub}
                   </div>
                 </div>
+
+                {/* Items list */}
                 <div style={{ flex: 1, marginBottom: 28 }}>
                   {svc.items.map((item, ii) => (
                     <div
                       key={ii}
                       style={{
                         display: "flex",
-                        gap: 12,
+                        gap: 10,
                         alignItems: "flex-start",
                         padding: "10px 0",
                         borderBottom: `1px solid ${COLORS.border}`,
                       }}
                     >
-                      <span
-                        style={{
-                          color: svc.color,
-                          flexShrink: 0,
-                          fontSize: 11,
-                          marginTop: 2,
-                        }}
-                      >
-                        →
-                      </span>
-                      <span
-                        style={{ color: COLORS.faint, fontSize: 14, lineHeight: 1.4 }}
-                      >
+                      <ArrowRight
+                        size={13}
+                        color={svc.color}
+                        style={{ flexShrink: 0, marginTop: 3 }}
+                      />
+                      <span style={{ color: COLORS.faint, fontSize: 14, lineHeight: 1.4 }}>
                         {item}
                       </span>
                     </div>
                   ))}
                 </div>
+
+                {/* Pricing + CTA */}
                 <div
                   style={{
                     borderTop: `1px solid ${svc.color}22`,
@@ -187,38 +163,21 @@ export default function ServicesSection() {
                   >
                     {svc.note}
                   </div>
-                  <a
+                  <Btn
                     href={svc.href}
+                    variant="outline"
+                    fullWidth
                     style={{
-                      display: "block",
-                      textAlign: "center",
-                      padding: "13px",
-                      background: `${svc.color}18`,
-                      border: `1px solid ${svc.color}44`,
+                      borderColor: svc.color + "55",
                       color: svc.color,
-                      fontWeight: 700,
-                      fontSize: 14,
-                      textDecoration: "none",
-                      fontFamily: HN,
-                      transition: "background .22s,transform .22s",
+                      justifyContent: "center",
                     }}
-                    onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLElement).style.background =
-                        `${svc.color}30`;
-                      (e.currentTarget as HTMLElement).style.transform =
-                        "translateY(-2px)";
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLElement).style.background =
-                        `${svc.color}18`;
-                      (e.currentTarget as HTMLElement).style.transform =
-                        "translateY(0)";
-                    }}
+                    iconRight={<ArrowRight size={13} />}
                   >
                     {svc.cta}
-                  </a>
+                  </Btn>
                 </div>
-              </motion.div>
+              </Card3D>
             </motion.div>
           ))}
         </div>

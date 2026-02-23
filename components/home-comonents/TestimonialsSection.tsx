@@ -1,9 +1,10 @@
 "use client";
 
+import { Quote } from "lucide-react";
 import { motion } from "framer-motion";
 import { COLORS, MONO, PROFILE_DATA } from "~/data/portfolio.data";
 import { SH, SLabel } from "../ui/SectionsComponents";
-import { Badge, TiltCard } from "./shared";
+import { Badge, Card3D } from "./shared";
 
 export default function TestimonialsSection() {
   return (
@@ -25,6 +26,7 @@ export default function TestimonialsSection() {
         >
           Ordered by seniority — from direct manager to mentored developers.
         </p>
+
         <div
           style={{
             display: "grid",
@@ -39,128 +41,140 @@ export default function TestimonialsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
+              style={{ height: "100%" }}
             >
-              <TiltCard style={{ height: "100%", position: "relative" }}>
+              <Card3D
+                variant="testimonial"
+                accentColor={t.col}
+                tiltDeg={9}
+                padding={32}
+                style={{ height: "100%", position: "relative", overflow: "hidden" }}
+              >
+                {/* Header row */}
                 <div
                   style={{
-                    padding: 32,
-                    border: `1px solid ${COLORS.border}`,
-                    background: COLORS.card,
-                    position: "relative",
-                    overflow: "hidden",
-                    borderTop: `3px solid ${t.col}`,
-                    height: "100%",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "flex-start",
+                    marginBottom: 20,
                   }}
                 >
+                  <Badge color={t.col}>{t.seniority}</Badge>
+                  <span
+                    style={{ fontFamily: MONO, fontSize: 9, color: COLORS.vfaint }}
+                  >
+                    {t.date}
+                  </span>
+                </div>
+
+                {/* Quote icon */}
+                <Quote
+                  size={40}
+                  color={COLORS.border}
+                  style={{
+                    position: "absolute",
+                    top: 18,
+                    right: 22,
+                    opacity: 0.3,
+                    pointerEvents: "none",
+                  }}
+                />
+
+                {/* Quote text */}
+                <p
+                  style={{
+                    fontSize: 14,
+                    color: COLORS.dim,
+                    lineHeight: 1.75,
+                    fontStyle: "italic",
+                    marginBottom: 22,
+                    position: "relative",
+                    zIndex: 1,
+                  }}
+                >
+                  "{t.quote}"
+                </p>
+
+                {/* Author */}
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 12,
+                    paddingTop: 18,
+                    borderTop: `1px solid ${COLORS.border}`,
+                  }}
+                >
+                  {/* Avatar */}
                   <div
                     style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "flex-start",
-                      marginBottom: 20,
-                    }}
-                  >
-                    <Badge color={t.col}>{t.seniority}</Badge>
-                    <span
-                      style={{ fontFamily: MONO, fontSize: 9, color: COLORS.vfaint }}
-                    >
-                      {t.date}
-                    </span>
-                  </div>
-                  <div
-                    style={{
-                      fontSize: 56,
-                      color: "rgba(255,255,255,.035)",
-                      position: "absolute",
-                      top: 18,
-                      right: 22,
-                      lineHeight: 1,
-                      fontFamily: "Georgia",
-                      userSelect: "none",
-                    }}
-                  >
-                    &ldquo;
-                  </div>
-                  <p
-                    style={{
-                      fontSize: 13,
-                      color: COLORS.dim,
-                      lineHeight: 1.85,
-                      fontWeight: 300,
-                      marginBottom: 24,
-                    }}
-                  >
-                    &ldquo;{t.text}&rdquo;
-                  </p>
-                  <div
-                    style={{
+                      width: 38,
+                      height: 38,
+                      borderRadius: "50%",
+                      background: `${t.col}20`,
+                      border: `1.5px solid ${t.col}44`,
                       display: "flex",
                       alignItems: "center",
-                      gap: 14,
-                      borderTop: `1px solid ${COLORS.border}`,
-                      paddingTop: 16,
+                      justifyContent: "center",
+                      flexShrink: 0,
+                      fontWeight: 800,
+                      fontSize: 14,
+                      color: t.col,
+                      fontFamily: "inherit",
+                      boxShadow: `0 0 12px ${t.col}22`,
                     }}
                   >
+                    {t.name.charAt(0)}
+                  </div>
+                  <div>
                     <div
                       style={{
-                        width: 44,
-                        height: 44,
-                        borderRadius: "50%",
-                        background: `${t.col}18`,
-                        border: `1px solid ${t.col}55`,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        flexShrink: 0,
+                        fontSize: 13,
+                        fontWeight: 700,
+                        color: COLORS.text,
+                        letterSpacing: "-0.01em",
                       }}
                     >
-                      <span
-                        style={{ fontSize: 18, fontWeight: 700, color: t.col }}
-                      >
-                        {t.name[0]}
-                      </span>
+                      {t.name}
                     </div>
-                    <div>
-                      <a
-                        href={t.li}
-                        target="_blank"
-                        rel="noreferrer"
-                        style={{
-                          fontSize: 14,
-                          fontWeight: 700,
-                          color: COLORS.text,
-                          textDecoration: "none",
-                          transition: "color .2s",
-                        }}
-                        onMouseEnter={(e) =>
-                          (e.currentTarget.style.color = COLORS.gold)
-                        }
-                        onMouseLeave={(e) =>
-                          (e.currentTarget.style.color = COLORS.text)
-                        }
-                      >
-                        {t.name}
-                      </a>
-                      <div
-                        style={{ fontSize: 10, color: COLORS.faint, marginTop: 2 }}
-                      >
-                        {t.role}
-                      </div>
-                      <div
-                        style={{
-                          fontSize: 9,
-                          color: t.col,
-                          fontFamily: MONO,
-                          marginTop: 3,
-                          opacity: 0.85,
-                        }}
-                      >
-                        {t.rel} · {t.company}
-                      </div>
+                    <div
+                      style={{
+                        fontSize: 10,
+                        color: COLORS.vfaint,
+                        fontFamily: MONO,
+                        marginTop: 2,
+                        letterSpacing: "0.04em",
+                      }}
+                    >
+                      {t.title}
                     </div>
                   </div>
+                  {t.linkedin && (
+                    <a
+                      href={t.linkedin}
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{
+                        marginLeft: "auto",
+                        fontSize: 10,
+                        color: COLORS.vfaint,
+                        fontFamily: MONO,
+                        textDecoration: "none",
+                        letterSpacing: "0.06em",
+                        transition: "color 0.2s",
+                      }}
+                      onMouseEnter={(e) =>
+                        (e.currentTarget.style.color = COLORS.gold)
+                      }
+                      onMouseLeave={(e) =>
+                        (e.currentTarget.style.color = COLORS.vfaint)
+                      }
+                    >
+                      LI ↗
+                    </a>
+                  )}
                 </div>
-              </TiltCard>
+              </Card3D>
             </motion.div>
           ))}
         </div>

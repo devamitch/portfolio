@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { COLORS, MONO, PROFILE_DATA } from "~/data/portfolio.data";
 import { useInView } from "~/hooks/useInView";
 import { SH, SLabel } from "../ui/SectionsComponents";
+import { Card3D, Chip } from "./shared";
 
 export default function SkillsSection() {
   const skillsRef = useRef<HTMLElement>(null);
@@ -22,17 +23,11 @@ export default function SkillsSection() {
     gsap.fromTo(
       ".skill-item",
       { scale: 0.85, opacity: 0 },
-      {
-        scale: 1,
-        opacity: 1,
-        stagger: 0.04,
-        duration: 0.5,
-        ease: "back.out(1.4)",
-      },
+      { scale: 1, opacity: 1, stagger: 0.04, duration: 0.5, ease: "back.out(1.4)" },
     );
   }, [skillTab, visible]);
 
-  const cat = PROFILE_DATA.skills[skillTab];
+  const cat = PROFILE_DATA.skills[skillTab]!;
 
   return (
     <section
@@ -44,36 +39,21 @@ export default function SkillsSection() {
         <SLabel num="03">Technical Arsenal</SLabel>
         <SH l1="Deep stack." l2="Not full stack." />
 
-        {/* Tab bar */}
-        <div
-          style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 32 }}
-        >
+        {/* Tab bar using Chip */}
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 32 }}>
           {PROFILE_DATA.skills.map((s, i) => (
-            <motion.button
+            <Chip
               key={s.cat}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.97 }}
+              active={skillTab === i}
+              color={s.color ?? COLORS.gold}
               onClick={() => setSkillTab(i)}
-              style={{
-                padding: "9px 18px",
-                fontSize: 9,
-                fontFamily: MONO,
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                cursor: "pointer",
-                background: skillTab === i ? cat.color : "transparent",
-                color: skillTab === i ? "#000" : COLORS.faint,
-                border: `1px solid ${skillTab === i ? cat.color : COLORS.border}`,
-                fontWeight: skillTab === i ? 700 : 400,
-                transition: "all .2s",
-              }}
             >
               {s.cat}
-            </motion.button>
+            </Chip>
           ))}
         </div>
 
-        {/* Skill items with progress bars */}
+        {/* Skill grid */}
         <AnimatePresence mode="wait">
           <motion.div
             key={skillTab}
@@ -94,48 +74,52 @@ export default function SkillsSection() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: i * 0.04 }}
-                style={{
-                  padding: "16px 20px",
-                  border: `1px solid ${COLORS.border}`,
-                  background: COLORS.card,
-                }}
               >
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    marginBottom: 10,
-                  }}
+                <Card3D
+                  variant="skill"
+                  accentColor={cat.color}
+                  tiltDeg={9}
+                  padding="16px 20px"
                 >
-                  <span style={{ fontSize: 13, color: COLORS.dim, fontWeight: 400 }}>
-                    {sk.name}
-                  </span>
-                  <span
+                  <div
                     style={{
-                      fontFamily: MONO,
-                      fontSize: 10,
-                      color: cat.color,
-                      letterSpacing: "0.06em",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      marginBottom: 10,
                     }}
                   >
-                    {sk.level}%
-                  </span>
-                </div>
-                <div
-                  style={{ height: 3, background: COLORS.ghost, overflow: "hidden" }}
-                >
-                  <motion.div
-                    initial={{ scaleX: 0 }}
-                    animate={barsOn ? { scaleX: sk.level / 100 } : { scaleX: 0 }}
-                    transition={{ duration: 1, delay: i * 0.05, ease: "easeOut" }}
-                    style={{
-                      height: "100%",
-                      background: cat.color,
-                      transformOrigin: "left",
-                    }}
-                  />
-                </div>
+                    <span style={{ fontSize: 13, color: COLORS.dim, fontWeight: 400 }}>
+                      {sk.name}
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: MONO,
+                        fontSize: 10,
+                        color: cat.color ?? COLORS.gold,
+                        letterSpacing: "0.06em",
+                      }}
+                    >
+                      {sk.level}%
+                    </span>
+                  </div>
+                  {/* Progress bar */}
+                  <div
+                    style={{ height: 3, background: COLORS.ghost, overflow: "hidden", borderRadius: 2 }}
+                  >
+                    <motion.div
+                      initial={{ scaleX: 0 }}
+                      animate={barsOn ? { scaleX: sk.level / 100 } : { scaleX: 0 }}
+                      transition={{ duration: 1, delay: i * 0.05, ease: "easeOut" }}
+                      style={{
+                        height: "100%",
+                        background: cat.color ?? COLORS.goldG,
+                        transformOrigin: "left",
+                        borderRadius: 2,
+                      }}
+                    />
+                  </div>
+                </Card3D>
               </motion.div>
             ))}
           </motion.div>

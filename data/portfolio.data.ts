@@ -346,7 +346,7 @@ export const PROFILE_DATA = {
     },
     {
       id: "maskwa",
-      name: "Maskwa",
+      name: "ProLandly",
       role: "Lead Architect",
       badge: "SOCIAL IMPACT",
       featured: false,
@@ -379,7 +379,7 @@ export const PROFILE_DATA = {
         "Zero-trust design",
       ],
       tech: ["Solidity", "Web3.js", "NFTs", "Smart Contracts", "Ethereum"],
-      color: "#F15BB5",
+      color: "#C9A84C",
       link: "https://apps.apple.com/app/defi11-fantasy-sports-app/id1608967244",
     },
     {
@@ -396,7 +396,7 @@ export const PROFILE_DATA = {
         "90-day delivery",
       ],
       tech: ["WebRTC", "Socket.io", "Reanimated", "Video", "Node.js"],
-      color: "#00BBF9",
+      color: "#F15BB5",
     },
     {
       id: "musicx",

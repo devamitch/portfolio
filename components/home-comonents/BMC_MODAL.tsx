@@ -18,7 +18,7 @@ const C_GREEN = "#34D399";
 const C_GHOST = "rgba(255,255,255,0.10)";
 const HN = "'Helvetica Neue',Helvetica,Arial,sans-serif";
 const MONO = "'JetBrains Mono','Space Mono',monospace";
-const BMC_LINK = "https://www.buymeacoffee.com/devamitch";
+const BMC_LINK = "https://buymeacoffee.com/amithellmab";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // 3D DRAGGABLE MODAL
