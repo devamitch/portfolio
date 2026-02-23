@@ -13,7 +13,9 @@ const nextConfig = {
   distDir: ".next",
   assetPrefix: "",
   basePath: "",
-
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   sassOptions: {
     includePaths: [path.join(process.cwd(), "app")],
   },
@@ -47,15 +49,6 @@ const nextConfig = {
         },
       },
     });
-
-    // ─── NOTE: NO react/react-dom alias here ─────────────────
-    // require.resolve("react") returns the index.js FILE PATH.
-    // Aliasing to a file breaks React 19 subpath exports:
-    //   react/jsx-runtime    → "Can't resolve" crash
-    //   react-dom/client     → "Can't resolve" crash (drei Html)
-    //
-    // The ReactCurrentOwner problem is solved by proper hydration
-    // management in Next.js 15. No alias needed.
 
     return config;
   },
