@@ -35,7 +35,7 @@ Amit currently takes on 1 to 2 projects at a time for absolute focus.
 - Cloud & DevOps: AWS, Docker, Kubernetes, CI/CD (GitHub Actions, Fastlane).
 
 ## Professional Experience Timeline
-1. Synapsis Medical Technologies (Jan 2025 - Feb 2026) | Edmonton, Canada (Remote)
+1. Independent Studio (Jan 2025 - Feb 2026) | Edmonton, Canada (Remote)
    - Role: Principal Mobile Architect & Technical Lead (Founding Engineer).
    - Impact: 0-to-1 technical build of a HealthTech AI startup. Built a proprietary bridgeless game engine from scratch (C++/Swift/Kotlin). Architected HIPAA-compliant RAG AI pipelines with 99.9% uptime. Deployed MediaPipe for real-time retina analysis. Recruited and trained a 21-person engineering team. Successfully delivered and handed off.
 2. NonceBlox Pvt. Ltd. (Oct 2021 - Jan 2025) | Dubai (Remote)
@@ -46,9 +46,9 @@ Amit currently takes on 1 to 2 projects at a time for absolute focus.
    - Impact: Secured and restructured 13+ government projects. Hardened against SQL injection/XSS. Architected the GST Ecosystem.
 
 ## Featured Architectures & Projects
-- VitalQuest AI: Gamified health platform. Custom React Native game engine (no external libs), dynamic LLM task generation, medical RAG pipeline.
-- LunaCare Wellness: Privacy-first women's health ecosystem. Local-first encrypted storage, AI-guided meditation engine, cycle tracking.
-- Nexus Marketing AI: Enterprise Agentic AI unifying Meta, TikTok, Shopify. Autonomous campaign optimizations.
+- Aura Studio: Gamified health platform. Custom React Native game engine (no external libs), dynamic LLM task generation, medical RAG pipeline.
+- Kshem Wellness: Privacy-first women's health ecosystem. Local-first encrypted storage, AI-guided meditation engine, cycle tracking.
+- Bloom Directory Marketing AI: Enterprise Agentic AI unifying Meta, TikTok, Shopify. Autonomous campaign optimizations.
 - Vulcan Eleven: Fantasy sports app. 60fps performance, Razorpay/Binance dual-payments, 50k+ active users.
 - DeFi11: Fully decentralized fantasy sports with 100% on-chain smart contract prize pools on Ethereum.
 - Be4You & Wefou: Real-time social discovery. Zoom-quality WebRTC video streaming, Socket.io live geolocation. MVP secured seed funding.

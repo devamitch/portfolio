@@ -22,7 +22,7 @@ When text will be read aloud by Text-to-Speech (in VOICE lines), use these phone
 - Baruipur → Bah-roo-ee-poor
 - Kolkata → Coal-kah-tuh
 - NonceBlox → Nons-Blocks
-- Synapsis → Sin-app-sis
+- Independent Studio → Sin-app-sis
 - Techpromind → Tech-pro-mind
 - Webskitters → Web-skit-ters
 
@@ -132,7 +132,7 @@ I am a **0-to-1 specialist**. I thrive in taking raw, pen-and-paper visions and 
 
 ## DETAILED WORK HISTORY
 
-### Synapsis Medical Technologies Inc.
+### Independent Studio
 
 **Position:** Principal Mobile Architect & Technical Lead (Contract Position)  
 **Company Location:** Edmonton, Alberta, Canada  
@@ -141,7 +141,7 @@ I am a **0-to-1 specialist**. I thrive in taking raw, pen-and-paper visions and 
 **Employment Type:** Contract engagement
 
 #### Why I Joined
-I was brought in as the founding technical authority to build Synapsis's entire engineering foundation from absolute zero. There was no codebase, no infrastructure, no team, no processes — just raw ideas and ambitious vision. This was exactly the kind of 0-to-1 challenge I excel at.
+I was brought in as the founding technical authority to build Independent Studio's entire engineering foundation from absolute zero. There was no codebase, no infrastructure, no team, no processes — just raw ideas and ambitious vision. This was exactly the kind of 0-to-1 challenge I excel at.
 
 #### What I Built (Technical Achievements)
 
@@ -226,7 +226,7 @@ I resigned on February 10, 2026, because no amount of money justifies sacrificin
 - **Health is Non-Negotiable:** I will not compromise my well-being for artificial deadlines or toxic environments
 - **Value Long-Term Relationships:** I look for leaders who value sustainable partnerships over short-term exploitation
 
-#### Current Status with Synapsis
+#### Current Status with Independent Studio
 Preetam (CEO) owes me NOC (No Objection Certificate) and Experience Letter. I strategically waived the February pro-rata payment (₹44,000 / ~$718 CAD) to remove his leverage and expedite document delivery. I'm waiting for these documents but my resume and track record are strong enough that I don't require his validation.
 
 ---
@@ -362,7 +362,7 @@ Artnroll, Maiv, Cube Reward, Liron, Traveller ID, Entrust Global, Markbot, Bundl
 React Native, Solidity, Web3.js, Ethers.js, Viem, Wagmi, Node.js, NestJS, Next.js, PostgreSQL, MongoDB, GraphQL, WebSockets, Socket.io, Stripe, PayPal, Razorpay, Binance Pay, AWS, Firebase
 
 #### Why I Left NonceBlox
-I received an opportunity to join Synapsis as Principal Mobile Architect — a role that offered greater responsibility, leadership scope, and the chance to build engineering foundations from absolute zero. It was a natural career progression to a Principal-level position.
+I received an opportunity to join Independent Studio as Principal Mobile Architect — a role that offered greater responsibility, leadership scope, and the chance to build engineering foundations from absolute zero. It was a natural career progression to a Principal-level position.
 
 ---
 
@@ -1054,7 +1054,7 @@ Everything important goes in writing — scope, payment terms, timelines, delive
 ### Employment Status (February 2026)
 
 **Current State:** Actively seeking new opportunities  
-**Last Employment:** Ended February 2026 (Synapsis)  
+**Last Employment:** Ended February 2026 (Independent)  
 **Previous Income:** ₹1.32-1.4 Lakh/month from freelance work  
 **Family Context:** Sole financial provider for 12-person household  
 **Urgency Level:** Need stable cash flow immediately
@@ -2046,7 +2046,7 @@ export const CONTEXT_CHUNKS: ContextChunk[] = [
 
 **Notable Mobile Work:**
 - Built 13 production apps at NonceBlox (50K+ users)
-- Custom game engine at Synapsis (React Native from scratch)
+- Custom game engine at Independent Studio (React Native from scratch)
 - Be4You dating app (real-time chat, video calls, location tracking)
 - All apps achieve 60fps performance
     `.trim(),
@@ -2127,20 +2127,20 @@ export const CONTEXT_CHUNKS: ContextChunk[] = [
     content: `
 ## AI & MACHINE LEARNING (Advanced - 3 Years)
 
-**RAG Pipelines:** Document processing, embeddings (OpenAI/Cohere), vector databases (Pinecone/Weaviate/ChromaDB), retrieval optimization, production deployment at Synapsis (99.9% uptime)
+**RAG Pipelines:** Document processing, embeddings (OpenAI/Cohere), vector databases (Pinecone/Weaviate/ChromaDB), retrieval optimization, production deployment at Independent Studio (99.9% uptime)
 
 **LLM Integration:** OpenAI GPT-4, Claude, Gemini, prompt engineering, token optimization, streaming, context window management
 
 **Agentic AI:** Multi-agent architectures, tool use, function calling, state management
 
-**Computer Vision:** MediaPipe (real-time face/eye tracking), OpenCV (image processing), object detection, medical image analysis (retina/skin conditions at Synapsis)
+**Computer Vision:** MediaPipe (real-time face/eye tracking), OpenCV (image processing), object detection, medical image analysis (retina/skin conditions at Independent Studio)
 
 **ML Frameworks:** TensorFlow, PyTorch basics, Hugging Face Transformers, ONNX
 
 **Healthcare ML:** HIPAA-compliant data handling, medical data anonymization, secure transmission, audit logging
 
 **AI Projects:**
-- Synapsis: RAG pipelines for medical data, patient triage automation, eye health monitoring with MediaPipe
+- Independent Studio: RAG pipelines for medical data, patient triage automation, eye health monitoring with MediaPipe
 - Multiple AI-powered features across apps
     `.trim(),
   },
@@ -2207,7 +2207,7 @@ export const CONTEXT_CHUNKS: ContextChunk[] = [
   // ─── SYNAPSIS WORK HISTORY ────────────────────────────────────────────
   {
     id: "synapsis",
-    title: "Synapsis Medical Technologies (Recent)",
+    title: "Independent Studio (Recent)",
     keywords: [
       "synapsis",
       "principal",
@@ -2288,7 +2288,7 @@ export const CONTEXT_CHUNKS: ContextChunk[] = [
 - Cross-chain Web3 functionality
 - Query optimization for massive scale
 
-**Why I Left:** Joined Synapsis for Principal-level role with greater leadership scope
+**Why I Left:** Joined Independent Studio for Principal-level role with greater leadership scope
     `.trim(),
   },
 
@@ -2425,7 +2425,7 @@ export const CONTEXT_CHUNKS: ContextChunk[] = [
 - Endless meetings instead of shipping
 - Scope creep without timeline adjustments
 - Payment issues
-- Toxic leadership (Synapsis trauma)
+- Toxic leadership (Independent Studio trauma)
 - Fake urgency culture
 - Blame instead of learning from mistakes
 

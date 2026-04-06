@@ -124,17 +124,17 @@ export const metadata: Metadata = {
     "healthcare AI developer",
     "women health app developer",
     "eye care app MediaPipe",
-    "Spyk Health",
-    "Eye Care",
+    "Aura Studio",
+    "Neev",
     "myTeal women health",
-    "VitalQuest game engine",
+    "Aura Studio game engine",
     "Vulcan Eleven fantasy sports",
     "DeFi11 blockchain",
     "MusicX blockchain royalties",
     "Housezy property management",
-    "Maskwa Indigenous platform",
+    "Kshem Indigenous platform",
     "Be4You dating app",
-    "Nexus AI marketing",
+    "Bloom Directory AI marketing",
     "vBoil recycled oil",
     "custom game engine React Native",
     "C++ native modules React Native",
@@ -428,7 +428,7 @@ const personSchema = {
     "Firebase",
     "Redis",
     "Women's HealthTech",
-    "Eye Care Computer Vision",
+    "Neev Computer Vision",
     "Fantasy Sports Platforms",
     "PropTech",
     "EdTech",
@@ -643,7 +643,7 @@ const workExperienceSchema = {
           "Led engineering team of 21+ across 5 production iOS/Android apps at HealthTech AI startup. Built custom game engine from scratch (C++/Swift/Kotlin bridgeless). Architected HIPAA-compliant RAG pipelines. Implemented Computer Vision with MediaPipe for real-time retina analysis. Managed 500+ projects. VP-level client relationships and technical strategy.",
         worksFor: {
           "@type": "Organization",
-          name: "Synapsis Medical Technologies Inc.",
+          name: "Independent Studio",
           address: {
             "@type": "PostalAddress",
             addressLocality: "Edmonton",
@@ -711,7 +711,7 @@ const projectsSchema = {
       position: 1,
       item: {
         "@type": "SoftwareApplication",
-        name: "Spyk Health (VitalQuest)",
+        name: "Aura Studio",
         applicationCategory: "HealthApplication",
         operatingSystem: "iOS, Android",
         description:
@@ -733,7 +733,7 @@ const projectsSchema = {
       position: 2,
       item: {
         "@type": "SoftwareApplication",
-        name: "Eye Care",
+        name: "Neev",
         applicationCategory: "MedicalApplication",
         operatingSystem: "iOS, Android",
         description:
@@ -872,7 +872,7 @@ const projectsSchema = {
       position: 8,
       item: {
         "@type": "SoftwareApplication",
-        name: "Maskwa",
+        name: "HarmonyBloom",
         applicationCategory: "SocialNetworkingApplication",
         operatingSystem: "iOS, Android",
         description:
@@ -908,7 +908,7 @@ const projectsSchema = {
       position: 10,
       item: {
         "@type": "SoftwareApplication",
-        name: "Nexus AI / Thoth Marketing AI",
+        name: "Bloom Directory AI / Thoth Marketing AI",
         applicationCategory: "BusinessApplication",
         operatingSystem: "iOS, Android, Web",
         description:
@@ -966,7 +966,7 @@ const faqSchema = {
       name: "What apps has Amit Chakraborty built?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Amit has built 18+ production apps including: Spyk Health (custom game engine + LLMs), Eye Care (MediaPipe computer vision), myTeal (women's health AI), Vulcan Eleven (fantasy sports, 50K+ users), DeFi11 (fully on-chain fantasy sports), MusicX (blockchain royalties), Housezy (property management), Maskwa (Indigenous communities platform), Be4You (dating app MVP), Nexus AI (enterprise marketing AI), and vBoil (recycled oil supply chain).",
+        text: "Amit has built 18+ production apps including: Aura Studio (custom game engine + LLMs), Neev (MediaPipe computer vision), myTeal (women's health AI), Vulcan Eleven (fantasy sports, 50K+ users), DeFi11 (fully on-chain fantasy sports), MusicX (blockchain royalties), Housezy (property management), HarmonyBloom (Indigenous communities platform), Be4You (dating app MVP), Bloom Directory AI (enterprise marketing AI), and vBoil (recycled oil supply chain).",
       },
     },
     {
@@ -1068,7 +1068,7 @@ const reviewSchema = {
         jobTitle: "Software Developer",
         worksFor: {
           "@type": "Organization",
-          name: "Synapsis Medical Technologies",
+          name: "Independent Studio",
         },
       },
       datePublished: "2026-02",
@@ -1208,8 +1208,8 @@ const howToSchema = {
     {
       "@type": "HowToStep",
       position: 6,
-      name: "2025 — Principal Architect at Synapsis Medical Technologies",
-      text: "Promoted to Principal Mobile Architect & Technical Lead at Synapsis Medical Technologies Inc. (Edmonton, Canada). Led team of 21+ across 5 HealthTech AI apps. Engineered custom game engine from scratch using C++/Swift/Kotlin bridgeless. Managed 500+ projects at VP level.",
+      name: "2025 — Principal Architect at Independent Studio",
+      text: "Promoted to Principal Mobile Architect & Technical Lead at Independent Studio (Edmonton, Canada). Led team of 21+ across 5 HealthTech AI apps. Engineered custom game engine from scratch using C++/Swift/Kotlin bridgeless. Managed 500+ projects at VP level.",
       url: `${BASE_URL}/#experience`,
     },
   ],

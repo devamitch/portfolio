@@ -210,19 +210,19 @@ ALWAYS call the tool. Don't just describe — scroll to it.
     content: `
 ## FEATURED PROJECTS & PORTFOLIO
 
-### VitalQuest (HealthTech · Synapsis) — FLAGSHIP
+### Aura Studio (HealthTech · Independent Studio) — FLAGSHIP
 A gamified health platform built on a **proprietary React Native game engine** I built from absolute scratch — zero external dependencies, zero shortcuts. Dynamic XP progression, LLM-based health task generation at runtime, RAG pipeline for HIPAA-compliant medical context retrieval, computer vision retina analysis via MediaPipe. 21-person team recruited and trained.
 Tech: React Native, C++/Swift/Kotlin, LLMs, RAG Pipelines, MediaPipe
 
-### LunaCare Wellness (Women's Health · Synapsis)
+### Kshem Wellness (Women's Health · Independent Studio)
 Privacy-first women's health ecosystem with local-first encrypted storage and AI-driven wellness algorithms. Adaptive meditation engine, cycle tracking, mood journaling, zero third-party data sells.
 Tech: React Native, Node.js, AI/ML, Encrypted Storage, Health APIs
 
-### Nexus Marketing AI (Enterprise AI)
+### Bloom Directory Marketing AI (Enterprise AI)
 Enterprise AI orchestration platform unifying Meta, TikTok, Shopify, and 5+ marketing channels into one brain. Autonomous campaign analysis, real-time cross-platform optimization, zero manual switching.
 Tech: React Native, Next.js, Agentic AI, Multi-channel, Real-time Analytics
 
-### Eye Care — Medical Computer Vision (HealthTech · Synapsis)
+### Neev — Medical Computer Vision (HealthTech · Independent Studio)
 Real-time eye health monitoring using MediaPipe on consumer mobile hardware. Retina coverage analysis, blink rate detection, redness and luminance assessment. Medical-grade CV without medical-grade hardware.
 Tech: React Native, MediaPipe, Computer Vision, Gumlet API
 
@@ -254,7 +254,7 @@ App Store: https://apps.apple.com/app/housezy/id6471949955
 Real-time Web3 whale tracker with memepool monitoring, wallet analysis, live charting, on-chain data streaming.
 Tech: Next.js 15, Wagmi/Viem, Memepool, Live Charting
 
-### Maskwa (Social Impact)
+### HarmonyBloom (Social Impact)
 Platform for Canadian Indigenous communities — cultural preservation, community development, and economic empowerment. Community-first mobile platform built with cultural sensitivity.
 Tech: React Native, Community Platform, Cultural Tech, Mobile-First
 
@@ -267,7 +267,7 @@ Tech: React Native, Community Platform, Cultural Tech, Mobile-First
   // ══════════════════════════════════════════════════════════════════════════
   {
     id: "synapsis",
-    title: "Synapsis Medical Technologies",
+    title: "Independent Studio",
     keywords: [
       "synapsis",
       "principal",
@@ -362,7 +362,7 @@ Tech: React Native, Community Platform, Cultural Tech, Mobile-First
 - Cross-chain Web3 functionality
 - Complex GraphQL APIs, Socket.io real-time, WebRTC video
 
-**Why I Left:** Joined Synapsis for Principal-level founding engineer role.
+**Why I Left:** Joined Independent Studio for Principal-level founding engineer role.
     `.trim(),
   },
 
@@ -448,7 +448,7 @@ Tech: React Native, Community Platform, Cultural Tech, Mobile-First
 
 **Performance:** Frame rate optimization (60fps target), bundle size reduction, code splitting, image optimization, network optimization, memory leak prevention
 
-**Production proof:** 13 apps at NonceBlox (50K+ users) · Custom game engine at Synapsis (pure React Native, C++) · Be4You (real-time chat, video, location) · ALL apps achieve 60fps
+**Production proof:** 13 apps at NonceBlox (50K+ users) · Custom game engine at Independent Studio (pure React Native, C++) · Be4You (real-time chat, video, location) · ALL apps achieve 60fps
 
 **Skill level:** React Native 98% · TypeScript 96% · iOS & Android 95% · Expo 90% · Reanimated 92% · Native Modules C++/Swift/Kotlin 85%
     `.trim(),
@@ -527,11 +527,11 @@ Tech: React Native, Community Platform, Cultural Tech, Mobile-First
     content: `
 ## AI & MACHINE LEARNING (Advanced — 3 Years)
 
-**RAG Pipelines:** Document processing, chunking, embeddings (OpenAI, Cohere), vector DBs (Pinecone, Weaviate, ChromaDB), retrieval optimization. Production at Synapsis: 99.9% uptime, HIPAA-compliant.
+**RAG Pipelines:** Document processing, chunking, embeddings (OpenAI, Cohere), vector DBs (Pinecone, Weaviate, ChromaDB), retrieval optimization. Production at Independent Studio: 99.9% uptime, HIPAA-compliant.
 
 **LLMs:** OpenAI GPT-4, Claude, Gemini. Prompt engineering, token optimization, streaming, context window management, function calling.
 
-**Agentic AI:** Multi-agent architectures, tool use, state management, autonomous campaign optimization (Nexus).
+**Agentic AI:** Multi-agent architectures, tool use, state management, autonomous campaign optimization (Bloom Directory).
 
 **Computer Vision:** MediaPipe (real-time face/eye tracking, retina analysis, blink detection on-device), OpenCV (image processing), object detection, medical image analysis.
 
