@@ -6,6 +6,7 @@ import { makeLoading } from "../ui/LazyLoadingSkeleton";
 export { default as AboutSection }    from "./AboutSection";
 export { default as HeroSection }     from "./HeroSection";
 export { default as ProjectsSection } from "./ProjectsSection";
+export { default as MeetingScheduler } from "./MeetingScheduler";
 
 /* ─── Loading skeletons ────────────────────────────────────── */
 const makeSection = (label: string, height = 500) =>

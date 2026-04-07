@@ -269,7 +269,7 @@ export const PROFILE_DATA = {
       icon: "/assets/brand/kshem.png",
     },
     {
-      id: "harmony",
+      id: "harmony-bloom",
       name: "HarmonyBloom",
       role: "Founder · Independent Build",
       badge: "WEB · MOBILE",

@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
+import type { Message, UserProfile } from "~/lib/gemini";
 
 interface VisitorMetadata {
   browser?: string;
@@ -41,6 +42,10 @@ interface PortfolioState {
   userName: string | null;
   setUserName: (name: string | null) => void;
 
+  userProfile: UserProfile | null;
+  setProfile: (profile: UserProfile) => void;
+  updateProfile: (updates: Partial<UserProfile>) => void;
+
   isProfileComplete: boolean;
   setIsProfileComplete: (complete: boolean) => void;
 
@@ -67,12 +72,20 @@ interface PortfolioState {
   recentQueries: string[];
   addQuery: (q: string) => void;
 
+  messages: Message[];
+  addMessage: (msg: Message) => void;
+  setMessages: (msgs: Message[]) => void;
+  resetMessages: () => void;
+
   // ─── Rate Limiting ────────────────────────────────────────────────────────
   messageCount: number;
   incrementMessageCount: () => void;
   resetMessageCount: () => void;
   lastResetDate: string;
   checkAndResetDaily: () => void;
+  canChat: () => boolean;
+  getRemainingChats: () => number;
+  incrementDaily: () => void;
 
   // ─── Dev Reset ───────────────────────────────────────────────────────────
   // Call this to simulate a brand-new visitor in development.
@@ -103,6 +116,11 @@ export const usePortfolioState = create<PortfolioState>()(
       // ── Profile ────────────────────────────────────────────────────────────
       userName: null,
       setUserName: (name) => set({ userName: name }),
+      userProfile: null,
+      setProfile: (profile) => set({ userProfile: profile }),
+      updateProfile: (updates) => set((s) => ({
+        userProfile: s.userProfile ? { ...s.userProfile, ...updates } : null
+      })),
       isProfileComplete: false,
       setIsProfileComplete: (complete) => set({ isProfileComplete: complete }),
       hasGreetedUser: false,
@@ -122,7 +140,7 @@ export const usePortfolioState = create<PortfolioState>()(
       isOwner: false,
       setIsOwner: (owner) => set({ isOwner: owner }),
 
-      // ── Queries ────────────────────────────────────────────────────────────
+      // ── Queries & Messages ─────────────────────────────────────────────────
       recentQueries: [],
       addQuery: (q) =>
         set((s) => ({
@@ -131,6 +149,11 @@ export const usePortfolioState = create<PortfolioState>()(
             5,
           ),
         })),
+
+      messages: [],
+      addMessage: (msg) => set((s) => ({ messages: [...s.messages, msg] })),
+      setMessages: (msgs) => set({ messages: msgs }),
+      resetMessages: () => set({ messages: [] }),
 
       // ── Rate Limiting ──────────────────────────────────────────────────────
       messageCount: 0,
@@ -148,6 +171,18 @@ export const usePortfolioState = create<PortfolioState>()(
           set({ messageCount: 0, lastResetDate: today });
         }
       },
+      canChat: () => {
+        get().checkAndResetDaily();
+        return get().messageCount < 15;
+      },
+      getRemainingChats: () => {
+        get().checkAndResetDaily();
+        return Math.max(0, 15 - get().messageCount);
+      },
+      incrementDaily: () => {
+        get().checkAndResetDaily();
+        get().incrementMessageCount();
+      },
 
       // ── Dev Reset ──────────────────────────────────────────────────────────
       resetForDevelopment: () =>
@@ -161,6 +196,8 @@ export const usePortfolioState = create<PortfolioState>()(
           isProfileComplete: false,
           isVerified: false,
           recentQueries: [],
+          messages: [],
+          userProfile: null,
           messageCount: 0,
         }),
     }),
@@ -178,7 +215,9 @@ export const usePortfolioState = create<PortfolioState>()(
         visitCount: state.visitCount,
         isOwner: state.isOwner,
         isProfileComplete: state.isProfileComplete,
+        userProfile: state.userProfile,
         recentQueries: state.recentQueries,
+        messages: state.messages,
         messageCount: state.messageCount,
         lastResetDate: state.lastResetDate,
       }),

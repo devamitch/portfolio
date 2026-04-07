@@ -138,7 +138,7 @@ export default function Navigation() {
               style={{
                 fontSize: 8,
                 letterSpacing: "0.18em",
-                color: "rgba(212,168,65,0.65)",
+                color: "rgba(201,168,76,0.65)",
                 textTransform: "uppercase",
                 marginTop: 2,
               }}

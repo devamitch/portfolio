@@ -1,4 +1,5 @@
 import { COLORS, HN, MONO, PROFILE_DATA } from "~/data/portfolio.data";
+import { getYrs } from "~/lib/utils";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -21,12 +22,12 @@ export default function Footer() {
   };
 
   const footerStats = [
-    { l: "Years", v: "8+" },
+    { l: "Years", v: `${getYrs()}+` },
     { l: "Apps Shipped", v: "18+" },
     { l: "Active Users", v: "50K+" },
     { l: "Engineers Led", v: "21" },
     { l: "Contributions", v: "2,029" },
-    { l: "Location", v: "Kolkata" },
+    { l: "Location", v: PROFILE_DATA.location.split(",")[0] },
   ];
 
   return (

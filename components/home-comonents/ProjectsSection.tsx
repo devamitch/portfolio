@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
 import Image from "next/image";
+import { useState } from "react";
 import { COLORS, EASE_X, HN, MONO, PROFILE_DATA } from "~/data/portfolio.data";
 import { SH, SLabel } from "../ui/SectionsComponents";
 
@@ -19,13 +19,19 @@ function ProjectCard({ p, i }: { p: Project; i: number }) {
   const types: string[] = "types" in p ? (p as any).types : [];
 
   return (
-    <motion.div
+    <motion.button
       initial={{ opacity: 0, y: 60 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: i * 0.06, duration: 0.8, ease: EASE_X }}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
+      onClick={() => {
+        window.open(
+          `https://projectscopes.devamit.co.in/project/${p.id}`,
+          "_blank",
+        );
+      }}
     >
       <div
         style={{
@@ -70,8 +76,19 @@ function ProjectCard({ p, i }: { p: Project; i: number }) {
           >
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
               {"icon" in p && (p as any).icon && (
-                <div style={{ borderRadius: 6, overflow: "hidden", display: "flex" }}>
-                  <Image src={(p as any).icon} alt={p.name} width={28} height={28} />
+                <div
+                  style={{
+                    borderRadius: 6,
+                    overflow: "hidden",
+                    display: "flex",
+                  }}
+                >
+                  <Image
+                    src={(p as any).icon}
+                    alt={p.name}
+                    width={28}
+                    height={28}
+                  />
                 </div>
               )}
               {platform && (
@@ -199,7 +216,7 @@ function ProjectCard({ p, i }: { p: Project; i: number }) {
           )}
         </div>
       </div>
-    </motion.div>
+    </motion.button>
   );
 }
 
