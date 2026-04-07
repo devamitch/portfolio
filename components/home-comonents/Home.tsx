@@ -1,11 +1,9 @@
 "use client";
 
-import { motion, useScroll } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef, useState } from "react";
 import { COLORS, HN, PROFILE_DATA } from "~/data/portfolio.data";
-import { Div } from "../ui/SectionsComponents";
 import {
   AboutSection,
   ContactSection,
@@ -13,18 +11,17 @@ import {
   ExperienceSection,
   Footer,
   HeroSection,
-  MobileNav,
   ProjectsSection,
   SkillsSection,
-  StorySection,
 } from ".";
+import { Div } from "../ui/SectionsComponents";
 
 if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
 
 export default function PrimaryHome() {
-  const heroRef  = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
-  const expRef   = useRef<HTMLDivElement>(null);
+  const expRef = useRef<HTMLDivElement>(null);
   const storyRef = useRef<HTMLDivElement>(null);
 
   const [roleIdx, setRoleIdx] = useState(0);
@@ -127,16 +124,14 @@ export default function PrimaryHome() {
         <SkillsSection />
         <Div />
 
-        <div ref={storyRef}>
+        {/* <div ref={storyRef}>
           <StorySection />
-        </div>
+        </div> */}
 
         <Div />
         <ContactSection />
         <Footer />
       </main>
-
-      <MobileNav />
 
       <style>{`
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }

@@ -1,7 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Sans, Space_Grotesk, Space_Mono } from "next/font/google";
-
-import AllProvider from "~/components/providers/all-provicer";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -125,17 +123,10 @@ export const metadata: Metadata = {
     "women health app developer",
     "eye care app MediaPipe",
     "Aura Studio",
+    "KSHEM",
+    "HarmonyBloom",
     "Neev",
-    "myTeal women health",
-    "Aura Studio game engine",
-    "Vulcan Eleven fantasy sports",
-    "DeFi11 blockchain",
-    "MusicX blockchain royalties",
-    "Housezy property management",
-    "Kshem Indigenous platform",
-    "Be4You dating app",
-    "Bloom Directory AI marketing",
-    "vBoil recycled oil",
+    "Aura Arena",
     "custom game engine React Native",
     "C++ native modules React Native",
     "WebRTC React Native",
@@ -280,25 +271,11 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon.ico" },
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      {
-        url: "/android-chrome-192x192.png",
-        sizes: "192x192",
-        type: "image/png",
-      },
-      {
-        url: "/android-chrome-512x512.png",
-        sizes: "512x512",
-        type: "image/png",
-      },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
     ],
     apple: [
       { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
-    ],
-    other: [
-      { rel: "mask-icon", url: "/safari-pinned-tab.svg", color: "#C9A84C" },
     ],
   },
   manifest: "/manifest.json",
@@ -801,7 +778,7 @@ const faqSchema = {
       name: "What apps has Amit Chakraborty built?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Amit has built 18+ production apps including: Aura Studio (custom game engine + LLMs), Neev (MediaPipe computer vision), myTeal (women's health AI), Vulcan Eleven (fantasy sports, 50K+ users), DeFi11 (fully on-chain fantasy sports), MusicX (blockchain royalties), Housezy (property management), HarmonyBloom (Indigenous communities platform), Be4You (dating app MVP), Bloom Directory AI (enterprise marketing AI), and vBoil (recycled oil supply chain).",
+        text: "Amit has built 18+ production apps including his key curated systems: Aura Studio (visual AI orchestration), KSHEM (Global Land Intelligence), HarmonyBloom (AI wellness engine), Neev (Family OS), and Aura Arena (Movement intelligence platform).",
       },
     },
     {
@@ -1408,7 +1385,7 @@ export default function RootLayout({
           </div>
         </noscript>
 
-        <AllProvider>{children}</AllProvider>
+        {children}
       </body>
     </html>
   );

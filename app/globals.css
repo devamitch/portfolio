@@ -10,7 +10,7 @@
   --black-pure: #000000;
   --black-rich: #0a0a0a;
   --black-deep: #141414;
-  --black-charcoal: #1c1c1c;
+  --black-charcoal: #1d1010;
   --black-slate: #262626;
 
   --text: #ffffff;
@@ -181,53 +181,6 @@ img {
 }
 .scrollbar-hidden::-webkit-scrollbar {
   display: none;
-}
-
-.cursor-dot {
-  width: 8px;
-  height: 8px;
-  background: var(--gold);
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 99999;
-  transform: translate(-50%, -50%);
-  transition:
-    width 0.3s,
-    height 0.3s,
-    background 0.3s;
-  mix-blend-mode: difference;
-}
-.cursor-ring {
-  width: 40px;
-  height: 40px;
-  border: 1px solid rgba(201, 168, 76, 0.4);
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 99998;
-  transform: translate(-50%, -50%);
-  transition:
-    width 0.4s var(--ease-out-expo),
-    height 0.4s var(--ease-out-expo),
-    border-color 0.3s;
-}
-.cursor-dot.hovering {
-  width: 60px;
-  height: 60px;
-  background: rgba(201, 168, 76, 0.1);
-  border: 1px solid var(--gold);
-}
-.cursor-ring.hovering {
-  width: 80px;
-  height: 80px;
-  border-color: transparent;
-}
-@media (pointer: coarse) {
-  .cursor-dot,
-  .cursor-ring {
-    display: none !important;
-  }
 }
 
 .noise-overlay {
@@ -767,7 +720,6 @@ body {
   color: #ffffff;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   overflow-x: hidden;
-  cursor: none;
 }
 
 .cursor-dot {

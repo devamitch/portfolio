@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
+import Image from "next/image";
 import { COLORS, EASE_X, HN, MONO, PROFILE_DATA } from "~/data/portfolio.data";
 import { SH, SLabel } from "../ui/SectionsComponents";
 
@@ -59,15 +60,20 @@ function ProjectCard({ p, i }: { p: Project; i: number }) {
 
         <div style={{ paddingLeft: 12 }}>
           {/* Row 1 — platform pill + year */}
-          {(platform || year) && (
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                marginBottom: 14,
-              }}
-            >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: 14,
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              {"icon" in p && (p as any).icon && (
+                <div style={{ borderRadius: 6, overflow: "hidden", display: "flex" }}>
+                  <Image src={(p as any).icon} alt={p.name} width={28} height={28} />
+                </div>
+              )}
               {platform && (
                 <span
                   style={{
@@ -85,20 +91,20 @@ function ProjectCard({ p, i }: { p: Project; i: number }) {
                   {platform}
                 </span>
               )}
-              {year && (
-                <span
-                  style={{
-                    fontSize: 9,
-                    fontFamily: MONO,
-                    color: COLORS.vfaint,
-                    letterSpacing: "0.12em",
-                  }}
-                >
-                  {year}
-                </span>
-              )}
             </div>
-          )}
+            {year && (
+              <span
+                style={{
+                  fontSize: 9,
+                  fontFamily: MONO,
+                  color: COLORS.vfaint,
+                  letterSpacing: "0.12em",
+                }}
+              >
+                {year}
+              </span>
+            )}
+          </div>
 
           {/* Row 2 — category */}
           <div

@@ -170,7 +170,6 @@ export default function ExperienceSection() {
                               key={mi}
                               variant="stat"
                               accentColor={exp.color}
-                              tiltDeg={8}
                               padding="12px 16px"
                               style={{
                                 background: `${exp.color}10`,

@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { COLORS } from "~/data/portfolio.data";
 
 const NAV_ITEMS = [
@@ -104,38 +105,22 @@ export default function Navigation() {
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <div
             style={{
-              width: 34,
-              height: 34,
-              /* Clean metallic face — no thick bottom edge */
-              background:
-                "linear-gradient(145deg, #E8B422 0%, #C9A84C 60%, #A07820 100%)",
-              /* Single top specular = perceived 3D convexity */
-              boxShadow:
-                "inset 0 1px 0 rgba(255,255,255,0.35), 0 0 14px rgba(201,168,76,0.18)",
-              border: "1px solid rgba(160,120,30,0.4)",
+              width: 32,
+              height: 32,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              fontSize: 15,
-              fontWeight: 900,
-              color: "#000",
               borderRadius: 6,
-              transition:
-                "transform 0.3s cubic-bezier(.34,1.4,.64,1), box-shadow 0.3s",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform =
-                "perspective(300px) rotateY(-8deg) rotateX(4deg)";
-              e.currentTarget.style.boxShadow =
-                "inset 0 1px 0 rgba(255,255,255,0.45), 0 0 24px rgba(201,168,76,0.3)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "";
-              e.currentTarget.style.boxShadow =
-                "inset 0 1px 0 rgba(255,255,255,0.35), 0 0 14px rgba(201,168,76,0.18)";
+              overflow: "hidden",
             }}
           >
-            A
+            <Image
+              src="/icon-192.png"
+              alt="Amit Chakraborty Logo"
+              width={32}
+              height={32}
+              style={{ objectFit: "contain" }}
+            />
           </div>
           <div className="nav-brand-text">
             <div

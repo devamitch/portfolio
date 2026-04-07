@@ -244,6 +244,7 @@ export const PROFILE_DATA = {
       tech: ["React 19", "Next.js", "Zustand", "Node-based UI", "Gemini API"],
       color: "#C9A84C",
       link: "https://aurastudio.devamit.co.in",
+      icon: "/assets/brand/aura_studio.png",
     },
     {
       id: "kshem",
@@ -265,6 +266,7 @@ export const PROFILE_DATA = {
       tech: ["Next.js", "Claude AI", "Tailwind v4", "GIS"],
       color: "#F5C842",
       link: "https://kshem.devamit.co.in",
+      icon: "/assets/brand/kshem.png",
     },
     {
       id: "harmony",
@@ -286,6 +288,7 @@ export const PROFILE_DATA = {
       tech: ["React 18", "Vite", "Framer Motion", "Gemini API"],
       color: "#E8B4B8",
       link: "https://harmonybloom.devamit.co.in",
+      icon: "/assets/brand/harmony.png",
     },
     {
       id: "neev",
@@ -307,6 +310,7 @@ export const PROFILE_DATA = {
       tech: ["Next.js 14", "TypeScript", "Claude AI", "Firebase"],
       color: "#2196F3",
       link: "https://neev.devamit.co.in",
+      icon: "/assets/brand/neev.png",
     },
     {
       id: "arena",
@@ -328,6 +332,7 @@ export const PROFILE_DATA = {
       tech: ["MediaPipe", "TensorFlow.js", "WebGPU", "PWA"],
       color: "#34D399",
       link: "https://auraarena.devamit.co.in",
+      icon: "/assets/brand/arena.png",
     },
     {
       id: "bloom",
