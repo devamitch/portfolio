@@ -3,75 +3,18 @@
 import {
   ArrowRight,
   CheckCircle2,
+  ChevronDown,
   ExternalLink,
   type LucideIcon,
 } from "lucide-react";
 import {
   type CSSProperties,
-  useCallback,
-  useRef,
   useState,
 } from "react";
 import { COLORS, MONO } from "~/data/portfolio.data";
 
 // ─── Re-export Lucide helpers used across sections ────────────────────────────
 export { ArrowRight, CheckCircle2, ExternalLink };
-
-// ─── 3D Tilt hook ─────────────────────────────────────────────────────────────
-export function useTilt(maxDeg = 12) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  const onMove = useCallback(
-    (e: React.MouseEvent) => {
-      const el = ref.current;
-      if (!el) return;
-      const r = el.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width;
-      const y = (e.clientY - r.top) / r.height;
-      const rx = (y - 0.5) * -maxDeg;
-      const ry = (x - 0.5) * maxDeg;
-      el.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.02) translateZ(8px)`;
-      const shine = el.querySelector<HTMLElement>(".tilt-shine");
-      if (shine) {
-        shine.style.setProperty("--mx", `${x * 100}%`);
-        shine.style.setProperty("--my", `${y * 100}%`);
-        shine.style.opacity = "1";
-      }
-    },
-    [maxDeg],
-  );
-
-  const onLeave = useCallback(() => {
-    const el = ref.current;
-    if (!el) return;
-    el.style.transform =
-      "perspective(900px) rotateX(0deg) rotateY(0deg) scale(1) translateZ(0)";
-    const shine = el.querySelector<HTMLElement>(".tilt-shine");
-    if (shine) shine.style.opacity = "0";
-  }, []);
-
-  return { ref, onMove, onLeave };
-}
-
-// ─── TiltShine overlay ────────────────────────────────────────────────────────
-function TiltShine() {
-  return (
-    <div
-      className="tilt-shine"
-      style={{
-        pointerEvents: "none",
-        position: "absolute",
-        inset: 0,
-        borderRadius: "inherit",
-        opacity: 0,
-        transition: "opacity 0.2s",
-        background:
-          "radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(201,168,76,0.13) 0%, transparent 58%)",
-        zIndex: 2,
-      }}
-    />
-  );
-}
 
 // ─── GoldAccent ───────────────────────────────────────────────────────────────
 export function GoldAccent({ children }: { children: React.ReactNode }) {
@@ -89,30 +32,20 @@ export function GoldAccent({ children }: { children: React.ReactNode }) {
   );
 }
 
-// ─── Card3D ───────────────────────────────────────────────────────────────────
-// Variants: default | gold | feature | stat | service | ghost | process | skill | testimonial
-type CardVariant =
-  | "default"
-  | "gold"
-  | "feature"
-  | "stat"
-  | "service"
-  | "ghost"
-  | "process"
-  | "skill"
-  | "testimonial";
+// ─── Card3D (simplified — no tilt) ────────────────────────────────────────────
+type CardVariant = "default" | "gold" | "feature" | "stat" | "skill";
 
 interface Card3DProps {
   children: React.ReactNode;
   variant?: CardVariant;
-  accentColor?: string; // top-border / glow color override
+  accentColor?: string;
   style?: CSSProperties;
   className?: string;
   onClick?: () => void;
-  tilt?: boolean;
-  tiltDeg?: number;
-  topBar?: boolean; // gold top bar (default: true for gold/feature/service)
-  hoverLift?: boolean; // translateY on hover (default: true)
+  tilt?: boolean;       // ignored — kept for API compat
+  tiltDeg?: number;     // ignored
+  topBar?: boolean;
+  hoverLift?: boolean;
   padding?: string | number;
 }
 
@@ -123,15 +56,11 @@ export function Card3D({
   style,
   className,
   onClick,
-  tilt = true,
-  tiltDeg = 10,
   topBar,
   hoverLift = true,
   padding,
 }: Card3DProps) {
-  const { ref, onMove, onLeave } = useTilt(tiltDeg);
   const [hovered, setHovered] = useState(false);
-
   const accent = accentColor ?? COLORS.gold;
 
   const variantStyles: Record<CardVariant, CSSProperties> = {
@@ -152,63 +81,35 @@ export function Card3D({
       background: COLORS.card,
       textAlign: "center",
     },
-    service: {
-      border: `1px solid ${hovered ? accent + "66" : accent + "28"}`,
-      background: COLORS.card,
-    },
-    ghost: {
-      border: `1px solid ${COLORS.border}`,
-      background: "transparent",
-    },
-    process: {
-      border: `1px solid ${COLORS.border}`,
-      background: COLORS.card,
-    },
     skill: {
       border: `1px solid ${COLORS.border}`,
-      background: COLORS.card,
-    },
-    testimonial: {
-      border: `1px solid ${COLORS.border}`,
-      borderTop: `3px solid ${accent}`,
       background: COLORS.card,
     },
   };
 
   const showTopBar =
-    topBar ??
-    (variant === "gold" ||
-      variant === "feature" ||
-      variant === "service" ||
-      variant === "process");
+    topBar ?? (variant === "gold" || variant === "feature");
 
   return (
     <div
-      ref={tilt ? ref : undefined}
-      onMouseMove={tilt ? onMove : undefined}
       onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => {
-        setHovered(false);
-        if (tilt) onLeave();
-      }}
+      onMouseLeave={() => setHovered(false)}
       onClick={onClick}
       className={className}
       style={{
         position: "relative",
         overflow: "hidden",
         cursor: onClick ? "pointer" : "default",
-        transition: "transform 0.18s ease-out, box-shadow 0.3s ease, border-color 0.3s ease",
+        transition: "border-color 0.3s, box-shadow 0.3s, transform 0.25s",
         boxShadow: hovered && hoverLift
-          ? `0 24px 60px rgba(0,0,0,0.5), 0 0 0 1px ${accent}20`
-          : "0 4px 20px rgba(0,0,0,0.2)",
+          ? `0 16px 48px rgba(0,0,0,0.35), 0 0 0 1px ${accent}15`
+          : "0 2px 12px rgba(0,0,0,0.15)",
         padding: padding ?? 28,
         ...variantStyles[variant],
-        ...(hovered && hoverLift ? { transform: "translateY(-6px)" } : {}),
-        ...(tilt ? {} : {}), // tilt managed by useTilt
+        ...(hovered && hoverLift ? { transform: "translateY(-4px)" } : {}),
         ...style,
       }}
     >
-      {/* Top accent bar */}
       {showTopBar && (
         <div
           style={{
@@ -222,29 +123,12 @@ export function Card3D({
           }}
         />
       )}
-      {tilt && <TiltShine />}
       {children}
     </div>
   );
 }
 
-// Legacy TiltCard alias for backward compat
-export function TiltCard({
-  children,
-  style,
-}: {
-  children: React.ReactNode;
-  style?: CSSProperties;
-}) {
-  return (
-    <Card3D tilt variant="default" style={style}>
-      {children}
-    </Card3D>
-  );
-}
-
 // ─── Badge ────────────────────────────────────────────────────────────────────
-// Variants: default | gold | green | ghost | pill | dot
 type BadgeVariant = "default" | "gold" | "green" | "ghost" | "pill" | "dot";
 
 interface BadgeProps {
@@ -319,7 +203,7 @@ export function Badge({
 
   return (
     <span style={{ ...base, ...variantStyles[variant] }}>
-      {variant === "dot" && (
+      {(variant === "dot" || pulse) && (
         <span
           style={{
             width: 6,
@@ -332,27 +216,13 @@ export function Badge({
           }}
         />
       )}
-      {pulse && variant !== "dot" && (
-        <span
-          style={{
-            width: 6,
-            height: 6,
-            borderRadius: "50%",
-            background: color,
-            display: "inline-block",
-            flexShrink: 0,
-            animation: "ac-pulse 2s infinite",
-          }}
-        />
-      )}
       {children}
     </span>
   );
 }
 
 // ─── Btn ─────────────────────────────────────────────────────────────────────
-// Variants: gold | outline | ghost | link | danger
-type BtnVariant = "gold" | "outline" | "ghost" | "link" | "danger";
+type BtnVariant = "gold" | "outline" | "ghost" | "link";
 
 interface BtnProps {
   children: React.ReactNode;
@@ -385,7 +255,6 @@ export function Btn({
   fullWidth,
   type = "button",
 }: BtnProps) {
-  const [pressed, setPressed] = useState(false);
   const [hovered, setHovered] = useState(false);
 
   const sizeMap: Record<string, CSSProperties> = {
@@ -396,23 +265,23 @@ export function Btn({
 
   const variantStyles: Record<BtnVariant, CSSProperties> = {
     gold: {
-      background: hovered ? COLORS.goldG : COLORS.goldG,
+      background: COLORS.goldG,
       color: "#000",
       border: "none",
       boxShadow: hovered
-        ? "0 8px 32px rgba(201,168,76,0.45)"
+        ? "0 8px 32px rgba(201,168,76,0.4)"
         : "0 4px 16px rgba(201,168,76,0.2)",
     },
     outline: {
       background: hovered ? COLORS.goldF : "transparent",
-      color: hovered ? COLORS.gold : COLORS.gold,
+      color: COLORS.gold,
       border: `2px solid ${hovered ? COLORS.gold : COLORS.goldD}`,
       boxShadow: hovered ? `0 4px 16px ${COLORS.goldD}` : "none",
     },
     ghost: {
       background: hovered ? "rgba(255,255,255,0.06)" : "transparent",
       color: hovered ? COLORS.text : COLORS.faint,
-      border: `1px solid ${hovered ? COLORS.border : COLORS.border}`,
+      border: `1px solid ${COLORS.border}`,
       boxShadow: "none",
     },
     link: {
@@ -423,12 +292,6 @@ export function Btn({
       padding: "0",
       letterSpacing: "0",
       textDecoration: hovered ? "underline" : "none",
-    },
-    danger: {
-      background: hovered ? "rgba(255,68,68,0.12)" : "transparent",
-      color: hovered ? "#FF6666" : COLORS.faint,
-      border: `1px solid ${hovered ? "rgba(255,68,68,0.35)" : COLORS.border}`,
-      boxShadow: "none",
     },
   };
 
@@ -444,19 +307,14 @@ export function Btn({
     cursor: disabled ? "not-allowed" : "pointer",
     opacity: disabled ? 0.4 : 1,
     transition: "all 0.2s ease",
-    transform: pressed ? "scale(0.97) translateY(1px)" : hovered ? "scale(1.02) translateY(-1px)" : "scale(1)",
     width: fullWidth ? "100%" : undefined,
-    WebkitTapHighlightColor: "transparent",
-    userSelect: "none",
     ...sizeMap[size],
     ...variantStyles[variant],
   };
 
   const events = {
     onMouseEnter: () => setHovered(true),
-    onMouseLeave: () => { setHovered(false); setPressed(false); },
-    onMouseDown: () => setPressed(true),
-    onMouseUp: () => setPressed(false),
+    onMouseLeave: () => setHovered(false),
   };
 
   if (href) {
@@ -479,7 +337,6 @@ export function Btn({
 }
 
 // ─── IconBox ──────────────────────────────────────────────────────────────────
-// variants: gold | colored | ghost | filled
 type IconBoxVariant = "gold" | "colored" | "ghost" | "filled";
 
 interface IconBoxProps {
@@ -489,7 +346,7 @@ interface IconBoxProps {
   size?: number;
   style?: CSSProperties;
   pulse?: boolean;
-  shape?: "square" | "circle" | "blob";
+  shape?: "square" | "circle";
 }
 
 export function IconBox({
@@ -500,25 +357,16 @@ export function IconBox({
   style,
   shape = "square",
 }: IconBoxProps) {
-  const [hovered, setHovered] = useState(false);
-
-  const borderRadius =
-    shape === "circle"
-      ? "50%"
-      : shape === "blob"
-        ? "40% 60% 55% 45%/45% 55% 45% 55%"
-        : 8;
+  const borderRadius = shape === "circle" ? "50%" : 8;
 
   const variantStyles: Record<IconBoxVariant, CSSProperties> = {
     gold: {
       background: COLORS.goldF,
       border: `1px solid ${COLORS.goldD}`,
-      boxShadow: hovered ? `0 0 16px ${COLORS.goldD}` : "none",
     },
     colored: {
       background: `${color}12`,
       border: `1px solid ${color}30`,
-      boxShadow: hovered ? `0 0 16px ${color}30` : "none",
     },
     ghost: {
       background: "transparent",
@@ -527,14 +375,11 @@ export function IconBox({
     filled: {
       background: color,
       border: "none",
-      boxShadow: hovered ? `0 4px 20px ${color}55` : `0 2px 8px ${color}33`,
     },
   };
 
   return (
     <div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
       style={{
         width: size,
         height: size,
@@ -543,8 +388,6 @@ export function IconBox({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        transition: "all 0.22s ease",
-        transform: hovered ? "scale(1.08) translateZ(4px)" : "scale(1)",
         ...variantStyles[variant],
         ...style,
       }}
@@ -571,7 +414,7 @@ export function StatCard({
   style,
 }: StatCardProps) {
   return (
-    <Card3D variant="stat" style={style} tiltDeg={8}>
+    <Card3D variant="stat" style={style}>
       <div
         style={{
           fontSize: "clamp(28px,4vw,42px)",
@@ -605,7 +448,6 @@ export function StatCard({
 }
 
 // ─── Chip ─────────────────────────────────────────────────────────────────────
-// For skill tags, tech tags, tab buttons
 interface ChipProps {
   children: React.ReactNode;
   active?: boolean;
@@ -624,15 +466,12 @@ export function Chip({
   icon,
 }: ChipProps) {
   const [hovered, setHovered] = useState(false);
-  const [pressed, setPressed] = useState(false);
 
   return (
     <button
       onClick={onClick}
       onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => { setHovered(false); setPressed(false); }}
-      onMouseDown={() => setPressed(true)}
-      onMouseUp={() => setPressed(false)}
+      onMouseLeave={() => setHovered(false)}
       style={{
         display: "inline-flex",
         alignItems: "center",
@@ -648,13 +487,7 @@ export function Chip({
         border: `1px solid ${active ? color : hovered ? `${color}55` : COLORS.border}`,
         fontWeight: active ? 700 : 400,
         transition: "all 0.18s ease",
-        transform: pressed
-          ? "scale(0.96) translateY(1px)"
-          : hovered
-            ? "scale(1.02) translateY(-1px)"
-            : "scale(1)",
         boxShadow: active ? `0 4px 16px ${color}33` : "none",
-        WebkitTapHighlightColor: "transparent",
         ...style,
       }}
     >
@@ -682,7 +515,6 @@ export function Pill({ children, color = COLORS.gold, pulse, style }: PillProps)
         border: `1px solid ${color}44`,
         background: `${color}08`,
         padding: "8px 18px",
-        backdropFilter: "blur(8px)",
         ...style,
       }}
     >
@@ -713,56 +545,11 @@ export function Pill({ children, color = COLORS.gold, pulse, style }: PillProps)
   );
 }
 
-// ─── SectionLabel (label above headings) ─────────────────────────────────────
-interface SectionLabelProps {
-  num?: string;
-  children: React.ReactNode;
-}
-
-export function SLabel({ num, children }: SectionLabelProps) {
-  return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: 10,
-        marginBottom: 16,
-      }}
-    >
-      {num && (
-        <span
-          style={{
-            fontFamily: MONO,
-            fontSize: 9,
-            color: COLORS.vfaint,
-            letterSpacing: "0.2em",
-          }}
-        >
-          {num}
-        </span>
-      )}
-      <span
-        style={{
-          fontFamily: MONO,
-          fontSize: 9,
-          letterSpacing: "0.3em",
-          textTransform: "uppercase",
-          color: COLORS.gold,
-        }}
-      >
-        {children}
-      </span>
-    </div>
-  );
-}
-
-// ─── Icon map helper – service / process icons ────────────────────────────────
-// Renders a known lucide icon OR falls back to the raw string/emoji
+// ─── Icon map helper ──────────────────────────────────────────────────────────
 import {
   Bot,
   Blocks,
   Brain,
-  ChevronDown,
   Code2,
   FlaskConical,
   Globe,
@@ -785,30 +572,12 @@ import {
 } from "lucide-react";
 
 const ICON_MAP: Record<string, LucideIcon> = {
-  // Services
-  "🚀": Rocket,
-  "⚡": Zap,
-  "🔬": Microscope,
-  "🧠": Brain,
-  "🎨": Paintbrush,
-  "📱": Smartphone,
-  "🌐": Globe,
-  "🔐": Shield,
-  "🧩": Blocks,
-  "💡": Lightbulb,
-  "🔧": Wrench,
-  "📊": LayoutDashboard,
-  "🤖": Bot,
-  "✨": Sparkles,
-  // Process
-  "🔍": Search,
-  "🎯": Target,
-  "🏗": Layers,
-  "⚗": FlaskConical,
-  "✅": ListChecks,
-  "💬": MessageSquare,
-  "🧪": TestTube2,
-  "🖥": Code2,
+  "🚀": Rocket, "⚡": Zap, "🔬": Microscope, "🧠": Brain,
+  "🎨": Paintbrush, "📱": Smartphone, "🌐": Globe, "🔐": Shield,
+  "🧩": Blocks, "💡": Lightbulb, "🔧": Wrench, "📊": LayoutDashboard,
+  "🤖": Bot, "✨": Sparkles, "🔍": Search, "🎯": Target,
+  "🏗": Layers, "⚗": FlaskConical, "✅": ListChecks, "💬": MessageSquare,
+  "🧪": TestTube2, "🖥": Code2,
 };
 
 export function ServiceIcon({
@@ -822,7 +591,6 @@ export function ServiceIcon({
 }) {
   const Lucide = ICON_MAP[icon];
   if (Lucide) return <Lucide size={size} color={color} strokeWidth={2} />;
-  // Fallback: render emoji text but attempt clean display
   return (
     <span style={{ fontSize: size, lineHeight: 1, display: "block" }}>
       {icon}
@@ -830,7 +598,7 @@ export function ServiceIcon({
   );
 }
 
-// ─── ExpandIcon (replaces + emoji) ───────────────────────────────────────────
+// ─── ExpandIcon ───────────────────────────────────────────────────────────────
 export function ExpandIcon({
   open,
   color = COLORS.gold,

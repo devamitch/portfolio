@@ -330,7 +330,7 @@ const personSchema = {
   jobTitle: "Principal Mobile Architect",
   description:
     "Principal Mobile Architect with 8+ years engineering 0-to-1 production applications at the intersection of AI, blockchain, and healthcare. Shipped 18+ apps serving 50,000+ users. Expert in React Native (Bridgeless), RAG pipelines, LLM integration, HIPAA-compliant HealthTech, custom game engines, Solidity, DeFi, and native C++/Swift/Kotlin modules. Led engineering teams of 21+. Available for VP Engineering, CTO, and Principal Architect roles — remote worldwide.",
-  email: "amit98ch@gmail.com",
+  email: "amit@devamit.co.in",
   telephone: "+91-9874173663",
   birthDate: "1995-09-19",
   address: {
@@ -509,61 +509,13 @@ const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
-    {
-      "@type": "ListItem",
-      position: 2,
-      name: "About",
-      item: `${BASE_URL}/#about`,
-    },
-    {
-      "@type": "ListItem",
-      position: 3,
-      name: "Projects",
-      item: `${BASE_URL}/#work`,
-    },
-    {
-      "@type": "ListItem",
-      position: 4,
-      name: "Experience",
-      item: `${BASE_URL}/#experience`,
-    },
-    {
-      "@type": "ListItem",
-      position: 5,
-      name: "Skills",
-      item: `${BASE_URL}/#skills`,
-    },
-    {
-      "@type": "ListItem",
-      position: 6,
-      name: "Story",
-      item: `${BASE_URL}/#story`,
-    },
-    {
-      "@type": "ListItem",
-      position: 7,
-      name: "Testimonials",
-      item: `${BASE_URL}/#testimonials`,
-    },
-    {
-      "@type": "ListItem",
-      position: 8,
-      name: "GitHub",
-      item: `${BASE_URL}/#github`,
-    },
-    {
-      "@type": "ListItem",
-      position: 9,
-      name: "Contact",
-      item: `${BASE_URL}/#contact`,
-    },
-    {
-      "@type": "ListItem",
-      position: 10,
-      name: "Blog",
-      item: "https://devamitch.medium.com/",
-    },
+    { "@type": "ListItem", position: 1, name: "Home",       item: BASE_URL },
+    { "@type": "ListItem", position: 2, name: "About",      item: `${BASE_URL}/#about` },
+    { "@type": "ListItem", position: 3, name: "Projects",   item: `${BASE_URL}/#work` },
+    { "@type": "ListItem", position: 4, name: "Experience", item: `${BASE_URL}/#experience` },
+    { "@type": "ListItem", position: 5, name: "Skills",     item: `${BASE_URL}/#skills` },
+    { "@type": "ListItem", position: 6, name: "Story",      item: `${BASE_URL}/#story` },
+    { "@type": "ListItem", position: 7, name: "Contact",    item: `${BASE_URL}/#contact` },
   ],
 };
 
@@ -596,11 +548,11 @@ const professionalServiceSchema = {
   priceRange: "Contact for Quote",
   url: BASE_URL,
   telephone: "+91-9874173663",
-  email: "amit98ch@gmail.com",
+  email: "amit@devamit.co.in",
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "hiring",
-    email: "amit98ch@gmail.com",
+    email: "amit@devamit.co.in",
     availableLanguage: ["English", "Bengali", "Hindi"],
   },
   availableChannel: {
@@ -702,29 +654,30 @@ const workExperienceSchema = {
 const projectsSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  name: "Amit Chakraborty — Engineering Portfolio",
+  name: "Amit Chakraborty — Featured Engineering Portfolio",
   description:
-    "Production applications designed and engineered by Principal Mobile Architect Amit Chakraborty",
+    "Five flagship production applications designed and engineered by Amit Chakraborty — Independent Studio Founder",
   itemListElement: [
     {
       "@type": "ListItem",
       position: 1,
       item: {
         "@type": "SoftwareApplication",
-        name: "Aura Studio",
-        applicationCategory: "HealthApplication",
-        operatingSystem: "iOS, Android",
+        name: "Aura Arena",
+        applicationCategory: "GameApplication",
+        operatingSystem: "Web (PWA)",
+        url: "https://auraarena.devamit.co.in",
         description:
-          "Gamified health engagement platform built with a custom game engine written from absolute scratch — zero external dependencies. Features LLM-based dynamic health task generation at runtime, XP progression system, and RAG pipeline for HIPAA-compliant medical context retrieval.",
+          "Real-time AI-powered movement intelligence platform. Live camera feed → competitive gameplay with biometric scoring and adaptive coaching. Edge inference at 60fps using WebGPU acceleration. Not a demo — a fully operational system.",
         creator: { "@id": `${BASE_URL}/#person` },
         keywords:
-          "custom game engine, LLM, RAG pipeline, HIPAA, React Native, HealthTech, gamification",
+          "AI, computer vision, MediaPipe, TensorFlow.js, WebGPU, PWA, movement intelligence, biometrics",
         featureList: [
-          "Custom game engine — zero external dependencies",
-          "LLM-based dynamic task generation",
-          "RAG pipeline for HIPAA-compliant medical data",
-          "XP progression system",
-          "AI-powered health engagement",
+          "Edge inference at 60fps",
+          "Hybrid Cloud + Device pipeline",
+          "WebGPU acceleration",
+          "Adaptive AI coaching",
+          "Real-time biometric scoring",
         ],
       },
     },
@@ -733,20 +686,21 @@ const projectsSchema = {
       position: 2,
       item: {
         "@type": "SoftwareApplication",
-        name: "Neev",
-        applicationCategory: "MedicalApplication",
-        operatingSystem: "iOS, Android",
+        name: "HarmonyBloom",
+        applicationCategory: "HealthApplication",
+        operatingSystem: "Web (TMA)",
+        url: "https://harmonybloom.devamit.co.in",
         description:
-          "Real-time eye health monitoring app using MediaPipe on-device. Medical-grade computer vision on consumer smartphones. Features retina coverage analysis, blink rate detection, eye redness assessment, and luminance tracking.",
+          "Privacy-first AI wellness engine with on-device intelligence, gamified behavioral systems, and zero-knowledge architecture. Runs inside Telegram (TMA). Daily micro-habit quests powered by Gemini empathic AI.",
         creator: { "@id": `${BASE_URL}/#person` },
         keywords:
-          "MediaPipe, Computer Vision, React Native, eye health, medical device, retina analysis",
+          "wellness, AI, Gemini, Telegram Mini App, zero-knowledge, gamification, privacy-first, HealthTech",
         featureList: [
-          "Medical-grade computer vision on consumer hardware",
-          "Real-time retina coverage analysis",
-          "Blink rate detection",
-          "Eye redness assessment",
-          "Luminance tracking",
+          "Telegram Mini App (TMA)",
+          "Daily micro-habit quests",
+          "Gemini-powered empathic AI",
+          "Zero-knowledge architecture",
+          "On-device intelligence",
         ],
       },
     },
@@ -755,20 +709,21 @@ const projectsSchema = {
       position: 3,
       item: {
         "@type": "SoftwareApplication",
-        name: "myTeal Women's Health",
-        applicationCategory: "HealthApplication",
-        operatingSystem: "iOS, Android",
+        name: "Neev",
+        applicationCategory: "SocialApplication",
+        operatingSystem: "Web",
+        url: "https://neev.devamit.co.in",
         description:
-          "Privacy-first women's mental and physical health platform. Features AI-driven wellness recommendations, cycle tracking, mood journaling, adaptive meditation engine, and local-first encrypted data storage — zero third-party data sales.",
+          "A private, AI-guided family operating system. Amplifies family judgment with the calm intelligence of a trusted elder who sees the full picture. Cloud sync, wellness pattern detection, and family guardian architecture.",
         creator: { "@id": `${BASE_URL}/#person` },
         keywords:
-          "women's health, cycle tracking, mood journaling, AI wellness, privacy-first, React Native, HealthTech",
+          "family OS, AI, Claude AI, Next.js, Firebase, wellness, privacy, family guardian",
         featureList: [
-          "Personalised cycle, mood, and sleep tracking",
-          "AI wellness recommendations engine",
-          "Adaptive meditation engine",
-          "Privacy-first — zero third-party data sales",
-          "Local-first encrypted storage",
+          "Family Guardian Architecture",
+          "Cloud sync logic",
+          "Wellness pattern detection",
+          "Claude AI integration",
+          "Private by design",
         ],
       },
     },
@@ -777,22 +732,21 @@ const projectsSchema = {
       position: 4,
       item: {
         "@type": "SoftwareApplication",
-        name: "Vulcan Eleven",
-        applicationCategory: "GameApplication",
-        operatingSystem: "iOS, Android",
-        url: "https://apps.apple.com/app/vulcan-eleven/id6462420052",
-        downloadUrl: "https://apps.apple.com/app/vulcan-eleven/id6462420052",
+        name: "Aura Studio",
+        applicationCategory: "DeveloperApplication",
+        operatingSystem: "Web",
+        url: "https://aurastudio.devamit.co.in",
         description:
-          "Fantasy sports platform with 60fps performance serving 50,000+ active users. Features Razorpay + Binance Pay dual-payment driving 35% transaction volume growth, real-time analytics, live score updates, and FCM push notifications.",
+          "Visual AI orchestration platform. A nodal canvas where users drag, connect, and configure 45+ AI pipelines in real time without writing glue code.",
         creator: { "@id": `${BASE_URL}/#person` },
         keywords:
-          "fantasy sports, React Native, Razorpay, Binance Pay, 50K users, real-time, C++ modules",
+          "AI orchestration, node-based UI, Gemini API, React 19, Next.js, no-code AI, pipeline",
         featureList: [
-          "50,000+ active users",
-          "35% transaction growth",
-          "Binance Pay + Razorpay dual-payment",
-          "60fps React Native animations",
-          "Real-time live score analytics",
+          "Node-based workflow canvas",
+          "45+ AI pipelines integrated",
+          "Zero glue code required",
+          "Real-time configuration",
+          "Gemini API backbone",
         ],
       },
     },
@@ -801,141 +755,22 @@ const projectsSchema = {
       position: 5,
       item: {
         "@type": "SoftwareApplication",
-        name: "DeFi11",
-        applicationCategory: "FinanceApplication",
-        operatingSystem: "iOS, Android",
-        url: "https://apps.apple.com/app/defi11-fantasy-sports-app/id1608967244",
-        downloadUrl:
-          "https://apps.apple.com/app/defi11-fantasy-sports-app/id1608967244",
+        name: "Kshem",
+        applicationCategory: "GovernmentService",
+        operatingSystem: "Web",
+        url: "https://kshem.devamit.co.in",
         description:
-          "Fully decentralized fantasy sports platform. 100% on-chain smart contract prize pools, on-chain tournament logic, zero centralized custody, and NFT marketplace on Ethereum.",
+          "Government, Land, and Community management platform with 20+ interconnected stakeholder portals. Embedded AI engine for document analysis, property valuation, and GIS mapping capabilities.",
         creator: { "@id": `${BASE_URL}/#person` },
         keywords:
-          "DeFi, fantasy sports, smart contracts, Solidity, Ethereum, NFT, on-chain, decentralized",
+          "GovTech, government portal, GIS, Claude AI, Next.js, Tailwind, property management, document AI",
         featureList: [
-          "100% on-chain prize pools",
-          "Smart contract architecture",
-          "Zero-trust design",
-          "NFT marketplace",
-          "Cross-chain wallet support",
+          "20+ interconnected portals",
+          "Embedded document AI",
+          "GIS mapping capabilities",
+          "Claude AI integration",
+          "Property valuation engine",
         ],
-      },
-    },
-    {
-      "@type": "ListItem",
-      position: 6,
-      item: {
-        "@type": "SoftwareApplication",
-        name: "MusicX",
-        applicationCategory: "MusicApplication",
-        operatingSystem: "iOS",
-        url: "https://apps.apple.com/app/music-x/id6475713772",
-        downloadUrl: "https://apps.apple.com/app/music-x/id6475713772",
-        description:
-          "Music competition platform with blockchain-backed royalty tracking for independent artists. Features native C++ modules, 60fps animations, Twitter and Spotify API integration, and algorithm-driven user engagement.",
-        creator: { "@id": `${BASE_URL}/#person` },
-        keywords:
-          "music, blockchain royalties, React Native, C++ native modules, 60fps, artists",
-        featureList: [
-          "Blockchain royalty system for artists",
-          "Native C++ modules",
-          "60fps animations",
-          "Twitter + Spotify API integration",
-        ],
-      },
-    },
-    {
-      "@type": "ListItem",
-      position: 7,
-      item: {
-        "@type": "SoftwareApplication",
-        name: "Housezy",
-        applicationCategory: "BusinessApplication",
-        operatingSystem: "iOS",
-        url: "https://apps.apple.com/app/housezy/id6471949955",
-        downloadUrl: "https://apps.apple.com/app/housezy/id6471949955",
-        description:
-          "Property management platform with subscription billing, PayU + Google Pay payment gateways, GraphQL APIs, Socket.io real-time notifications, and pixel-perfect iOS UI from Figma to production.",
-        creator: { "@id": `${BASE_URL}/#person` },
-        keywords:
-          "property management, PropTech, React Native, GraphQL, Socket.io, PayU, subscription billing",
-        featureList: [
-          "Subscription billing layer",
-          "Real-time notifications via Socket.io",
-          "PayU + Google Pay integration",
-          "GraphQL API architecture",
-        ],
-      },
-    },
-    {
-      "@type": "ListItem",
-      position: 8,
-      item: {
-        "@type": "SoftwareApplication",
-        name: "HarmonyBloom",
-        applicationCategory: "SocialNetworkingApplication",
-        operatingSystem: "iOS, Android",
-        description:
-          "Mobile platform for Canadian Indigenous communities enabling cultural preservation, community development, and economic empowerment through technology.",
-        creator: { "@id": `${BASE_URL}/#person` },
-        keywords:
-          "Indigenous communities, cultural preservation, community platform, React Native, social impact",
-      },
-    },
-    {
-      "@type": "ListItem",
-      position: 9,
-      item: {
-        "@type": "SoftwareApplication",
-        name: "Be4You Dating App",
-        applicationCategory: "SocialNetworkingApplication",
-        operatingSystem: "iOS, Android",
-        description:
-          "Full dating app MVP delivered in 90 days for seed funding round. Features real-time chat via Socket.io, Zoom-style video calls, live geolocation, social + Apple authentication, and custom animations.",
-        creator: { "@id": `${BASE_URL}/#person` },
-        keywords:
-          "dating app, React Native, WebRTC, Socket.io, video calls, real-time, MVP",
-        featureList: [
-          "Full MVP delivered in 90 days",
-          "Real-time video + chat + location",
-          "Zoom-style video calling",
-          "Social and Apple authentication",
-        ],
-      },
-    },
-    {
-      "@type": "ListItem",
-      position: 10,
-      item: {
-        "@type": "SoftwareApplication",
-        name: "Bloom Directory AI / Thoth Marketing AI",
-        applicationCategory: "BusinessApplication",
-        operatingSystem: "iOS, Android, Web",
-        description:
-          "Enterprise AI orchestration platform unifying Shopify, TikTok, Meta, and 5+ marketing channels. Autonomous campaign analysis, real-time cross-platform optimization, and AI-driven recommendation engine.",
-        creator: { "@id": `${BASE_URL}/#person` },
-        keywords:
-          "AI marketing, enterprise AI, multi-channel, Shopify, Meta, TikTok, agentic AI, React Native",
-        featureList: [
-          "5+ platforms unified into one AI brain",
-          "Autonomous campaign recommendations",
-          "Real-time cross-channel analytics",
-        ],
-      },
-    },
-    {
-      "@type": "ListItem",
-      position: 11,
-      item: {
-        "@type": "SoftwareApplication",
-        name: "vBoil (Vanbrant Oil)",
-        applicationCategory: "BusinessApplication",
-        operatingSystem: "iOS, Android",
-        description:
-          "End-to-end recycled oil supply chain management platform. Covers B2B transaction flows, geolocation tracking, environmental impact analytics, and lifecycle monitoring from collection to distribution.",
-        creator: { "@id": `${BASE_URL}/#person` },
-        keywords:
-          "GreenTech, recycled oil, supply chain, B2B, geolocation, environmental analytics, React Native",
       },
     },
   ],
@@ -958,7 +793,7 @@ const faqSchema = {
       name: "Is Amit Chakraborty available for hire?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes, Amit is open to work and available for VP Engineering, CTO, and Principal Architect roles. He works remotely worldwide. Contact him at amit98ch@gmail.com or through devamit.co.in.",
+        text: "Yes, Amit is open to work and available for VP Engineering, CTO, and Principal Architect roles. He works remotely worldwide. Contact him at amit@devamit.co.in or through devamit.co.in.",
       },
     },
     {
@@ -1022,7 +857,7 @@ const faqSchema = {
       name: "How can I contact Amit Chakraborty for a job or contract?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "You can contact Amit via email at amit98ch@gmail.com, through LinkedIn at linkedin.com/in/devamitch/, or via the contact form at devamit.co.in/#contact. He is open to full-time, contract, and consulting engagements for VP Engineering, CTO, Principal Architect, and senior technical advisory roles.",
+        text: "You can contact Amit via email at amit@devamit.co.in, through LinkedIn at linkedin.com/in/devamitch/, or via the contact form at devamit.co.in/#contact. He is open to full-time, contract, and consulting engagements for VP Engineering, CTO, Principal Architect, and senior technical advisory roles.",
       },
     },
   ],
@@ -1347,7 +1182,7 @@ export default function RootLayout({
         />
         <meta name="language" content="English" />
         <meta name="copyright" content="Amit Chakraborty" />
-        <meta name="reply-to" content="amit98ch@gmail.com" />
+        <meta name="reply-to" content="amit@devamit.co.in" />
         <meta name="target" content="all" />
 
         {}
@@ -1525,8 +1360,8 @@ export default function RootLayout({
             <h2>Contact</h2>
             <p>
               Email:{" "}
-              <a href="mailto:amit98ch@gmail.com" style={{ color: "#C9A84C" }}>
-                amit98ch@gmail.com
+              <a href="mailto:amit@devamit.co.in" style={{ color: "#C9A84C" }}>
+                amit@devamit.co.in
               </a>
             </p>
             <p>

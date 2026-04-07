@@ -1,145 +1,12 @@
 "use client";
 
-import {
-  AnimatePresence,
-  motion,
-  useScroll,
-  useSpring,
-  useTransform,
-} from "framer-motion";
-import { useEffect, useRef, useState } from "react";
-import {
-  COLORS,
-  EASE_X,
-  GRID,
-  HN,
-  MONO,
-  PROFILE_DATA,
-} from "~/data/portfolio.data";
+import { AnimatePresence, motion } from "framer-motion";
+import { COLORS, EASE_X, HN, MONO, PROFILE_DATA } from "~/data/portfolio.data";
 import { getYrs } from "~/lib/utils";
 import ImageWithFallback from "../ui/ImageWithFallback";
 
-/* ── Counter ──────────────────────────────────────── */
-function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
-  const [val, setVal] = useState(0);
-  const ref = useRef<HTMLSpanElement>(null);
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([e]) => {
-        if (!e.isIntersecting) return;
-        obs.disconnect();
-        let n = 0;
-        const go = () => {
-          n += Math.ceil(to / 60);
-          setVal(Math.min(n, to));
-          if (n < to) requestAnimationFrame(go);
-        };
-        requestAnimationFrame(go);
-      },
-      { threshold: 0.5 },
-    );
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, [to]);
-  return (
-    <span ref={ref}>
-      {val.toLocaleString()}
-      {suffix}
-    </span>
-  );
-}
-
-/* ── ScrollProgressBar ────────────────────────────── */
-export function ScrollProgressBar() {
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
-  return (
-    <motion.div
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        height: 2,
-        background: COLORS.goldG,
-        transformOrigin: "left",
-        scaleX,
-        zIndex: 1000,
-      }}
-    />
-  );
-}
-
-/* ── MobileNav ────────────────────────────────────── */
-export function MobileNav() {
-  const navItems = [
-    { label: "Home", href: "#hero", icon: "⌂" },
-    { label: "Work", href: "#work", icon: "◈" },
-    { label: "Services", href: "#services", icon: "◉" },
-    { label: "FAQ", href: "#faq", icon: "?" },
-    { label: "Contact", href: "#contact", icon: "→" },
-  ];
-  return (
-    <nav
-      style={{
-        display: "none",
-        position: "fixed",
-        bottom: 0,
-        left: 0,
-        right: 0,
-        zIndex: 200,
-        background: "rgba(5,5,5,0.94)",
-        borderTop: `1px solid ${COLORS.border}`,
-        backdropFilter: "blur(20px)",
-        padding: "8px 0",
-        justifyContent: "space-around",
-      }}
-      className="mobile-nav"
-    >
-      {navItems.map((item) => (
-        <a
-          key={item.href}
-          href={item.href}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: 3,
-            textDecoration: "none",
-            padding: "4px 10px",
-          }}
-        >
-          <span style={{ fontSize: 18, color: COLORS.gold }}>{item.icon}</span>
-          <span
-            style={{
-              fontFamily: MONO,
-              fontSize: 8,
-              color: COLORS.vfaint,
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-            }}
-          >
-            {item.label}
-          </span>
-        </a>
-      ))}
-    </nav>
-  );
-}
-
 /* ── HeroSection ──────────────────────────────────── */
-export default function HeroSection({
-  roleIdx,
-  scrambled,
-}: {
-  roleIdx: number;
-  scrambled: string;
-}) {
-  const { scrollY } = useScroll();
-  const imgY = useTransform(scrollY, [0, 1400], [0, 100]);
-  const txtY = useTransform(scrollY, [0, 1400], [0, -50]);
-  const fade = useTransform(scrollY, [0, 700, 1400], [2, 0.5, 0]);
-
+export default function HeroSection({ roleIdx }: { roleIdx: number }) {
   return (
     <section
       id="hero"
@@ -152,45 +19,8 @@ export default function HeroSection({
         alignItems: "center",
       }}
     >
-      <div
-        className="gsap-grid"
-        style={{
-          position: "absolute",
-          inset: 0,
-          backgroundImage: `linear-gradient(${GRID} 1px,transparent 1px),linear-gradient(90deg,${GRID} 1px,transparent 1px)`,
-          backgroundSize: "72px 72px",
-        }}
-      />
-      {[
-        { x: "-5%", y: "8%", s: 700 },
-        { x: "65%", y: "52%", s: 520 },
-      ].map((o, i) => (
-        <motion.div
-          key={i}
-          animate={{ scale: [1, 1.18, 1], opacity: [0.4, 0.9, 0.4] }}
-          transition={{
-            duration: 11 + i * 3,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          style={{
-            position: "absolute",
-            left: o.x,
-            top: o.y,
-            width: o.s,
-            height: o.s,
-            background:
-              "radial-gradient(circle,rgba(201,168,76,.08) 0%,transparent 58%)",
-            filter: "blur(100px)",
-            borderRadius: "50%",
-            pointerEvents: "none",
-          }}
-        />
-      ))}
-
       <motion.div
         style={{
-          opacity: fade,
           position: "relative",
           zIndex: 10,
           width: "100%",
@@ -249,7 +79,7 @@ export default function HeroSection({
           }}
         >
           {/* LEFT TEXT */}
-          <motion.div style={{ y: txtY }}>
+          <div>
             <div style={{ overflow: "hidden", marginBottom: 2 }}>
               <motion.div
                 initial={{ y: 180 }}
@@ -300,7 +130,7 @@ export default function HeroSection({
                     fontFamily: MONO,
                   }}
                 >
-                  {scrambled}
+                  {PROFILE_DATA.tagline}
                 </div>
               </motion.div>
             </div>
@@ -383,10 +213,8 @@ export default function HeroSection({
                 marginBottom: 44,
               }}
             >
-              <motion.a
+              <a
                 href="#work"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -401,14 +229,13 @@ export default function HeroSection({
                   fontFamily: MONO,
                   textDecoration: "none",
                   boxShadow: "0 6px 24px rgba(201,168,76,.25)",
+                  transition: "transform 0.2s, box-shadow 0.2s",
                 }}
               >
                 See My Work →
-              </motion.a>
-              <motion.a
+              </a>
+              <a
                 href="#contact"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -422,21 +249,15 @@ export default function HeroSection({
                   textTransform: "uppercase",
                   fontFamily: MONO,
                   textDecoration: "none",
+                  transition: "border-color 0.2s",
                 }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.borderColor = COLORS.gold)
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.borderColor = COLORS.goldD)
-                }
               >
                 Let&apos;s Build →
-              </motion.a>
-              <motion.a
+              </a>
+              <a
                 href={PROFILE_DATA.linkedin}
                 target="_blank"
                 rel="noreferrer"
-                whileHover={{ scale: 1.02 }}
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -449,47 +270,11 @@ export default function HeroSection({
                   textTransform: "uppercase",
                   fontFamily: MONO,
                   textDecoration: "none",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = COLORS.gold;
-                  e.currentTarget.style.borderColor = COLORS.goldD;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = COLORS.faint;
-                  e.currentTarget.style.borderColor = COLORS.border;
+                  transition: "color 0.2s, border-color 0.2s",
                 }}
               >
                 LinkedIn ↗
-              </motion.a>
-              <motion.a
-                href={PROFILE_DATA.twitter}
-                target="_blank"
-                rel="noreferrer"
-                whileHover={{ scale: 1.02 }}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 10,
-                  border: `1px solid ${COLORS.border}`,
-                  color: COLORS.faint,
-                  padding: "15px 22px",
-                  fontSize: 10,
-                  letterSpacing: "0.18em",
-                  textTransform: "uppercase",
-                  fontFamily: MONO,
-                  textDecoration: "none",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = COLORS.text;
-                  e.currentTarget.style.borderColor = COLORS.dim;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = COLORS.faint;
-                  e.currentTarget.style.borderColor = COLORS.border;
-                }}
-              >
-                X (Twitter) ↗
-              </motion.a>
+              </a>
             </motion.div>
 
             {/* Meta */}
@@ -529,7 +314,7 @@ export default function HeroSection({
                 </div>
               ))}
             </motion.div>
-          </motion.div>
+          </div>
 
           {/* RIGHT PHOTO */}
           <motion.div
@@ -539,38 +324,7 @@ export default function HeroSection({
             className="hero-photo"
             style={{ display: "flex", justifyContent: "center" }}
           >
-            <motion.div style={{ y: imgY, position: "relative" }}>
-              {[
-                { inset: -36, dur: 32, o: 0.12 },
-                { inset: -70, dur: 48, o: 0.05 },
-              ].map((r, i) => (
-                <motion.div
-                  key={i}
-                  animate={{ rotate: i === 0 ? 360 : -360 }}
-                  transition={{
-                    duration: r.dur,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                  style={{
-                    position: "absolute",
-                    inset: r.inset,
-                    border: `1px solid rgba(201,168,76,${r.o})`,
-                    borderRadius: "50%",
-                  }}
-                />
-              ))}
-              <div
-                style={{
-                  position: "absolute",
-                  inset: -60,
-                  background:
-                    "radial-gradient(circle,rgba(201,168,76,.18) 0%,transparent 62%)",
-                  filter: "blur(50px)",
-                  borderRadius: "50%",
-                  pointerEvents: "none",
-                }}
-              />
+            <div style={{ position: "relative" }}>
               <div
                 style={{
                   width: 310,
@@ -622,77 +376,11 @@ export default function HeroSection({
                   Amit Chakraborty
                 </span>
               </div>
-              {[
-                {
-                  label: "Years",
-                  value: `${getYrs()}+`,
-                  pos: { top: 0, left: -56 },
-                },
-                { label: "Apps", value: "18+", pos: { top: 54, right: -60 } },
-                {
-                  label: "Users",
-                  value: "50K+",
-                  pos: { bottom: 80, left: -60 },
-                },
-                {
-                  label: "Uptime",
-                  value: "99.9%",
-                  pos: { bottom: 14, right: -50 },
-                },
-              ].map((s, i) => (
-                <motion.div
-                  key={s.label}
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{
-                    delay: 1.4 + i * 0.12,
-                    type: "spring",
-                    stiffness: 220,
-                  }}
-                  whileHover={{ scale: 1.08 }}
-                  style={{
-                    position: "absolute",
-                    ...s.pos,
-                    background: "rgba(5,5,5,.96)",
-                    border: `1px solid rgba(201,168,76,.28)`,
-                    padding: "10px 14px",
-                    borderRadius: 8,
-                    boxShadow: "0 8px 24px rgba(0,0,0,.4)",
-                    backdropFilter: "blur(12px)",
-                    minWidth: 70,
-                    cursor: "default",
-                  }}
-                >
-                  <div
-                    style={{
-                      fontSize: 22,
-                      fontWeight: 900,
-                      color: COLORS.gold,
-                      letterSpacing: "-0.02em",
-                      lineHeight: 1,
-                    }}
-                  >
-                    {s.value}
-                  </div>
-                  <div
-                    style={{
-                      fontSize: 7,
-                      color: COLORS.ghost,
-                      textTransform: "uppercase",
-                      letterSpacing: "0.22em",
-                      fontFamily: MONO,
-                      marginTop: 3,
-                    }}
-                  >
-                    {s.label}
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
+            </div>
           </motion.div>
         </div>
 
-        {/* Stats bar */}
+        {/* Stats bar — STATIC numbers */}
         <motion.div
           initial={{ opacity: 0, y: 32 }}
           animate={{ opacity: 1, y: 0 }}
@@ -708,17 +396,12 @@ export default function HeroSection({
           className="stats-grid"
         >
           {[
-            { to: getYrs(), s: "+", l: "Years Engineering" },
-            { to: 18, s: "+", l: "Apps Shipped" },
-            { to: 50, s: "K+", l: "Active Users" },
-            { to: 2029, s: "", l: "GitHub Contributions" },
-          ].map((s, i) => (
-            <motion.div
-              key={s.l}
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.62 + i * 0.08 }}
-            >
+            { v: `${getYrs()}+`, l: "Years Engineering" },
+            { v: "18+", l: "Apps Shipped" },
+            { v: "50K+", l: "Active Users" },
+            { v: "2,029", l: "GitHub Contributions" },
+          ].map((s) => (
+            <div key={s.l}>
               <div
                 style={{
                   fontSize: "clamp(36px,5vw,54px)",
@@ -730,7 +413,7 @@ export default function HeroSection({
                   fontFamily: HN,
                 }}
               >
-                <Counter to={s.to} suffix={s.s} />
+                {s.v}
               </div>
               <div
                 style={{
@@ -743,7 +426,7 @@ export default function HeroSection({
               >
                 {s.l}
               </div>
-            </motion.div>
+            </div>
           ))}
         </motion.div>
       </motion.div>

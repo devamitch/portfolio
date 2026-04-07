@@ -8,12 +8,7 @@ import { Card3D, IconBox, StatCard } from "./shared";
 export default function AboutSection() {
   return (
     <section id="about" style={{ padding: "120px 0", background: COLORS.bg2 }}>
-      <style>{`
-        @media (max-width: 900px) {
-          .bento-outer { grid-template-columns: 1fr !important; }
-          .bento-cell  { grid-column: unset !important; grid-row: unset !important; }
-        }
-      `}</style>
+
       <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 32px" }}>
         <SLabel num="00">About</SLabel>
         <SH l1="Architect first." l2="Engineer always." />
@@ -35,7 +30,6 @@ export default function AboutSection() {
             <Card3D
               variant="gold"
               topBar
-              tiltDeg={7}
               padding="36px 40px"
               style={{ height: "100%", position: "relative", overflow: "hidden" }}
             >
@@ -121,7 +115,7 @@ export default function AboutSection() {
             className="bento-cell"
             style={{ gridColumn: "1/6", gridRow: "2" }}
           >
-            <Card3D variant="default" tiltDeg={8} padding="28px 32px" style={{ height: "100%" }}>
+            <Card3D variant="default" padding="28px 32px" style={{ height: "100%" }}>
               <div style={{ display: "flex", gap: 10, alignItems: "center", marginBottom: 12 }}>
                 <IconBox icon={<BarChart3 size={13} color={COLORS.gold} />} variant="gold" size={26} />
                 <div
@@ -156,7 +150,7 @@ export default function AboutSection() {
             className="bento-cell"
             style={{ gridColumn: "6/9", gridRow: "2" }}
           >
-            <Card3D variant="default" tiltDeg={10} padding="28px 28px" style={{ height: "100%" }}>
+            <Card3D variant="default" padding="28px 28px" style={{ height: "100%" }}>
               <div style={{ display: "flex", gap: 10, alignItems: "center", marginBottom: 18 }}>
                 <IconBox icon={<MapPin size={13} color={COLORS.gold} />} variant="gold" size={26} />
                 <div
@@ -204,7 +198,7 @@ export default function AboutSection() {
             className="bento-cell"
             style={{ gridColumn: "9/13", gridRow: "2" }}
           >
-            <Card3D variant="default" tiltDeg={9} padding="28px 28px" style={{ height: "100%" }}>
+            <Card3D variant="default" padding="28px 28px" style={{ height: "100%" }}>
               <div style={{ display: "flex", gap: 10, alignItems: "center", marginBottom: 18 }}>
                 <IconBox icon={<GraduationCap size={13} color={COLORS.gold} />} variant="gold" size={26} />
                 <div

@@ -1,45 +1,15 @@
-import { useState } from "react";
 import { COLORS, HN, MONO, PROFILE_DATA } from "~/data/portfolio.data";
-import { Button, Input } from "../ui";
 
 export default function Footer() {
-  const [email, setEmail] = useState("");
-  const [subStatus, setSubStatus] = useState<"idle" | "pending" | "done">(
-    "idle",
-  );
   const year = new Date().getFullYear();
-
-  const handleSub = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubStatus("pending");
-    try {
-      await fetch("/api/newsletter", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-      setSubStatus("done");
-      setEmail("");
-    } catch {
-      setSubStatus("done");
-    }
-  };
 
   const cols = {
     Navigate: [
+      { label: "Home", href: "#hero" },
       { label: "About", href: "#about" },
       { label: "Work", href: "#work" },
       { label: "Experience", href: "#experience" },
       { label: "Skills", href: "#skills" },
-      { label: "Story", href: "#story" },
-      { label: "Blog", href: "#blog" },
-    ],
-    Services: [
-      { label: "Pitch Your Idea", href: "#pitch" },
-      { label: "Consulting", href: "#services" },
-      { label: "End-to-End Build", href: "#services" },
-      { label: "Book a Meeting", href: "#contact" },
-      { label: "FAQ", href: "#faq" },
     ],
     Connect: [
       { label: "LinkedIn", href: PROFILE_DATA.linkedin },
@@ -72,7 +42,7 @@ export default function Footer() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "1.6fr repeat(3,1fr)",
+            gridTemplateColumns: "2fr 1fr 1fr",
             gap: "clamp(28px,4vw,56px)",
             marginBottom: "clamp(48px,7vw,80px)",
             alignItems: "start",
@@ -149,58 +119,6 @@ export default function Footer() {
                   {s.label}
                 </a>
               ))}
-            </div>
-            {/* Newsletter */}
-            <div>
-              <div
-                style={{
-                  fontFamily: MONO,
-                  fontSize: 9,
-                  letterSpacing: "0.22em",
-                  color: COLORS.gold,
-                  textTransform: "uppercase",
-                  marginBottom: 10,
-                }}
-              >
-                Newsletter
-              </div>
-              <p
-                style={{
-                  color: COLORS.vfaint,
-                  fontSize: 12,
-                  lineHeight: 1.65,
-                  marginBottom: 14,
-                  maxWidth: 280,
-                }}
-              >
-                Architecture insights, engineering essays, real-world lessons.
-                No spam. Ever.
-              </p>
-              {subStatus === "done" ? (
-                <div
-                  style={{
-                    fontFamily: MONO,
-                    fontSize: 10,
-                    color: COLORS.green,
-                    letterSpacing: "0.1em",
-                  }}
-                >
-                  You're subscribed.
-                </div>
-              ) : (
-                <form onSubmit={handleSub} style={{ display: "flex", gap: 8 }}>
-                  <Input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    placeholder="your@email.com"
-                  />
-                  <Button type="submit" disabled={subStatus === "pending"}>
-                    {subStatus === "pending" ? "..." : "Join"}
-                  </Button>
-                </form>
-              )}
             </div>
           </div>
 

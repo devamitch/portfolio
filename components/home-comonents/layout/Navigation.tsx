@@ -1,20 +1,16 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { Coffee } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { COLORS } from "~/data/portfolio.data";
 
 const NAV_ITEMS = [
-  { id: "hero", label: "Home" },
-  { id: "about", label: "About" },
-  { id: "work", label: "Work" },
-  { id: "experience", label: "Exp." },
-  { id: "skills", label: "Skills" },
-  { id: "story", label: "Story" },
-  { id: "github", label: "GitHub" },
-  { id: "testimonials", label: "Praise" },
-  { id: "contact", label: "Contact" },
+  { id: "hero",       label: "Home"    },
+  { id: "about",      label: "About"   },
+  { id: "work",       label: "Work"    },
+  { id: "experience", label: "Exp."    },
+  { id: "skills",     label: "Skills"  },
+  { id: "contact",    label: "Contact" },
 ];
 
 const MONO = "'JetBrains Mono','Space Mono',monospace";
@@ -249,55 +245,6 @@ export default function Navigation() {
 
         {/* Right actions */}
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          {/* Coffee — liquid glass circle */}
-          <button
-            onClick={() =>
-              window.open("https://buymeacoffee.com/amithellmab", "_blank")
-            }
-            style={{
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              padding: 0,
-            }}
-          >
-            <span
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: 40,
-                height: 40,
-                borderRadius: "50%",
-                background: "rgba(201,168,76,0.08)",
-                border: "1px solid rgba(201,168,76,0.18)",
-                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.12)",
-                transition: "all 0.22s cubic-bezier(.34,1.4,.64,1)",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.background =
-                  "rgba(201,168,76,0.14)";
-                (e.currentTarget as HTMLElement).style.transform =
-                  "scale(1.06)";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.background =
-                  "rgba(201,168,76,0.08)";
-                (e.currentTarget as HTMLElement).style.transform = "scale(1)";
-              }}
-              onMouseDown={(e) => {
-                (e.currentTarget as HTMLElement).style.transform =
-                  "scale(0.92)";
-              }}
-              onMouseUp={(e) => {
-                (e.currentTarget as HTMLElement).style.transform =
-                  "scale(1.06)";
-              }}
-            >
-              <Coffee size={18} color="#f5c842" strokeWidth={2.2} />
-            </span>
-          </button>
-
           {/* CTA — clean gold glass pill */}
           <button
             onClick={() => scrollTo("contact")}
