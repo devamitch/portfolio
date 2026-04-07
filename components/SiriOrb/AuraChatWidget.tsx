@@ -665,7 +665,7 @@ export default function AuraChatWidget() {
     avgTokensPerCall: 0,
   });
 
-  const cmdTimer = useRef<ReturnType<typeof setTimeout>>();
+  const cmdTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   const showCmd = useCallback((label: string) => {
     setCmdToast(label);
@@ -740,7 +740,7 @@ export default function AuraChatWidget() {
 
   // AI text visibility
   const [showAiText, setShowAiText] = useState(false);
-  const aiTextTimer = useRef<ReturnType<typeof setTimeout>>();
+  const aiTextTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
   useEffect(() => {
     if (chat.lastAiText) {
       setShowAiText(true);
@@ -1149,8 +1149,8 @@ export default function AuraChatWidget() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                title: "Offline mode",
               }}
+              title="Offline mode"
             />
           )}
 

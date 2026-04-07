@@ -215,7 +215,7 @@ class TTSPlayer {
 
       const ctx = getAudioCtx();
       const buf = ctx.createBuffer(1, f32.length, TTS_RATE);
-      buf.copyToChannel(f32, 0);
+      buf.copyToChannel(f32 as any, 0);
       if (this.gen !== myGen) return;
 
       const src = ctx.createBufferSource();

@@ -63,9 +63,9 @@ export function LiquidGoldAnimation() {
 }
 
 // ── Core Orb Component ─────────────────────────────────────────────────────
-export function SentientAURAOrb({ hasHistory = false }) {
-  const canvasRef = useRef(null);
-  const rafRef = useRef(0);
+export function SentientAURAOrb({ hasHistory = false }: { hasHistory?: boolean }) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const rafRef = useRef<number>(0);
   const stateRef = useRef({
     t: 0,
     mouseX: 0,
@@ -74,9 +74,9 @@ export function SentientAURAOrb({ hasHistory = false }) {
     clicked: false,
     energy: 0, // 0-1 energy level
     pulsePhase: 0,
-    particles: [],
-    tendrils: [],
-    innerBlobs: [],
+    particles: [] as any[],
+    tendrils: [] as any[],
+    innerBlobs: [] as any[],
   });
 
   const SIZE = 180;
@@ -127,6 +127,7 @@ export function SentientAURAOrb({ hasHistory = false }) {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
+    if (!ctx) return;
     canvas.width = SIZE;
     canvas.height = SIZE;
 
@@ -442,6 +443,7 @@ export function SentientAURAOrb({ hasHistory = false }) {
       ctx.font = `800 ${Math.round(13 + s.energy * 2)}px 'Courier New', monospace`;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
+      // @ts-ignore
       ctx.letterSpacing = "0.2em";
 
       // Shadow glow layers
@@ -495,7 +497,7 @@ export function SentientAURAOrb({ hasHistory = false }) {
     return () => cancelAnimationFrame(rafRef.current);
   }, [hasHistory]);
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: React.MouseEvent) => {
     const rect = canvasRef.current?.getBoundingClientRect();
     if (!rect) return;
     stateRef.current.mouseX = e.clientX - rect.left - CX;

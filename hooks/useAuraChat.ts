@@ -200,7 +200,7 @@ export function useAuraChat({
   const sessionCounted = useRef(false);
   const convoId = useRef(`c_${Date.now()}`);
   const sendRef = useRef<(t: string) => void>(() => {});
-  const stopCooldown = useRef<ReturnType<typeof setTimeout>>();
+  const stopCooldown = useRef<ReturnType<typeof setTimeout>>(undefined);
   const limitShown = useRef(false);
   const contextLimitShown = useRef(false);
   const langRef = useRef<SupportedLang>("en");
