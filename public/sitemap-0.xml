@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url><loc>https://www.devamit.co.in</loc><lastmod>2024-10-19T00:55:53.840Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+>
+  <url>
+    <loc>https://old.devamit.co.in/</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://old.devamit.co.in/" />
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://old.devamit.co.in/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://old.devamit.co.in/" />
+    <image:image>
+      <image:loc>https://old.devamit.co.in/og-image.png</image:loc>
+      <image:caption>Amit Chakraborty — Principal Mobile Architect</image:caption>
+    </image:image>
+  </url>
 </urlset>

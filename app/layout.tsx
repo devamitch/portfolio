@@ -26,7 +26,7 @@ const spaceMono = Space_Mono({
   preload: false,
 });
 
-const BASE_URL = "https://devamit.co.in";
+const BASE_URL = "https://old.devamit.co.in";
 
 export const viewport: Viewport = {
   themeColor: [
@@ -486,13 +486,43 @@ const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home",       item: BASE_URL },
-    { "@type": "ListItem", position: 2, name: "About",      item: `${BASE_URL}/#about` },
-    { "@type": "ListItem", position: 3, name: "Projects",   item: `${BASE_URL}/#work` },
-    { "@type": "ListItem", position: 4, name: "Experience", item: `${BASE_URL}/#experience` },
-    { "@type": "ListItem", position: 5, name: "Skills",     item: `${BASE_URL}/#skills` },
-    { "@type": "ListItem", position: 6, name: "Story",      item: `${BASE_URL}/#story` },
-    { "@type": "ListItem", position: 7, name: "Contact",    item: `${BASE_URL}/#contact` },
+    { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "About",
+      item: `${BASE_URL}/#about`,
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: "Projects",
+      item: `${BASE_URL}/#work`,
+    },
+    {
+      "@type": "ListItem",
+      position: 4,
+      name: "Experience",
+      item: `${BASE_URL}/#experience`,
+    },
+    {
+      "@type": "ListItem",
+      position: 5,
+      name: "Skills",
+      item: `${BASE_URL}/#skills`,
+    },
+    {
+      "@type": "ListItem",
+      position: 6,
+      name: "Story",
+      item: `${BASE_URL}/#story`,
+    },
+    {
+      "@type": "ListItem",
+      position: 7,
+      name: "Contact",
+      item: `${BASE_URL}/#contact`,
+    },
   ],
 };
 
