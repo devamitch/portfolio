@@ -11,7 +11,7 @@
     "start": "next start",
     "lint": "next lint",
     "postbuild": "next-sitemap",
-    "deploy": "bun run build && wrangler deploy"
+    "deploy": "bun run build && bunx wrangler deploy"
   },
   "dependencies": {
     "@ai-sdk/devtools": "^0.0.15",
