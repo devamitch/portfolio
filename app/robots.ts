@@ -1,6 +1,8 @@
 import { MetadataRoute } from "next";
 
-const BASE_URL = "https://old.devamit.co.in";
+export const dynamic = "force-static";
+
+const BASE_URL = "https://old.devamit.co.in/";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -31,7 +33,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
       },
     ],
-    sitemap: `${BASE_URL}/sitemap.xml`,
+    sitemap: `${BASE_URL}sitemap.xml`,
     host: BASE_URL,
   };
 }
