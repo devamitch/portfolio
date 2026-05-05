@@ -36,7 +36,7 @@ import {
 export const CHAT_MODEL_PRIMARY = "gemini-3-flash-preview";
 export const CHAT_MODEL_FALLBACK = "gemini-2.5-flash";
 
-import { generateAuraChatAction } from "~/app/actions/aura";
+import { generateAuraChatAction } from "./actions/aura";
 
 // ─── Offline state ────────────────────────────────────────────────────────────
 let _offlineMode = false;

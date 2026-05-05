@@ -1,4 +1,5 @@
-"use server";
+// This logic has been moved out of Server Actions to support static export.
+// It will now run on the client or should be proxied via an external worker.
 
 import { GoogleGenAI } from "@google/genai";
 

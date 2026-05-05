@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 
 export const dynamic = "force-static";
+export const revalidate = false;
 
 const BASE_URL = "https://old.devamit.co.in/";
 
