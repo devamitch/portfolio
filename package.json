@@ -2,15 +2,16 @@
   "name": "portfolio-two",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "bun@1.2.20",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "deploy2": "pnpm run build && gh-pages -d out",
+    "deploy2": "bun run build && gh-pages -d out",
     "deployx": "next build && gh-pages -d out",
     "start": "next start",
     "lint": "next lint",
     "postbuild": "next-sitemap",
-    "deploy": "pnpm run build && wrangler pages deploy out --project-name portfolio"
+    "deploy": "bun run build && wrangler deploy"
   },
   "dependencies": {
     "@ai-sdk/devtools": "^0.0.15",

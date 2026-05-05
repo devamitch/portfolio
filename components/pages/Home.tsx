@@ -33,7 +33,7 @@ export default function PrimaryHome() {
         <span itemScope itemType="https://schema.org/Person">
           <span itemProp="name">Amit Chakraborty</span>
           <span itemProp="jobTitle">Principal Mobile Architect</span>
-          <span itemProp="url">https://devamit.co.in</span>
+          <span itemProp="url">https://old.devamit.co.in/</span>
           <span itemProp="email">{PROFILE_DATA.email}</span>
           <span itemProp="addressLocality">Kolkata</span>
           <span itemProp="addressCountry">India</span>

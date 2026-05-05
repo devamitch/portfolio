@@ -26,7 +26,7 @@ User-agent: facebookexternalhit
 Allow: /
 
 # Host
-Host: https://devamit.co.in
+Host: https://old.devamit.co.in/
 
 # Sitemaps
-Sitemap: https://devamit.co.in/sitemap.xml
+Sitemap: https://old.devamit.co.in/sitemap.xml

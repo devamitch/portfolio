@@ -1,7 +1,7 @@
 
 
 module.exports = {
-  siteUrl: "https://devamit.co.in",
+  siteUrl: "https://old.devamit.co.in/",
   generateRobotsTxt: true,
   generateIndexSitemap: false,
   changefreq: "monthly",
@@ -21,7 +21,7 @@ module.exports = {
       { userAgent: "Twitterbot", allow: "/" },
       { userAgent: "facebookexternalhit", allow: "/" },
     ],
-    additionalSitemaps: ["https://devamit.co.in/sitemap.xml"],
+    additionalSitemaps: ["https://old.devamit.co.in/sitemap.xml"],
   },
   additionalPaths: async (config) => [
     await config.transform(config, "/"),
@@ -40,8 +40,8 @@ module.exports = {
     priority: path === "/" ? 1.0 : 0.8,
     lastmod: new Date().toISOString(),
     alternateRefs: [
-      { href: `https://devamit.co.in${path}`, hreflang: "en-IN" },
-      { href: `https://devamit.co.in${path}`, hreflang: "en-US" },
+      { href: `https://old.devamit.co.in${path}`, hreflang: "en-IN" },
+      { href: `https://old.devamit.co.in${path}`, hreflang: "en-US" },
     ],
   }),
 };

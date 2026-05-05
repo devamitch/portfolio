@@ -26,7 +26,7 @@ const spaceMono = Space_Mono({
   preload: false,
 });
 
-const BASE_URL = "https://old.devamit.co.in";
+const BASE_URL = "https://old.devamit.co.in/";
 
 export const viewport: Viewport = {
   themeColor: [
@@ -206,7 +206,7 @@ export const metadata: Metadata = {
       "Principal Mobile Architect with 8+ years engineering production systems. 18+ apps shipped. 50K+ users. Expert in React Native (Bridgeless), RAG Pipelines, LLMs, Solidity, DeFi, HIPAA HealthTech, and custom game engines. Led teams of 21+. VP-level engineering. Available remote worldwide.",
     images: [
       {
-        url: `${BASE_URL}/og-image.png`,
+        url: `${BASE_URL}og-image.png`,
         width: 1200,
         height: 630,
         alt: "Amit Chakraborty — Principal Mobile Architect | React Native · AI · Blockchain",
@@ -235,7 +235,7 @@ export const metadata: Metadata = {
       "Principal Mobile Architect | 8+ yrs | React Native · AI · Blockchain | 18+ apps · 50K+ users | Custom game engines · RAG Pipelines · HIPAA HealthTech | Available for VP / CTO / Architect roles",
     images: [
       {
-        url: `${BASE_URL}/og-image.png`,
+        url: `${BASE_URL}og-image.png`,
         width: 1200,
         height: 630,
         alt: "Amit Chakraborty — Principal Mobile Architect",
@@ -284,7 +284,7 @@ export const metadata: Metadata = {
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
-  "@id": `${BASE_URL}/#person`,
+  "@id": `${BASE_URL}#person`,
   name: "Amit Chakraborty",
   givenName: "Amit",
   familyName: "Chakraborty",
@@ -463,20 +463,20 @@ const personSchema = {
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "@id": `${BASE_URL}/#website`,
+  "@id": `${BASE_URL}#website`,
   url: BASE_URL,
   name: "Amit Chakraborty — Principal Mobile Architect",
   description:
     "Official portfolio of Amit Chakraborty, Principal Mobile Architect specializing in React Native (Bridgeless), AI/ML, Blockchain, and HealthTech. 18+ production apps. 50K+ users. 8+ years engineering experience.",
   inLanguage: "en-IN",
   dateModified: "2026-02-21",
-  author: { "@id": `${BASE_URL}/#person` },
-  publisher: { "@id": `${BASE_URL}/#person` },
+  author: { "@id": `${BASE_URL}#person` },
+  publisher: { "@id": `${BASE_URL}#person` },
   potentialAction: {
     "@type": "SearchAction",
     target: {
       "@type": "EntryPoint",
-      urlTemplate: `${BASE_URL}/search?q={search_term_string}`,
+      urlTemplate: `${BASE_URL}search?q={search_term_string}`,
     },
     "query-input": "required name=search_term_string",
   },
@@ -491,37 +491,37 @@ const breadcrumbSchema = {
       "@type": "ListItem",
       position: 2,
       name: "About",
-      item: `${BASE_URL}/#about`,
+      item: `${BASE_URL}#about`,
     },
     {
       "@type": "ListItem",
       position: 3,
       name: "Projects",
-      item: `${BASE_URL}/#work`,
+      item: `${BASE_URL}#work`,
     },
     {
       "@type": "ListItem",
       position: 4,
       name: "Experience",
-      item: `${BASE_URL}/#experience`,
+      item: `${BASE_URL}#experience`,
     },
     {
       "@type": "ListItem",
       position: 5,
       name: "Skills",
-      item: `${BASE_URL}/#skills`,
+      item: `${BASE_URL}#skills`,
     },
     {
       "@type": "ListItem",
       position: 6,
       name: "Story",
-      item: `${BASE_URL}/#story`,
+      item: `${BASE_URL}#story`,
     },
     {
       "@type": "ListItem",
       position: 7,
       name: "Contact",
-      item: `${BASE_URL}/#contact`,
+      item: `${BASE_URL}#contact`,
     },
   ],
 };
@@ -529,11 +529,11 @@ const breadcrumbSchema = {
 const professionalServiceSchema = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
-  "@id": `${BASE_URL}/#service`,
+  "@id": `${BASE_URL}#service`,
   name: "Amit Chakraborty — Mobile Architecture & Engineering Services",
   description:
     "Professional React Native architecture, AI/ML mobile integration, blockchain development, HIPAA-compliant HealthTech solutions, custom game engine development, and VP-level engineering leadership.",
-  provider: { "@id": `${BASE_URL}/#person` },
+  provider: { "@id": `${BASE_URL}#person` },
   areaServed: { "@type": "Country", name: "Worldwide" },
   serviceType: [
     "React Native Development",
@@ -564,7 +564,7 @@ const professionalServiceSchema = {
   },
   availableChannel: {
     "@type": "ServiceChannel",
-    serviceUrl: `${BASE_URL}/#contact`,
+    serviceUrl: `${BASE_URL}#contact`,
     serviceType: "Remote — Worldwide",
   },
 };
